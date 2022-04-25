@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager Instance = null;
+
+
     [SerializeField] private GameObject wayPointPrefab = null;              // Prefab
     [SerializeField] private Tilemap roadTilemap = null;                    // 로드 타일맵
 
@@ -14,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
         WayPointSetting();
     }
 
