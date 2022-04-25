@@ -5,15 +5,15 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager Instance = null;
-
+    public static GameManager Instance = null;
 
     [SerializeField] private GameObject wayPointPrefab = null;              // Prefab
     [SerializeField] private Tilemap roadTilemap = null;                    // 로드 타일맵
 
     public List<Tile> cornerTiles = null;                                   // 코너 타일
     public List<Tile> mapCornerTiles = new List<Tile>();                    // 맵에 존재하는 코너 타일
-    private List<GameObject> wayPoints = new List<GameObject>();            // 생성된 wayPoint
+    [HideInInspector] 
+    public List<GameObject> wayPoints = new List<GameObject>();             // 생성된 wayPoint
 
     void Awake()
     {
@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < mapCornerTiles.Count; i++)
         {
-            wayPoints[i] = Instantiate(wayPointPrefab);
+            wayPoints.Add(Instantiate(wayPointPrefab));
+            wayPoints[i].transform.position = mapCornerTiles[i].gameObject.transform.position;
         }
     }
 
