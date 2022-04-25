@@ -1025,6 +1025,36 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &534222130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 534222131}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &534222131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534222130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.50811, y: 0.9995858, z: -2.9251764}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &695828816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1340,7 +1370,9 @@ MonoBehaviour:
   waveWaitingTimeRect: {fileID: 7204106526425960779}
   waveWaitingTimeTimer: {fileID: 9077186595476949631}
   waveSO: {fileID: 11400000, guid: 7e1280408a3639445913f70f2efe3d2f, type: 2}
-  aliveEnemies: []
+  aliveEnemies:
+  - {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+  - {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
 --- !u!1001 &1090374043
 PrefabInstance:
   m_ObjectHideFlags: 0

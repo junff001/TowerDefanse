@@ -10,6 +10,9 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private float moveSpeed = 0f;
     private int currentWayPointIndex = 0;
 
+    public float aliveTime = 0f;
+    public float movedDistance = 0f;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -18,6 +21,8 @@ public class EnemyBase : MonoBehaviour
 
     void Update()
     {
+        aliveTime += Time.deltaTime;
+        movedDistance = aliveTime * moveSpeed;
         Move();
     }
 
