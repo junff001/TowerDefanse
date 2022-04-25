@@ -19,7 +19,7 @@ public class EnemyBase : MonoBehaviour
         Move();
     }
 
-    // WayPoint¸¦ µû¶ó ÀÌµ¿
+    // WayPointï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     void Move()
     {
         if (currentWayPointIndex >= GameManager.Instance.wayPoints.Count) return;

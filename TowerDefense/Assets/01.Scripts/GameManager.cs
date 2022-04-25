@@ -7,12 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    public Tilemap tilemap = null;
-
     public List<GameObject> wayPoints = new List<GameObject>();
 
     void Awake()
     {
         Instance = this;
     }
+
+    
 }
