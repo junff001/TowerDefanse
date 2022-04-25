@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     public Rigidbody2D rigid { get; set; }
+    private HealthSystem healthSystem;
 
     [SerializeField] private float moveSpeed = 0f;
     private int currentWayPointIndex = 0;
@@ -12,6 +13,7 @@ public class EnemyBase : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     void Update()
@@ -49,5 +51,13 @@ public class EnemyBase : MonoBehaviour
     void NextPoint()
     {
         currentWayPointIndex += 1;
+    }
+
+    public void WaveStatControl(int wave)
+    {
+        float value_f = (wave * Mathf.Pow(1.5f, 0)) * 100;
+        int value = (int)value_f;
+
+        healthSystem.SetHealthAmountMax(value, true); // 체력 조절
     }
 }
