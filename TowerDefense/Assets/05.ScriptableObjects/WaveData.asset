@@ -14,17 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveEnemyInfos:
   - infoName: "\uC6E8\uC774\uBE0C 1"
-    monsterBox: []
+    monsterBox:
+    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+      enemyCount: 5
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 2"
-    monsterBox: []
+    monsterBox:
+    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+      enemyCount: 10
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 3"
-    monsterBox: []
+    monsterBox:
+    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+      enemyCount: 15
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 4"
-    monsterBox: []
+    monsterBox:
+    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+      enemyCount: 20
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 5"
-    monsterBox: []
+    monsterBox:
+    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+      enemyCount: 25
     boss: {fileID: 0}
