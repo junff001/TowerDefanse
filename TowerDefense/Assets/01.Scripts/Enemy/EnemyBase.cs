@@ -47,7 +47,7 @@ public class EnemyBase : MonoBehaviour
 
     bool WayPointDistance()
     {
-        if (Vector2.Distance(GameManager.Instance.wayPoints[currentWayPointIndex].transform.position, transform.position) < 0.3f)
+        if (Vector2.Distance(GameManager.Instance.wayPoints[currentWayPointIndex].transform.position, transform.position) < 0.01f)
         {
             return true;
         }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bfd4bc85b80044f8a50365f10d9bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpText: {fileID: 5452158334591447612}
   moneyText: {fileID: 3161330860152436193}
 --- !u!4 &393694753
 Transform:
@@ -1208,6 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6693466ef453c064e8374525ad8aed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointParent: {fileID: 518172710}
   wayPoints:
   - {fileID: 487424054}
   - {fileID: 1570345527}

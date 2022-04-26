@@ -12,11 +12,14 @@ public class GameManager : MonoBehaviour
     public int Gold { get; set; } = 5000;
 
     public Transform waypointParent;
-    public List<GameObject> wayPoints = new List<GameObject>();
+    [HideInInspector]
+    public List<Transform> wayPoints = new List<Transform>();
 
     void Awake()
     {
         Instance = this;
+        waypointParent.GetComponentsInChildren<Transform>(wayPoints);
+        wayPoints.RemoveAt(0);
     }
 
     public void OnEnemyArrivedLastWaypoint(EnemyBase enemy)
