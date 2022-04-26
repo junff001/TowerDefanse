@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public int Hp { get; set; } = 50;
     public int Gold { get; set; } = 5000;
-    public Vector2 mousePosition { get; set; }
+    public Vector2 mousePosition { get; set; } = Vector2.zero;
 
     public Transform waypointParent;
     [HideInInspector]
@@ -44,3 +44,4 @@ public class GameManager : MonoBehaviour
         mousePosition = context.ReadValue<Vector2>();
     }
 }
+
