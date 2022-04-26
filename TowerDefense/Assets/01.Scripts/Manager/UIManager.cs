@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -22,12 +23,6 @@ public class UIManager : Singleton<UIManager>
         cursorObj.gameObject.SetActive(true);
     }
 
-
-    private void Update()
-    {
-        cursorObj.transform.position = Input.mousePosition;
-    }
-
     public void UpdateHPText()
     {
         hpText.text = GameManager.Instance.Hp.ToString();
@@ -36,5 +31,10 @@ public class UIManager : Singleton<UIManager>
     public void UpdateGoldText()
     {
         moneyText.text = GameManager.Instance.Gold.ToString();
+    }
+
+    public void MousePosition(InputAction.CallbackContext context)
+    {
+        cursorObj.transform.position = context.ReadValue<Vector2>();
     }
 }
