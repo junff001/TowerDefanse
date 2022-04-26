@@ -1874,7 +1874,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &414619012
 MonoBehaviour:
@@ -1915,9 +1915,9 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 169673860}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SpawnableTileRaycast
+        m_MethodName: SpawnTowerAcitve
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1929,6 +1929,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e26a5856-4def-47ea-8853-011f6041b8e3
     m_ActionName: Player/SpawnTower[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: MousePosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 80d19469-1162-4e08-af26-28dae8c59963
+    m_ActionName: Player/MousePosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5893c741-d9f3-4f93-8ee7-22df5d059843
@@ -1969,22 +1985,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c397e01d-e2f1-4ad6-bb08-9a3bcc133d10
     m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 773329947}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: MousePosition
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 80d19469-1162-4e08-af26-28dae8c59963
-    m_ActionName: Player/MousePosition[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -10412,7 +10412,7 @@ RectTransform:
   - {fileID: 2021647165}
   - {fileID: 1176074719}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
