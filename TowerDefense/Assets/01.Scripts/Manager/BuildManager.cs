@@ -38,7 +38,7 @@ public class BuildManager : Singleton<BuildManager>
     // 좌클릭 bool 값 담는 함수
     public void SpawnTowerAcitve(InputAction.CallbackContext context)
     {
-        isBuild = context.ReadValueAsButton();
+        isBuild = context.ReadValueAsButton();    
     }
 
     // 스폰 타일인지 Raycast 로 체크하는 함수
@@ -58,6 +58,10 @@ public class BuildManager : Singleton<BuildManager>
                     {
                         SpawnTower(hit.transform);
                     }
+                }
+                else if (hit.transform.CompareTag("RoadTile"))
+                {
+                    currnetTileSprite.color = Color.black;
                 }
             }
         }
