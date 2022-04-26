@@ -71,7 +71,8 @@ public class Tower : MonoBehaviour
     // 공격 처리
     public virtual void Attack(float power, HealthSystem enemy)
     {
-        var bullet = PoolManager.GetObject();
+        Bullet bullet = PoolManager.GetItem<Bullet>();
+
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
         bullet.bulletDamage = power;

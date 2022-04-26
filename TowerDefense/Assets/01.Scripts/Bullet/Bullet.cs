@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
         }
         else if (target == null)
         {
-            PoolManager.ReturnObject(this);
+            gameObject.SetActive(false);
         }
     }
 
@@ -68,7 +68,7 @@ public class Bullet : MonoBehaviour
         var ps = Instantiate(effect);
         ps.transform.position = target.position;
         ps.Play();
-        
-        PoolManager.ReturnObject(this);   
+
+        gameObject.SetActive(false);
     } 
 }

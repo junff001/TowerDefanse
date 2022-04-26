@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class BuildManager : Singleton<BuildManager>
@@ -10,7 +11,7 @@ public class BuildManager : Singleton<BuildManager>
     private Camera mainCam = null;
     private Ray ray = default;
     private RaycastHit hit = default;
-   
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -29,19 +30,23 @@ public class BuildManager : Singleton<BuildManager>
     // 스폰 가능한 타일인지 Raycast 로 체크하는 함수
     public void SpawnableTileRaycast(InputAction.CallbackContext context)
     {
-        if (context.ReadValueAsButton())
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            ray = mainCam.ScreenPointToRay(GameManager.Instance.mousePosition);
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (context.ReadValueAsButton())
             {
-                if (hit.transform.CompareTag("SpawnTile"))
+                ray = mainCam.ScreenPointToRay(GameManager.Instance.mousePosition);
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    SpawnTower(hit.transform);
+                    if (hit.transform.CompareTag("SpawnTile"))
+                    {
+                        SpawnTower(hit.transform);
+                    }
                 }
             }
         }
-    } 
+    }
+    
 
     // 
     public void SpawnTileColor()
