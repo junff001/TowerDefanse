@@ -23,6 +23,11 @@ public class UIManager : Singleton<UIManager>
         cursorObj.gameObject.SetActive(true);
     }
 
+    private void Update()
+    {
+        cursorObj.transform.position = GameManager.Instance.mousePosition;
+    }
+
     public void UpdateHPText()
     {
         hpText.text = GameManager.Instance.Hp.ToString();
@@ -31,10 +36,5 @@ public class UIManager : Singleton<UIManager>
     public void UpdateGoldText()
     {
         moneyText.text = GameManager.Instance.Gold.ToString();
-    }
-
-    public void MousePosition(InputAction.CallbackContext context)
-    {
-        cursorObj.transform.position = context.ReadValue<Vector2>();
     }
 }
