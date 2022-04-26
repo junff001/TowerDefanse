@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 1695216841154269717}
   - component: {fileID: 7715381299566726688}
   - component: {fileID: 623241071111569642}
-  - component: {fileID: 6814317000089402011}
   - component: {fileID: 7244220254507033367}
   - component: {fileID: 1219764087418117438}
+  - component: {fileID: 6546935564312426063}
   m_Layer: 3
-  m_Name: Enemy
+  m_Name: ProtoBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4509622191723888470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.41, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 7037397322230744252}
   m_Father: {fileID: 0}
@@ -76,9 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a8ac8fb94e4fabe4c9eed9d24100596e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8490566, g: 0.5727127, b: 0.5727127, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,21 +135,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.48015118, y: 0.71470696}
   m_EdgeRadius: 0
---- !u!114 &6814317000089402011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4509622191723888470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0581a39aa44e2af4d964d91bc2b24275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
-  aliveTime: 0
-  movedDistance: 0
 --- !u!114 &7244220254507033367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cdef6032ea6c54dabe453eb3fc039c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmountMax: 100
+  healthAmountMax: 15
 --- !u!95 &1219764087418117438
 Animator:
   serializedVersion: 3
@@ -182,6 +167,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6546935564312426063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509622191723888470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8d0dd5b26bf0d40b8267ae602c5e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1.5
+  aliveTime: 0
+  movedDistance: 0
 --- !u!1001 &4390568374520894227
 PrefabInstance:
   m_ObjectHideFlags: 0

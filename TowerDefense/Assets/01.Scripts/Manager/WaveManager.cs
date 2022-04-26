@@ -83,6 +83,11 @@ public class WaveManager : Singleton<WaveManager>
                         }
                     }
 
+                    if(waveSO.waveEnemyInfos[Wave - 1].boss != null)
+                    {
+                        enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
+                    }
+
                     // 보스도 있으면 큐에 추가해줘야함
 
                     waitingTime = 15f;

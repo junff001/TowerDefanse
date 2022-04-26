@@ -7,8 +7,8 @@ public class Tower : MonoBehaviour
     [SerializeField] private float attackRange = 0f;
     private int cardLevel = 0;
     private float raderRadius = 0f;
-    private float offensePower = 0f;
-    private float attackSpeed = 1f;
+    [SerializeField] private float offensePower = 0f;
+    [SerializeField] private float attackSpeed = 1f;
     private int attackTargetCount = 1;
     private int blockTargetCount = 1;
 

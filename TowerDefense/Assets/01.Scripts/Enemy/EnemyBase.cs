@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     public Rigidbody2D rigid { get; set; }
-    private HealthSystem healthSystem;
+    protected HealthSystem healthSystem;
 
-    [SerializeField] private float moveSpeed = 0f;
+    [SerializeField] protected float moveSpeed = 0f;
     private int currentWayPointIndex = 0;
 
     public float aliveTime = 0f;
@@ -61,7 +61,7 @@ public class EnemyBase : MonoBehaviour
         currentWayPointIndex += 1;
     }
 
-    public void WaveStatControl(int wave)
+    public virtual void WaveStatControl(int wave)
     {
         float value_f = (wave * Mathf.Pow(1.5f, 0)) * 100;
         int value = (int)value_f;

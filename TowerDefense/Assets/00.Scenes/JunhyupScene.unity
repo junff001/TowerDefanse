@@ -1874,7 +1874,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &414619012
 MonoBehaviour:
@@ -1915,7 +1915,7 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 169673860}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
         m_MethodName: SpawnTowerAcitve
         m_Mode: 0
@@ -1931,7 +1931,7 @@ MonoBehaviour:
     m_ActionName: Player/SpawnTower[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 773329947}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: MousePosition
         m_Mode: 0
@@ -5606,7 +5606,7 @@ Transform:
   - {fileID: 518172710}
   - {fileID: 1289029513}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &1168899494
 Grid:
@@ -10412,7 +10412,7 @@ RectTransform:
   - {fileID: 2021647165}
   - {fileID: 1176074719}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

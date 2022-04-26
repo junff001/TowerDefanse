@@ -11,17 +11,17 @@ public class WaveSO : ScriptableObject
 [System.Serializable]
 public class SpawnerInfo
 {
-    public string infoName; // ������ ���̷���...
+    public string infoName; // 가독성 떨어질까봐...
     public SpawnerMonsterCount[] monsterBox;
-    [Header("����")]
-    public EnemyBase boss; // ���� ��ũ��Ʈ��? Ȯ�� ���� �ƴ�, ���ٸ� null��
+    [Header("보스")]
+    public EnemyBase boss;
 }
 
 [System.Serializable]
 public class SpawnerMonsterCount
 {
-    [Header("�� ����")]
-    public EnemyBase enemy; // HealthSystem? �� ��ũ��Ʈ? Ȯ�� ���� �ƴ�
-    [Header("�� ī��Ʈ")]
+    [Header("적들")]
+    public EnemyBase enemy;
+    [Header("적 수")]
     public int enemyCount;
 }
