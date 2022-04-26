@@ -11,17 +11,17 @@ public class WaveSO : ScriptableObject
 [System.Serializable]
 public class SpawnerInfo
 {
-    public string infoName; // °¡µ¶¼º ³ôÀÌ·Á°í...
+    public string infoName; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½...
     public SpawnerMonsterCount[] monsterBox;
-    [Header("º¸½º")]
-    public EnemyBase boss; // º¸½º ½ºÅ©¸³Æ®·Î? È®Á¤ ¾ÆÁ÷ ¾Æ´Ô, ¾ø´Ù¸é null·Î
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
+    public EnemyBase boss; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½? È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½, ï¿½ï¿½ï¿½Ù¸ï¿½ nullï¿½ï¿½
 }
 
 [System.Serializable]
 public class SpawnerMonsterCount
 {
-    [Header("Àû Á¾·ù")]
-    public EnemyBase enemy; // HealthSystem? Àû ½ºÅ©¸³Æ®? È®Á¤ ¾ÆÁ÷ ¾Æ´Ô
-    [Header("Àû Ä«¿îÆ®")]
+    [Header("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    public EnemyBase enemy; // HealthSystem? ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®? È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½
+    [Header("ï¿½ï¿½ Ä«ï¿½ï¿½Æ®")]
     public int enemyCount;
 }
