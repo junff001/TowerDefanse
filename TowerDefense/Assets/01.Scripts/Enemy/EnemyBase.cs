@@ -24,7 +24,11 @@ public class EnemyBase : MonoBehaviour
     // WayPoint�� ���� �̵�
     void Move()
     {
-        if (currentWayPointIndex >= GameManager.Instance.wayPoints.Count) return;
+        if (currentWayPointIndex == GameManager.Instance.wayPoints.Count)
+        {
+            GameManager.Instance.OnEnemyArrivedLastWaypoint(this);
+            return;
+        }
 
         Vector2 direction = GameManager.Instance.wayPoints[currentWayPointIndex].transform.position - transform.position;
         direction.Normalize();
