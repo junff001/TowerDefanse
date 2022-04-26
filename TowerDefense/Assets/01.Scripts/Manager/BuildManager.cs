@@ -10,7 +10,7 @@ public class BuildManager : Singleton<BuildManager>
 
     private Ray ray = default;
     private RaycastHit hit = default;
-    private bool isBuild = false;                            // 좌클릭 bool 값
+    private bool isBuild = false;                       // 좌클릭 bool 값
     private Camera mainCam = null;                       
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
    

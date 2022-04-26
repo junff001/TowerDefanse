@@ -4804,7 +4804,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1535978510}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SpawnableTileRaycast
+        m_MethodName: SpawnTowerAcitve
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
