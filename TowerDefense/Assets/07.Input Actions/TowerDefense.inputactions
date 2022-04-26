@@ -38,8 +38,8 @@
                     "id": "e26a5856-4def-47ea-8853-011f6041b8e3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "interactions": "Tap(duration=0.1,pressPoint=0.1)",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "MousePosition",
@@ -276,7 +276,7 @@
                     "name": "",
                     "id": "b8df19fa-ffac-4be2-8047-1f28aef85ef9",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "interactions": "Tap(duration=0.05,pressPoint=0.05)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SpawnTower",

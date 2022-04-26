@@ -13,7 +13,9 @@ public class BuildManager : Singleton<BuildManager>
     private bool isBuild = false;                       // 좌클릭 bool 값
     private Camera mainCam = null;                       
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
-   
+
+    public GameObject currnetClickTower { get; set; } = null;
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -33,12 +35,16 @@ public class BuildManager : Singleton<BuildManager>
         {
             Instantiate(towerPrefab, tileTransform);
         }
+        else
+        {
+            currnetClickTower = tileTransform.GetChild(0).gameObject;
+        }
     }
 
     // 좌클릭 bool 값 담는 함수
     public void SpawnTowerAcitve(InputAction.CallbackContext context)
     {
-        isBuild = context.ReadValueAsButton();    
+        isBuild = context.ReadValueAsButton() && context.started;  
     }
 
     // 스폰 타일인지 Raycast 로 체크하는 함수
