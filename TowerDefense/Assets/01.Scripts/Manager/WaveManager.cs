@@ -54,7 +54,7 @@ public class WaveManager : Singleton<WaveManager>
             if (waitingTime < 0)
             {
                 // 대기 시간 끝, 적이 나오기 시작
-                //waveWaitingTimeRect.DOAnchorPosY(waveWaitingTimeRect.sizeDelta.y, 1);
+                waveWaitingTimeRect.DOAnchorPosY(waveWaitingTimeRect.sizeDelta.y, 1);
                 isWaitingTime = false;
                 StartCoroutine(Spawn());
             }
@@ -67,7 +67,7 @@ public class WaveManager : Singleton<WaveManager>
                 if (!isWaitingTime)
                 {
                     // 대기 시간 시작! -> 적 큐 채워줘야함
-                    //waveWaitingTimeRect.DOAnchorPosY(0, 1);
+                    waveWaitingTimeRect.DOAnchorPosY(0, 1);
                     isWaitingTime = true;
                     Wave++;
 

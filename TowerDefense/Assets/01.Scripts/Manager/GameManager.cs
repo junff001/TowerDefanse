@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         }
 
         UIManager.Instance.UpdateHPText();
-
+        WaveManager.Instance.aliveEnemies.Remove(enemy);
         Destroy(enemy.gameObject);
     }
 }
