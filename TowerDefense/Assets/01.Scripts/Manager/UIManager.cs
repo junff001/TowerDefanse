@@ -11,7 +11,7 @@ public class UIManager : Singleton<UIManager>
 
     public Button speedButton;
 
-    [Header("Ä¿¼­")]
+    [Header("Ä¿ï¿½ï¿½")]
     public Sprite disableCursor;
     public Sprite ableCursor;
 

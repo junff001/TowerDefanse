@@ -11,8 +11,7 @@ public class BuildManager : Singleton<BuildManager>
     private Camera mainCam = null;
     private Ray ray = default;
     private RaycastHit hit = default;
-    
-
+   
     void Awake()
     {
         mainCam = Camera.main;
@@ -49,5 +48,11 @@ public class BuildManager : Singleton<BuildManager>
                 }
             }
         }
+    } 
+
+    // 
+    public void SpawnTileColor()
+    {
+
     }
 }
