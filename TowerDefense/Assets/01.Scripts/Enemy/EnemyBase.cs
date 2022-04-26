@@ -35,9 +35,8 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
-        Vector2 direction = GameManager.Instance.wayPoints[currentWayPointIndex].transform.position - transform.position;
-        direction.Normalize();
-        rigid.velocity = new Vector2(direction.x * moveSpeed, direction.y * moveSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.wayPoints[currentWayPointIndex].transform.position,
+            Time.deltaTime * moveSpeed);
 
         if (WayPointDistance())
         {
