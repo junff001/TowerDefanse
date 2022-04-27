@@ -14,7 +14,7 @@ public class BuildManager : Singleton<BuildManager>
     private Camera mainCam = null;                       
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
 
-    public GameObject currnetClickTower { get; set; } = null;
+    public GameObject currnetClickTower = null;
 
     void Awake()
     {
