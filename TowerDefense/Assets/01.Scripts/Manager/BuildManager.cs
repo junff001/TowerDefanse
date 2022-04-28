@@ -10,11 +10,11 @@ public class BuildManager : Singleton<BuildManager>
 
     private Ray ray = default;
     private RaycastHit hit = default;
-    private bool isBuild = false;                       // 좌클릭 bool 값
+    private bool canBuild = false;
     private Camera mainCam = null;                       
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
 
-    public GameObject currnetClickTower = null;
+    public GameObject currnetClickTower { get; set; } = null;
 
     void Awake()
     {
@@ -42,9 +42,9 @@ public class BuildManager : Singleton<BuildManager>
     }
 
     // 좌클릭 bool 값 담는 함수
-    public void SpawnTowerAcitve(InputAction.CallbackContext context)
+    public void SpawnTowerAcitve(InputAction.CallbackContext context) // Only Press
     {
-        isBuild = context.ReadValueAsButton() && context.started;  
+        canBuild = context.ReadValueAsButton() && context.started;
     }
 
     // 스폰 타일인지 Raycast 로 체크하는 함수
@@ -60,14 +60,14 @@ public class BuildManager : Singleton<BuildManager>
                 {
                     SpawnTileColorActive(hit.transform.GetComponent<SpriteRenderer>());
 
-                    if (isBuild)
+                    if (canBuild)
                     {
                         SpawnTower(hit.transform);
                     }
                 }
                 else if (hit.transform.CompareTag("RoadTile"))
                 {
-                    currnetTileSprite.color = Color.black;
+                    currnetTileSprite.color = Color.white;
                 }
             }
         }
@@ -78,10 +78,10 @@ public class BuildManager : Singleton<BuildManager>
     {
         if (currnetTileSprite != null)
         {
-            currnetTileSprite.color = Color.black;
+            currnetTileSprite.color = Color.white;
         }
 
         currnetTileSprite = tileSprite;
-        currnetTileSprite.color = Color.white;
+        currnetTileSprite.color = Color.red;
     }
 }
