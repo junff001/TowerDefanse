@@ -4,21 +4,47 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private float attackRange = 0f;
-    private int cardLevel = 0;
-    private float raderRadius = 0f;
-    [SerializeField] private float offensePower = 0f;
-    [SerializeField] private float attackSpeed = 1f;
+    [SerializeField] private float attackRange = 0f;          // 공격 범위
+    [SerializeField] private float offensePower = 0f;         // 공격력
+    [SerializeField] private float attackSpeed = 1f;          // 공격 속도
+    [SerializeField] private Sprite towerLook1 = null;        // 타워 외형 1
+    [SerializeField] private Sprite towerLook2 = null;        // 타워 외형 2
+    [SerializeField] private float enableTermTime = 0f;       // 생성되고 기다리는 간격
+
+    public GameObject attackRangeObj { get; set; } = null;    // 공격 범위 오브젝트
+    public bool canInteraction { get; set; } = false;         // 상호작용 가능값
+
+    private int cardLevel = 0;                                // 카드 레벨
     private int attackTargetCount = 1;
     private int blockTargetCount = 1;
+    private bool isEnableTerm = false;
+    private LayerMask enemyMask = default;                    // 적을 분별하는 마스크
+    private Collider2D[] enemies = null;                      // 공격 범위이 안에 있는 적들
+    private SpriteRenderer spriteRenderer = null;
 
-    private LayerMask enemyMask = default;
-    private Collider2D[] enemies = null;
+    void OnEnable()
+    {
+        StartCoroutine(EnableTerm(enableTermTime));
+    }
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Start()
-    {
+    { 
         StartCoroutine(Rader());
         StartCoroutine(OnAttack());
+    }
+
+    // 생성되고 일정시간 텀이 발생하게끔 하는 함수
+    // 이 텀이 없으면 타워 생성과 업그레이드가 같이 실행됨
+    IEnumerator EnableTerm(float time)
+    {
+        isEnableTerm = true;
+        yield return new WaitForSeconds(time);
+        isEnableTerm = false;
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
@@ -32,13 +58,13 @@ public class Tower : MonoBehaviour
         }
     }
 
-    // 공격 범위 처리
+    // 공격 범위 처리 함수
     Collider2D[] EnemyRader(LayerMask targetMask)
     {
         return Physics2D.OverlapCircleAll(transform.position, attackRange, targetMask);
-    }
+    }  
 
-    // 공격 처리 
+    // 공격 실행 함수
     IEnumerator OnAttack()
     {
         while (true)
@@ -68,7 +94,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    // 공격 처리
+    // 공격 로직 함수 (임시 원거리)    
     public virtual void Attack(float power, HealthSystem enemy)
     {
         Bullet bullet = PoolManager.GetItem<Bullet>();
@@ -76,6 +102,21 @@ public class Tower : MonoBehaviour
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
         bullet.bulletDamage = power;
+    }
+
+    // 타워를 업그레이드하는 함수
+    public void TowerUpgrade()
+    {
+        if (!isEnableTerm)
+        {
+            spriteRenderer.sprite = towerLook1;
+        }
+    }
+
+    // 공격 범위를 표시하는 함수
+    public void AttackRangeActive()
+    {
+
     }
 
     // 공격 범위 기즈모 표시

@@ -8,26 +8,18 @@ public class BuildManager : Singleton<BuildManager>
 {
     public GameObject towerPrefab = null;               // 타워 프리팹
 
-    private Ray ray = default;
     private RaycastHit hit = default;
-    private bool canBuild = false;
-    private Camera mainCam = null;                       
+    private bool isPressLeftClick = false;                 
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
-
-    public GameObject currnetClickTower { get; set; } = null;
-
-    void Awake()
-    {
-        mainCam = Camera.main;
-    }
+    private Tower currentTower = null;                  // 공격 범위릃 활성화할 현재 타워
 
     void Update()
     {
-        SpawnTileRaycast();
+        InteractionByTile();
     }
 
     // 타워를 스폰하는 함수
-    public void SpawnTower(Transform tileTransform)
+    void SpawnTower(Transform tileTransform)
     {
         // Tower 가 SpawnTile 자식으로 들어감
         // 중복 생성 방지
@@ -35,40 +27,48 @@ public class BuildManager : Singleton<BuildManager>
         {
             Instantiate(towerPrefab, tileTransform);
         }
-        else
-        {
-            currnetClickTower = tileTransform.GetChild(0).gameObject;
-        }
     }
 
-    // 좌클릭 bool 값 담는 함수
-    public void SpawnTowerAcitve(InputAction.CallbackContext context) // Only Press
+    // Mouse.RaycastHit() 으로 타일에 따라 상호작용하는 함수
+    void InteractionByTile()
     {
-        canBuild = context.ReadValueAsButton() && context.started;
-    }
+        hit = Mouse.RaycastHit();
+        isPressLeftClick = Mouse.isPressLeftClick;
 
-    // 스폰 타일인지 Raycast 로 체크하는 함수
-    void SpawnTileRaycast()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject()) // UI 가 있나없나 체크
+        if (hit.transform != null)
         {
-            ray = mainCam.ScreenPointToRay(GameManager.Instance.mousePosition);
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            switch (hit.transform.tag)
             {
-                if (hit.transform.CompareTag("SpawnTile"))
+                case "SpawnTile":
                 {
                     SpawnTileColorActive(hit.transform.GetComponent<SpriteRenderer>());
 
-                    if (canBuild)
+                    if (isPressLeftClick)
                     {
                         SpawnTower(hit.transform);
                     }
                 }
-                else if (hit.transform.CompareTag("RoadTile"))
+                break;
+                case "RoadTile":
                 {
-                    currnetTileSprite.color = Color.white;
+                    if (currnetTileSprite != null)
+                    {
+                        currnetTileSprite.color = Color.white;
+                    }
                 }
+                break;
+                case "Tower":
+                {
+                    if (isPressLeftClick)
+                    {
+                        hit.transform.GetComponent<Tower>().TowerUpgrade();
+                    }
+                    // 업그레이드 함수
+                    // 공격 범위 표시 함수
+                }
+                break;
+                default:
+                    break;
             }
         }
     } 

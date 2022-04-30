@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6028555782841775394}
   - component: {fileID: 2238203050725315065}
   - component: {fileID: 36831670409005940}
+  - component: {fileID: 5061584247493236003}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 1077984509156710237, guid: f27eead7c70cbfa4bb4e0c2d49e41c7b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a0b70cfd52e574419e377163923b946, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,6 +100,22 @@ MonoBehaviour:
   attackRange: 1.27
   offensePower: 40
   attackSpeed: 1
+  towerLook1: {fileID: 21300000, guid: d1371205877538447ad2ea473179746d, type: 3}
+  towerLook2: {fileID: 21300000, guid: 49763f91ff9a68644897226748ef2f76, type: 3}
+  enableTermTime: 0.1
+--- !u!65 &5061584247493236003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454648908224772907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8666667, y: 1.1066667, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3497326364738946714
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4730689541588935829
 Transform:
   m_ObjectHideFlags: 0
@@ -171,7 +188,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6f4c843b74a18054fb1b3b37bc366b89, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.36911777, b: 0.9811321, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpawnTower",
+                    "name": "InteractionClick",
                     "type": "Button",
                     "id": "e26a5856-4def-47ea-8853-011f6041b8e3",
                     "expectedControlType": "Button",
@@ -279,7 +279,7 @@
                     "interactions": "Tap(duration=0.06)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SpawnTower",
+                    "action": "InteractionClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

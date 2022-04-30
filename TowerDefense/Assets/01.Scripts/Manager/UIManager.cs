@@ -17,6 +17,8 @@ public class UIManager : Singleton<UIManager>
 
     public Image cursorObj;
 
+    public UI_TowerUpgradePanel towerUpgradePanel = null;
+
     private void Awake()
     {
         Cursor.visible = false;
@@ -25,7 +27,7 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        cursorObj.transform.position = GameManager.Instance.mousePosition;
+        cursorObj.transform.position = Mouse.position;
     }
 
     public void UpdateHPText()
