@@ -276,7 +276,7 @@
                     "name": "",
                     "id": "b8df19fa-ffac-4be2-8047-1f28aef85ef9",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Tap(duration=0.06)",
+                    "interactions": "Tap(duration=0.06,pressPoint=0.1)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "InteractionClick",

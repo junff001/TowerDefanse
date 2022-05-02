@@ -2,30 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct TowerData
+{
+    public int Level;
+    public int HP;
+    public float OffensePower;
+    public float AttackSpeed;
+    public float AttackRange;
+}
+
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private float attackRange = 0f;          // 공격 범위
-    [SerializeField] private float offensePower = 0f;         // 공격력
-    [SerializeField] private float attackSpeed = 1f;          // 공격 속도
-    [SerializeField] private Sprite towerLook1 = null;        // 타워 외형 1
-    [SerializeField] private Sprite towerLook2 = null;        // 타워 외형 2
-    [SerializeField] private float enableTermTime = 0f;       // 생성되고 기다리는 간격
+    private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
+                                                                
+    [SerializeField] private TowerSO towerSO = null;            // 실질적 타워 정보
+    [SerializeField] private Sprite towerLook1 = null;          // 타워 외형 1
+    [SerializeField] private Sprite towerLook2 = null;          // 타워 외형 2
+                                                                
+    public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
+    public bool canInteraction { get; set; } = false;           // 상호작용 가능값
+                                                                
+    private int cardLevel = 0;                                  // 카드 레벨
+    private int attackTargetCount = 1;                          
+    private int blockTargetCount = 1;                           
+    private bool isInteractionTerm = false;                     
+    private LayerMask enemyMask = default;                      // 적을 분별하는 마스크
+    private Collider2D[] enemies = null;                        // 공격 범위이 안에 있는 적들
+    private SpriteRenderer spriteRenderer = null;               
 
-    public GameObject attackRangeObj { get; set; } = null;    // 공격 범위 오브젝트
-    public bool canInteraction { get; set; } = false;         // 상호작용 가능값
-
-    private int cardLevel = 0;                                // 카드 레벨
-    private int attackTargetCount = 1;
-    private int blockTargetCount = 1;
-    private bool isEnableTerm = false;
-    private LayerMask enemyMask = default;                    // 적을 분별하는 마스크
-    private Collider2D[] enemies = null;                      // 공격 범위이 안에 있는 적들
-    private SpriteRenderer spriteRenderer = null;
-
-    void OnEnable()
-    {
-        StartCoroutine(EnableTerm(enableTermTime));
-    }
 
     void Awake()
     {
@@ -33,18 +37,19 @@ public class Tower : MonoBehaviour
     }
 
     void Start()
-    { 
+    {
+        InitTowerData();
+
         StartCoroutine(Rader());
         StartCoroutine(OnAttack());
     }
 
-    // 생성되고 일정시간 텀이 발생하게끔 하는 함수
-    // 이 텀이 없으면 타워 생성과 업그레이드가 같이 실행됨
-    IEnumerator EnableTerm(float time)
+    void InitTowerData()
     {
-        isEnableTerm = true;
-        yield return new WaitForSeconds(time);
-        isEnableTerm = false;
+        towerData.HP = towerSO.HP;
+        towerData.Level = towerSO.Level;
+        towerData.AttackSpeed = towerSO.AttackSpeed;
+        towerData.AttackRange = towerSO.AttackRange;
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
@@ -61,7 +66,7 @@ public class Tower : MonoBehaviour
     // 공격 범위 처리 함수
     Collider2D[] EnemyRader(LayerMask targetMask)
     {
-        return Physics2D.OverlapCircleAll(transform.position, attackRange, targetMask);
+        return Physics2D.OverlapCircleAll(transform.position, towerData.AttackRange, targetMask);
     }  
 
     // 공격 실행 함수
@@ -86,11 +91,11 @@ public class Tower : MonoBehaviour
                     break; // 공격 가능 대상 수만큼 때렸으면 그만 때리기
                 if (enemies[i] != null)
                 {
-                    Attack(offensePower, enemies[i].GetComponent<HealthSystem>());
+                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
                 }
             }
 
-            yield return new WaitForSeconds(1f / attackSpeed); // 공속만큼 기다리고,
+            yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고,
         }
     }
 
@@ -107,9 +112,40 @@ public class Tower : MonoBehaviour
     // 타워를 업그레이드하는 함수
     public void TowerUpgrade()
     {
-        if (!isEnableTerm)
-        {
-            spriteRenderer.sprite = towerLook1;
+        if (!isInteractionTerm)
+        { 
+            if (towerData.Level > 3)  // 3렙이면 업그레이드 안함
+            {
+                return;
+            }
+            else
+            {
+                towerData.Level++;
+                Debug.Log("타워 업그레이드");
+                Debug.Log(towerData.Level);
+
+                switch (towerData.Level)
+                {
+                    case 2:    // 2레벨
+                    {
+                        if (!isInteractionTerm)
+                        {
+                            spriteRenderer.sprite = towerLook1;
+                        }
+                    }
+                    break;
+                    case 3:    // 3레벨
+                    {
+                        if (!isInteractionTerm)
+                        {
+                            spriteRenderer.sprite = towerLook2;
+                        }
+                    }
+                    break;
+                    default:
+                        break;
+                }
+            } 
         }
     }
 
@@ -126,7 +162,7 @@ public class Tower : MonoBehaviour
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
+            Gizmos.DrawWireSphere(transform.position, towerData.AttackRange);
             Gizmos.color = Color.white;
         }
     }

@@ -7639,8 +7639,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1021790214}
+  - component: {fileID: 1021790215}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: MANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7665,6 +7666,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1021790215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021790213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a0b97e247ffb488597a14ad1fa745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorInHierarchy: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
 --- !u!1001 &1030102220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13553,8 +13567,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1885093354}
   - component: {fileID: 1885093353}
+  - component: {fileID: 1885093355}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: GRID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13589,6 +13604,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1885093355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885093352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a0b97e247ffb488597a14ad1fa745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorInHierarchy: {r: 0.35686275, g: 0.37888026, b: 0.49019608, a: 1}
 --- !u!1001 &1893804279
 PrefabInstance:
   m_ObjectHideFlags: 0

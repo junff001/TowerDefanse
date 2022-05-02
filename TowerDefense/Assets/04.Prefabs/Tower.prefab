@@ -97,12 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07ef218bc7bcf84d8626b94b9f97750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 1.27
-  offensePower: 40
-  attackSpeed: 1
+  towerSO: {fileID: 11400000, guid: 4b6798d440ca7d145a8c2a6bdd8780c2, type: 2}
   towerLook1: {fileID: 21300000, guid: d1371205877538447ad2ea473179746d, type: 3}
   towerLook2: {fileID: 21300000, guid: 49763f91ff9a68644897226748ef2f76, type: 3}
-  enableTermTime: 0.1
+  interactionTermTime: 0.1
 --- !u!65 &5061584247493236003
 BoxCollider:
   m_ObjectHideFlags: 0

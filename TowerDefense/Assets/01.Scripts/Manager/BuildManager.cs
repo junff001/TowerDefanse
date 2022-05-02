@@ -9,7 +9,8 @@ public class BuildManager : Singleton<BuildManager>
     public GameObject towerPrefab = null;               // 타워 프리팹
 
     private RaycastHit hit = default;
-    private bool isPressLeftClick = false;                 
+    private bool isPressLeftClick = false;
+    private bool isInteractionTerm = false;
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
     private Tower currentTower = null;                  // 공격 범위릃 활성화할 현재 타워
 
@@ -34,6 +35,7 @@ public class BuildManager : Singleton<BuildManager>
     {
         hit = Mouse.RaycastHit();
         isPressLeftClick = Mouse.isPressLeftClick;
+        isInteractionTerm = Mouse.isInteractionTerm;
 
         if (hit.transform != null)
         {
@@ -45,10 +47,13 @@ public class BuildManager : Singleton<BuildManager>
 
                     if (isPressLeftClick)
                     {
-                        SpawnTower(hit.transform);
-                    }
+                        if (!isInteractionTerm)
+                        {
+                            SpawnTower(hit.transform);
+                        } 
+                    } 
                 }
-                break;
+                break; 
                 case "RoadTile":
                 {
                     if (currnetTileSprite != null)
@@ -59,12 +64,15 @@ public class BuildManager : Singleton<BuildManager>
                 break;
                 case "Tower":
                 {
-                    if (isPressLeftClick)
+                    if (!isInteractionTerm)
                     {
-                        hit.transform.GetComponent<Tower>().TowerUpgrade();
+                        if (isPressLeftClick)
+                        {
+                            hit.transform.GetComponent<Tower>().TowerUpgrade();
+                        }
+                        // 업그레이드 함수
+                        // 공격 범위 표시 함수
                     }
-                    // 업그레이드 함수
-                    // 공격 범위 표시 함수
                 }
                 break;
                 default:
