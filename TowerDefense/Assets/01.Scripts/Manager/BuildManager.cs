@@ -13,6 +13,8 @@ public class BuildManager : Singleton<BuildManager>
     private bool isInteractionTerm = false;
     private SpriteRenderer currnetTileSprite = null;    // 컬러를 활성화할 현재 타일의 스프라이트
     private Tower currentTower = null;                  // 공격 범위릃 활성화할 현재 타워
+    private float termTime = 0.1f;
+    private float currentTermTime = 0f;
 
     void Update()
     {
@@ -35,23 +37,22 @@ public class BuildManager : Singleton<BuildManager>
     {
         hit = Mouse.RaycastHit();
         isPressLeftClick = Mouse.isPressLeftClick;
-        isInteractionTerm = Mouse.isInteractionTerm;
 
         if (hit.transform != null)
         {
+            Debug.Log(hit.transform.tag);
+
             switch (hit.transform.tag)
             {
                 case "SpawnTile":
                 {
                     SpawnTileColorActive(hit.transform.GetComponent<SpriteRenderer>());
 
-                    if (isPressLeftClick)
-                    {
-                        if (!isInteractionTerm)
-                        {
-                            SpawnTower(hit.transform);
-                        } 
-                    } 
+                    if (isPressLeftClick && !Mouse.isInteractionTerm)
+                    {                       
+                        SpawnTower(hit.transform);
+                        Mouse.MouseInteractionTerm(0.1f);
+                    }
                 }
                 break; 
                 case "RoadTile":
@@ -64,15 +65,14 @@ public class BuildManager : Singleton<BuildManager>
                 break;
                 case "Tower":
                 {
-                    if (!isInteractionTerm)
+                    if (isPressLeftClick && !Mouse.isInteractionTerm)
                     {
-                        if (isPressLeftClick)
-                        {
-                            hit.transform.GetComponent<Tower>().TowerUpgrade();
-                        }
-                        // 업그레이드 함수
-                        // 공격 범위 표시 함수
+                        hit.transform.GetComponent<Tower>().TowerUpgrade();
+                        Mouse.MouseInteractionTerm(0.1f);
+                        Debug.Log(Mouse.isInteractionTerm);
                     }
+                    // 업그레이드 함수
+                    // 공격 범위 표시 함수
                 }
                 break;
                 default:

@@ -112,40 +112,29 @@ public class Tower : MonoBehaviour
     // 타워를 업그레이드하는 함수
     public void TowerUpgrade()
     {
-        if (!isInteractionTerm)
-        { 
-            if (towerData.Level > 3)  // 3렙이면 업그레이드 안함
+        if (towerData.Level >= 3)  // 3렙이면 업그레이드 안함
+        {
+            return;
+        }
+        else
+        {
+            towerData.Level++;
+           
+            switch (towerData.Level)
             {
-                return;
-            }
-            else
-            {
-                towerData.Level++;
-                Debug.Log("타워 업그레이드");
-                Debug.Log(towerData.Level);
-
-                switch (towerData.Level)
+                case 2:    // 2레벨
                 {
-                    case 2:    // 2레벨
-                    {
-                        if (!isInteractionTerm)
-                        {
-                            spriteRenderer.sprite = towerLook1;
-                        }
-                    }
-                    break;
-                    case 3:    // 3레벨
-                    {
-                        if (!isInteractionTerm)
-                        {
-                            spriteRenderer.sprite = towerLook2;
-                        }
-                    }
-                    break;
-                    default:
-                        break;
+                    spriteRenderer.sprite = towerLook1;
                 }
-            } 
+                break;
+                case 3:    // 3레벨
+                {
+                    spriteRenderer.sprite = towerLook2;
+                }
+                break;
+                default:
+                    break;
+            }
         }
     }
 
