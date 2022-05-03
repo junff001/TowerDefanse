@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private ParticleSystem effect = null;
 
     public Transform target { get; set; }
-    public float bulletDamage { get; set; }
+    public float bulletDamage;
     private bool _isDead = false; // 총알이 죽었는가?
     
 

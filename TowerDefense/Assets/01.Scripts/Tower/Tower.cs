@@ -48,6 +48,7 @@ public class Tower : MonoBehaviour
     {
         towerData.HP = towerSO.HP;
         towerData.Level = towerSO.Level;
+        towerData.OffensePower = towerSO.OffensePower;
         towerData.AttackSpeed = towerSO.AttackSpeed;
         towerData.AttackRange = towerSO.AttackRange;
     }

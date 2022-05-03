@@ -61,7 +61,7 @@ public class HealthSystem : MonoBehaviour
 
         if (IsDead())
         {
-            
+            GoldManager.Instance.GoldPlus(50);
             OnDied?.Invoke();
         }
     }

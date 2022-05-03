@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
 
     public int Hp { get; set; } = 50;
-    public int Gold { get; set; } = 5000;
+    public int Gold { get; set; } = 500;
     public Vector2 mousePosition { get; set; } = Vector2.zero;
     
 

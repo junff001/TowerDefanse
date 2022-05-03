@@ -26,9 +26,12 @@ public class BuildManager : Singleton<BuildManager>
     {
         // Tower 가 SpawnTile 자식으로 들어감
         // 중복 생성 방지
-        if (tileTransform.childCount < 1)
+        if (GoldManager.Instance.GoldMinus(100))
         {
-            Instantiate(towerPrefab, tileTransform);
+            if (tileTransform.childCount < 1)
+            {
+                Instantiate(towerPrefab, tileTransform);
+            }
         }
     }
 

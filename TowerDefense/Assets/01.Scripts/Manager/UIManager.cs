@@ -25,6 +25,11 @@ public class UIManager : Singleton<UIManager>
         cursorObj.gameObject.SetActive(true);
     }
 
+    private void Start()
+    {
+        UpdateGoldText();
+    }
+
     private void Update()
     {
         cursorObj.transform.position = Mouse.position;
