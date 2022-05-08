@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,12 +36,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateHPText();
         WaveManager.Instance.aliveEnemies.Remove(enemy);
         Destroy(enemy.gameObject);
-    }
-
-    // 마우스 포지션 처리 함수
-    public void MousePosition(InputAction.CallbackContext context)
-    {
-        mousePosition = context.ReadValue<Vector2>();
     }
 }
 

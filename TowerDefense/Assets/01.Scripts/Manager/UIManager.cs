@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -32,7 +31,7 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        cursorObj.transform.position = Mouse.position;
+        cursorObj.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void UpdateHPText()

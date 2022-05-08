@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6028555782841775394}
   - component: {fileID: 2238203050725315065}
   - component: {fileID: 36831670409005940}
-  - component: {fileID: 5061584247493236003}
-  m_Layer: 0
+  - component: {fileID: -4850619553166345736}
+  m_Layer: 6
   m_Name: Tower
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   towerSO: {fileID: 11400000, guid: 4b6798d440ca7d145a8c2a6bdd8780c2, type: 2}
   towerLook1: {fileID: 21300000, guid: d1371205877538447ad2ea473179746d, type: 3}
   towerLook2: {fileID: 21300000, guid: 49763f91ff9a68644897226748ef2f76, type: 3}
---- !u!65 &5061584247493236003
+--- !u!65 &-4850619553166345736
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,11 +108,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2454648908224772907}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8666667, y: 1.1066667, z: 0.6015816}
-  m_Center: {x: 0, y: 0, z: 0.20079082}
+  m_Size: {x: 0.8666667, y: 1.1066667, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3497326364738946714
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4730689541588935829}
   - component: {fileID: 1301981630257643242}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
