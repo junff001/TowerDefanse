@@ -7,10 +7,8 @@ using UnityEngine.Tilemaps;
 public class BuildManager : Singleton<BuildManager>
 {
     [SerializeField] private Tilemap tilemap = null;               // 타일맵
-    [SerializeField] private Tilemap towerTileamp = null;          // 타워 타일맵
     [SerializeField] private Sprite roadSpite = null;              // 길 스프라이트
     [SerializeField] private Sprite hillSprite = null;             // 언덕 스프라이트
-    [SerializeField] private Sprite towerSprite = null;            // 타워 스프라이트
     [SerializeField] private LayerMask towerMask = default;
 
     public GameObject towerPrefab = null;                          // 타워 프리팹
