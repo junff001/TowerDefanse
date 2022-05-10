@@ -1109,9 +1109,6 @@ MonoBehaviour:
   hpText: {fileID: 48899116}
   moneyText: {fileID: 754197530}
   speedButton: {fileID: 1951652804}
-  disableCursor: {fileID: 21300000, guid: 21628736160fcc9488493401da3ef621, type: 3}
-  ableCursor: {fileID: 21300000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
-  cursorObj: {fileID: 231374928}
   towerUpgradePanel: {fileID: 0}
 --- !u!1 &712283961
 GameObject:
@@ -4135,8 +4132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveRoundCount: {fileID: 1810999726}
   waveTimer: {fileID: 930242795}
-  waveWaitingTimeRect: {fileID: 932536810}
-  waveWaitingTimeTimer: {fileID: 1738852516}
   waveSO: {fileID: 11400000, guid: 7e1280408a3639445913f70f2efe3d2f, type: 2}
   aliveEnemies: []
 --- !u!1 &1545993579
@@ -5189,7 +5184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6693466ef453c064e8374525ad8aed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypointParent: {fileID: 1545993580}
+  waypointsParent: {fileID: 1545993580}
   wayPoints:
   - {fileID: 0}
   - {fileID: 0}

@@ -16,7 +16,7 @@ public class EnemyBase : MonoBehaviour
     protected HealthSystem healthSystem;
 
     [SerializeField] protected EnemySO enemySO;
-    public EnemyData myStat;
+    public EnemyData myStat = new EnemyData();
 
     private List<BuffBase> buffList = new List<BuffBase>();
 
