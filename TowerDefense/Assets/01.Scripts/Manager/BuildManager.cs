@@ -21,7 +21,9 @@ public class BuildManager : Singleton<BuildManager>
     private Vector3Int beforeTilePos = Vector3Int.zero;            // 이전 타일 위치
     private List<GameObject> towerList = new List<GameObject>();   // 타워 위치를 관리할 리스트
     private GameObject currentTower = null;
-    
+
+    public Transform grid;
+
     void Update()
     {
         TileInMousePosition();
@@ -120,8 +122,8 @@ public class BuildManager : Singleton<BuildManager>
         beforeTilePos = tilePos;
     }
 
-    public void SetTilemap(Tilemap curStageTilemap)
+    public void SetTilemap(GameObject curStageTilemap)
     {
-        tilemap = curStageTilemap;
+        Instantiate(curStageTilemap, Vector3.zero, Quaternion.identity, grid);
     }
 }

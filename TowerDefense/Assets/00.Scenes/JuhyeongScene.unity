@@ -1740,7 +1740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1600380332
 Transform:
   m_ObjectHideFlags: 0
@@ -1822,6 +1822,7 @@ MonoBehaviour:
     m_Bits: 64
   waitTrm: {fileID: 0}
   towerPrefab: {fileID: 2454648908224772907, guid: 5a8832d6f66335145bba1481be2adc44, type: 3}
+  tilemapParent: {fileID: 1475253229}
 --- !u!1 &1797470455
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,6 +3487,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1475253229}
     m_Modifications:
+    - target: {fileID: 1692139995915324616, guid: a80d9d7b231f3874bbba296f399c5dae, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1692139995915324618, guid: a80d9d7b231f3874bbba296f399c5dae, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3533,6 +3538,14 @@ PrefabInstance:
     - target: {fileID: 1692139995915324619, guid: a80d9d7b231f3874bbba296f399c5dae, type: 3}
       propertyPath: m_Name
       value: Map_tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692139995915324619, guid: a80d9d7b231f3874bbba296f399c5dae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692139995915324623, guid: a80d9d7b231f3874bbba296f399c5dae, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a80d9d7b231f3874bbba296f399c5dae, type: 3}
@@ -4174,6 +4187,10 @@ PrefabInstance:
     - target: {fileID: 3043152642496230248, guid: 9b20ef46e33671341b055168f4505229, type: 3}
       propertyPath: m_Name
       value: WayPoints_tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043152642496230248, guid: 9b20ef46e33671341b055168f4505229, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3043152642496230249, guid: 9b20ef46e33671341b055168f4505229, type: 3}
       propertyPath: m_RootOrder

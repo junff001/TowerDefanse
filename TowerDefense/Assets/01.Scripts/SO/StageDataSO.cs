@@ -7,6 +7,6 @@ using UnityEngine.Tilemaps;
 public class StageDataSO : ScriptableObject
 {
     public Transform waypointsParent;
-    public Tilemap tileMap;
+    public GameObject tileMap;
     public WaveSO waveSO;
 }
