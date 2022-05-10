@@ -21,6 +21,10 @@ public class EnemySO : ScriptableObject
     [SerializeField] private float moveSpeed = 0f;              
     public float MoveSpeed { get => moveSpeed; set => value = moveSpeed; }
 
+    // 처치 시 골드 보상
+    [SerializeField] private int rewardGold = 0;
+    public int RewardGold { get => rewardGold; set => value = rewardGold; }
+
     // 은신 여부
     [SerializeField] private bool isHide = false;
     public bool IsHide { get => isHide; set => value = isHide; }

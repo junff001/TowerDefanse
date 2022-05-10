@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class EnemyData
 {
     public float HP;
     public float Shield;
     public int OffensePower;
     public float MoveSpeed;
+    public int RewardGold;
     public bool IsHide;
 }
 
@@ -29,6 +31,14 @@ public class EnemyBase : MonoBehaviour
     {
         InitEnemyData();
         healthSystem = GetComponent<HealthSystem>();
+    }
+
+    private void Start()
+    {
+        healthSystem.OnDied += () =>
+        {
+            GoldManager.Instance.GoldPlus(myStat.RewardGold);
+        };
     }
 
     void Update()
@@ -91,6 +101,7 @@ public class EnemyBase : MonoBehaviour
         myStat.Shield = enemySO.Shield;
         myStat.OffensePower = enemySO.OffensePower;
         myStat.MoveSpeed = enemySO.MoveSpeed;
+        myStat.RewardGold = enemySO.RewardGold;
         myStat.IsHide = enemySO.IsHide;
     }
 

@@ -44,10 +44,6 @@ public class WaveManager : Singleton<WaveManager>
         if (IsWaveProgressing())
         {
             totalTime += Time.deltaTime;
-            string minute = ((int)totalTime / 60).ToString("00");
-            string second = ((int)totalTime % 60).ToString("00");
-
-            waveTimer.text = string.Format("{0}:{1}", minute, second);
         }
     }
 
