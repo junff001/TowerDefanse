@@ -10,44 +10,60 @@ public class BuildManager : Singleton<BuildManager>
     [SerializeField] private Sprite roadSpite = null;              // 길 스프라이트
     [SerializeField] private Sprite hillSprite = null;             // 언덕 스프라이트
     [SerializeField] private LayerMask towerMask = default;
+    [SerializeField] private Transform waitTrm = null;             // 대기 지점
 
     public GameObject towerPrefab = null;                          // 타워 프리팹
+    public bool isTowerSetting { get; set; } = false;              // 타워 정보 설정 할 것인가
+    public Color towerColor { get; set; } = default;               // 타워 색깔
 
     private Tile currentTile = null;                               // 마우스에 위치한 현재 타일
     private Vector3Int tilePos = Vector3Int.zero;                  // 타일 위치
     private Vector3Int beforeTilePos = Vector3Int.zero;            // 이전 타일 위치
-    private List<GameObject> towerList = new List<GameObject>();
-
+    private List<GameObject> towerList = new List<GameObject>();   // 타워 위치를 관리할 리스트
+    private GameObject currentTower = null;
+    
     void Update()
     {
         TileInMousePosition();
+
+        if (isTowerSetting)
+        {
+            TowerSetting();
+            isTowerSetting = false;
+        }
+
         TileChecking();
     }
 
     // 타워를 스폰하는 함수
-    void SpawnTower(Vector3Int tilePos)
+    public void SpawnTower(Vector3Int tile)
     {
-        // Tower 가 SpawnTile 자식으로 들어감
         // 중복 생성 방지
-        if (GoldManager.Instance.GoldMinus(100))
+        for (int i = 0; i < towerList.Count; i++)  // 현 타일 위치에 타워 존재여부 확인
         {
-            if (towerList.Count == 0)
+            if (towerList[i].transform.position == tilemap.GetCellCenterWorld(tilePos))
             {
-                towerList.Add(Instantiate(towerPrefab, tilemap.GetCellCenterWorld(tilePos), Quaternion.identity));
-            }
-            else
-            {
-                for (int i = 0; i < towerList.Count; i++)
-                {
-                    if (towerList[i].transform.position == tilemap.GetCellCenterWorld(tilePos))
-                    {
-                        return;
-                    }
-                }
-
-                towerList.Add(Instantiate(towerPrefab, tilemap.GetCellCenterWorld(tilePos), Quaternion.identity));
+                return;
             }
         }
+
+        towerList.Add(currentTower);
+
+        if (towerList[towerList.Count - 1].transform.position == waitTrm.position)
+        {
+            if (GoldManager.Instance.GoldMinus(100))
+            {
+                towerList[towerList.Count - 1].transform.position = tilemap.GetCellCenterWorld(tilePos);
+            }
+        }
+    }
+
+    // 타워 세팅하는 함수
+    void TowerSetting()
+    {
+        currentTower = Instantiate(towerPrefab);
+        currentTower.transform.position = waitTrm.position;
+        currentTower.GetComponent<Tower>().spriteRenderer.color = towerColor;
     }
 
     // 마우스 위치에 있는 타일
@@ -69,11 +85,11 @@ public class BuildManager : Singleton<BuildManager>
             }
             else if (currentTile.sprite == hillSprite)
             {
-                SpawnTileColorActive();
+                SpawnTileColorActive(); 
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    for (int i = 0; i < towerList.Count; i++)
+                    for (int i = 0; i < towerList.Count; i++) // 똑같은 타워를 눌렀는가
                     {
                         if (towerList[i].transform.position == tilemap.GetCellCenterWorld(tilePos))
                         {
@@ -81,7 +97,10 @@ public class BuildManager : Singleton<BuildManager>
                         }
                     }
 
-                    SpawnTower(tilePos);
+                    if (currentTower != null)
+                    {
+                        SpawnTower(tilePos);
+                    }
                 }
             }
         } 
