@@ -28,7 +28,7 @@ public class Tower : MonoBehaviour
     private bool isInteractionTerm = false;                     
     private LayerMask enemyMask = default;                      // 적을 분별하는 마스크
     private Collider2D[] enemies = null;                        // 공격 범위이 안에 있는 적들
-    private SpriteRenderer spriteRenderer = null;               
+    public SpriteRenderer spriteRenderer { get; set; } = null;              
 
 
     void Awake()
