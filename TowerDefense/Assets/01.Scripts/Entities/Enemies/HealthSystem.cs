@@ -8,12 +8,25 @@ public class HealthSystem : MonoBehaviour
     public Action OnDamaged;
     public Action OnDied;
 
+    private EnemyBase enemyBase;
     [SerializeField]
-    private float healthAmountMax = 100f;
-    private float curHealthAmount;
+    private float healthAmountMax = 100;
+    private float curHealthAmount
+    {
+        get
+        {
+            return enemyBase.myStat.HP;
+        }
+
+        set
+        {
+            enemyBase.myStat.HP = value;
+        }
+    }
 
     private void Awake()
     {
+        enemyBase = GetComponent<EnemyBase>();
         curHealthAmount = healthAmountMax;
     }
 
@@ -61,7 +74,6 @@ public class HealthSystem : MonoBehaviour
 
         if (IsDead())
         {
-            GoldManager.Instance.GoldPlus(50);
             OnDied?.Invoke();
         }
     }
