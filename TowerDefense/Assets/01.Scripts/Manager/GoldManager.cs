@@ -28,13 +28,13 @@ public class GoldManager : Singleton<GoldManager>
         if (Gold >= cost)
         {
             Gold -= cost;
-            Debug.Log($"��� {cost} ����");
+            Debug.Log($"골드 {cost} 소모");
             UIManager.Instance.UpdateGoldText();
             return true;
         }
         else
         {
-            Debug.Log("��尡 �����մϴ�");
+            Debug.Log("골드가 부족합니다");
             UIManager.Instance.moneyText.DOComplete();
             UIManager.Instance.moneyText.DOColor(Color.red, 0.15f).SetLoops(2, LoopType.Yoyo);
             return false;
