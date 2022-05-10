@@ -120,6 +120,4 @@ public class WaveManager : Singleton<WaveManager>
             yield return new WaitForSeconds(0.2f);
         }
     }
-
-
 }

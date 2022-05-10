@@ -28,7 +28,7 @@ public class StageManager : Singleton<StageManager>
             {
                 int stageIdx = i - 1;
                 selectedStage = stageDatas[stageIdx];
-                SceneManager.LoadScene("JuhyeongScene");
+                SceneManager.LoadScene("SampleScene");
             });
         }
     }
