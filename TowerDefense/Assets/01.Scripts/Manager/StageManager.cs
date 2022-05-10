@@ -39,12 +39,13 @@ public class StageManager : Singleton<StageManager>
         BuildManager.Instance.SetTilemap(stageData.tileMap);
         GameManager.Instance.SetWaypoints(stageData.waypointsParent);
         WaveManager.Instance.waveSO = stageData.waveSO;
+        
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         StageDataSO stageData = selectedStage;
-        SetStageDatas(stageData);
+        SetStageDatas(selectedStage);
         Debug.Log("ㅎㅇ");
     }
 }

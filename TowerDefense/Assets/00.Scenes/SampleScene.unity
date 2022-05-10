@@ -15526,6 +15526,7 @@ MonoBehaviour:
     m_Bits: 64
   waitTrm: {fileID: 0}
   towerPrefab: {fileID: 2454648908224772907, guid: 5a8832d6f66335145bba1481be2adc44, type: 3}
+  grid: {fileID: 1885093354}
 --- !u!1 &1540704795
 GameObject:
   m_ObjectHideFlags: 0
