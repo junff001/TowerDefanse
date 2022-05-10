@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8d0dd5b26bf0d40b8267ae602c5e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
+  enemySO: {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}
   aliveTime: 0
   movedDistance: 0
 --- !u!1001 &4390568374520894227

@@ -95,7 +95,7 @@ public class BuildManager : Singleton<BuildManager>
                     {
                         if (towerList[i].transform.position == tilemap.GetCellCenterWorld(tilePos))
                         {
-                            towerList[i].GetComponent<Tower>().TowerUpgrade();
+                            //towerList[i].GetComponent<Tower>().TowerUpgrade();
                         }
                     }
 
