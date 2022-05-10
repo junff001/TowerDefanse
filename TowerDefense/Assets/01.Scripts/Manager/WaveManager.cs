@@ -9,13 +9,10 @@ public class WaveManager : Singleton<WaveManager>
     [Header("Object Field")]
     public Text waveRoundCount;
     public Text waveTimer;
-    public RectTransform waveWaitingTimeRect;
-    public Text waveWaitingTimeTimer;
 
     private float totalTime = 0f;
-    private float waitingTime = 0f;
 
-    [Header("웨이브")] 
+    [Header("웨이브")]
     private int _wave = 0;
     private int Wave
     {
@@ -30,8 +27,6 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
-    public bool isWaitingTime { get; private set; } = false;
-
     public WaveSO waveSO;
 
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
@@ -39,7 +34,14 @@ public class WaveManager : Singleton<WaveManager>
 
     private void Update()
     {
-        if (!isWaitingTime)
+        SetTotalTime();
+    }
+
+    bool IsWaveProgressing() => aliveEnemies.Count != 0; // 웨이브가 진행중이면 true
+
+    public void SetTotalTime()
+    {
+        if (IsWaveProgressing())
         {
             totalTime += Time.deltaTime;
             string minute = ((int)totalTime / 60).ToString("00");
@@ -47,52 +49,42 @@ public class WaveManager : Singleton<WaveManager>
 
             waveTimer.text = string.Format("{0}:{1}", minute, second);
         }
+    }
 
-        if (waitingTime > 0)
+    public void SetNextWave()
+    {
+        if (enemySpawnQueue.Count == 0) // 다음 웨이브가 있으면,
         {
-            waitingTime -= Time.deltaTime;
-            string wTSec = Mathf.CeilToInt(waitingTime).ToString();
-            waveWaitingTimeTimer.text = $"대기 시간\n{wTSec}";
+            Wave++;
 
-            if (waitingTime < 0)
+            SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
+            foreach (SpawnerMonsterCount item in enemyBox)
             {
-                // 대기 시간 끝, 적이 나오기 시작
-                waveWaitingTimeRect.DOAnchorPosY(waveWaitingTimeRect.sizeDelta.y, 1);
-                isWaitingTime = false;
-                StartCoroutine(Spawn());
-            }
-        }
-
-        if (aliveEnemies.Count == 0)
-        {
-            if (enemySpawnQueue.Count == 0)
-            {
-                if (!isWaitingTime)
+                for (int i = 0; i < item.enemyCount; i++)
                 {
-                    // 대기 시간 시작! -> 적 큐 채워줘야함
-                    waveWaitingTimeRect.DOAnchorPosY(0, 1);
-                    isWaitingTime = true;
-                    Wave++;
-
-                    SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
-                    foreach (SpawnerMonsterCount item in enemyBox)
-                    {
-                        for (int i = 0; i < item.enemyCount; i++)
-                        {
-                            enemySpawnQueue.Enqueue(item.enemy);
-                        }
-                    }
-
-                    if(waveSO.waveEnemyInfos[Wave - 1].boss != null)
-                    {
-                        enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
-                    }
-
-                    // 보스도 있으면 큐에 추가해줘야함
-
-                    waitingTime = 15f;
+                    enemySpawnQueue.Enqueue(item.enemy);
                 }
             }
+
+            if (waveSO.waveEnemyInfos[Wave - 1].boss != null)
+            {
+                enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
+            }
+            // 보스도 있으면 큐에 추가해줘야함
+        }
+        else
+        {
+            //체력이 0보다 크면 스테이지 클리어
+            Debug.Log("스테이지 클리어");
+        }
+    }
+
+    public void WaveStart()
+    {
+        if(IsWaveProgressing() == false)
+        {
+            SetNextWave();
+            StartCoroutine(Spawn());
         }
     }
 
@@ -103,7 +95,7 @@ public class WaveManager : Singleton<WaveManager>
 
         for (int i = 0; i < queueCount; i++)
         {
-            if(count_five >= 5)
+            if (count_five >= 5)
             {
                 count_five = 0;
                 yield return new WaitForSeconds(1f);
@@ -129,12 +121,5 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
-    [ContextMenu("웨이브 대기시간 스킵")]
-    public void WaitingSkip()
-    {
-        if (waitingTime > 0)
-        {
-            waitingTime = 0.1f;
-        }
-    }
+
 }
