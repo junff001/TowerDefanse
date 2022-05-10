@@ -10,28 +10,16 @@ public class UIManager : Singleton<UIManager>
 
     public Button speedButton;
 
-    [Header("Ŀ��")]
-    public Sprite disableCursor;
-    public Sprite ableCursor;
-
-    public Image cursorObj;
-
     public UI_TowerUpgradePanel towerUpgradePanel = null;
 
     private void Awake()
     {
-        Cursor.visible = false;
-        cursorObj.gameObject.SetActive(true);
+       // Cursor.visible = false;
     }
 
     private void Start()
     {
         UpdateGoldText();
-    }
-
-    private void Update()
-    {
-        cursorObj.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void UpdateHPText()

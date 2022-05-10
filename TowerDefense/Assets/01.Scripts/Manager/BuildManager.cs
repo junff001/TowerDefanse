@@ -100,4 +100,9 @@ public class BuildManager : Singleton<BuildManager>
 
         beforeTilePos = tilePos;
     }
+
+    public void SetTilemap(Tilemap curStageTilemap)
+    {
+        tilemap = curStageTilemap;
+    }
 }

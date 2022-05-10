@@ -4,22 +4,26 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance = null;
-
     public int Hp { get; set; } = 50;
     public int Gold { get; set; } = 500;
     public Vector2 mousePosition { get; set; } = Vector2.zero;
-    
 
-    public Transform waypointParent;
+    public Transform waypointsParent;
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
 
-    void Awake()
+    private void Awake()
     {
-        Instance = this;
+        if(wayPoints.Count > 0)
+        {
+            SetWaypoints(waypointsParent);
+        }
+    }
+
+    public void SetWaypoints(Transform waypointParent)
+    {
         waypointParent.GetComponentsInChildren<Transform>(wayPoints);
         wayPoints.RemoveAt(0);
     }
