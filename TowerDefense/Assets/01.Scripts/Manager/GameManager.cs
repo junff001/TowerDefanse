@@ -8,7 +8,6 @@ public class GameManager : Singleton<GameManager>
 {
     public int Hp { get; set; } = 50;
     public int Gold { get; set; } = 500;
-    public Vector2 mousePosition { get; set; } = Vector2.zero;
 
     public Transform waypointsParent;
     [HideInInspector]
