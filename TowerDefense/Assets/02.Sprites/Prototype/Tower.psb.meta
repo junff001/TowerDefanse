@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bf77fa324200667438e92f46bd793bdc
+guid: e615faa09d25d65498858ab965a2db8f
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -91,7 +91,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: layer1
+  - name: Head
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -99,10 +99,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 172
-      width: 150
-      height: 96
-    spriteID: 8862d527b815aa8439fffc22113b27aa
+      y: 176
+      width: 154
+      height: 95
+    spriteID: f20a940cb2617994ab3feec7c5d58a3c
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -112,8 +112,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -49, y: 30}
-  - name: layer2
+    uvTransform: {x: -48, y: 39}
+  - name: Body
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -122,9 +122,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 199
-      height: 160
-    spriteID: e8233b12219dc9a45a806e8aab38f7b9
+      width: 163
+      height: 164
+    spriteID: fd814f132a408ef4ea124f4f7f659fdc
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -134,7 +134,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -39, y: -3}
+    uvTransform: {x: -43, y: -11}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
@@ -154,19 +154,19 @@ ScriptedImporter:
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: layer1
-    spriteName: layer1
+  - name: Head
+    spriteName: Head
     isGroup: 0
     parentIndex: -1
-    spriteID: 8862d527b815aa8439fffc22113b27aa
-    layerID: 3
-    mosaicPosition: {x: 4, y: 172}
-  - name: layer2
-    spriteName: layer2
+    spriteID: f20a940cb2617994ab3feec7c5d58a3c
+    layerID: 0
+    mosaicPosition: {x: 4, y: 176}
+  - name: Body
+    spriteName: Body
     isGroup: 0
     parentIndex: -1
-    spriteID: e8233b12219dc9a45a806e8aab38f7b9
-    layerID: 2
+    spriteID: fd814f132a408ef4ea124f4f7f659fdc
+    layerID: -911352830
     mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []
@@ -174,7 +174,7 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: Proto Texture
-  prefabAssetName: Proto Prefab
-  spriteLibAssetName: Proto Sprite Lib
+  textureAssetName: Tower Texture
+  prefabAssetName: Tower Prefab
+  spriteLibAssetName: Tower Sprite Lib
   secondarySpriteTextures: []
