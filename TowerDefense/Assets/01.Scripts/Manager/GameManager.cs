@@ -14,12 +14,37 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
 
+    public Sprite[] enemySprites;
+    public Sprite waitSprite;
+
     private void Awake()
     {
         if(wayPoints.Count > 0)
         {
             SetWaypoints(waypointsParent);
         }
+    }
+
+    public Sprite GetSuitToBtnSprite(MonsterType monsterType)
+    {
+        Sprite retSpr = null;
+        switch(monsterType)
+        {
+            case MonsterType.Goblin:
+                retSpr = enemySprites[0];
+                break;
+            case MonsterType.Ghost:
+                retSpr = enemySprites[1];
+                break;
+            case MonsterType.Slime:
+                retSpr = enemySprites[2];
+                break;
+            case MonsterType.IronBore:
+                retSpr = enemySprites[3];
+                break;
+        }
+        if (retSpr == null) retSpr = waitSprite;
+        return retSpr;
     }
 
     public void SetWaypoints(Transform waypointParent)

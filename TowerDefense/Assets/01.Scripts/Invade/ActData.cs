@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+[System.Serializable]
 public class ActData
 {
-    public ActType actType { get; private set; } = ActType.None;
-    public MonsterType monsterType { get; private set; } = MonsterType.None;
+    public ActType actType = ActType.None;
+    public MonsterType monsterType  = MonsterType.None;
 
-    public ActData(ActType actType, MonsterType monsterType)
+    public ActData(ActType actType, MonsterType monsterType = MonsterType.None)
     {
         this.actType = actType;
         this.monsterType = monsterType;

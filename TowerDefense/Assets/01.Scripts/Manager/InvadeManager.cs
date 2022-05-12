@@ -1,28 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class InvadeManager : Singleton<InvadeManager>
 {
-    public Queue<ActData> actQueue = new Queue<ActData>(); // 몹 편성 눌러서 여기에 추가.
+    private readonly int MaxRestCountInOneWave = 5;
+    private const float SpawnTerm = 0.2f;
+    private int curAddedRestActCount = 0;
+    WaitForSeconds ws = new WaitForSeconds(SpawnTerm);
 
-    public void Spawn(MonsterType monsterType)
+    public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
+
+    public ActData addedAct = null;
+    public UI_CancelActBtn addedBtn = null;
+    public UI_CancelActBtn cancleBtnPrefab; // 이걸 누르면 동작을 취소함.
+
+    public RectTransform waitingActContentTrm;
+
+    public bool IsSameAct(ActData compareActData, ActData newActData) // 전에 추가한 것과 
     {
-        switch(monsterType)
-        {
-            case MonsterType.Goblin:
-                Debug.Log("Goblin");
-            break;
-            case MonsterType.Ghost:
-                Debug.Log("Ghost");
-                break;
-        }
+        if(waitingActs.Count > 0 && compareActData == null) 
+            compareActData = waitingActs[waitingActs.Count - 1].actData;
 
+        if (compareActData == null)
+            return false; //처음이면 당연히 새로 추가
+
+        if(compareActData.actType == ActType.Wait) // 전에 추가한게 휴식일 때,
+        {
+            if (compareActData.actType == newActData.actType) // 새로 추가한것도 휴식이면 같음.
+                return true;
+            else
+                return false;
+        }
+        else if(compareActData.actType == ActType.Enemy)
+        {
+            if (compareActData.monsterType == newActData.monsterType) // 새로 추가한것도 휴식이면 같음.
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return false; // 여기는.. 그냥 None이니까 있을리 없음!
+        }
+    }
+
+    public IEnumerator SpawnEnemy(MonsterType monsterType)
+    {
+        //switch(monsterType)
+        //{
+        //    case MonsterType.Goblin:
+        //        Debug.Log("Goblin");
+        //    break;
+        //    case MonsterType.Ghost:
+        //        Debug.Log("Ghost");
+        //        break;
+        //}
+
+        //테스트용
+        Debug.Log(monsterType.ToString());
+        yield return ws;
         TryAct();
     }
 
     public void CheckActType(ActData actData)
-    {
+    { 
         switch(actData.actType)
         {
             case ActType.Wait:
@@ -30,7 +74,7 @@ public class InvadeManager : Singleton<InvadeManager>
                 break;
 
             case ActType.Enemy:
-                Spawn(actData.monsterType);
+                StartCoroutine(SpawnEnemy(actData.monsterType));
                 break;
         }
     }
@@ -48,11 +92,151 @@ public class InvadeManager : Singleton<InvadeManager>
         TryAct();
     }
 
-    void TryAct()
+    void TryAct() // waiting 행동을 그거를 버튼으로 
     {
-        if (actQueue.Count > 0)
+        if (waitingActs.Count > 0)
         {
-            CheckActType(actQueue.Dequeue());
+            CheckActType(waitingActs[0].actData);
+            waitingActs[0].Cancel();
         }
+    }
+
+    public void AddAct(ActType actType, MonsterType monsterType = MonsterType.None)
+    {
+        Debug.Log("추가");
+        ActData newAct = new ActData(actType, monsterType);
+      
+        if(IsSameAct(addedAct, newAct))
+        {
+            if(addedBtn != null) addedBtn.Stack();
+        }
+        else // 새로 버튼 추가
+        {
+            AddBtn(newAct);
+        }
+        addedAct = newAct;
+    }
+
+    public void InsertAct(Vector3 dragEndPos, ActType actType, MonsterType monsterType = MonsterType.None)
+    {
+        int insertIdx = GetInsertIndex(dragEndPos);
+        ActData newAct = new ActData(actType, monsterType);
+
+        Debug.Log(insertIdx);
+        // list에 아무것도 없으면 insertIdx가 -2, 맨 왼쪽이면 -1 
+
+        if(insertIdx == -1)
+        {
+            if (IsSameAct(waitingActs[0].actData, newAct))
+            {
+                addedBtn = waitingActs[0]; // 같은거면 넣어줘야 함.
+                addedBtn.Stack();
+            }
+            else
+            {
+                InsertBtn(newAct, 0);
+                addedBtn.transform.SetSiblingIndex(0);
+                addedAct = newAct;
+            }
+        }
+        else if (insertIdx >= 0)
+        {
+            if (insertIdx == waitingActs.Count - 1) // 맨 오른쪽에 인서트하면 그냥 추가, 근데 이제 바로 왼쪽거랑 같은지 체크하기 위해 addedBtn 변수 할당.
+            {
+                addedBtn = waitingActs[insertIdx];
+                AddAct(actType, monsterType);
+            }
+            else
+            {
+                if (IsSameAct(waitingActs[insertIdx].actData, newAct))
+                {
+                    addedBtn = waitingActs[insertIdx]; // 같은거면 넣어줘야 함.
+                    addedBtn.Stack();
+                    return;
+                }
+                else if(insertIdx + 1 <= waitingActs.Count -1) // 내가 추가하려 하는 곳 
+                {
+                    if(IsSameAct(waitingActs[insertIdx + 1].actData, newAct))
+                    {
+                        addedBtn = waitingActs[insertIdx + 1]; // 같은거면 넣어줘야 함.
+                        addedBtn.Stack();
+                        return;
+                    }
+                }
+
+                InsertBtn(newAct, insertIdx);
+                addedBtn.transform.SetSiblingIndex(insertIdx + 1);
+                addedAct = newAct;
+            }
+        }
+        else
+        {
+            AddAct(actType, monsterType);
+        }
+    }
+
+    public void AddBtn(ActData newAct)
+    {
+        UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
+        waitingActs.Add(newBtn);
+        OnCreateRemoveBtn(newAct,newBtn);
+    }
+
+    public void InsertBtn(ActData newAct, int idx)
+    {
+        UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
+        waitingActs.Insert(idx, newBtn);
+        OnCreateRemoveBtn(newAct, newBtn);
+    }
+
+    public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
+    {
+        newBtn.Init(newAct);
+        newBtn.Stack();
+        addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
+
+        RefreshRemoveIdxes();
+        newBtn.cancleActBtn.onClick.AddListener(() =>
+        {
+            newBtn.Cancel();
+            RefreshRemoveIdxes();
+        });
+    }
+
+    public void RefreshRemoveIdxes()
+    {
+        for (int i = 0; i < waitingActs.Count; i++)
+        {
+            waitingActs[i].idx = i;
+        }
+    }
+
+    public int GetInsertIndex(Vector3 dragEndPos)
+    {
+        List<UI_CancelActBtn> copiedList = waitingActs.ToList(); // 값 복사 
+
+        // 드래그 종료된 위치와 가까운 순서대로 정렬, 가장 가까운데, dragendPos - 가까운놈 한 벡터가 +여야 함.
+        copiedList.Sort(
+            (x, y) => Vector3.Distance(x.transform.position, dragEndPos).CompareTo(
+                      Vector3.Distance(y.transform.position, dragEndPos)));
+
+        if(copiedList.Count > 0)
+        {
+            if (copiedList[0].idx == 0 && dragEndPos.x - copiedList[0].transform.position.x < 0) // 맨 왼쪽
+            {
+                return -1;
+            }
+        }
+        
+
+        foreach(var item in copiedList)
+        {
+            if(dragEndPos.x - item.transform.position.x > 0)
+            {
+                return item.idx;
+            }
+        }
+
+        return -2; // list가 0인 경우.
     }
 }

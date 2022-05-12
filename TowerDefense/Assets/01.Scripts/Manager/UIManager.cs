@@ -12,14 +12,27 @@ public class UIManager : Singleton<UIManager>
 
     public UI_TowerUpgradePanel towerUpgradePanel = null;
 
+    public UI_AddActBtn[] waitingActAddBtns;
+
+
     private void Awake()
     {
-       // Cursor.visible = false;
+        SetWaitingActAddBtns();
     }
 
     private void Start()
     {
         UpdateGoldText();
+    }
+
+    private void SetWaitingActAddBtns()
+    {
+        waitingActAddBtns[0].actData = new ActData(ActType.Enemy, MonsterType.Goblin);
+        waitingActAddBtns[1].actData = new ActData(ActType.Enemy, MonsterType.Ghost);
+        waitingActAddBtns[2].actData = new ActData(ActType.Enemy, MonsterType.Slime);
+        waitingActAddBtns[3].actData = new ActData(ActType.Enemy, MonsterType.IronBore);
+        waitingActAddBtns[4].actData = new ActData(ActType.Wait);
+
     }
 
     public void UpdateHPText()
@@ -31,4 +44,5 @@ public class UIManager : Singleton<UIManager>
     {
         moneyText.text = GameManager.Instance.Gold.ToString();
     }
+
 }
