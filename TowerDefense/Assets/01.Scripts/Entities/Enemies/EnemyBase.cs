@@ -11,6 +11,10 @@ public class EnemyData
     public float MoveSpeed;
     public int RewardGold;
     public bool IsHide;
+    public bool IsGuardian;
+    public bool IsFlying;
+    public PropertyType PropertyResistance;
+    public bool IsDebuffIimmune;
 }
 
 public class EnemyBase : MonoBehaviour
@@ -103,6 +107,10 @@ public class EnemyBase : MonoBehaviour
         myStat.MoveSpeed = enemySO.MoveSpeed;
         myStat.RewardGold = enemySO.RewardGold;
         myStat.IsHide = enemySO.IsHide;
+        myStat.IsGuardian = enemySO.IsGuardian;
+        myStat.IsFlying = enemySO.IsFlying;
+        myStat.PropertyResistance = enemySO.PropertyResistance;
+        myStat.IsDebuffIimmune = enemySO.IsDebuffIimmune;
     }
 
     void Move()
