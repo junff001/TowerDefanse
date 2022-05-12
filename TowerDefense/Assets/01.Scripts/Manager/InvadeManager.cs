@@ -198,6 +198,7 @@ public class InvadeManager : Singleton<InvadeManager>
         RefreshRemoveIdxes();
         newBtn.cancleActBtn.onClick.AddListener(() =>
         {
+            Debug.Log("ㅎㅇㅎㅇ");
             newBtn.Cancel();
             RefreshRemoveIdxes();
         });
