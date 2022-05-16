@@ -32,25 +32,24 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: e56c4323ea7c2f949a4b82fa37521a15, type: 3}
-    totalSpriteSurfaceArea: 2281344
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: -5475346510643634491, guid: 9112f74092a385e46a23230707f2c509, type: 3}
-  - {fileID: -3702928623682255910, guid: 9112f74092a385e46a23230707f2c509, type: 3}
-  - {fileID: -5475346510643634491, guid: 67e261d47b0609b468deb201d52b673f, type: 3}
-  - {fileID: -3702928623682255910, guid: 67e261d47b0609b468deb201d52b673f, type: 3}
-  - {fileID: -5475346510643634491, guid: 6cecf3b8553cbd949a8572811120f313, type: 3}
-  - {fileID: -3702928623682255910, guid: 6cecf3b8553cbd949a8572811120f313, type: 3}
-  - {fileID: -4355840616382916082, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
-  - {fileID: 8137017750165726945, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
-  - {fileID: 1442240968710923744, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
-  - {fileID: -8626365529436468613, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
+  - {fileID: -7723138260348071074, guid: 9112f74092a385e46a23230707f2c509, type: 3}
+  - {fileID: -915919365198260978, guid: 9112f74092a385e46a23230707f2c509, type: 3}
+  - {fileID: -7723138260348071074, guid: 67e261d47b0609b468deb201d52b673f, type: 3}
+  - {fileID: -915919365198260978, guid: 67e261d47b0609b468deb201d52b673f, type: 3}
+  - {fileID: -7723138260348071074, guid: 6cecf3b8553cbd949a8572811120f313, type: 3}
+  - {fileID: -915919365198260978, guid: 6cecf3b8553cbd949a8572811120f313, type: 3}
+  - {fileID: -1814421920196987873, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
+  - {fileID: -7794870147871298559, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
+  - {fileID: -1828946549344447192, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
+  - {fileID: -9205243106443064467, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
   - {fileID: -5673618120071735642, guid: c18cf5f8e28da724d9f9550e9befe5e7, type: 3}
-  - {fileID: -5475346510643634491, guid: c21481bbfd8d92541b0d31420c0f4a85, type: 3}
-  - {fileID: -3702928623682255910, guid: c21481bbfd8d92541b0d31420c0f4a85, type: 3}
+  - {fileID: -7723138260348071074, guid: c21481bbfd8d92541b0d31420c0f4a85, type: 3}
+  - {fileID: -915919365198260978, guid: c21481bbfd8d92541b0d31420c0f4a85, type: 3}
   m_PackedSpriteNamesToIndex:
   - BodyNormal
   - BodyBroken
