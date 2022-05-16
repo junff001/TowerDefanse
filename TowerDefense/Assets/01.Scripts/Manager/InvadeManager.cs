@@ -21,11 +21,10 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public bool IsSameAct(ActData compareActData, ActData newActData) // 전에 추가한 것과 
     {
-        if(waitingActs.Count > 0 && compareActData == null) 
+        if (waitingActs.Count > 0 && compareActData == null)
             compareActData = waitingActs[waitingActs.Count - 1].actData;
 
-        if (compareActData == null)
-            return false; //처음이면 당연히 새로 추가
+        if (compareActData == null) return false; //처음이면 당연히 새로 추가
 
         if(compareActData.actType == ActType.Wait) // 전에 추가한게 휴식일 때,
         {
@@ -34,9 +33,9 @@ public class InvadeManager : Singleton<InvadeManager>
             else
                 return false;
         }
-        else if(compareActData.actType == ActType.Enemy)
+        else if(newActData.actType == ActType.Enemy)
         {
-            if (compareActData.monsterType == newActData.monsterType) // 새로 추가한것도 휴식이면 같음.
+            if (compareActData.monsterType == newActData.monsterType) // 둘의 소환하는 몬스터 데이터가 같으면 같음
                 return true;
             else
                 return false;
@@ -101,9 +100,8 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
-    public void AddAct(ActType actType, MonsterType monsterType = MonsterType.None)
+    public void AddAct(ActType actType, MonsterType monsterType)
     {
-        Debug.Log("추가");
         ActData newAct = new ActData(actType, monsterType);
       
         if(IsSameAct(addedAct, newAct))
@@ -114,65 +112,59 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             AddBtn(newAct);
         }
-        addedAct = newAct;
     }
 
-    public void InsertAct(Vector3 dragEndPos, ActType actType, MonsterType monsterType = MonsterType.None)
+    public void InsertAct(Vector3 dragEndPos, ActType actType, MonsterType monsterType)
     {
         int insertIdx = GetInsertIndex(dragEndPos);
         ActData newAct = new ActData(actType, monsterType);
 
-        Debug.Log(insertIdx);
         // list에 아무것도 없으면 insertIdx가 -2, 맨 왼쪽이면 -1 
 
-        if(insertIdx == -1)
+        Debug.Log($"실행, {insertIdx} ");
+
+        if(insertIdx == -2) // 추가한게 없으면
         {
+            Debug.Log(1);
+            AddAct(newAct.actType, newAct.monsterType);
+        }
+
+        if(insertIdx == -1) // 맨 왼쪽이면.
+        {
+            Debug.Log(2);
             if (IsSameAct(waitingActs[0].actData, newAct))
             {
-                addedBtn = waitingActs[0]; // 같은거면 넣어줘야 함.
-                addedBtn.Stack();
+                waitingActs[0].Stack();
             }
             else
             {
                 InsertBtn(newAct, 0);
-                addedBtn.transform.SetSiblingIndex(0);
-                addedAct = newAct;
             }
         }
-        else if (insertIdx >= 0)
+        else if(insertIdx >= 0)// 0이상일 때
         {
-            if (insertIdx == waitingActs.Count - 1) // 맨 오른쪽에 인서트하면 그냥 추가, 근데 이제 바로 왼쪽거랑 같은지 체크하기 위해 addedBtn 변수 할당.
+            Debug.Log(3);
+            if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
             {
-                addedBtn = waitingActs[insertIdx];
-                AddAct(actType, monsterType);
+                waitingActs[insertIdx].Stack();
+            }
+            else if(insertIdx + 1 <= waitingActs.Count -1) // 내가 추가하려 하는 곳 
+            {
+                if(IsSameAct(waitingActs[insertIdx + 1].actData, newAct))
+                {
+                    waitingActs[insertIdx + 1].Stack();
+                }
+                else
+                {
+                    InsertBtn(newAct, insertIdx + 1);
+                }
             }
             else
             {
-                if (IsSameAct(waitingActs[insertIdx].actData, newAct))
-                {
-                    addedBtn = waitingActs[insertIdx]; // 같은거면 넣어줘야 함.
-                    addedBtn.Stack();
-                    return;
-                }
-                else if(insertIdx + 1 <= waitingActs.Count -1) // 내가 추가하려 하는 곳 
-                {
-                    if(IsSameAct(waitingActs[insertIdx + 1].actData, newAct))
-                    {
-                        addedBtn = waitingActs[insertIdx + 1]; // 같은거면 넣어줘야 함.
-                        addedBtn.Stack();
-                        return;
-                    }
-                }
-
-                InsertBtn(newAct, insertIdx);
-                addedBtn.transform.SetSiblingIndex(insertIdx + 1);
-                addedAct = newAct;
+                InsertBtn(newAct, insertIdx +1);
             }
         }
-        else
-        {
-            AddAct(actType, monsterType);
-        }
+        addedAct = newAct;
     }
 
     public void AddBtn(ActData newAct)
@@ -187,6 +179,7 @@ public class InvadeManager : Singleton<InvadeManager>
         UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
         waitingActs.Insert(idx, newBtn);
         OnCreateRemoveBtn(newAct, newBtn);
+        newBtn.transform.SetSiblingIndex(idx);
     }
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
@@ -194,11 +187,11 @@ public class InvadeManager : Singleton<InvadeManager>
         newBtn.Init(newAct);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
-
+        addedAct = newAct;
         RefreshRemoveIdxes();
+
         newBtn.cancleActBtn.onClick.AddListener(() =>
         {
-            Debug.Log("ㅎㅇㅎㅇ");
             newBtn.Cancel();
             RefreshRemoveIdxes();
         });
@@ -223,21 +216,23 @@ public class InvadeManager : Singleton<InvadeManager>
 
         if(copiedList.Count > 0)
         {
-            if (copiedList[0].idx == 0 && dragEndPos.x - copiedList[0].transform.position.x < 0) // 맨 왼쪽
+            float x = dragEndPos.x - copiedList[0].transform.position.x;  // 내 마우스 위치 - 리스트의 첫번째 UI 위치
+            if (copiedList[0].idx == 0 && x < 0) // 맨 왼쪽
             {
+                Debug.Log("맨 왼쪽");
                 return -1;
             }
         }
-        
 
         foreach(var item in copiedList)
         {
             if(dragEndPos.x - item.transform.position.x > 0)
             {
+                Debug.Log("중간 삽입");
                 return item.idx;
             }
         }
 
-        return -2; // list가 0인 경우.
+        return -2; // list가 Null인 경우
     }
 }
