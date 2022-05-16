@@ -148,9 +148,9 @@ public class InvadeManager : Singleton<InvadeManager>
             {
                 waitingActs[insertIdx].Stack();
             }
-            else if(insertIdx + 1 <= waitingActs.Count -1) // 내가 추가하려 하는 곳 
+            else if(insertIdx + 1 <= waitingActs.Count -1) // 인덱스 안넘어가도록..
             {
-                if(IsSameAct(waitingActs[insertIdx + 1].actData, newAct))
+                if(IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
                 {
                     waitingActs[insertIdx + 1].Stack();
                 }
@@ -162,6 +162,59 @@ public class InvadeManager : Singleton<InvadeManager>
             else
             {
                 InsertBtn(newAct, insertIdx +1);
+            }
+        }
+        addedAct = newAct;
+    }
+
+    public void ShowInsertPlace(Vector3 dragEndPos, ActType actType, MonsterType monsterType)
+    {
+        int insertIdx = GetInsertIndex(dragEndPos);
+        ActData newAct = new ActData(actType, monsterType);
+
+        // list에 아무것도 없으면 insertIdx가 -2, 맨 왼쪽이면 -1 
+
+        Debug.Log($"실행, {insertIdx} ");
+
+        if (insertIdx == -2) // 추가한게 없으면
+        {
+            Debug.Log(1);
+            AddAct(newAct.actType, newAct.monsterType);
+        }
+
+        if (insertIdx == -1) // 맨 왼쪽이면.
+        {
+            Debug.Log(2);
+            if (IsSameAct(waitingActs[0].actData, newAct))
+            {
+                waitingActs[0].Stack();
+            }
+            else
+            {
+                InsertBtn(newAct, 0);
+            }
+        }
+        else if (insertIdx >= 0)// 0이상일 때
+        {
+            Debug.Log(3);
+            if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
+            {
+                waitingActs[insertIdx].Stack();
+            }
+            else if (insertIdx + 1 <= waitingActs.Count - 1) // 인덱스 안넘어가도록..
+            {
+                if (IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
+                {
+                    waitingActs[insertIdx + 1].Stack();
+                }
+                else
+                {
+                    InsertBtn(newAct, insertIdx + 1);
+                }
+            }
+            else
+            {
+                InsertBtn(newAct, insertIdx + 1);
             }
         }
         addedAct = newAct;

@@ -32,6 +32,8 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("드래그 끗");
+
+        
         foreach (var item in eventData.hovered)
         {
             Debug.Log(item.name);
