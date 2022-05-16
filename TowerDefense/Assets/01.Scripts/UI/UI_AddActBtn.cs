@@ -19,9 +19,11 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            if(movedDist < checkStandardDist)
+            movedDist = Vector3.Distance(moveImg.GetComponent<RectTransform>().anchoredPosition, Vector3.zero);
+            if (movedDist < checkStandardDist)
             {
-                movedDist = Vector3.Distance(moveImg.GetComponent<RectTransform>().anchoredPosition, Vector3.zero);
+                Debug.Log("온클릭?");
+
                 InvadeManager.Instance.AddAct(actData.actType, actData.monsterType);
             }
         });
@@ -29,14 +31,19 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("드래그 끗");
+
+        
         foreach (var item in eventData.hovered)
         {
+            Debug.Log(item.name);
             if (item.CompareTag("ActContent")) // 따로 캔버스 바로 아래에 체크할 영역용 GameObject 만들어두기
             {
                 InvadeManager.Instance.InsertAct(Input.mousePosition, actData.actType, actData.monsterType);
             }
         }
         moveImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+        
     }
 
     public void OnDrag(PointerEventData eventData)

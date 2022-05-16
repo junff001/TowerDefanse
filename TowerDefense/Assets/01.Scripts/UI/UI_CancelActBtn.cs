@@ -37,17 +37,20 @@ public class UI_CancelActBtn : MonoBehaviour
         if (actStackCount == 0)
         {
             InvadeManager im = InvadeManager.Instance;
+            im.waitingActs.Remove(this);
+
             if (im.waitingActs.Count > 0)
             {
                 im.addedAct = im.waitingActs[im.waitingActs.Count - 1].actData;
                 im.addedBtn = im.waitingActs[im.waitingActs.Count - 1];
-                im.waitingActs.Remove(this);
             }
-            
-            Destroy(this.gameObject);
+            else
+            {
+                im.addedBtn = null;
+                im.addedAct = null;
+            }
 
+            Destroy(this.gameObject);
         }
     }
-
-
 }

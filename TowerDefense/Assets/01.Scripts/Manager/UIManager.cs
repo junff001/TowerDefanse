@@ -32,7 +32,6 @@ public class UIManager : Singleton<UIManager>
         waitingActAddBtns[2].actData = new ActData(ActType.Enemy, MonsterType.Slime);
         waitingActAddBtns[3].actData = new ActData(ActType.Enemy, MonsterType.IronBore);
         waitingActAddBtns[4].actData = new ActData(ActType.Wait);
-
     }
 
     public void UpdateHPText()
