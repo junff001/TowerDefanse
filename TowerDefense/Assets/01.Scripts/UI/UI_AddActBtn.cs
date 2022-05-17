@@ -12,8 +12,12 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     bool bDraged = false;
     WaitForSeconds ws = new WaitForSeconds(0.1f);
 
+    private GraphicRaycaster gr;
+
+
     private void Start()
     {
+        gr = transform.root.GetComponent<GraphicRaycaster>();
         StartCoroutine(CheckDrag());
     }
 
@@ -39,13 +43,18 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        foreach (var item in eventData.hovered)
+        List<RaycastResult> results = new List<RaycastResult>();
+        gr.Raycast(eventData, results);
+
+        foreach (var item in results)
         {
-            if (item.CompareTag("ActContent")) // 따로 캔버스 바로 아래에 체크할 영역용 GameObject 만들어두기
+            Debug.Log(item.gameObject.name);
+            if (item.gameObject.CompareTag("ActContent"))
             {
                 InvadeManager.Instance.InsertAct(Input.mousePosition, actData.actType, actData.monsterType);
             }
         }
+
         moveImg.anchoredPosition = Vector3.zero;
         InvadeManager.Instance.ReduceDummyObj();
         InvadeManager.Instance.ResetButtons();
