@@ -20,4 +20,8 @@ public class TowerSO : ScriptableObject
     // 공격범위
     [SerializeField] private float attackRange = 0f;              
     public float AttackRange { get => attackRange; set => value = attackRange; }
+
+    // 설치비용
+    [SerializeField] private int placeCost = 100;
+    public int PlaceCost { get => placeCost; set => value = placeCost; }
 }

@@ -5,11 +5,28 @@ using UnityEngine.UI;
 
 public class UI_TowerPanel : MonoBehaviour
 {
-    [SerializeField] private Image towerImage = null;
+    private Button myButton;
 
-    public void TowerSetting()
+    [SerializeField] private Image towerImage = null;
+    [SerializeField] private Text towerCostText = null;
+    [SerializeField] private GameObject towerPrefab = null;
+
+    private void Awake()
     {
-        BuildManager.Instance.isTowerSetting = true;
-        BuildManager.Instance.towerColor = towerImage.color;
+        myButton = GetComponent<Button>();
+    }
+
+    private void Start()
+    {
+        myButton.onClick.AddListener(() =>
+        {
+            BuildManager.Instance.TowerSetting(towerPrefab);
+        });
+    }
+
+    public void BtnInit(Sprite towerSprite, int towerCost)
+    {
+        towerImage.sprite = towerSprite;
+        towerCostText.text = towerCost.ToString();
     }
 }

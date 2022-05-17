@@ -68,8 +68,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 8102f808785b88d4eba575fc6a7d32d1, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2.2
 --- !u!114 &6749774290861803343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,9 +137,6 @@ MonoBehaviour:
   actData:
     actType: 0
     monsterType: 0
-  la:
-    serializedVersion: 2
-    m_Bits: 128
   moveImg: {fileID: 6749774292135483744}
   movedDist: 0
 --- !u!1 &6749774292135483745
