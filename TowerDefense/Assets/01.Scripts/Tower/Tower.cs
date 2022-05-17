@@ -8,12 +8,14 @@ public struct TowerData
     public float OffensePower;
     public float AttackSpeed;
     public float AttackRange;
+    public int PlaceCost;
 }
 
 public class Tower : MonoBehaviour
 {
     private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
-                                                                
+    public TowerData TowerData { get => towerData; set => value = towerData; }
+
     [SerializeField] private TowerSO towerSO = null;            // 실질적 타워 정보
                                                                 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
@@ -47,6 +49,7 @@ public class Tower : MonoBehaviour
         towerData.OffensePower = towerSO.OffensePower;
         towerData.AttackSpeed = towerSO.AttackSpeed;
         towerData.AttackRange = towerSO.AttackRange;
+        towerData.PlaceCost = towerSO.PlaceCost;
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리

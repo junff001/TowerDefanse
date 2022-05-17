@@ -12,6 +12,8 @@ public class InvadeManager : Singleton<InvadeManager>
     private int curAddedRestActCount = 0;
     WaitForSeconds ws = new WaitForSeconds(SpawnTerm);
 
+    public Color overlapColor;
+
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 
     public ActData addedAct = null;
@@ -198,7 +200,7 @@ public class InvadeManager : Singleton<InvadeManager>
             SetInvisibleObj(0);
             if (waitingActs.Count > 0 && IsSameAct(waitingActs[0].actData, newAct))
             {
-                waitingActs[0].cancleActBtn.image.color = Color.blue;
+                waitingActs[0].cancleActBtn.image.color = overlapColor;
             }
         }
         else // 인덱스에 알맞게 투명 이미지 옮겨주기
@@ -206,13 +208,13 @@ public class InvadeManager : Singleton<InvadeManager>
             SetInvisibleObj(insertIdx + 1);
             if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
             {
-                waitingActs[insertIdx].cancleActBtn.image.color = Color.blue;
+                waitingActs[insertIdx].cancleActBtn.image.color = overlapColor;
             }
             else if (insertIdx + 1 <= waitingActs.Count - 1) // 인덱스 안넘어가도록..
             {
                 if (IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
                 {
-                    waitingActs[insertIdx + 1].cancleActBtn.image.color = Color.blue;
+                    waitingActs[insertIdx + 1].cancleActBtn.image.color = overlapColor;
                 }
             }
         }

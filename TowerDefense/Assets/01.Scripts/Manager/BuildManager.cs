@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,9 @@ public class BuildManager : Singleton<BuildManager>
     [SerializeField] private LayerMask towerMask = default;
     [SerializeField] private Transform waitTrm = null;             // 대기 지점
 
-    public GameObject towerPrefab = null;                          // 타워 프리팹
-    public bool isTowerSetting { get; set; } = false;              // 타워 정보 설정 할 것인가
-    public Color towerColor { get; set; } = default;               // 타워 색깔
-
     private Tile currentTile = null;                               // 마우스에 위치한 현재 타일
     private Vector3Int tilePos = Vector3Int.zero;                  // 타일 위치
     private Vector3Int beforeTilePos = Vector3Int.zero;            // 이전 타일 위치
-    private List<GameObject> towerList = new List<GameObject>();   // 타워 위치를 관리할 리스트
     private GameObject currentTower = null;
 
     public Transform grid;
@@ -28,44 +24,14 @@ public class BuildManager : Singleton<BuildManager>
     {
         TileInMousePosition();
 
-        if (isTowerSetting)
-        {
-            TowerSetting();
-            isTowerSetting = false;
-        }
-
         TileChecking();
     }
 
-    // 타워를 스폰하는 함수
-    public void SpawnTower(Vector3Int tile)
-    {
-        // 중복 생성 방지
-        for (int i = 0; i < towerList.Count; i++)  // 현 타일 위치에 타워 존재여부 확인
-        {
-            if (towerList[i].transform.position == tilemap.GetCellCenterWorld(tilePos))
-            {
-                return;
-            }
-        }
-
-        towerList.Add(currentTower);
-
-        if (towerList[towerList.Count - 1].transform.position == waitTrm.position)
-        {
-            if (GoldManager.Instance.GoldMinus(100))
-            {
-                towerList[towerList.Count - 1].transform.position = tilemap.GetCellCenterWorld(tilePos);
-            }
-        }
-    }
-
     // 타워 세팅하는 함수
-    void TowerSetting()
+    public void TowerSetting(GameObject prefab)
     {
-        currentTower = Instantiate(towerPrefab);
+        currentTower = Instantiate(prefab);
         currentTower.transform.position = waitTrm.position;
-        currentTower.GetComponent<Tower>().spriteRenderer.color = towerColor;
     }
 
     // 마우스 위치에 있는 타일
@@ -91,21 +57,24 @@ public class BuildManager : Singleton<BuildManager>
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    for (int i = 0; i < towerList.Count; i++) // 똑같은 타워를 눌렀는가
-                    {
-                        if (towerList[i].transform.position == tilemap.GetCellCenterWorld(tilePos))
-                        {
-                            //towerList[i].GetComponent<Tower>().TowerUpgrade();
-                        }
-                    }
-
                     if (currentTower != null)
                     {
-                        SpawnTower(tilePos);
+                        SpawnTower();
                     }
                 }
             }
         } 
+    }
+
+    // 타워를 스폰하는 함수
+    public void SpawnTower()
+    {
+        TowerData towerData = currentTower.GetComponent<Tower>().TowerData;
+
+        if (GoldManager.Instance.GoldMinus(towerData.PlaceCost))
+        {
+            currentTower.transform.position = tilemap.GetCellCenterWorld(tilePos);
+        }
     }
 
     // 스폰 타일 컬러 활성화하는 함수
