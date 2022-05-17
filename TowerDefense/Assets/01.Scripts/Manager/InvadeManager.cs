@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using DG.Tweening;
 
 public class InvadeManager : Singleton<InvadeManager>
 {
@@ -18,6 +19,15 @@ public class InvadeManager : Singleton<InvadeManager>
     public UI_CancelActBtn cancleBtnPrefab; // 이걸 누르면 동작을 취소함.
 
     public RectTransform waitingActContentTrm;
+    public RectTransform invisibleObj;
+
+    int beforeIdx = 0;
+    float sideLength = 0f;
+
+    private void Start()
+    {
+        sideLength = cancleBtnPrefab.GetComponent<RectTransform>().rect.width;
+    }
 
     public bool IsSameAct(ActData compareActData, ActData newActData) // 전에 추가한 것과 
     {
@@ -167,57 +177,36 @@ public class InvadeManager : Singleton<InvadeManager>
         addedAct = newAct;
     }
 
-    public void ShowInsertPlace(Vector3 dragEndPos, ActType actType, MonsterType monsterType)
+    public void ShowInsertPlace(Vector3 dragEndPos)
     {
         int insertIdx = GetInsertIndex(dragEndPos);
-        ActData newAct = new ActData(actType, monsterType);
 
-        // list에 아무것도 없으면 insertIdx가 -2, 맨 왼쪽이면 -1 
+        if (beforeIdx == insertIdx) return; // 동일 위치면 버벅거리는 문제 해결
 
-        Debug.Log($"실행, {insertIdx} ");
-
-        if (insertIdx == -2) // 추가한게 없으면
+        invisibleObj.transform.DOKill();
+        if (insertIdx < 0) // 맨 왼쪽
         {
-            Debug.Log(1);
-            AddAct(newAct.actType, newAct.monsterType);
+            invisibleObj.transform.SetSiblingIndex(0);
+            invisibleObj.sizeDelta = new Vector2(0, sideLength);
+            invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
         }
+        else // 인덱스에 알맞게 투명 이미지 옮겨주기
+        {
+            invisibleObj.transform.SetSiblingIndex(insertIdx + 1);
+            invisibleObj.sizeDelta = new Vector2(0, sideLength);
+            invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
+        }
+        beforeIdx = insertIdx;
+    }
+    
+    public void ReduceDummyObj() // 인서트 종료시 다시 줄여주기
+    {
+        invisibleObj.DOKill();
+        invisibleObj.DOSizeDelta(new Vector2(0, invisibleObj.sizeDelta.y), 0.3f).OnComplete(() =>
+        {
+            invisibleObj.transform.SetSiblingIndex(waitingActs.Count - 1);
+        });
 
-        if (insertIdx == -1) // 맨 왼쪽이면.
-        {
-            Debug.Log(2);
-            if (IsSameAct(waitingActs[0].actData, newAct))
-            {
-                waitingActs[0].Stack();
-            }
-            else
-            {
-                InsertBtn(newAct, 0);
-            }
-        }
-        else if (insertIdx >= 0)// 0이상일 때
-        {
-            Debug.Log(3);
-            if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
-            {
-                waitingActs[insertIdx].Stack();
-            }
-            else if (insertIdx + 1 <= waitingActs.Count - 1) // 인덱스 안넘어가도록..
-            {
-                if (IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
-                {
-                    waitingActs[insertIdx + 1].Stack();
-                }
-                else
-                {
-                    InsertBtn(newAct, insertIdx + 1);
-                }
-            }
-            else
-            {
-                InsertBtn(newAct, insertIdx + 1);
-            }
-        }
-        addedAct = newAct;
     }
 
     public void AddBtn(ActData newAct)
