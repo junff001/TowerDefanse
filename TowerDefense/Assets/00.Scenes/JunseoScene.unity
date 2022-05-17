@@ -3675,6 +3675,7 @@ MonoBehaviour:
   moneyText: {fileID: 0}
   speedButton: {fileID: 390931179}
   towerUpgradePanel: {fileID: 0}
+  waitingActAddBtns: []
 --- !u!1 &997105796
 GameObject:
   m_ObjectHideFlags: 0
@@ -4859,7 +4860,6 @@ GameObject:
   - component: {fileID: 1204503021}
   - component: {fileID: 1204503024}
   - component: {fileID: 1204503023}
-  - component: {fileID: 1204503022}
   m_Layer: 0
   m_Name: Map_tile
   m_TagString: Untagged
@@ -4881,19 +4881,6 @@ Transform:
   m_Father: {fileID: 1885093354}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1204503022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204503020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2046d72b809cc1944a8c07bdd8ee3be5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 1204503024}
 --- !u!483693784 &1204503023
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -8369,6 +8356,7 @@ MonoBehaviour:
     m_Bits: 64
   waitTrm: {fileID: 1048994058}
   towerPrefab: {fileID: 2454648908224772907, guid: 5a8832d6f66335145bba1481be2adc44, type: 3}
+  grid: {fileID: 0}
 --- !u!1 &1540704795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9815,6 +9803,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  enemySprites: []
+  waitSprite: {fileID: 0}
 --- !u!4 &2102949887
 Transform:
   m_ObjectHideFlags: 0

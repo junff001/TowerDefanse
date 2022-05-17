@@ -28,7 +28,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     public void OnDrag(PointerEventData eventData)
     {
-        InvadeManager.Instance.ShowInsertPlace(Input.mousePosition);
+        InvadeManager.Instance.ShowInsertPlace(Input.mousePosition, actData);
         moveImg.transform.position = Input.mousePosition;
     }
 

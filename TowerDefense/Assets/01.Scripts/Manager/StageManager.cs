@@ -44,7 +44,7 @@ public class StageManager : Singleton<StageManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StageDataSO stageData = selectedStage;
+        //StageDataSO stageData = selectedStage;
         SetStageDatas(selectedStage);
         Debug.Log("ㅎㅇ");
     }

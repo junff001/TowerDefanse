@@ -36,14 +36,14 @@ public class InvadeManager : Singleton<InvadeManager>
 
         if (compareActData == null) return false; //처음이면 당연히 새로 추가
 
-        if(compareActData.actType == ActType.Wait) // 전에 추가한게 휴식일 때,
+        if (compareActData.actType == ActType.Wait) // 전에 추가한게 휴식일 때,
         {
             if (compareActData.actType == newActData.actType) // 새로 추가한것도 휴식이면 같음.
                 return true;
             else
                 return false;
         }
-        else if(newActData.actType == ActType.Enemy)
+        else if (newActData.actType == ActType.Enemy)
         {
             if (compareActData.monsterType == newActData.monsterType) // 둘의 소환하는 몬스터 데이터가 같으면 같음
                 return true;
@@ -75,8 +75,8 @@ public class InvadeManager : Singleton<InvadeManager>
     }
 
     public void CheckActType(ActData actData)
-    { 
-        switch(actData.actType)
+    {
+        switch (actData.actType)
         {
             case ActType.Wait:
                 StartCoroutine(Wait());
@@ -90,7 +90,7 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void WaveStart() //TryAct라는 말이 웨이브 시작할 때 실행할 함수명으로 적절치 않아서 그냥 WaveStart라고 따로 만들어뒀어여
     {
-        TryAct(); 
+        TryAct();
     }
 
     IEnumerator Wait()
@@ -113,10 +113,10 @@ public class InvadeManager : Singleton<InvadeManager>
     public void AddAct(ActType actType, MonsterType monsterType)
     {
         ActData newAct = new ActData(actType, monsterType);
-      
-        if(IsSameAct(addedAct, newAct))
+
+        if (IsSameAct(addedAct, newAct))
         {
-            if(addedBtn != null) addedBtn.Stack();
+            if (addedBtn != null) addedBtn.Stack();
         }
         else // 새로 버튼 추가
         {
@@ -133,13 +133,13 @@ public class InvadeManager : Singleton<InvadeManager>
 
         Debug.Log($"실행, {insertIdx} ");
 
-        if(insertIdx == -2) // 추가한게 없으면
+        if (insertIdx == -2) // 추가한게 없으면
         {
             Debug.Log(1);
             AddAct(newAct.actType, newAct.monsterType);
         }
 
-        if(insertIdx == -1) // 맨 왼쪽이면.
+        if (insertIdx == -1) // 맨 왼쪽이면.
         {
             Debug.Log(2);
             if (IsSameAct(waitingActs[0].actData, newAct))
@@ -151,16 +151,16 @@ public class InvadeManager : Singleton<InvadeManager>
                 InsertBtn(newAct, 0);
             }
         }
-        else if(insertIdx >= 0)// 0이상일 때
+        else if (insertIdx >= 0)// 0이상일 때
         {
             Debug.Log(3);
             if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
             {
                 waitingActs[insertIdx].Stack();
             }
-            else if(insertIdx + 1 <= waitingActs.Count -1) // 인덱스 안넘어가도록..
+            else if (insertIdx + 1 <= waitingActs.Count - 1) // 인덱스 안넘어가도록..
             {
-                if(IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
+                if (IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
                 {
                     waitingActs[insertIdx + 1].Stack();
                 }
@@ -171,49 +171,68 @@ public class InvadeManager : Singleton<InvadeManager>
             }
             else
             {
-                InsertBtn(newAct, insertIdx +1);
+                InsertBtn(newAct, insertIdx + 1);
             }
         }
         addedAct = newAct;
     }
 
-    public void ShowInsertPlace(Vector3 dragEndPos)
+    public void ShowInsertPlace(Vector3 dragEndPos, ActData newAct)
     {
         int insertIdx = GetInsertIndex(dragEndPos);
 
         if (beforeIdx == insertIdx) return; // 동일 위치면 버벅거리는 문제 해결
 
-        invisibleObj.transform.DOKill();
+        foreach (var item in waitingActs) item.cancleActBtn.image.color = Color.white;
+
+        invisibleObj.DOKill();
+        invisibleObj.sizeDelta = new Vector2(0, sideLength);
+
         if (insertIdx < 0) // 맨 왼쪽
         {
-            invisibleObj.transform.SetSiblingIndex(0);
-            invisibleObj.sizeDelta = new Vector2(0, sideLength);
-            invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
+            SetInvisibleObj(0);
+            if (waitingActs.Count > 0 && IsSameAct(waitingActs[0].actData, newAct))
+            {
+                waitingActs[0].cancleActBtn.image.color = Color.blue;
+            }
         }
         else // 인덱스에 알맞게 투명 이미지 옮겨주기
         {
-            invisibleObj.transform.SetSiblingIndex(insertIdx + 1);
-            invisibleObj.sizeDelta = new Vector2(0, sideLength);
-            invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
+            SetInvisibleObj(insertIdx + 1);
+            if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
+            {
+                waitingActs[insertIdx].cancleActBtn.image.color = Color.blue;
+            }
+            else if (insertIdx + 1 <= waitingActs.Count - 1) // 인덱스 안넘어가도록..
+            {
+                if (IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
+                {
+                    waitingActs[insertIdx + 1].cancleActBtn.image.color = Color.blue;
+                }
+            }
         }
         beforeIdx = insertIdx;
     }
-    
+
+    void SetInvisibleObj(int insertIdx)
+    {
+        invisibleObj.transform.SetSiblingIndex(insertIdx);
+        invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
+    }
+
     public void ReduceDummyObj() // 인서트 종료시 다시 줄여주기
     {
         beforeIdx = -18;
         invisibleObj.DOKill();
-        invisibleObj.DOSizeDelta(new Vector2(0, invisibleObj.sizeDelta.y), 0.3f).OnComplete(() =>
-        {
-            invisibleObj.gameObject.SetActive(false);
-        });
+        invisibleObj.sizeDelta = new Vector2(0, sideLength);
+        invisibleObj.gameObject.SetActive(false);
     }
 
     public void AddBtn(ActData newAct)
     {
         UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
         waitingActs.Add(newBtn);
-        OnCreateRemoveBtn(newAct,newBtn);
+        OnCreateRemoveBtn(newAct, newBtn);
     }
 
     public void InsertBtn(ActData newAct, int idx)
@@ -256,7 +275,7 @@ public class InvadeManager : Singleton<InvadeManager>
             (x, y) => Vector3.Distance(x.transform.position, dragEndPos).CompareTo(
                       Vector3.Distance(y.transform.position, dragEndPos)));
 
-        if(copiedList.Count > 0)
+        if (copiedList.Count > 0)
         {
             float x = dragEndPos.x - copiedList[0].transform.position.x;  // 내 마우스 위치 - 리스트의 첫번째 UI 위치
             if (copiedList[0].idx == 0 && x < 0) // 맨 왼쪽
@@ -266,9 +285,9 @@ public class InvadeManager : Singleton<InvadeManager>
             }
         }
 
-        foreach(var item in copiedList)
+        foreach (var item in copiedList)
         {
-            if(dragEndPos.x - item.transform.position.x > 0)
+            if (dragEndPos.x - item.transform.position.x > 0)
             {
                 Debug.Log("중간 삽입");
                 return item.idx;

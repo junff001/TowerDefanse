@@ -16,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     public Sprite[] enemySprites;
     public Sprite waitSprite;
 
+    public Dictionary<string, Sprite> tileSpritesDic = new Dictionary<string, Sprite>();
+
     private void Awake()
     {
         if(wayPoints.Count > 0)
@@ -24,7 +26,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public Sprite GetSuitToBtnSprite(MonsterType monsterType)
+    public Sprite GetActBtnSprite(MonsterType monsterType)
     {
         Sprite retSpr = null;
         switch(monsterType)
