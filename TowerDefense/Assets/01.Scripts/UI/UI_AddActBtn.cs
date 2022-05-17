@@ -48,6 +48,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         }
         moveImg.anchoredPosition = Vector3.zero;
         InvadeManager.Instance.ReduceDummyObj();
+        InvadeManager.Instance.ResetButtons();
     }
 
     IEnumerator CheckDrag()

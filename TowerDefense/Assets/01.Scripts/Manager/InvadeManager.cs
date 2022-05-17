@@ -177,13 +177,18 @@ public class InvadeManager : Singleton<InvadeManager>
         addedAct = newAct;
     }
 
+    public void ResetButtons()
+    {
+        foreach (var item in waitingActs) item.cancleActBtn.image.color = Color.white;
+    }
+
     public void ShowInsertPlace(Vector3 dragEndPos, ActData newAct)
     {
         int insertIdx = GetInsertIndex(dragEndPos);
 
         if (beforeIdx == insertIdx) return; // 동일 위치면 버벅거리는 문제 해결
 
-        foreach (var item in waitingActs) item.cancleActBtn.image.color = Color.white;
+        ResetButtons();
 
         invisibleObj.DOKill();
         invisibleObj.sizeDelta = new Vector2(0, sideLength);
@@ -280,7 +285,6 @@ public class InvadeManager : Singleton<InvadeManager>
             float x = dragEndPos.x - copiedList[0].transform.position.x;  // 내 마우스 위치 - 리스트의 첫번째 UI 위치
             if (copiedList[0].idx == 0 && x < 0) // 맨 왼쪽
             {
-                Debug.Log("맨 왼쪽");
                 return -1;
             }
         }
@@ -289,7 +293,6 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             if (dragEndPos.x - item.transform.position.x > 0)
             {
-                Debug.Log("중간 삽입");
                 return item.idx;
             }
         }
