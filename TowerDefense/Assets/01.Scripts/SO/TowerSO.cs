@@ -8,9 +8,6 @@ public class TowerSO : ScriptableObject
     // 레벨
     [SerializeField] private int level = 0;
     public int Level { get => level; set => value = level; }
-    // 체력
-    [SerializeField] private int hp = 0;                          
-    public int HP { get => hp; set => value = hp; }
 
     // 공격력
     [SerializeField] private float offensePower  = 0f;           

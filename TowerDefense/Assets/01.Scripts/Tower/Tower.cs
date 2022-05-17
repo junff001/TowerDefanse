@@ -5,7 +5,6 @@ using UnityEngine;
 public struct TowerData
 {
     public int Level;
-    public int HP;
     public float OffensePower;
     public float AttackSpeed;
     public float AttackRange;
@@ -16,8 +15,6 @@ public class Tower : MonoBehaviour
     private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
                                                                 
     [SerializeField] private TowerSO towerSO = null;            // 실질적 타워 정보
-    [SerializeField] private Sprite towerLook1 = null;          // 타워 외형 1
-    [SerializeField] private Sprite towerLook2 = null;          // 타워 외형 2
                                                                 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
     public bool canInteraction { get; set; } = false;           // 상호작용 가능값
@@ -46,7 +43,6 @@ public class Tower : MonoBehaviour
 
     void InitTowerData()
     {
-        towerData.HP = towerSO.HP;
         towerData.Level = towerSO.Level;
         towerData.OffensePower = towerSO.OffensePower;
         towerData.AttackSpeed = towerSO.AttackSpeed;
@@ -108,35 +104,6 @@ public class Tower : MonoBehaviour
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
         bullet.bulletDamage = power;
-    }
-
-    // 타워를 업그레이드하는 함수
-    public void TowerUpgrade()
-    {
-        if (towerData.Level >= 3)  // 3렙이면 업그레이드 안함
-        {
-            return;
-        }
-        else
-        {
-            towerData.Level++;
-           
-            switch (towerData.Level)
-            {
-                case 2:    // 2레벨
-                {
-                    spriteRenderer.sprite = towerLook1;
-                }
-                break;
-                case 3:    // 3레벨
-                {
-                    spriteRenderer.sprite = towerLook2;
-                }
-                break;
-                default:
-                    break;
-            }
-        }
     }
 
     // 공격 범위를 표시하는 함수
