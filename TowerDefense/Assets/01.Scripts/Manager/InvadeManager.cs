@@ -263,6 +263,29 @@ public class InvadeManager : Singleton<InvadeManager>
         });
     }
 
+    public void OnBtnRemoved(int idx)
+    {
+        if (idx == 0) // 맨 왼쪽
+        {
+            return;
+        }
+        else if (waitingActs.Count > idx) //내가 삭제한게 맨 오른쪽 끝이 아님.
+        {
+            if(IsSameAct(waitingActs[idx - 1].actData, waitingActs[idx].actData))
+            {
+                for(int i =0; i < waitingActs[idx].actStackCount; i++)
+                {
+                    waitingActs[idx - 1].Stack();
+                }
+                Destroy(waitingActs[idx].gameObject);
+                waitingActs.Remove(waitingActs[idx]);
+
+                addedAct = waitingActs[waitingActs.Count - 1].actData;
+                addedBtn = waitingActs[waitingActs.Count - 1];
+            }
+        }
+    }
+
     public void RefreshRemoveIdxes()
     {
         for (int i = 0; i < waitingActs.Count; i++)

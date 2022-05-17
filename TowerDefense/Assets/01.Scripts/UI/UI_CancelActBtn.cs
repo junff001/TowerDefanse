@@ -44,6 +44,7 @@ public class UI_CancelActBtn : MonoBehaviour
             {
                 im.addedAct = im.waitingActs[im.waitingActs.Count - 1].actData;
                 im.addedBtn = im.waitingActs[im.waitingActs.Count - 1];
+                InvadeManager.Instance.OnBtnRemoved(idx);
             }
             else
             {
