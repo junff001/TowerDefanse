@@ -201,12 +201,12 @@ public class InvadeManager : Singleton<InvadeManager>
     
     public void ReduceDummyObj() // 인서트 종료시 다시 줄여주기
     {
+        beforeIdx = -18;
         invisibleObj.DOKill();
         invisibleObj.DOSizeDelta(new Vector2(0, invisibleObj.sizeDelta.y), 0.3f).OnComplete(() =>
         {
-            invisibleObj.transform.SetSiblingIndex(waitingActs.Count - 1);
+            invisibleObj.gameObject.SetActive(false);
         });
-
     }
 
     public void AddBtn(ActData newAct)

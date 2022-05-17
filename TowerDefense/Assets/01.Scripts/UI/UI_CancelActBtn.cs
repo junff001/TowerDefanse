@@ -12,6 +12,7 @@ public class UI_CancelActBtn : MonoBehaviour
 
     public Image monsterImg;
     public Text countText;
+
     public void Stack() // 쌓기
     {
         actStackCount++;

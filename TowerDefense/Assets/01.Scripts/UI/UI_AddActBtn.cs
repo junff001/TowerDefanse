@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointerUpHandler
+public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointerUpHandler, IBeginDragHandler
 {
     public ActData actData = null;
     public RectTransform moveImg; // 버튼 대신에 움직여줄 이미지 
@@ -15,6 +15,26 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     private void Start()
     {
         StartCoroutine(CheckDrag());
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (!bDraged)
+        {
+            InvadeManager.Instance.AddAct(actData.actType, actData.monsterType);
+        }
+        bDraged = false;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        InvadeManager.Instance.ShowInsertPlace(Input.mousePosition);
+        moveImg.transform.position = Input.mousePosition;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        InvadeManager.Instance.invisibleObj.gameObject.SetActive(true);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -30,15 +50,9 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         InvadeManager.Instance.ReduceDummyObj();
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        InvadeManager.Instance.ShowInsertPlace(Input.mousePosition);
-        moveImg.transform.position = Input.mousePosition;
-    }
-
     IEnumerator CheckDrag()
     {
-        while(true)
+        while (true)
         {
             yield return ws;
             movedDist = Vector3.Distance(moveImg.anchoredPosition, Vector3.zero);
@@ -49,12 +63,4 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         }
     }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (!bDraged)
-        {
-            InvadeManager.Instance.AddAct(actData.actType, actData.monsterType);
-        }
-        bDraged = false;
-    }
 }
