@@ -73,6 +73,10 @@ public class BuildManager : Singleton<BuildManager>
 
         if (GoldManager.Instance.GoldMinus(towerData.PlaceCost))
         {
+            // 레코드
+            RecordTowerPlace recordSegment = new RecordTowerPlace(tilePos, towerData);
+            RecordManager.Instance.AddRecord(recordSegment);
+
             currentTower.transform.position = tilemap.GetCellCenterWorld(tilePos);
         }
     }
