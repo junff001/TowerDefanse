@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
 {
     public int Hp { get; set; } = 50;
     public int Gold { get; set; } = 500;
+    public int Wave { get; set; } = 1;
 
     public Transform waypointsParent;
     [HideInInspector]
@@ -24,6 +25,12 @@ public class GameManager : Singleton<GameManager>
         {
             SetWaypoints(waypointsParent);
         }
+    }
+
+    private void Start()
+    {
+        // Test
+        RecordManager.Instance.StartRecord();
     }
 
     public Sprite GetActBtnSprite(MonsterType monsterType)
