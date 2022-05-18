@@ -8,12 +8,8 @@ public class HealthBar : MonoBehaviour
     [SerializeField]
     private HealthSystem healthSystem;
 
-    private Transform barTrm;
-
-    private void Awake()
-    {
-        barTrm = transform.Find("bar");
-    }
+    [SerializeField] private Transform healthBarTrm;
+    [SerializeField] private Transform ShieldBarTrm;
 
     private void Start()
     {
@@ -37,7 +33,7 @@ public class HealthBar : MonoBehaviour
     private void UpdateBar()
     {
         Debug.Log("바 추가됨");
-        barTrm.localScale = new Vector3(healthSystem.GetHealthAmountNormalized(), 1, 1);
+        healthBarTrm.localScale = new Vector3(healthSystem.GetHealthAmountNormalized(), 1, 1);
     }
 
     private void UpdateHealthBarVisible()

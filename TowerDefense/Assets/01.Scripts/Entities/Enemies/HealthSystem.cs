@@ -24,6 +24,20 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+    private float shieldhAmountMax = 100;
+    private float curShieldAmount
+    {
+        get
+        {
+            return enemyBase.myStat.Shield;
+        }
+
+        set
+        {
+            enemyBase.myStat.Shield = value;
+        }
+    }
+
     private void Awake()
     {
         enemyBase = GetComponent<EnemyBase>();
