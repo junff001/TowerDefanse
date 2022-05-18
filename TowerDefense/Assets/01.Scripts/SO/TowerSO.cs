@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum CoreType
+{
+    Base
+}
+
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]
 public class TowerSO : ScriptableObject
 {
@@ -24,4 +30,6 @@ public class TowerSO : ScriptableObject
     // 설치비용
     [SerializeField] private int placeCost = 100;
     public int PlaceCost { get => placeCost; set => value = placeCost; }
+
+    public CoreType coreType = CoreType.Base;
 }

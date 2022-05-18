@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public struct TowerData
     public float AttackSpeed;
     public float AttackRange;
     public int PlaceCost;
+    public int attackTargetCount;
 }
 
 public class Tower : MonoBehaviour
@@ -16,98 +18,34 @@ public class Tower : MonoBehaviour
     private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
     public TowerData TowerData { get => towerData; set => value = towerData; }
 
-    [SerializeField] private TowerSO towerSO = null;            // 실질적 타워 정보
-                                                                
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
-    public bool canInteraction { get; set; } = false;           // 상호작용 가능값
-                                                                
-    private int cardLevel = 0;                                  // 카드 레벨
-    private int attackTargetCount = 1;                          
-    private int blockTargetCount = 1;                           
-    private bool isInteractionTerm = false;                     
-    private LayerMask enemyMask = default;                      // 적을 분별하는 마스크
-    private Collider2D[] enemies = null;                        // 공격 범위이 안에 있는 적들
-    public SpriteRenderer spriteRenderer { get; set; } = null;              
+    
+    public SpriteRenderer spriteRenderer { get; set; } = null;
 
+    public Action Act = null; // 버프 디버프 공격 등등
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Start()
-    {
-        InitTowerData();
-
-        StartCoroutine(Rader());
-        StartCoroutine(OnAttack());
-    }
-
-    void InitTowerData()
+    void InitTowerData(TowerSO towerSO)
     {
         towerData.Level = towerSO.Level;
         towerData.OffensePower = towerSO.OffensePower;
         towerData.AttackSpeed = towerSO.AttackSpeed;
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
-    }
 
-    // 0.1초 텀을 두고 공격 범위 체크 처리
-    IEnumerator Rader()
-    {
-        enemyMask = LayerMask.GetMask("Enemy");
-        while (true)
+        switch(towerSO.coreType)
         {
-            yield return new WaitForSeconds(0.1f);
-            enemies = EnemyRader(enemyMask);
+            case CoreType.Base:
+                this.gameObject.AddComponent<CoreBase>(); // 물론 이걸 넣는게 아니라 밑에 상속받은애 만들어서 넣는거임.
+                break;
         }
     }
 
-    // 공격 범위 처리 함수
-    Collider2D[] EnemyRader(LayerMask targetMask)
-    {
-        return Physics2D.OverlapCircleAll(transform.position, towerData.AttackRange, targetMask);
-    }  
-
-    // 공격 실행 함수
-    IEnumerator OnAttack()
-    {
-        while (true)
-        {
-            yield return new WaitUntil(() => enemies != null && enemies.Length > 0);
-
-            List<EnemyBase> enemyList = new List<EnemyBase>();
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                if (enemies[i] != null)
-                    enemyList.Add(enemies[i].GetComponent<EnemyBase>());
-            }
-
-            enemyList.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance));
-
-            for (int i = 0; i < enemies?.Length; i++) // 공격 
-            {
-                if (i >= attackTargetCount)
-                    break; // 공격 가능 대상 수만큼 때렸으면 그만 때리기
-                if (enemies[i] != null)
-                {
-                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
-                }
-            }
-
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고,
-        }
-    }
-
-    // 공격 로직 함수 (임시 원거리)    
-    public virtual void Attack(float power, HealthSystem enemy)
-    {
-        Bullet bullet = PoolManager.GetItem<Bullet>();
-
-        bullet.transform.position = transform.position;
-        bullet.target = enemy.transform;
-        bullet.bulletDamage = power;
-    }
+    
 
     // 공격 범위를 표시하는 함수
     public void AttackRangeActive()

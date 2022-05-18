@@ -6,39 +6,29 @@ using System.Linq;
 
 public enum TileType
 {
+    None,
     Road,
-    Placeable,
+    Place,
     Tower,
     Obstacle
 }
 
 public class Map : MonoBehaviour
 {
-    private Tilemap tilemap = null;        // 타일맵
+    public Tilemap tilemap = null;        // 타일맵
 
-    private int width = 18;                                  // 맵 가로 크기
-    private int height = 10;                                 // 맵 세로 크기
-    private TileType[,] mapTileTypeArray = null;
-    private Tile[,] mapTileArray = null;
+    public TileType[,] mapTileTypeArray = null;
+    public Tile[,] mapTileArray = null;
 
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
-        Debug.Log(tilemap.cellBounds.size);
-        InitMap();
-        //GetCellCountX();
+        tilemap.CompressBounds();  // 타일맵 깔린 타일 개수만 세는거 
+
+        InitMap(tilemap.size.x, tilemap.size.y);
     }
 
-    int GetCellCountX() // 이거 만들기
-    {
-        float width = tilemap.GetTile<Tile>(new Vector3Int(1, 1, 0)).sprite.bounds.size.x;
-        Debug.Log(tilemap.cellBounds.size.x / width);
-
-        return (int)(tilemap.cellBounds.size.x / width);
-
-    }
-
-    void InitMap()
+    void InitMap(int width, int height)
     {
         mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정
         mapTileArray = new Tile[width, height];                 // 맵 사이즈 설정
@@ -70,7 +60,7 @@ public class Map : MonoBehaviour
             return TileType.Road;
 
         else if(tile.sprite.name.Contains("Place")) 
-            return TileType.Placeable;
+            return TileType.Place;
 
         else
             return TileType.Obstacle;
