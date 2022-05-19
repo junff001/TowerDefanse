@@ -6,7 +6,7 @@ using UnityEngine;
 public struct TowerData
 {
     public int Level;
-    public float OffensePower;
+    public int OffensePower;
     public float AttackSpeed;
     public float AttackRange;
     public int PlaceCost;

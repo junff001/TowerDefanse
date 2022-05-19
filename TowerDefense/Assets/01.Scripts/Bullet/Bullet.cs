@@ -5,23 +5,21 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 20f;
-    [SerializeField] private ParticleSystem effect = null;
+    [SerializeField] protected float speed = 20f;                            // 이동 속도
+    [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
 
-    public Transform target { get; set; }
-    public float bulletDamage;
-    private bool _isDead = false; // 총알이 죽었는가?
-    
+    public Transform target { get; set; } = null;                            // 목표물
+    public int bulletDamage { get; set; } = 0;                               // 데미지
 
-    void Update()
+    public virtual void Update()
     {
-        if (target != null && _isDead == false) // 타겟이 있고 죽은 상태가 아니라면
+        if (target != null) 
         {
-            GuidedBullet();
+            FlyBullet();
 
-            if (DistanceBullet())
+            if (IsCollision())
             {
-                CollisionBullet();
+                CollisionEvent();
             }
         }
         else if (target == null)
@@ -30,42 +28,23 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    // 기본 유도탄
+    public virtual void FlyBullet()
     {
-        _isDead = false;
+        transform.position += (target.position - transform.position).normalized * speed * Time.deltaTime;
     }
 
-    void GuidedBullet()
+    // 거리 충돌 체크
+    public virtual bool IsCollision()
     {
-        try
-        {
-            //transform.LookAt(target);
-            transform.position += (target.position - transform.position).normalized * speed * Time.deltaTime;
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-            Debug.Log("ㅈㅈ");
-        }
+        return Vector2.Distance(transform.position, target.position) >= 0.1f ? true : false;
     }
 
-    bool DistanceBullet()
-    {
-        if (Vector3.Distance(transform.position, target.position) <= 0.3f)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    void CollisionBullet()
+    // 충돌 시 발생 로직
+    public virtual void CollisionEvent()
     {
         target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
-        _isDead = true;
-        var ps = Instantiate(effect);
+        var ps = Instantiate(hitEffect);
         ps.transform.position = target.position;
         ps.Play();
 
