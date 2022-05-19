@@ -38,14 +38,13 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IPoin
             Debug.Log("불가능");
         }
 
-        towerImage.transform.position = Vector3.zero; // 돌려보내기
+        towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         towerImage.transform.position = Input.mousePosition;
 
-        BuildManager.Instance.SetHoveredTileColor();
         BuildManager.Instance.SetCurTileType();
     }
 

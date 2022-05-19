@@ -64,10 +64,12 @@ public class Map : MonoBehaviour
                 continue;
             }
 
-            Tile tile = tilemap.GetTile<Tile>(position);
 
+            Tile tile = tilemap.GetTile<Tile>(position);
             mapTileArray[x, y] = tile;
             mapTileTypeArray[x, y] = GetTileType(tile);
+
+            tilemap.SetTileFlags(position, TileFlags.None);
 
             x++;
         }
