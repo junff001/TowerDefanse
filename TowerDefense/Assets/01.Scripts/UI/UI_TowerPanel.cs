@@ -4,52 +4,43 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IPointerDownHandler
+public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler
 {
-    private Button myButton;
-
     [SerializeField] private Image towerImage = null;
     [SerializeField] private Text towerCostText = null;
 
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
 
-    private void Awake()
+    private void Start()
     {
-        myButton = GetComponent<Button>();
+        Init();
     }
 
-    public void BtnInit(Sprite towerSprite, int towerCost)
+    public void Init()
     {
-        towerImage.sprite = towerSprite;
-        towerCostText.text = towerCost.ToString();
+        towerImage.sprite = towerSO.towerSprite;
+        towerCostText.text = towerSO.PlaceCost.ToString();
     }
-
-
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(BuildManager.Instance.CheckAroundTile()) // 설치 가능 여부 전체 판단..
+        if(BuildManager.Instance.CanPlace())
         {
             Debug.Log("가능");
-            //BuildManager.Instance.SpawnTower(towerSO);
+            BuildManager.Instance.SpawnTower(towerSO);
         }
         else
         {
-            Debug.Log("불가능");
+            Debug.Log("Bool가능");
         }
 
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
+        BuildManager.Instance.ResetCheckedTiles();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         towerImage.transform.position = Input.mousePosition;
-
-        BuildManager.Instance.SetCurTileType();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //여기서 buildManager 설치할 타워 데이터 바꿔주기
+        BuildManager.Instance.SetTilesColor();
     }
 }

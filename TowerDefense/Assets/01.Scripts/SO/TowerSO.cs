@@ -5,7 +5,8 @@ using UnityEngine;
 
 public enum CoreType
 {
-    BASE
+    SingleAttack,
+    ExplosionAttack
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]
@@ -31,6 +32,11 @@ public class TowerSO : ScriptableObject
     [SerializeField] private int placeCost = 100;
     public int PlaceCost { get => placeCost; set => value = placeCost; }
 
-    public CoreType coreType = CoreType.BASE; // 위 머리 판단기준
+    [SerializeField] private int attackTargetCount = 1;
+    public int AttackTargetCount { get => attackTargetCount; set => value = attackTargetCount; }
+
+    public Sprite towerSprite;
+
+    public CoreType coreType = CoreType.SingleAttack; // 위 머리 판단기준
     public PropertyType propertyType = PropertyType.NONE;
 }

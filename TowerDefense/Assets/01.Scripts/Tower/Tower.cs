@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public struct TowerData
 {
     public int Level;
@@ -15,19 +16,13 @@ public struct TowerData
 
 public class Tower : MonoBehaviour
 {
-    private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
+    [SerializeField] private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
     public TowerData TowerData { get => towerData; set => value = towerData; }
 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
-    
-    public SpriteRenderer spriteRenderer { get; set; } = null;
-
     public Action Act = null; // 버프 디버프 공격 등등
 
-    void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    public Transform coreTrm;
 
     public void InitTowerData(TowerSO towerSO)
     {
@@ -36,11 +31,11 @@ public class Tower : MonoBehaviour
         towerData.AttackSpeed = towerSO.AttackSpeed;
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
-
+        towerData.attackTargetCount = towerSO.AttackTargetCount;
         //CoreType에 따라 프리팹 생성
     }
 
-    
+
 
     // 공격 범위를 표시하는 함수
     public void AttackRangeActive()

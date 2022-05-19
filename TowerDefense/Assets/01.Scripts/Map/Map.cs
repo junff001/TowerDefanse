@@ -32,20 +32,8 @@ public class Map : MonoBehaviour
         height = tilemap.size.y;
 
         InitMap(width, height);
-
-        
-        for(int i = height -1 ; i >= 0; i--)
-        {
-            for(int j = 0; j< width; j++)
-            {
-                test += ((int)mapTileTypeArray[j, i]).ToString();
-                test += ", ";
-            }
-            test += "\n";
-        }
-        Debug.Log(test);
     }
-    string test = "";
+
     void InitMap(int width, int height)
     {
         mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정

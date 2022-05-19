@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: BowTower
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 60
+  offensePower: 0
   attackSpeed: 1
-  attackRange: 2
+  attackRange: 4
+  placeCost: 100
+  attackTargetCount: 1
+  towerSprite: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  coreType: 0
+  propertyType: 0
