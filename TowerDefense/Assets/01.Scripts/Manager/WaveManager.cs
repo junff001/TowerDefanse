@@ -34,6 +34,7 @@ public class WaveManager : Singleton<WaveManager>
 
     private void Update()
     {
+        WaveStart();
         SetTotalTime();
     }
 

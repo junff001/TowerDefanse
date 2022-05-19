@@ -44,7 +44,7 @@ public class HealthSystem : MonoBehaviour
         curHealthAmount = healthAmountMax;
     }
 
-    public void Damage(float damageAmount)
+    public void Damage(int damageAmount)
     {
         curHealthAmount -= damageAmount;
         curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
@@ -79,7 +79,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         //transform.GetComponent<EnemyBase>().EnemyFlashStart();
 
