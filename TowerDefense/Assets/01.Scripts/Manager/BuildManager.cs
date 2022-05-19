@@ -96,7 +96,7 @@ public class BuildManager : Singleton<BuildManager>
         {
             if (IsPlaceableTile(pos))
             {
-                map.tilemap.SetColor(pos, new Color(0, 0, 1, 0.5f)); // 아마 블루
+                map.tilemap.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
             }
             else
             {
