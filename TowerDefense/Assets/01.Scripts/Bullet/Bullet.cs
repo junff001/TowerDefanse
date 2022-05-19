@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] protected float speed = 20f;                            // 이동 속도
+    [SerializeField] protected float speed = 0f;                            // 이동 속도
     [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
 
     public Transform target { get; set; } = null;                            // 목표물
@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
     // 거리 충돌 체크
     public virtual bool IsCollision()
     {
-        return Vector2.Distance(transform.position, target.position) >= 0.1f ? true : false;
+        return Vector2.Distance(transform.position, target.position) <= 0.1f ? true : false;
     }
 
     // 충돌 시 발생 로직
