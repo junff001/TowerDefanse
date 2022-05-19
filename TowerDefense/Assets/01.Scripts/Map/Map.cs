@@ -20,14 +20,32 @@ public class Map : MonoBehaviour
     public TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
 
+    public int width;
+    public int height;
+
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
         tilemap.CompressBounds();  // 타일맵 깔린 타일 개수만 세는거 
 
-        InitMap(tilemap.size.x, tilemap.size.y);
-    }
+        width = tilemap.size.x;
+        height = tilemap.size.y;
 
+        InitMap(width, height);
+
+        
+        for(int i = height -1 ; i >= 0; i--)
+        {
+            for(int j = 0; j< width; j++)
+            {
+                test += ((int)mapTileTypeArray[j, i]).ToString();
+                test += ", ";
+            }
+            test += "\n";
+        }
+        Debug.Log(test);
+    }
+    string test = "";
     void InitMap(int width, int height)
     {
         mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정
@@ -47,6 +65,7 @@ public class Map : MonoBehaviour
             }
 
             Tile tile = tilemap.GetTile<Tile>(position);
+
             mapTileArray[x, y] = tile;
             mapTileTypeArray[x, y] = GetTileType(tile);
 
@@ -56,12 +75,10 @@ public class Map : MonoBehaviour
 
     TileType GetTileType(Tile tile)
     {
-        if (tile.sprite.name.Contains("Road")) 
+        if (tile.sprite.name.Contains("Road")) // 나중에 읽기 편하라고 
             return TileType.Road;
-
         else if(tile.sprite.name.Contains("Place")) 
             return TileType.Place;
-
         else
             return TileType.Obstacle;
     }

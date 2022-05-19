@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum CoreType
 {
-    Base
+    BASE
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]
@@ -31,5 +31,6 @@ public class TowerSO : ScriptableObject
     [SerializeField] private int placeCost = 100;
     public int PlaceCost { get => placeCost; set => value = placeCost; }
 
-    public CoreType coreType = CoreType.Base;
+    public CoreType coreType = CoreType.BASE; // 위 머리 판단기준
+    public PropertyType propertyType = PropertyType.NONE;
 }

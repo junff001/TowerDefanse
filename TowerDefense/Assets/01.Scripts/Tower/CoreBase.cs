@@ -65,10 +65,10 @@ public class CoreBase : MonoBehaviour
     // 공격 로직 함수 (임시 원거리)    
     public virtual void Attack(float power, HealthSystem enemy)
     {
-        Bullet bullet = PoolManager.GetItem<Bullet>();
-
-        bullet.transform.position = transform.position;
-        bullet.target = enemy.transform;
-        bullet.bulletDamage = power;
+        //Bullet bullet = PoolManager.GetItem<Bullet>();
+        //
+        //bullet.transform.position = transform.position;
+        //bullet.target = enemy.transform;
+        //bullet.bulletDamage = power;
     }
 }

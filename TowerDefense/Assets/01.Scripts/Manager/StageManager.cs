@@ -36,7 +36,7 @@ public class StageManager : Singleton<StageManager>
 
     public void SetStageDatas(StageDataSO stageData)
     {
-        BuildManager.Instance.SetTilemap(stageData.tileMap);
+        //BuildManager.Instance.SetTilemap(stageData.tileMap);
         GameManager.Instance.SetWaypoints(stageData.waypointsParent);
         WaveManager.Instance.waveSO = stageData.waveSO;
         

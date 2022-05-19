@@ -29,7 +29,7 @@ public class Tower : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void InitTowerData(TowerSO towerSO)
+    public void InitTowerData(TowerSO towerSO)
     {
         towerData.Level = towerSO.Level;
         towerData.OffensePower = towerSO.OffensePower;
@@ -37,12 +37,7 @@ public class Tower : MonoBehaviour
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
 
-        switch(towerSO.coreType)
-        {
-            case CoreType.Base:
-                this.gameObject.AddComponent<CoreBase>(); // 물론 이걸 넣는게 아니라 밑에 상속받은애 만들어서 넣는거임.
-                break;
-        }
+        //CoreType에 따라 프리팹 생성
     }
 
     
