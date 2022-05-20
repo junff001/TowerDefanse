@@ -126,16 +126,16 @@ public class BuildManager : Singleton<BuildManager>
     public Vector3Int[] Get2By2Tiles()
     {
         if (dir.x > 0 && dir.y > 0) // 1사분면
-            return new Vector3Int[4] { curPos, up, upRight, right };
+            return new Vector3Int[4] { curPos, right, upRight, up };
 
         else if (dir.x < 0 && dir.y > 0)// 2사분면
-            return new Vector3Int[4] { curPos, up, upLeft, left };
+            return new Vector3Int[4] { curPos, left, upLeft, up };
 
         else if (dir.x < 0 && dir.y < 0)// 3사분면
-            return new Vector3Int[4] { left, downLeft, down, curPos };
+            return new Vector3Int[4] { curPos, left, downLeft, down  };
 
         else  // 4사분면
-            return new Vector3Int[4] { right, downRight, down, curPos };
+            return new Vector3Int[4] { curPos, right, downRight, down };
 
     }
 
@@ -148,10 +148,20 @@ public class BuildManager : Singleton<BuildManager>
         return true;
     }
 
+    public Vector3 Get2By2TilesCenter(Vector3Int[] targetTiles)
+    {
+        float x, y;
+
+        x = (float)(targetTiles[0].x + targetTiles[1].x) / 2;
+        y = (float)(targetTiles[2].y + targetTiles[3].y) / 2;
+
+        return new Vector3(x - (float)(map.width-1) / 2, y - (float)(map.height-1) / 2, targetTiles[0].z); // 그리드를 이동시켰기 때문에, 이제 이동시킨 값만큼 보내줘야 해
+    }
+
     // 타워를 스폰하는 함수
     public void SpawnTower(TowerSO towerSO)
     {
-        Tower newTower = Instantiate(towerBase, map.tilemap.CellToWorld(tilePos), Quaternion.identity);
+        Tower newTower = Instantiate(towerBase, Get2By2TilesCenter(Get2By2Tiles()), Quaternion.identity);
         newTower.InitTowerData(towerSO);
 
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
