@@ -7,8 +7,6 @@ using UnityEngine.Tilemaps;
 
 public class BuildManager : Singleton<BuildManager>
 {
-    #region private
-
     private Vector3Int tilePos = Vector3Int.zero;                  // 타일 위치
 
     private Vector3Int[] checkedPos = null;
@@ -25,14 +23,12 @@ public class BuildManager : Singleton<BuildManager>
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     private Camera mainCam = null;
-    #endregion
 
     public Map map;
     [SerializeField] private Tower towerBase;
 
     private Dictionary<CoreType, CoreBase> coreDic = new Dictionary<CoreType, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
-
 
     private void Start()
     {
@@ -107,10 +103,14 @@ public class BuildManager : Singleton<BuildManager>
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
     }
 
-    public bool CanPlace() // 2x2 타일 검사
+    public bool CanPlace(bool canPlaceAtRoad = false) // 2x2 타일 검사
     {
         bool canPlace = true;
 
+        if(canPlaceAtRoad)
+        {
+
+        }
         foreach (var pos in Get2By2Tiles())
         {
             if (IsPlaceableTile(pos) == false)
