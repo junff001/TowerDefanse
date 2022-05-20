@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3188361967190122606}
   - component: {fileID: 3188361967190122601}
-  - component: {fileID: -9217325930308712863}
+  - component: {fileID: -1968775079198678545}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: CanonBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-9217325930308712863
+--- !u!114 &-1968775079198678545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,8 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3188361967190122603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6041823df71c4a14eaa73ff6f368edad, type: 3}
+  m_Script: {fileID: 11500000, guid: f75202aececaa6047834b79af5898688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 17
+  speed: 10
   hitEffect: {fileID: 19800004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  curveHeight: 2
+  explosionRange: 3
+  timerMax: 10
