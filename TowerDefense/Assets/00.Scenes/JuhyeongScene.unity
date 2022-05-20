@@ -28361,6 +28361,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spine GameObject (Goblin)
       objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294773, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5712552177370294776, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
       propertyPath: m_Mesh
       value: 

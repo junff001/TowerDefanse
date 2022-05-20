@@ -82,7 +82,7 @@ public class BuildManager : Singleton<BuildManager>
         foreach (var pos in checkedPos) map.tilemap.SetColor(pos, Color.white);
     }
 
-    public void SetTilesColor()
+    public void SetTilesColor(PlaceTileType placeTileType)
     {
         ResetCheckedTiles();
 
@@ -90,7 +90,7 @@ public class BuildManager : Singleton<BuildManager>
 
         foreach (var pos in checkPos)
         {
-            if (IsPlaceableTile(pos))
+            if (IsPlaceableTile(pos, placeTileType))
             {
                 map.tilemap.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
             }
@@ -103,23 +103,18 @@ public class BuildManager : Singleton<BuildManager>
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
     }
 
-    public bool CanPlace(bool canPlaceAtRoad = false) // 2x2 타일 검사
+    public bool CanPlace(PlaceTileType placeTileType) // 2x2 타일 검사
     {
         bool canPlace = true;
 
-        if(canPlaceAtRoad)
-        {
-
-        }
         foreach (var pos in Get2By2Tiles())
         {
-            if (IsPlaceableTile(pos) == false)
+            if (IsPlaceableTile(pos, placeTileType) == false)
             {
                 canPlace = false;
                 break;
             }
         }
-
         return canPlace;
     }
 
@@ -139,15 +134,25 @@ public class BuildManager : Singleton<BuildManager>
 
     }
 
-    public bool IsPlaceableTile(Vector3Int pos)
+    public bool IsPlaceableTile(Vector3Int pos, PlaceTileType placeTileType)
     {
         if (pos.x < 0 || pos.y < 0) return false;
         if (pos.x >= map.width || pos.y >= map.height) return false;
-        if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Place) return false;
 
+        switch(placeTileType)
+        {
+            case PlaceTileType.Place:
+                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Place) return false;
+                break;
+            case PlaceTileType.Road:
+                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Road) return false;
+                break;
+        }
+
+        //여기까지 오면 OK! 타워가 깔릴 수 있는 타입과, 내가 깔려고 하는 타일의 타일타입이 같은거니까 설치 가능.
         return true;
-    }
-
+    }   
+    
 
     //준서놈
     public Vector3 Get2By2TilesCenter(Vector3Int[] targetTiles)

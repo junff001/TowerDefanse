@@ -37,6 +37,13 @@ public class TowerSO : ScriptableObject
 
     public Sprite towerSprite;
 
+    public PlaceTileType placeTileType = PlaceTileType.None;
     public CoreType coreType = CoreType.SingleAttack; // 위 머리 판단기준
     public PropertyType propertyType = PropertyType.NONE;
+
+    private void OnDestroy()
+    {
+        Destroy(this);
+
+    }
 }

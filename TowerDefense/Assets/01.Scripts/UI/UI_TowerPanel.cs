@@ -24,7 +24,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(BuildManager.Instance.CanPlace())
+        if(BuildManager.Instance.CanPlace(towerSO.placeTileType))
         {
             Debug.Log("가능");
             BuildManager.Instance.SpawnTower(towerSO);
@@ -41,6 +41,6 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         towerImage.transform.position = Input.mousePosition;
-        BuildManager.Instance.SetTilesColor();
+        BuildManager.Instance.SetTilesColor(towerSO.placeTileType);
     }
 }
