@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1581287441}
   towerCostText: {fileID: 181647059}
-  towerPrefab: {fileID: 0}
+  towerSO: {fileID: 0}
 --- !u!114 &49733412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16494,7 +16494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 932808116}
   towerCostText: {fileID: 835931730}
-  towerPrefab: {fileID: 0}
+  towerSO: {fileID: 0}
 --- !u!114 &721370724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17037,14 +17037,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d80b3104858274e8cefd44d1b866b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1078675418}
-  roadSpite: {fileID: 21300000, guid: 9c4a67ba8998fa7428c891aabd1093b0, type: 3}
-  hillSprite: {fileID: 21300000, guid: ffa0031104dbefd418237b6218b0b46e, type: 3}
-  towerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  waitTrm: {fileID: 1586326229}
-  grid: {fileID: 1225150283}
+  map: {fileID: 0}
+  towerBase: {fileID: 0}
+  coreList: []
 --- !u!1 &835931727
 GameObject:
   m_ObjectHideFlags: 0
@@ -24754,7 +24749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 658687295}
   towerCostText: {fileID: 1271595891}
-  towerPrefab: {fileID: 0}
+  towerSO: {fileID: 0}
 --- !u!114 &1296731013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25214,7 +25209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7196bb259b27c544980984cf33527cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLog: []
+  recordBox: []
 --- !u!1 &1576244944
 GameObject:
   m_ObjectHideFlags: 0
@@ -25741,7 +25736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1263700296}
   towerCostText: {fileID: 1590532705}
-  towerPrefab: {fileID: 6440560775320885367, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
+  towerSO: {fileID: 0}
 --- !u!114 &1642798519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26115,7 +26110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 43535156}
   towerCostText: {fileID: 337656754}
-  towerPrefab: {fileID: 210916472391753223, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
+  towerSO: {fileID: 0}
 --- !u!114 &1742927128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28383,117 +28378,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066118813}
   m_CullTransparentMesh: 1
---- !u!1001 &2976159027253643703
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 210916472391753223, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_Name
-      value: BowTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 290288572418235902, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7214d830b4dbc6a4aa81b8053fead80e, type: 3}
---- !u!1001 &6440560775762742176
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6440560775320885367, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_Name
-      value: CatapultTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440560775320885368, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2d8d1f01c7e3d0a41874845b093446ff, type: 3}
