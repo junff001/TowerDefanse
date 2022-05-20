@@ -148,6 +148,8 @@ public class BuildManager : Singleton<BuildManager>
         return true;
     }
 
+
+    //준서놈
     public Vector3 Get2By2TilesCenter(Vector3Int[] targetTiles)
     {
         float x, y;
