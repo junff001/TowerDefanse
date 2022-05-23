@@ -8,7 +8,6 @@ public class WaveManager : Singleton<WaveManager>
 {
     [Header("Object Field")]
     public Text waveRoundCount;
-    public Text waveTimer;
 
     private float totalTime = 0f;
 

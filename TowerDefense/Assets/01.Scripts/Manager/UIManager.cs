@@ -1,47 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoBehaviour
 {
-    public Text hpText;
-    public Text moneyText;
+    private static UIManager Instance;
 
-    public Button speedButton;
+    public GameObject textPrefab = null;
+    public Transform txtTrans = null;
 
-    public UI_TowerUpgradePanel towerUpgradePanel = null;
-
-    public UI_AddActBtn[] waitingActAddBtns;
-
-
-    private void Awake()
+    public static void Init()
     {
-        SetWaitingActAddBtns();
+        if(!Instance)
+        {
+            GameObject uiManager = Resources.Load<GameObject>("UIManager");
+            uiManager = Instantiate(uiManager, null);
+
+            Instance = uiManager.GetComponent<UIManager>();
+            DontDestroyOnLoad(Instance.gameObject);
+        }
+        else
+        {
+            Instance.gameObject.SetActive(true);
+        }
     }
 
-    private void Start()
+    public static void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)
     {
-        UpdateGoldText();
+        Init();
+
+        if (fade)
+        {
+            group.DOFade(1, duration).SetUpdate(setUpdate).OnComplete(() =>
+            {
+                group.interactable = true;
+                group.blocksRaycasts = true;
+
+                if (callback != null)
+                    callback.Invoke();
+            });
+        }
+        else
+        {
+            group.interactable = false;
+            group.blocksRaycasts = false;
+
+            group.DOFade(0, duration).SetUpdate(setUpdate).OnComplete(() =>
+            {
+                if (callback != null)
+                    callback.Invoke();
+            });
+        }
     }
 
-    private void SetWaitingActAddBtns()
+    public static void SummonText(Vector2 pos, string text, int maxSize = 75, UnityAction callback = null)
     {
-        waitingActAddBtns[0].actData = new ActData(ActType.Enemy, MonsterType.Goblin);
-        waitingActAddBtns[1].actData = new ActData(ActType.Enemy, MonsterType.Ghost);
-        waitingActAddBtns[2].actData = new ActData(ActType.Enemy, MonsterType.Slime);
-        waitingActAddBtns[3].actData = new ActData(ActType.Enemy, MonsterType.IronBore);
-        waitingActAddBtns[4].actData = new ActData(ActType.Wait);
-    }
+        Init();
 
-    public void UpdateHPText()
-    {
-        hpText.text = GameManager.Instance.Hp.ToString();
-    }
+        Text textObj = Instantiate(Instance.textPrefab, pos, Quaternion.identity, Instance.txtTrans).GetComponent<Text>();
+        textObj.text = text;
+        textObj.resizeTextMaxSize = maxSize;
 
-    public void UpdateGoldText()
-    {
-        moneyText.text = GameManager.Instance.Gold.ToString();
+        textObj.transform.DOMoveY(textObj.transform.position.y + 2, 1.5f);
+        textObj.DOFade(0, 3f).SetEase(Ease.InQuart).OnComplete(() =>
+        {
+            if (callback != null)
+                callback.Invoke();
+            Destroy(textObj);
+        });
     }
-
 }

@@ -6,19 +6,17 @@ using Spine;
 
 public class Test : MonoBehaviour
 {
+    [SpineSkin] public string baseSkinName;
+    [SpineSlot] public string eyeSlot;
+    [SpineAttachment] public string eyeKey; // 고글 어테치먼트의 이름
     public SkeletonAnimation s;
-    public Material mat;
-    public string[] changeAttachments;
 
-    public void ChangeTargetAttachmentsColor()
+    private void Start()
     {
-        for (int i = 0; i < changeAttachments.Length; i++)
-        {
-            SlotData slot = s.skeletonDataAsset.GetSkeletonData(false).FindSlot(changeAttachments[i]);
-            slot.R = 10;
-            slot.G = 255;
-            slot.B = 255;
-        }
-        s.Initialize(true);
+        Skeleton skeleton = s.Skeleton; // 스켈레톤 클래스
+
+        Skin newSkin = new Skin("custom skin"); // 새로운 스킨생성
+        var baseSkin = skeleton.Data.FindSkin(baseSkinName); // 기존에 있는 스킨 가져오기
+        //newSkin.SetAttachment(baseSkin); // 기존에 있는 스킨에 정의된 값을 새로운 스킨에 추가
     }
 }
