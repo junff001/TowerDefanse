@@ -33,6 +33,7 @@ public class GameManager : Singleton<GameManager>
     {
         // Test
         //RecordManager.Instance.StartRecord();
+        
     }
 
     public Sprite GetActBtnSprite(MonsterType monsterType)

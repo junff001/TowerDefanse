@@ -60,11 +60,14 @@ public class UIManager : MonoBehaviour
     {
         Init();
 
-        Text textObj = Instantiate(Instance.textPrefab, pos, Quaternion.identity, Instance.txtTrans).GetComponent<Text>();
+        print("asd");
+
+        Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
+        textObj.rectTransform.anchoredPosition = pos;
         textObj.text = text;
         textObj.resizeTextMaxSize = maxSize;
 
-        textObj.transform.DOMoveY(textObj.transform.position.y + 2, 1.5f);
+        textObj.rectTransform.DOAnchorPosY(100, 1.5f).SetRelative();
         textObj.DOFade(0, 3f).SetEase(Ease.InQuart).OnComplete(() =>
         {
             if (callback != null)
