@@ -13250,7 +13250,6 @@ MonoBehaviour:
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
   coreList:
   - {fileID: 864607307150061629, guid: 1913f9cfb66c07f42a921ced9bc43637, type: 3}
-  guideText: {fileID: 1715648245}
 --- !u!1 &1011838442
 GameObject:
   m_ObjectHideFlags: 0
@@ -20903,17 +20902,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683644521}
   m_CullTransparentMesh: 1
---- !u!114 &1715648245 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8688396304334847306, guid: 63b8d277a05057f4091581df3384873d, type: 3}
-  m_PrefabInstance: {fileID: 1048870666}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 117aece78410a4448bb7dd5a5ff19b4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1715810623
 GameObject:
   m_ObjectHideFlags: 0
@@ -28441,7 +28429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5712552177370294773, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5712552177370294776, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
       propertyPath: m_Mesh
@@ -28490,6 +28478,42 @@ PrefabInstance:
     - target: {fileID: 5712552177370294777, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: baseSkinName
+      value: default
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[0]
+      value: Body_Armor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[1]
+      value: Eye_Dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[2]
+      value: Guardian
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[3]
+      value: L_Shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[4]
+      value: R_Shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[5]
+      value: L_Wing
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712552177370294782, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
+      propertyPath: eyeSlot.Array.data[6]
+      value: R_Wing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04b419cf0e8f19e479d9847799b25dc7, type: 3}
