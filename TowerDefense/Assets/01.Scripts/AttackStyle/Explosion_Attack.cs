@@ -6,7 +6,7 @@ public class Explosion_Attack : CoreBase
 {
     public override void Attack(int power, HealthSystem enemy)
     {
-        Missile bullet = PoolManager.GetItem<Missile>();
+        Bullet bullet = PoolManager.GetItem<Bullet>();
 
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;

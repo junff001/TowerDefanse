@@ -32,10 +32,8 @@ public class Tower : MonoBehaviour
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
         towerData.attackTargetCount = towerSO.AttackTargetCount;
-        //CoreType에 따라 프리팹 생성
+        // CoreType에 따라 프리팹 생성
     }
-
-
 
     // 공격 범위를 표시하는 함수
     public void AttackRangeActive()

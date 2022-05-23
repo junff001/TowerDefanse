@@ -8,7 +8,7 @@ public class Missile : Bullet
     private Vector2 projectilePos = Vector2.zero;                   // 발사체 위치
                                                                     
     [SerializeField] private float curveHeight = 0f;                // 커브 포인트 높이
-    [SerializeField] private float explosionRange = 0f;             // 폭발 반경
+    [SerializeField] private float explosionRadius = 0f;            // 폭발 반경
     [SerializeField] private float timerMax = 10f;
 
     private float timerCurrent = 0f;
@@ -35,6 +35,14 @@ public class Missile : Bullet
             if (IsCollision())
             {
                 CollisionEvent();
+
+                if (EnemiesInExplosionRaidus().Length > 0)
+                {
+                    for (int i = 0; i < enemies.Length; i++)
+                    {
+                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
+                    }
+                }
             }
         }
         else if (target == null)
@@ -46,8 +54,11 @@ public class Missile : Bullet
     public override void FlyBullet()
     {
         Vector2 midleValue = Vector2.Lerp(projectilePos, targetCatchPos, 0.5f);
-        Vector2 curve = Vector2.Perpendicular(midleValue).normalized + new Vector2(0, curveHeight);
-         
+        Vector2 curve = Vector2.Perpendicular(midleValue).normalized;
+        
+        Debug.Log("중간값 : " +  midleValue);
+        Debug.Log("커브 값 : " + curve);
+
         transform.position = BezierCurves(projectilePos, curve, targetCatchPos, timerCurrent / timerMax);
     }
     
@@ -61,18 +72,17 @@ public class Missile : Bullet
 
     public override bool IsCollision()
     {
-        enemies = Physics2D.OverlapCircleAll(targetCatchPos, explosionRange);
-        return enemies.Length > 0 ? true : false;
+        return Vector2.Distance(transform.position, targetCatchPos) <= 0.1f ? true : false;
+    }
+
+    Collider2D[] EnemiesInExplosionRaidus()
+    {
+        enemies = Physics2D.OverlapCircleAll(targetCatchPos, explosionRadius);
+        return enemies;
     }
 
     public override void CollisionEvent()
     { 
-
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
-        }
-
         var ps = Instantiate(hitEffect);
         ps.transform.position = targetCatchPos;
         ps.Play();
@@ -86,7 +96,7 @@ public class Missile : Bullet
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(targetCatchPos, explosionRange);
+            Gizmos.DrawWireSphere(targetCatchPos, explosionRadius);
             Gizmos.color = Color.white;
         }
     }
