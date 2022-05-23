@@ -180,7 +180,7 @@ public class BuildManager : Singleton<BuildManager>
 
         foreach(var item in newTower.GetComponentsInChildren<SpriteRenderer>())
         {
-            item.sortingOrder = (int)newTower.transform.position.y;
+            item.sortingOrder = map.height - (int)newTower.transform.position.y;
         }
 
         foreach (var pos in checkedPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
