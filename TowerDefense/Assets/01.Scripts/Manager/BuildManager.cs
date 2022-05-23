@@ -30,8 +30,6 @@ public class BuildManager : Singleton<BuildManager>
     private Dictionary<CoreType, CoreBase> coreDic = new Dictionary<CoreType, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
-    public UI_GuideText guideText;
-
     private void Start()
     {
         mainCam = Camera.main;
