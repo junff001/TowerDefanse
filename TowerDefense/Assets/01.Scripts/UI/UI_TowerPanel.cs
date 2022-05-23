@@ -29,16 +29,17 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler
             if (GameManager.Instance.Gold >= 100)
             {
                 BuildManager.Instance.SpawnTower(towerSO);
-                BuildManager.Instance.guideText.ShowGuide(towerImage.transform.position);
+
+                UIManager.SummonText(towerImage.transform.position, "설치 완료!", 30);
             }
             else
             {
-                BuildManager.Instance.guideText.ShowGuide(towerImage.transform.position, false, true);
+                UIManager.SummonText(towerImage.transform.position, "타워 설치 비용이 부족합니다.", 30);
             }
         }
         else
         {
-            BuildManager.Instance.guideText.ShowGuide(towerImage.transform.position, true, false);
+            UIManager.SummonText(towerImage.transform.position, "설치 불가능한 위치입니다.", 30);
         }
 
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
