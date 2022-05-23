@@ -30,6 +30,8 @@ public class BuildManager : Singleton<BuildManager>
     private Dictionary<CoreType, CoreBase> coreDic = new Dictionary<CoreType, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
+    public UI_GuideText guideText;
+
     private void Start()
     {
         mainCam = Camera.main;
@@ -38,8 +40,6 @@ public class BuildManager : Singleton<BuildManager>
         {
             coreDic.Add(item.coreType, item);
         }
-
-        Debug.Log(coreDic.Count);
     }
 
     private void Update()
@@ -175,6 +175,13 @@ public class BuildManager : Singleton<BuildManager>
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.TowerData;
+
+        //원래는 타일 값에 따라 받아와야 하지만, 어차피 타일 값 == 포지션 값이니까..
+
+        foreach(var item in newTower.GetComponentsInChildren<SpriteRenderer>())
+        {
+            item.sortingOrder = (int)newTower.transform.position.y;
+        }
 
         foreach (var pos in checkedPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
         {

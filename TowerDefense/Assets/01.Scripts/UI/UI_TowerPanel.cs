@@ -24,14 +24,21 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(BuildManager.Instance.CanPlace(towerSO.placeTileType))
+        if (BuildManager.Instance.CanPlace(towerSO.placeTileType))
         {
-            Debug.Log("가능");
-            BuildManager.Instance.SpawnTower(towerSO);
+            if (GameManager.Instance.Gold >= 100)
+            {
+                BuildManager.Instance.SpawnTower(towerSO);
+                BuildManager.Instance.guideText.ShowGuide(towerImage.transform.position);
+            }
+            else
+            {
+                BuildManager.Instance.guideText.ShowGuide(towerImage.transform.position, false, true);
+            }
         }
         else
         {
-            Debug.Log("Bool가능");
+            BuildManager.Instance.guideText.ShowGuide(towerImage.transform.position, true, false);
         }
 
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기

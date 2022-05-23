@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class UIManager : Singleton<UIManager>
 {
     public Text hpText;
@@ -43,5 +43,7 @@ public class UIManager : Singleton<UIManager>
     {
         moneyText.text = GameManager.Instance.Gold.ToString();
     }
+
+
 
 }
