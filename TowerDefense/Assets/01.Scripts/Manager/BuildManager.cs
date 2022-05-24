@@ -155,7 +155,10 @@ public class BuildManager : Singleton<BuildManager>
         x = (float)(targetTiles[0].x + targetTiles[1].x) / 2;
         y = (float)(targetTiles[2].y + targetTiles[3].y) / 2;
 
-        return new Vector3(x - (float)(map.width-1) / 2, y - (float)(map.height-1) / 2, targetTiles[0].z); // 그리드를 이동시켰기 때문에, 이제 이동시킨 값만큼 보내줘야 해
+        Debug.Log($"x : {x}, y : {y}");
+
+
+        return new Vector3(x - (float)(map.width - 1) / 2, y - (float)(map.height - 1) / 2, targetTiles[0].z); // 그리드를 이동시켰기 때문에, 이제 이동시킨 값만큼 보내줘야 해
     }
 
     // 타워를 스폰하는 함수
