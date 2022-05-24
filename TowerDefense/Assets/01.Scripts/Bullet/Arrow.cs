@@ -5,42 +5,39 @@ using UnityEngine;
 public class Arrow : Bullet
 {
     private Vector3 targetCatchPos = Vector3.zero;      // 투사 지점
-    private Vector2 lastMoveDir = Vector2.zero;         // 마지막 방향
-    private bool isWaiting = true;                      // 대기 중
+    Vector3 moveDirection = Vector3.zero;
 
-    void Start()
+    private void OnEnable()
     {
         if (target != null)
         {
-             targetCatchPos = target.position;
-        }
-    }
-
-    public override void Update()
-    {
-        isWaiting = target == null ? true : false;
-
-        if (!isWaiting)
-        {
-            FlyBullet();
-                
-            if (IsCollision())
-            {
-                CollisionEvent();
-            }
+            Debug.Log("공격을 시작합니다");
+            targetCatchPos = target.position;
+            moveDirection = (targetCatchPos - transform.position).normalized;
+            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(moveDirection) - 45);
         }
         else
         {
             gameObject.SetActive(false);
         }
+    }
+        
 
+    public override void Update()
+    {
+        FlyBullet();
+
+        if (IsCollision())
+        {
+            moveDirection = Vector3.zero;
+            target = null;
+            CollisionEvent();
+        }
     }
 
     public override void FlyBullet()
     {
-        Vector3 moveDirection = (targetCatchPos - transform.position).normalized;
         transform.position += moveDirection * speed * Time.deltaTime;
-        transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(moveDirection) -45);
     }
 
     private float GetAngleFromVector(Vector3 dir)

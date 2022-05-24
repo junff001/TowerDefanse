@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class CoreBase : MonoBehaviour
 {
     private LayerMask enemyMask = default;                      // 적을 분별하는 마스크
-    private Collider2D[] enemies = null;                        // 공격 범위이 안에 있는 적들
+    public Collider2D[] enemies = null;                        // 공격 범위이 안에 있는 적들
     public Collider2D currentTarget { get; set; } = null;       // 현재 타겟
 
     public TowerData towerData;
@@ -39,7 +39,8 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies != null && enemies.Length > 0);
+            yield return new WaitUntil(() => enemies?.Length > 0);
+            currentTarget = enemies[0];
 
             List<EnemyBase> enemyList = new List<EnemyBase>();
             for (int i = 0; i < enemies.Length; i++)
@@ -50,17 +51,24 @@ public abstract class CoreBase : MonoBehaviour
 
             enemyList.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance));
 
-            for (int i = 0; i < enemies?.Length; i++) // 공격 
+            if (enemyList.Count > 0)
             {
-                if (i >= towerData.attackTargetCount)
-                    break; // 공격 가능 대상 수만큼 때렸으면 그만 때리기
-                if (enemies[i] != null)
+                for (int i = 0; i < towerData.attackTargetCount; i++) // 공격 
                 {
-                    currentTarget = enemies[i];
-                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
+                    if (enemies[0] != null)
+                    {
+                        Debug.Log("공격하라고");
+                        Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
+                    }
+                    else
+                    {
+                        Debug.Log("때릴 적이 없음.");
+                    }
                 }
             }
 
+            enemies = null;
+            enemyList.Clear();
             yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고,
         }
     }

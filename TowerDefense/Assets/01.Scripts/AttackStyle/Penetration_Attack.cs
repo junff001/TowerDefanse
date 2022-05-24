@@ -15,9 +15,12 @@ public class Penetration_Attack : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        Bullet bullet = PoolManager.GetItem<Bullet>();
+        Debug.Log("아 공격합니다~");
+
+        Arrow bullet = PoolManager.GetItem<Arrow>();
 
         bullet.transform.position = bowLauncher.position;
+        
         bullet.target = enemy.transform;
         bullet.bulletDamage = power;
     }

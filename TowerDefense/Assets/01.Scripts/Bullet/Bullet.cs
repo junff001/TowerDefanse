@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
                 CollisionEvent();
             }
         }
-        else if (target == null)
+        else
         {
             gameObject.SetActive(false);
         }
@@ -43,11 +43,20 @@ public class Bullet : MonoBehaviour
     // 충돌 시 발생 로직
     public virtual void CollisionEvent()
     {
-        target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
-        var ps = Instantiate(hitEffect);
-        ps.transform.position = target.position;
-        ps.Play();
+        if(target != null)
+        {
+            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
+            var ps = Instantiate(hitEffect);
+            ps.transform.position = target.position;
+            ps.Play();
 
-        gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("이미 삭제된 적을 타게팅하고 있습니다.");
+            gameObject.SetActive(false);
+        }
+
     } 
 }
