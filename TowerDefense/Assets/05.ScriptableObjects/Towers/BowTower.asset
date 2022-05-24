@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BowTower
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 0
+  offensePower: 50
   attackSpeed: 1
   attackRange: 4
   placeCost: 100

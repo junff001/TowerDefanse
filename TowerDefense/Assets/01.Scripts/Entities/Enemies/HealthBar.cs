@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField]
     private HealthSystem healthSystem;
 
     [SerializeField] private Transform healthBarTrm;
