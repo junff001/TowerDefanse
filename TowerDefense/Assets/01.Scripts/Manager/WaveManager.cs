@@ -31,8 +31,10 @@ public class WaveManager : Singleton<WaveManager>
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<EnemyBase> enemySpawnQueue = new Queue<EnemyBase>();
 
-    [Header("디펜스/오펜스")]
-    public CanvasGroup defenseGroup;
+    [Header("디펜스UI")]
+    public CanvasGroup defenseTowerGroup;
+
+
     public CanvasGroup offenseGroup;
 
     private void Update()
