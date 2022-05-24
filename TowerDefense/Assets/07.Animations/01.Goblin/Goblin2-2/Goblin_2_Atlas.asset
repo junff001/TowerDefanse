@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
-  m_Name: Goblin_Atlas
+  m_Name: Goblin_2_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 4674bade0912d954c96fdd93242805c5, type: 3}
+  atlasFile: {fileID: 4900000, guid: efbf85c5551353e418a7d98a6da3d29a, type: 3}
   materials:
-  - {fileID: 2100000, guid: b1ce2a0c2128c5c429d73cd1800adc0e, type: 2}
+  - {fileID: 2100000, guid: 0bb97e15cddf441458868aa66fc3ef2a, type: 2}

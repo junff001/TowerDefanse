@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
   m_Name: Goblin_2_SkeletonData
   m_EditorClassIdentifier: 
-  atlasAssets:
-  - {fileID: 11400000, guid: 0593aa1c43d8b264c8222baca7268695, type: 2}
+  atlasAssets: []
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 39dd2db7ac2bca24cb0dcd7e07c1bfab, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: b33fb61ae6ec3814987836d5b7ffab33, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
