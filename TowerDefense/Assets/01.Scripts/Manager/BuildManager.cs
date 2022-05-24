@@ -30,6 +30,8 @@ public class BuildManager : Singleton<BuildManager>
     private Dictionary<CoreType, CoreBase> coreDic = new Dictionary<CoreType, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
+    Vector3 plusPos = Vector2.zero;
+
     private void Start()
     {
         mainCam = Camera.main;
@@ -38,20 +40,22 @@ public class BuildManager : Singleton<BuildManager>
         {
             coreDic.Add(item.coreType, item);
         }
+
+        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y,0) / 2; // 0.5정도임, 타일의 중앙 지점 찾기 용
     }
 
     private void Update()
     {
-        SetCurTilePos();
-        SetDir();
+        SeTilePos();
         SetAroundTiles();
     }
 
 
-    public void SetDir()
+    public void SeTilePos()
     {
-        Vector2 pos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        dir = map.tilemap.CellToWorld(new Vector3Int((int)pos.x, (int)pos.y, 0)) - map.tilemap.CellToWorld(tilePos);
+        Vector3 pos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        tilePos = map.tilemap.WorldToCell(pos);    // 마우스 위치에 위치한 타일 받아오기
+        dir = pos - (map.tilemap.CellToWorld(tilePos) + plusPos);
     }
 
     public void SetAroundTiles()
@@ -67,12 +71,6 @@ public class BuildManager : Singleton<BuildManager>
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
 
-    // 마우스 위치에 있는 타일
-    public void SetCurTilePos()
-    {
-        Vector2 pos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        tilePos = map.tilemap.WorldToCell(pos);    // 마우스 위치에 위치한 타일 받아오기
-    }
 
     public void ResetCheckedTiles() // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
@@ -120,13 +118,10 @@ public class BuildManager : Singleton<BuildManager>
     {
         if (dir.x > 0 && dir.y > 0) // 1사분면
             return new Vector3Int[4] { curPos, right, upRight, up };
-
         else if (dir.x < 0 && dir.y > 0)// 2사분면
             return new Vector3Int[4] { curPos, left, upLeft, up };
-
         else if (dir.x < 0 && dir.y < 0)// 3사분면
-            return new Vector3Int[4] { curPos, left, downLeft, down  };
-
+            return new Vector3Int[4] { curPos, left, downLeft, down };
         else  // 4사분면
             return new Vector3Int[4] { curPos, right, downRight, down };
 
