@@ -6,20 +6,28 @@ using Spine;
 
 public class AnimationSkinController : MonoBehaviour
 {
-    [SpineSkin] public string baseSkinName;
-    [SpineSlot] public List<string> slots = new List<string>();
-    [SpineAttachment] public string eyeKey; // 고글 어테치먼트의 이름
-    public SkeletonAnimation s;
+    //[SpineSlot] public List<string> slots = new List<string>();
+    [SpineSlot] public string[] targetSlots;
+    [SpineAttachment(currentSkinOnly =true)] public string[] attachmentKey; // 고글 어테치먼트의 이름
+    private SkeletonAnimation sa;
 
     private void Start()
     {
-        Skeleton skeleton = s.skeleton; // 스켈레톤 클래스
+        if(attachmentKey.Length != targetSlots.Length)
+        {
+            Debug.LogError("두 배열의 길이는 같고, 인덱스 1번에 1번에 넣을 파츠를 골라서 넣어줘야 함!!");
+            return;
+        }
 
-        Skin newSkin = new Skin("custom skin"); // 새로운 스킨생성
-        var baseSkin = skeleton.Data.FindSkin(baseSkinName); // 기존에 있는 스킨 가져오기
-        newSkin.AddSkin(baseSkin); // 기존에 있는 스킨에 정의된 값을 새로운 스킨에 추가
+        sa = GetComponent<SkeletonAnimation>();
 
-        Debug.Log(skeleton.FindSlot("Head").Attachment.Name);
+        Skeleton skeleton = sa.skeleton; // 스켈레톤 클래스
+
+        skeleton.Slots.ForEach((x) => x.Attachment = null);
+        for(int i = 0; i< targetSlots.Length; i++)
+        {
+            skeleton.SetAttachment(targetSlots[i], attachmentKey[i]);
+        }
 
     }
 }
