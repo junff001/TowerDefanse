@@ -15,26 +15,26 @@ MonoBehaviour:
   waveEnemyInfos:
   - infoName: "\uC6E8\uC774\uBE0C 1"
     monsterBox:
-    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 5
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 2"
     monsterBox:
-    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 10
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 3"
     monsterBox:
-    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 15
     boss: {fileID: 6546935564312426063, guid: a8b4589b1cc57b6449a4620cf7ea15e1, type: 3}
   - infoName: "\uC6E8\uC774\uBE0C 4"
     monsterBox:
-    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 20
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 5"
     monsterBox:
-    - enemy: {fileID: 6814317000089402011, guid: 612e5846b7492ef4ca90a0e601d18eeb, type: 3}
+    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 25
     boss: {fileID: 0}
