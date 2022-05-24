@@ -85,12 +85,13 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
+
     public void SetNextWave()
     {
         if (enemySpawnQueue.Count == 0) // 다음 웨이브가 있으면,
         {
             Wave++;
-
+            
             SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
             foreach (SpawnerMonsterCount item in enemyBox)
             {
@@ -122,6 +123,15 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
+    public void CheckWaveEnd()
+    {
+        //몹이 죽을 때 실행되는 함수
+        if(IsWaveProgressing == false && enemySpawnQueue.Count == 0) 
+        {
+            // 여기서 해주면 돼
+        }
+    }
+
     IEnumerator Spawn()
     {
         int queueCount = enemySpawnQueue.Count;
@@ -146,6 +156,7 @@ public class WaveManager : Singleton<WaveManager>
             enemyHealth.OnDied += () =>
             {
                 aliveEnemies.Remove(enemyObj);
+                CheckWaveEnd();
                 Destroy(enemyObj.gameObject);
             };
 

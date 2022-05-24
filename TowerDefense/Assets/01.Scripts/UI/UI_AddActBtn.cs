@@ -18,6 +18,9 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     private void Start()
     {
         gr = transform.root.GetComponent<GraphicRaycaster>();
+
+        moveImg.GetComponent<Image>().sprite = GameManager.Instance.GetActBtnSprite(actData.monsterType);
+
         StartCoroutine(CheckDrag());
     }
 
