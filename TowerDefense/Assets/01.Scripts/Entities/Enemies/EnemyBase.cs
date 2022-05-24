@@ -43,6 +43,11 @@ public class EnemyBase : MonoBehaviour
         {
             GoldManager.Instance.GoldPlus(myStat.RewardGold);
         };
+
+        Vector3 startDir = GameManager.Instance.wayPoints[GameManager.Instance.wayPoints.Count - 1].transform.position - transform.position; // 처음에 바라볼값 설정
+
+        float xScale = startDir.x > 0 ? -transform.localScale.x : transform.localScale.x;
+        transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
     }
 
     void Update()
@@ -123,6 +128,13 @@ public class EnemyBase : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.wayPoints[currentWayPointIndex].transform.position,
             Time.deltaTime * myStat.MoveSpeed);
+
+        Vector3 dir = GameManager.Instance.wayPoints[currentWayPointIndex].transform.position - transform.position;
+
+        float absXScale = Mathf.Abs(transform.localScale.x);
+        float xScale = dir.x > 0 ? -absXScale : absXScale;
+        transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
+        
 
         if (WayPointDistance())
         {

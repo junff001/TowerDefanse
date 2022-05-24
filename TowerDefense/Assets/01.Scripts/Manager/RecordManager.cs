@@ -16,19 +16,6 @@ public class RecordManager : Singleton<RecordManager>
 
     public List<RecordWaveBox> recordBox = new List<RecordWaveBox>();
 
-    [ContextMenu("Test")]
-    public void Test()
-    {
-        RecordTowerUpgrade recordSegment = new RecordTowerUpgrade(new TowerData());
-
-        AddRecord(recordSegment);
-    }
-
-    private void Start()
-    {
-        StartRecord();
-    }
-
     private void Update()
     {
         if(isRecord)

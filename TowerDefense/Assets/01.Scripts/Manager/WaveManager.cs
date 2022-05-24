@@ -118,6 +118,7 @@ public class WaveManager : Singleton<WaveManager>
     {
         if(false == IsWaveProgressing)
         {
+            RecordManager.Instance.StartRecord();
             SetNextWave();
             StartCoroutine(Spawn());
         }
@@ -162,7 +163,7 @@ public class WaveManager : Singleton<WaveManager>
 
             count_five++;
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
