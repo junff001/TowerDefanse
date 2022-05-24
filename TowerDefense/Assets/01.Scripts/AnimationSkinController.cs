@@ -23,10 +23,11 @@ public class AnimationSkinController : MonoBehaviour
 
         Skeleton skeleton = sa.skeleton; // 스켈레톤 클래스
 
-        skeleton.Slots.ForEach((x) => x.Attachment = null);
+        //skeleton.Slots.ForEach((x) => x.Attachment = null);
         for(int i = 0; i< targetSlots.Length; i++)
         {
-            skeleton.SetAttachment(targetSlots[i], attachmentKey[i]);
+            //skeleton.SetAttachment(targetSlots[i], attachmentKey[i]);
+            skeleton.FindSlot(targetSlots[i]).A = 0;
         }
 
     }

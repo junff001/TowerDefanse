@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     public int Gold { get; set; } = 500;
     public int Wave { get; set; } = 1;
 
-    private Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
+    public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
 
     public Transform waypointsParent;
     [HideInInspector]

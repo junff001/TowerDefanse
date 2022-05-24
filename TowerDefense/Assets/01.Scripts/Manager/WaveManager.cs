@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
+public enum eGameMode
+{
+    DEFENSE,
+    OFFENSE
+}
+
 public class WaveManager : Singleton<WaveManager>
 {
     [Header("Object Field")]
     public Text waveRoundCount;
-
-    private float totalTime = 0f;
 
     [Header("웨이브")]
     private int _wave = 0;
@@ -33,22 +37,51 @@ public class WaveManager : Singleton<WaveManager>
 
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
-    public CanvasGroup defenseStatus;
+    public RectTransform defenseStatus;
+    public Text defenseHpText;
 
-    public CanvasGroup offenseGroup;
+    [Header("오펜스UI")]
+    public CanvasGroup offenseMonsterGroup;
+    public RectTransform offenseStatus;
+    public Text offenseHpText;
+
+    private eGameMode gameMode;
+    public eGameMode GameMode
+    {
+        get
+        {
+            return gameMode;
+        }
+
+        set
+        {
+            gameMode = value;
+            ChangeMode(gameMode);
+        }
+    }
+
+    bool IsWaveProgressing
+    {
+        get
+        {
+            return aliveEnemies.Count != 0; // 웨이브가 진행중이면 true
+        }
+    }
 
     private void Update()
     {
-        SetTotalTime();
-    }
-
-    bool IsWaveProgressing() => aliveEnemies.Count != 0; // 웨이브가 진행중이면 true
-
-    public void SetTotalTime()
-    {
-        if (IsWaveProgressing())
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            totalTime += Time.deltaTime;
+            if (GameMode == eGameMode.DEFENSE)
+            {
+                UIManager.SummonText(new Vector2(960, 540), "디버그 : 오펜스 모드!", 40);
+                GameMode = eGameMode.OFFENSE;
+            }
+            else
+            {
+                UIManager.SummonText(new Vector2(960, 540), "디버그 : 디펜스 모드!", 40);
+                GameMode = eGameMode.DEFENSE;
+            }
         }
     }
 
@@ -82,7 +115,7 @@ public class WaveManager : Singleton<WaveManager>
 
     public void WaveStart()
     {
-        if(IsWaveProgressing() == false)
+        if(false == IsWaveProgressing)
         {
             SetNextWave();
             StartCoroutine(Spawn());
@@ -119,6 +152,56 @@ public class WaveManager : Singleton<WaveManager>
             count_five++;
 
             yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    private void ChangeMode(eGameMode gameMode)
+    {
+        switch (gameMode)
+        {
+            case eGameMode.DEFENSE:
+                {
+                    GameManager.hpText = defenseHpText;
+                    defenseStatus.transform.SetAsLastSibling();
+                    defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
+                    offenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);
+
+                    RectTransform towerRect = defenseTowerGroup.GetComponent<RectTransform>();
+                    RectTransform monsterRect = offenseMonsterGroup.GetComponent<RectTransform>();
+
+                    CanvasGroupInit(defenseTowerGroup, true);
+                    towerRect.DOAnchorPosY(0, 0.5f);
+
+                    CanvasGroupInit(offenseMonsterGroup, false);
+                    monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
+                }
+                break;
+            case eGameMode.OFFENSE:
+                {
+                    GameManager.hpText = offenseHpText;
+                    offenseStatus.transform.SetAsLastSibling();
+                    offenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
+                    defenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);
+
+                    RectTransform towerRect = defenseTowerGroup.GetComponent<RectTransform>();
+                    RectTransform monsterRect = offenseMonsterGroup.GetComponent<RectTransform>();
+
+                    CanvasGroupInit(offenseMonsterGroup, true);
+                    monsterRect.DOAnchorPosY(0, 0.5f);
+
+                    CanvasGroupInit(defenseTowerGroup, false);
+                    towerRect.DOAnchorPosY(-towerRect.sizeDelta.y, 0.5f);
+                }
+                break;
+        }
+
+        void CanvasGroupInit(CanvasGroup group, bool appear)
+        {
+            if (appear) group.transform.SetAsLastSibling();
+
+            group.alpha = appear ? 1 : 0.3f;
+            group.interactable = appear;
+            group.blocksRaycasts = appear;
         }
     }
 }
