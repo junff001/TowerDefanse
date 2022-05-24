@@ -207,6 +207,8 @@ public class WaveManager : Singleton<WaveManager>
                 break;
         }
 
+        GameManager.Instance.UpdateHPText();
+
         void CanvasGroupInit(CanvasGroup group, bool appear)
         {
             if (appear) group.transform.SetAsLastSibling();
