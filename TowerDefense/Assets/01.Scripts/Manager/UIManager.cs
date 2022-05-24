@@ -60,8 +60,6 @@ public class UIManager : MonoBehaviour
     {
         Init();
 
-        print("asd");
-
         Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
         textObj.rectTransform.anchoredPosition = pos;
         textObj.text = text;

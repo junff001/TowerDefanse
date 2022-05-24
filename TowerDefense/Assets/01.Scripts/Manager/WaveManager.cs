@@ -33,7 +33,7 @@ public class WaveManager : Singleton<WaveManager>
 
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
-
+    public CanvasGroup defenseStatus;
 
     public CanvasGroup offenseGroup;
 
