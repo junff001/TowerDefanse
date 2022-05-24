@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Missile : Bullet
 {
-    private Vector2 targetCatchPos = Vector2.zero;                  // 타겟 포착 위치
-    private Vector2 projectilePos = Vector2.zero;                   // 발사체 위치
+    private Vector3 targetCatchPos = Vector3.zero;                  // 타겟 포착 위치
+    private Vector3 projectilePos = Vector3.zero;                   // 발사체 위치
                                                                     
     [SerializeField] private float curveHeight = 0f;                // 커브 포인트 높이
     [SerializeField] private float explosionRadius = 0f;            // 폭발 반경
@@ -53,13 +53,15 @@ public class Missile : Bullet
 
     public override void FlyBullet()
     {
-        Vector2 midleValue = Vector2.Lerp(projectilePos, targetCatchPos, 0.5f);
-        Vector2 curve = Vector2.Perpendicular(midleValue).normalized;
-        
-        Debug.Log("중간값 : " +  midleValue);
-        Debug.Log("커브 값 : " + curve);
+        Vector3 direction = targetCatchPos - projectilePos;
+        Vector3 z = Vector3.forward;
+        Vector3 curve = Vector3.Cross(direction, z);
 
-        transform.position = BezierCurves(projectilePos, curve, targetCatchPos, timerCurrent / timerMax);
+        Vector3 pos = projectilePos + direction / 2;
+
+        Vector3 result = pos + curve.normalized * Vector3.Distance(targetCatchPos, projectilePos) / 2;
+        
+        transform.position = BezierCurves(projectilePos, result, targetCatchPos, timerCurrent / timerMax);
     }
     
     Vector2 BezierCurves(Vector2 startPos, Vector2 curve, Vector2 endPos, float t)

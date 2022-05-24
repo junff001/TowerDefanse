@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Single_Attack : CoreBase
-{
+{ 
     public override void Attack(int power, HealthSystem enemy)
     {
         Bullet bullet = PoolManager.GetItem<Bullet>();
