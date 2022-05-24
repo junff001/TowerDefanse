@@ -13,7 +13,7 @@ public class AnimationSkinController : MonoBehaviour
 
     private void Start()
     {
-        Skeleton skeleton = s.Skeleton; // 스켈레톤 클래스
+        Skeleton skeleton = s.skeleton; // 스켈레톤 클래스
 
         Skin newSkin = new Skin("custom skin"); // 새로운 스킨생성
         var baseSkin = skeleton.Data.FindSkin(baseSkinName); // 기존에 있는 스킨 가져오기
