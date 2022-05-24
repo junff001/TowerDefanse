@@ -26,7 +26,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler
     {
         if (BuildManager.Instance.CanPlace(towerSO.placeTileType))
         {
-            if (GameManager.Instance.Gold >= 100)
+            if (GoldManager.Instance.GoldMinus(towerSO.PlaceCost))
             {
                 BuildManager.Instance.SpawnTower(towerSO);
 
