@@ -7,11 +7,10 @@ public class Arrow : Bullet
     private Vector3 targetCatchPos = Vector3.zero;      // 투사 지점
     Vector3 moveDirection = Vector3.zero;
 
-    private void OnEnable()
+    public override void Init()
     {
         if (target != null)
         {
-            Debug.Log("공격을 시작합니다");
             targetCatchPos = target.position;
             moveDirection = (targetCatchPos - transform.position).normalized;
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(moveDirection) - 45);
@@ -21,7 +20,6 @@ public class Arrow : Bullet
             gameObject.SetActive(false);
         }
     }
-        
 
     public override void Update()
     {

@@ -10,7 +10,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Awake()
     {
-        PoolManager.CreatePool<Arrow>(bulletPrefab, transform, 50);
+        PoolManager.CreatePool<Bullet>(bulletPrefab, transform, 50);
     }
 
     private void OnDestroy()

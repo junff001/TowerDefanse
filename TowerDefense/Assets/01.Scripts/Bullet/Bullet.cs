@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {
     [SerializeField] protected float speed = 0f;                            // 이동 속도
     [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
 
     public Transform target = null;                            // 목표물
     public int bulletDamage { get; set; } = 0;                               // 데미지
+
+    public abstract void Init();
+
 
     public virtual void Update()
     {
@@ -54,7 +57,6 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            Debug.Log("이미 삭제된 적을 타게팅하고 있습니다.");
             gameObject.SetActive(false);
         }
 

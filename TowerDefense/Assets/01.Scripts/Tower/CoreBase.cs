@@ -42,33 +42,17 @@ public abstract class CoreBase : MonoBehaviour
             yield return new WaitUntil(() => enemies?.Length > 0);
             currentTarget = enemies[0];
 
-            List<EnemyBase> enemyList = new List<EnemyBase>();
-            for (int i = 0; i < enemies.Length; i++)
+            for(int i = 0; i< enemies.Length; i++)
             {
-                if (enemies[i] != null)
-                    enemyList.Add(enemies[i].GetComponent<EnemyBase>());
-            }
+                if (i >= towerData.attackTargetCount) break;
 
-            enemyList.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance));
-
-            if (enemyList.Count > 0)
-            {
-                for (int i = 0; i < towerData.attackTargetCount; i++) // 공격 
+                if (enemies[0] != null)
                 {
-                    if (enemies[0] != null)
-                    {
-                        Debug.Log("공격하라고");
-                        Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
-                    }
-                    else
-                    {
-                        Debug.Log("때릴 적이 없음.");
-                    }
+                    Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
                 }
             }
 
-            enemies = null;
-            enemyList.Clear();
+           
             yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고,
         }
     }

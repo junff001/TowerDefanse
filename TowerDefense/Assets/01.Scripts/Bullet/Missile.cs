@@ -102,5 +102,10 @@ public class Missile : Bullet
             Gizmos.color = Color.white;
         }
     }
+
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
+    }
 #endif
 }

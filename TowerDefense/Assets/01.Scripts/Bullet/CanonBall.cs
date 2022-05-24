@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class CanonBall : Bullet
 {
-    
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
+    }
 }
