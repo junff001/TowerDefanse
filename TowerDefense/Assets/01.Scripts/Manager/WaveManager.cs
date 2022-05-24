@@ -74,12 +74,12 @@ public class WaveManager : Singleton<WaveManager>
         {
             if (GameMode == eGameMode.DEFENSE)
             {
-                UIManager.SummonText(new Vector2(960, 540), "디버그 : 오펜스 모드!", 40);
+                UIManager.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
                 GameMode = eGameMode.OFFENSE;
             }
             else
             {
-                UIManager.SummonText(new Vector2(960, 540), "디버그 : 디펜스 모드!", 40);
+                UIManager.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
                 GameMode = eGameMode.DEFENSE;
             }
         }
