@@ -10964,7 +10964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627815c3a8b70864d907d26879367b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3188361967190122603, guid: edec9d3e733c00647bc1ff29b27986dc, type: 3}
+  bulletPrefab: {fileID: 3188361967190122603, guid: 1d9a575f6c8528f449886247ff0f1b17, type: 3}
 --- !u!1 &179384079
 GameObject:
   m_ObjectHideFlags: 0
@@ -19344,7 +19344,7 @@ MonoBehaviour:
   map: {fileID: 221014417}
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
   coreList:
-  - {fileID: 864607307150061629, guid: 1913f9cfb66c07f42a921ced9bc43637, type: 3}
+  - {fileID: 4597706378882197371, guid: 1913f9cfb66c07f42a921ced9bc43637, type: 3}
 --- !u!1 &853586365
 GameObject:
   m_ObjectHideFlags: 0

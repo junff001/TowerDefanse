@@ -68,6 +68,11 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
+    private void Start()
+    {
+        RecordManager.Instance.StartRecord();
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -118,7 +123,6 @@ public class WaveManager : Singleton<WaveManager>
     {
         if(false == IsWaveProgressing)
         {
-            RecordManager.Instance.StartRecord();
             SetNextWave();
             StartCoroutine(Spawn());
         }
@@ -130,6 +134,7 @@ public class WaveManager : Singleton<WaveManager>
         if(IsWaveProgressing == false && enemySpawnQueue.Count == 0) 
         {
             // 여기서 해주면 돼
+            RecordManager.Instance.EndRecord();
         }
     }
 

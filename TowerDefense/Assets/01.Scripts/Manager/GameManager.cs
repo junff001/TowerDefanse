@@ -80,6 +80,7 @@ public class GameManager : Singleton<GameManager>
 
         UpdateHPText();
         WaveManager.Instance.aliveEnemies.Remove(enemy);
+        WaveManager.Instance.CheckWaveEnd();
         Destroy(enemy.gameObject);
     }
 }

@@ -182,5 +182,9 @@ public class BuildManager : Singleton<BuildManager>
         {
             map.mapTileTypeArray[pos.x, pos.y] = TileType.Tower;
         }
+
+        // 레코드
+        RecordTowerPlace recordSegment = new RecordTowerPlace(Get2By2TilesCenter(Get2By2Tiles()), newTower.TowerData);
+        RecordManager.Instance.AddRecord(recordSegment);
     }
 }
