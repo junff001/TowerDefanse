@@ -28,8 +28,9 @@ public class Arrow : Bullet
         if (IsCollision())
         {
             moveDirection = Vector3.zero;
-            target = null;
             CollisionEvent();
+
+            target = null;
         }
     }
 
