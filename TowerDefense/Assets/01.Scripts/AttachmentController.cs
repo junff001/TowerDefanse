@@ -28,10 +28,10 @@ public class AttachmentController : MonoBehaviour
 
         foreach(Slot slot in skeleton.Slots) slot.Attachment = null;
 
-       //for (int i = 0; i < baseAttachments.Length; i++)
-       //{
-       //    skeleton.SetAttachment(baseAttachments[i], baseAttachments[i]);
-       //}
+       for (int i = 0; i < baseAttachments.Length; i++)
+       {
+           skeleton.SetAttachment(baseAttachments[i], baseAttachments[i]);
+       }
 
         //for (int i = 0; i< targetSlots.Length; i++)
         //{

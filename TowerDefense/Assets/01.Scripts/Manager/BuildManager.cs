@@ -146,19 +146,18 @@ public class BuildManager : Singleton<BuildManager>
         return true;
     }   
     
-
-    //준서놈
     public Vector3 Get2By2TilesCenter(Vector3Int[] targetTiles)
     {
-        float x, y;
+        float reviseY = targetTiles[0].y > targetTiles[2].y ? -0.5f : 0.5f;
 
-        x = (float)(targetTiles[0].x + targetTiles[1].x) / 2;
-        y = (float)(targetTiles[2].y + targetTiles[3].y) / 2;
+        float x = (float)(targetTiles[0].x + targetTiles[1].x) / 2;
+        float y = targetTiles[0].y + reviseY;
 
-        Debug.Log($"x : {x}, y : {y}");
+        // 그리드를 이동시켰기 때문에, 이제 이동시킨 값만큼 보내줘야 해
 
+        Vector3 center = new Vector3(x - (float)(map.width - 1) / 2, y - (float)(map.height) / 2, targetTiles[0].z);
 
-        return new Vector3(x - (float)(map.width - 1) / 2, y - (float)(map.height - 1) / 2, targetTiles[0].z); // 그리드를 이동시켰기 때문에, 이제 이동시킨 값만큼 보내줘야 해
+        return center;
     }
 
     // 타워를 스폰하는 함수
