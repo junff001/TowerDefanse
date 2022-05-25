@@ -11,7 +11,7 @@ public class InvadeManager : Singleton<InvadeManager>
     private const float SpawnTerm = 0.2f;
     private int curAddedRestActCount = 0;
 
-    public int maxSpawnMonsterCount = 0;
+    public int maxSpawnMonsterCount = 5;
     public int curSpawnMonsterCount = 0;
 
     WaitForSeconds ws = new WaitForSeconds(SpawnTerm);
@@ -241,18 +241,26 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void AddBtn(ActData newAct)
     {
-        UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
-        waitingActs.Add(newBtn);
-        OnCreateRemoveBtn(newAct, newBtn);
+        if (CanSetWave())
+        {
+            UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
+            waitingActs.Add(newBtn);
+            OnCreateRemoveBtn(newAct, newBtn);
+        }
     }
 
     public void InsertBtn(ActData newAct, int idx)
     {
-        UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
-        waitingActs.Insert(idx, newBtn);
-        OnCreateRemoveBtn(newAct, newBtn);
-        newBtn.transform.SetSiblingIndex(idx);
+        if (CanSetWave())
+        {
+            UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
+            waitingActs.Insert(idx, newBtn);
+            OnCreateRemoveBtn(newAct, newBtn);
+            newBtn.transform.SetSiblingIndex(idx);
+        }
     }
+
+    bool CanSetWave() => maxSpawnMonsterCount > curSpawnMonsterCount; // 이미 최대치만큼 추가했는지.
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
     {
