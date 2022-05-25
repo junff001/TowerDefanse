@@ -4,14 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
 
-public enum TileType
-{
-    None,
-    Road,
-    Place,
-    Tower,
-    Obstacle
-}
+
 
 public class Map : MonoBehaviour
 {
