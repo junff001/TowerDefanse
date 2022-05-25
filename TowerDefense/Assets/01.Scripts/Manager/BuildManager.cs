@@ -32,6 +32,8 @@ public class BuildManager : Singleton<BuildManager>
 
     Vector3 plusPos = Vector2.zero;
 
+    public GameObject movingTowerImg = null;
+
     private void Start()
     {
         mainCam = Camera.main;
@@ -49,7 +51,6 @@ public class BuildManager : Singleton<BuildManager>
         SeTilePos();
         SetAroundTiles();
     }
-
 
     public void SeTilePos()
     {

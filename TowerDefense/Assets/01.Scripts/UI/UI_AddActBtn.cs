@@ -14,9 +14,11 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     private GraphicRaycaster gr;
 
+    private Mask mask;
 
     private void Start()
     {
+        mask = transform.GetComponentInChildren<Mask>();
         gr = transform.root.GetComponent<GraphicRaycaster>();
 
         moveImg.GetComponent<Image>().sprite = GameManager.Instance.GetActBtnSprite(actData.monsterType);
@@ -41,11 +43,14 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        mask.enabled = false;
+
         InvadeManager.Instance.invisibleObj.gameObject.SetActive(true);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        mask.enabled = true;
         List<RaycastResult> results = new List<RaycastResult>();
         gr.Raycast(eventData, results);
 
