@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public static void SummonText(Vector2 pos, string text, int maxSize = 75, UnityAction callback = null)
+    public static void SummonText(Vector2 pos, string text, int maxSize, UnityAction callback = null)
     {
         Init();
 
@@ -67,6 +67,42 @@ public class UIManager : MonoBehaviour
 
         textObj.rectTransform.DOAnchorPosY(100, 1.5f).SetRelative();
         textObj.DOFade(0, 3f).SetEase(Ease.InQuart).OnComplete(() =>
+        {
+            if (callback != null)
+                callback.Invoke();
+            Destroy(textObj);
+        });
+    }
+
+    public static void SummonText(Vector2 pos, string text, float time, int maxSize, UnityAction callback = null)
+    {
+        Init();
+
+        Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
+        textObj.rectTransform.anchoredPosition = pos;
+        textObj.text = text;
+        textObj.resizeTextMaxSize = maxSize;
+
+        textObj.rectTransform.DOAnchorPosY(100, time / 2).SetRelative();
+        textObj.DOFade(0, time).SetEase(Ease.InQuart).OnComplete(() =>
+        {
+            if (callback != null)
+                callback.Invoke();
+            Destroy(textObj);
+        });
+    }
+
+    public static void SummonText(Vector2 pos, Vector2 dir, string text, float time, int maxSize, UnityAction callback = null)
+    {
+        Init();
+
+        Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
+        textObj.rectTransform.anchoredPosition = pos;
+        textObj.text = text;
+        textObj.resizeTextMaxSize = maxSize;
+
+        textObj.rectTransform.DOAnchorPos(dir, time / 2).SetRelative();
+        textObj.DOFade(0, time).SetEase(Ease.InQuart).OnComplete(() =>
         {
             if (callback != null)
                 callback.Invoke();
