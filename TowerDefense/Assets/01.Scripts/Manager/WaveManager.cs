@@ -17,7 +17,7 @@ public class WaveManager : Singleton<WaveManager>
 
     [Header("웨이브")]
     private int _wave = 0;
-    private int Wave
+    public int Wave
     {
         get
         {

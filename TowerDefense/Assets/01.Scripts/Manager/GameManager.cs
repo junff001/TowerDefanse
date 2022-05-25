@@ -8,7 +8,6 @@ public class GameManager : Singleton<GameManager>
 {
     public int Hp { get; set; } = 50;
     public int Gold { get; set; } = 500;
-    public int Wave { get; set; } = 1;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
 

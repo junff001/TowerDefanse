@@ -37,11 +37,11 @@ public class RecordManager : Singleton<RecordManager>
 
     public void AddRecord(RecordBase recordSegment)
     {
-        if(recordBox.Count < GameManager.Instance.Wave)
+        if(recordBox.Count < WaveManager.Instance.Wave)
         {
             recordBox.Add(new RecordWaveBox());
         }
 
-        recordBox[GameManager.Instance.Wave - 1].recordLog.Add(recordSegment);
+        recordBox[WaveManager.Instance.Wave - 1].recordLog.Add(recordSegment);
     }
 }
