@@ -6,7 +6,8 @@ public enum CoreType
 {
     SingleAttack,
     ExplosionAttack,
-    PenetrationAttack
+    PenetrationAttack,
+    SpikeAttack    
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]

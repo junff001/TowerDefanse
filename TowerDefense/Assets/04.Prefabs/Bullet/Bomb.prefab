@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3188361967190122601}
   - component: {fileID: -1968775079198678545}
   m_Layer: 0
-  m_Name: Missile
+  m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3188361967190122603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.1, y: -3.8787746, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: -33704209
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -7310884378538523348, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   hitEffect: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  target: {fileID: 0}
   curveHeight: 1
   explosionRadius: 3
   timerMax: 10

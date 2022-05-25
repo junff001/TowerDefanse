@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : Bullet
+public class Bomb : Bullet
 {
     private Vector3 targetCatchPos = Vector3.zero;                  // 타겟 포착 위치
     private Vector3 projectilePos = Vector3.zero;                   // 발사체 위치
@@ -105,7 +105,7 @@ public class Missile : Bullet
 
     public override void Init()
     {
-        throw new System.NotImplementedException();
+        
     }
 #endif
 }

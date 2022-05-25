@@ -51,8 +51,7 @@ public abstract class CoreBase : MonoBehaviour
                     Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
                 }
             }
-
-           
+        
             yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고,
         }
     }

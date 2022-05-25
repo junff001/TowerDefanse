@@ -5,14 +5,13 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    [SerializeField] protected float speed = 0f;                            // 이동 속도
+    [SerializeField] protected float speed = 0f;                             // 이동 속도
     [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
 
-    public Transform target = null;                            // 목표물
+    public Transform target = null;                                          // 목표물
     public int bulletDamage { get; set; } = 0;                               // 데미지
 
     public abstract void Init();
-
 
     public virtual void Update()
     {
@@ -46,7 +45,7 @@ public abstract class Bullet : MonoBehaviour
     // 충돌 시 발생 로직
     public virtual void CollisionEvent()
     {
-        if(target != null)
+        if (target != null)
         {
             target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
             var ps = Instantiate(hitEffect);
@@ -59,6 +58,5 @@ public abstract class Bullet : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-
     } 
 }

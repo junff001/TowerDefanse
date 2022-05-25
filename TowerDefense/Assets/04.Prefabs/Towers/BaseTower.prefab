@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6440560775320885367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.94, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6440560775293775369}
@@ -128,6 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07ef218bc7bcf84d8626b94b9f97750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerData:
+    Level: 0
+    OffensePower: 0
+    AttackSpeed: 0
+    AttackRange: 0
+    PlaceCost: 0
+    attackTargetCount: 0
   coreTrm: {fileID: 5959093991930460599}
 --- !u!1 &6440560775465285333
 GameObject:
