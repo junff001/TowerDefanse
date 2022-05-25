@@ -40,4 +40,6 @@ public class TowerSO : ScriptableObject
     public PlaceTileType placeTileType = PlaceTileType.None;
     public CoreType coreType = CoreType.SingleAttack; // 위 머리 판단기준
     public PropertyType propertyType = PropertyType.NONE;
+
+    public bool hasTower = true;
 }

@@ -161,20 +161,41 @@ public class BuildManager : Singleton<BuildManager>
         return center;
     }
 
+    public void MakeNewCore(TowerSO towerSO, Tower newTower)
+    {
+        CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
+        newCore.transform.SetParent(newTower.transform);
+        newCore.transform.position = newTower.coreTrm.position;
+        newCore.towerData = newTower.TowerData;
+
+    }
+    
+    public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
+    {
+        CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
+        newCore.transform.SetParent(newTower.transform);
+        newCore.transform.position = Vector3.zero;
+        newCore.towerData = newTower.TowerData;
+    }
+
     // 타워를 스폰하는 함수
     public void SpawnTower(TowerSO towerSO)
     {
         Tower newTower = Instantiate(towerBase, Get2By2TilesCenter(Get2By2Tiles()), Quaternion.identity);
         newTower.InitTowerData(towerSO);
 
-        CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
-        newCore.transform.SetParent(newTower.transform);
-        newCore.transform.position = newTower.coreTrm.position;
-        newCore.towerData = newTower.TowerData;
+        if(towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
+        {
+            MakeNewCore(towerSO,newTower);
+        }
+        else
+        {
+            MakeNoTowerCore(towerSO, newTower);
+        }
 
         //원래는 타일 값에 따라 받아와야 하지만, 어차피 타일 값 == 포지션 값이니까..
 
-        foreach(var item in newTower.GetComponentsInChildren<SpriteRenderer>())
+        foreach (var item in newTower.GetComponentsInChildren<SpriteRenderer>())
         {
             item.sortingOrder = map.height - (int)newTower.transform.position.y;
         }
