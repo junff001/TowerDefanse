@@ -10,6 +10,10 @@ public class InvadeManager : Singleton<InvadeManager>
     private readonly int MaxRestCountInOneWave = 5;
     private const float SpawnTerm = 0.2f;
     private int curAddedRestActCount = 0;
+
+    public int maxSpawnMonsterCount = 0;
+    public int curSpawnMonsterCount = 0;
+
     WaitForSeconds ws = new WaitForSeconds(SpawnTerm);
 
     public Color overlapColor;
@@ -252,6 +256,7 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
     {
+        curSpawnMonsterCount++;
         newBtn.Init(newAct);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~

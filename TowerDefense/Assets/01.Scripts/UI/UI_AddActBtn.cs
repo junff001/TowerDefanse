@@ -56,7 +56,6 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
         foreach (var item in results)
         {
-            Debug.Log(item.gameObject.name);
             if (item.gameObject.CompareTag("ActContent"))
             {
                 InvadeManager.Instance.InsertAct(Input.mousePosition, actData.actType, actData.monsterType);
