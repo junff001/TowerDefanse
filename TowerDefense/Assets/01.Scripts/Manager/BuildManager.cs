@@ -172,9 +172,14 @@ public class BuildManager : Singleton<BuildManager>
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
     {
+        foreach(var item in newTower.GetComponentsInChildren<SpriteRenderer>())
+        {
+            item.enabled = false;
+        }
+
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
-        newCore.transform.position = Vector3.zero;
+        newCore.transform.position = newTower.transform.position;
         newCore.towerData = newTower.TowerData;
     }
 
