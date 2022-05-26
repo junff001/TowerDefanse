@@ -1,8 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 public class InvadeManager : Singleton<InvadeManager>
 {
@@ -74,10 +74,8 @@ public class InvadeManager : Singleton<InvadeManager>
         }
 
         EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
-
         EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
         HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
-
         enemyObj.WaveStatControl(WaveManager.Instance.Wave);
         WaveManager.Instance.aliveEnemies.Add(enemyObj);
 
@@ -94,9 +92,9 @@ public class InvadeManager : Singleton<InvadeManager>
         TryAct();
     }
 
-    public void OnAddAct(ActData actData)
+    public void OnAddAct(ActType actType)
     {
-        if(actData.actType == ActType.Enemy)
+        if(actType == ActType.Enemy)
         {
             curAddedMonsterCount++;
         }
@@ -104,6 +102,8 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             curAddedRestCount++;
         }
+
+        monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
     public void OnCancelAct(ActType actType)
@@ -116,6 +116,7 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             curAddedRestCount--;
         }
+        monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
     public void CheckActType(ActData actData)
@@ -134,7 +135,16 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void WaveStart() //TryAct라는 말이 웨이브 시작할 때 실행할 함수명으로 적절치 않아서 그냥 WaveStart라고 따로 만들어뒀어여
     {
-        TryAct();
+        if(curAddedMonsterCount == MaxMonsterCount)
+        {
+            TryAct();
+        }
+        else
+        {
+            UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
+                $"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}", 60);
+        }
+
     }
 
     IEnumerator Wait()
@@ -156,6 +166,7 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void AddAct(ActType actType, MonsterType monsterType)
     {
+        OnAddAct(actType);
         ActData newAct = new ActData(actType, monsterType);
 
         if (IsSameAct(addedAct, newAct))
@@ -170,20 +181,17 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void InsertAct(Vector3 dragEndPos, ActType actType, MonsterType monsterType)
     {
+        OnAddAct(actType);
         ActData newAct = new ActData(actType, monsterType);
         int insertIdx = GetInsertIndex(dragEndPos);
 
-        // list에 아무것도 없으면 insertIdx가 -2, 맨 왼쪽이면 -1 
-
         if (insertIdx == -2) // 추가한게 없으면
         {
-            Debug.Log(1);
-            AddAct(newAct.actType, newAct.monsterType);
+            AddBtn(newAct);
         }
 
         if (insertIdx == -1) // 맨 왼쪽이면.
         {
-            Debug.Log(2);
             if (IsSameAct(waitingActs[0].actData, newAct))
             {
                 waitingActs[0].Stack();
@@ -195,7 +203,6 @@ public class InvadeManager : Singleton<InvadeManager>
         }
         else if (insertIdx >= 0)// 0이상일 때
         {
-            Debug.Log(3);
             if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
             {
                 waitingActs[insertIdx].Stack();

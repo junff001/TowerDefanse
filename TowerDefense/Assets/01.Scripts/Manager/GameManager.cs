@@ -22,10 +22,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        if (wayPoints.Count > 0)
-        {
-            SetWaypoints(waypointsParent);
-        }
+        SetWaypoints(waypointsParent);
     }
 
     private void Start()
