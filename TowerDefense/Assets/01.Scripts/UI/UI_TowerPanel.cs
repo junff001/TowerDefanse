@@ -55,7 +55,12 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
                 UIManager.SummonText(towerImage.transform.position, "설치 취소", 20);
             }
         }
-        
+
+        OnDragEnd();
+    }
+
+    public void OnDragEnd()
+    {
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
         BuildManager.Instance.ResetCheckedTiles();
         BuildManager.Instance.movingTowerImg = null;

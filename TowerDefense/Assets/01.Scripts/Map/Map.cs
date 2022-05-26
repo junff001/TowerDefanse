@@ -18,7 +18,6 @@ public class Map : MonoBehaviour
 
     private void Start()
     {
-        tilemap = GetComponent<Tilemap>();
         tilemap.CompressBounds();  // 타일맵 깔린 타일 개수만 세는거 
 
         width = tilemap.size.x;

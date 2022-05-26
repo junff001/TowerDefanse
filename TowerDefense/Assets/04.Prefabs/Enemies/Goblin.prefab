@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}
-  myStat:
+  enemyData:
     HP: 0
     Shield: 0
     OffensePower: 0
@@ -202,6 +202,7 @@ MonoBehaviour:
     IsFlying: 0
     PropertyResistance: 0
     IsDebuffIimmune: 0
+    monsterType: 1
   aliveTime: 0
   movedDistance: 0
 --- !u!1001 &7678723238854517916

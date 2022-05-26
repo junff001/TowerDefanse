@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using DG.Tweening;
-
+using UnityEngine.UI;
 public class InvadeManager : Singleton<InvadeManager>
 {
     private readonly int MaxRestCountInOneWave = 5;
@@ -12,11 +12,11 @@ public class InvadeManager : Singleton<InvadeManager>
     public int maxAddedMonsterCount = 5;
     public int curAddedMonsterCount = 0;
     
-    private const float SpawnTerm = 0.2f;
-
-    WaitForSeconds ws = new WaitForSeconds(SpawnTerm);
 
     public Color overlapColor;
+    public Text hpText;
+    public Text monsterText;
+
 
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 

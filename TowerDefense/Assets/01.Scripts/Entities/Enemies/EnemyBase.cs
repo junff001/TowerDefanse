@@ -14,16 +14,16 @@ public class EnemyData
     public bool IsGuardian;
     public bool IsFlying;
     public PropertyType PropertyResistance;
-    public bool IsDebuffIimmune;   
+    public bool IsDebuffIimmune;
+    public MonsterType monsterType;
 }
 
 public class EnemyBase : MonoBehaviour
 {
     protected HealthSystem healthSystem;
-    private MeshRenderer mesh;
 
     [SerializeField] protected EnemySO enemySO;
-    public EnemyData myStat = new EnemyData();
+    public EnemyData enemyData = new EnemyData();
 
     private List<BuffBase> buffList = new List<BuffBase>();
 
@@ -36,23 +36,20 @@ public class EnemyBase : MonoBehaviour
     {
         InitEnemyData();
         healthSystem = GetComponent<HealthSystem>();
-        mesh = GetComponent<MeshRenderer>();
     }
 
     private void Start()
     {
-        mesh.sortingLayerName = "Character";
-
         healthSystem.OnDied += () =>
         {
-            GoldManager.Instance.GoldPlus(myStat.RewardGold);
+            GoldManager.Instance.GoldPlus(enemyData.RewardGold);
         };
     }
 
     void Update()
     {
         aliveTime += Time.deltaTime;
-        movedDistance = aliveTime * myStat.MoveSpeed;
+        movedDistance = aliveTime * enemyData.MoveSpeed;
         Move();
 
         if (buffList.Count > 0)
@@ -105,16 +102,16 @@ public class EnemyBase : MonoBehaviour
 
     void InitEnemyData()
     {
-        myStat.HP = enemySO.HP;
-        myStat.Shield = enemySO.Shield;
-        myStat.OffensePower = enemySO.OffensePower;
-        myStat.MoveSpeed = enemySO.MoveSpeed;
-        myStat.RewardGold = enemySO.RewardGold;
-        myStat.IsHide = enemySO.IsHide;
-        myStat.IsGuardian = enemySO.IsGuardian;
-        myStat.IsFlying = enemySO.IsFlying;
-        myStat.PropertyResistance = enemySO.PropertyResistance;
-        myStat.IsDebuffIimmune = enemySO.IsDebuffIimmune;
+        enemyData.HP = enemySO.HP;
+        enemyData.Shield = enemySO.Shield;
+        enemyData.OffensePower = enemySO.OffensePower;
+        enemyData.MoveSpeed = enemySO.MoveSpeed;
+        enemyData.RewardGold = enemySO.RewardGold;
+        enemyData.IsHide = enemySO.IsHide;
+        enemyData.IsGuardian = enemySO.IsGuardian;
+        enemyData.IsFlying = enemySO.IsFlying;
+        enemyData.PropertyResistance = enemySO.PropertyResistance;
+        enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
     }
 
     void Move()
@@ -126,7 +123,7 @@ public class EnemyBase : MonoBehaviour
         }
 
         transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.wayPoints[currentWayPointIndex].transform.position,
-            Time.deltaTime * myStat.MoveSpeed);
+            Time.deltaTime * enemyData.MoveSpeed);
 
         Vector3 dir = GameManager.Instance.wayPoints[currentWayPointIndex].transform.position - transform.position;
 

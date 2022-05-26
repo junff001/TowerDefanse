@@ -15,12 +15,12 @@ public class HealthSystem : MonoBehaviour
     {
         get
         {
-            return enemyBase.myStat.HP;
+            return enemyBase.enemyData.HP;
         }
 
         set
         {
-            enemyBase.myStat.HP = value;
+            enemyBase.enemyData.HP = value;
         }
     }
 
@@ -29,12 +29,12 @@ public class HealthSystem : MonoBehaviour
     {
         get
         {
-            return enemyBase.myStat.Shield;
+            return enemyBase.enemyData.Shield;
         }
 
         set
         {
-            enemyBase.myStat.Shield = value;
+            enemyBase.enemyData.Shield = value;
         }
     }
 

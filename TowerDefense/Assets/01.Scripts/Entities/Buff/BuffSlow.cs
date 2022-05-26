@@ -17,8 +17,8 @@ public class BuffSlow : BuffBase
 
         if (enemy != null)
         {
-            changedValue = enemy.myStat.MoveSpeed * (amplification / 100);
-            enemy.myStat.MoveSpeed -= changedValue;
+            changedValue = enemy.enemyData.MoveSpeed * (amplification / 100);
+            enemy.enemyData.MoveSpeed -= changedValue;
         }
     }
 
@@ -33,6 +33,6 @@ public class BuffSlow : BuffBase
         base.Destroy();
 
         EnemyBase enemy = affecter.GetComponent<EnemyBase>();
-        enemy.myStat.MoveSpeed += changedValue;
+        enemy.enemyData.MoveSpeed += changedValue;
     }
 }
