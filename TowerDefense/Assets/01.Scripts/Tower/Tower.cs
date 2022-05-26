@@ -44,7 +44,7 @@ public class Tower : MonoBehaviour
     // 공격 범위 기즈모 표시
 #if UNITY_EDITOR 
     private void OnDrawGizmos()
-    {
+    {   
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;

@@ -5,13 +5,13 @@ using UnityEngine;
 public abstract class CoreBase : MonoBehaviour
 {
     private LayerMask enemyMask = default;                      // 적을 분별하는 마스크
-    public Collider2D[] enemies = null;                        // 공격 범위이 안에 있는 적들
+    public Collider2D[] enemies = null;                         // 공격 범위이 안에 있는 적들
     public Collider2D currentTarget { get; set; } = null;       // 현재 타겟
 
     public TowerData towerData;
     public CoreType coreType;
 
-    void Start()
+    public virtual void Start()
     {
         StartCoroutine(Rader());
         StartCoroutine(OnAttack());
