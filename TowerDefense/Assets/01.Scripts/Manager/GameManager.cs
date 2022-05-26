@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    public int Hp { get; set; } = 50;
+    public int Hp { get; set; } = 10;
     public int Gold { get; set; } = 500;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
@@ -23,6 +23,9 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         SetWaypoints(waypointsParent);
+        hpText = WaveManager.Instance.defenseHpText;
+        InvadeManager.Instance.UpdateTexts();
+        UpdateHPText();
     }
 
     private void Start()
@@ -65,7 +68,6 @@ public class GameManager : Singleton<GameManager>
         {
             Hp = 0;
         }
-
         UpdateHPText();
         WaveManager.Instance.aliveEnemies.Remove(enemy);
         WaveManager.Instance.CheckWaveEnd();

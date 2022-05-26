@@ -88,6 +88,7 @@ public class WaveManager : Singleton<WaveManager>
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            GameManager.Instance.UpdateHPText();
             if (GameMode == eGameMode.DEFENSE)
             {
                 if (BuildManager.Instance.movingTowerImg != null)
@@ -187,7 +188,7 @@ public class WaveManager : Singleton<WaveManager>
             UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
             Debug.Log("인원 추가");
         }
-
+        InvadeManager.Instance.UpdateTexts();
     }
 
     public void CheckWaveEnd()

@@ -118,7 +118,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (currentWayPointIndex == GameManager.Instance.wayPoints.Count)
         {
-            //GameManager.Instance.OnEnemyArrivedLastWaypoint(this);
+            GameManager.Instance.OnEnemyArrivedLastWaypoint(this);
             return;
         }
 

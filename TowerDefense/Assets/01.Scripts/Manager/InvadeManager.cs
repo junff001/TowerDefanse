@@ -11,12 +11,9 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public int MaxMonsterCount = 5;
     public int curAddedMonsterCount = 0;
-    
 
     public Color overlapColor;
-    public Text hpText;
     public Text monsterText;
-
 
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 
@@ -83,7 +80,7 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             WaveManager.Instance.aliveEnemies.Remove(enemyObj);
             WaveManager.Instance.CheckWaveEnd();
-            Destroy(enemyObj.gameObject);
+            Destroy(enemyHealth.gameObject);
         };
 
         spawnedCount++;
@@ -102,7 +99,11 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             curAddedRestCount++;
         }
+        UpdateTexts();
+    }
 
+    public void UpdateTexts()
+    {
         monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
@@ -116,7 +117,7 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             curAddedRestCount--;
         }
-        monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
+        UpdateTexts();
     }
 
     public void CheckActType(ActData actData)
