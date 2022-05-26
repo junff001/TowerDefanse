@@ -15,6 +15,9 @@ public class WaveManager : Singleton<WaveManager>
     [Header("Object Field")]
     public Text waveRoundCount;
 
+    [Header("풀매니저 오브젝트")]
+    public Transform poolManagerTrm;
+
     [Header("웨이브")]
     private int _wave = 0;
     public int Wave
@@ -32,6 +35,9 @@ public class WaveManager : Singleton<WaveManager>
 
     public WaveSO waveSO;
 
+    public Dictionary<MonsterType, EnemyBase> enemyDic = new Dictionary<MonsterType, EnemyBase>();
+    public List<EnemyBase> enemyList = new List<EnemyBase>();
+
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<EnemyBase> enemySpawnQueue = new Queue<EnemyBase>();
 
@@ -46,6 +52,7 @@ public class WaveManager : Singleton<WaveManager>
     public Text offenseHpText;
 
     private eGameMode gameMode;
+    [HideInInspector]
     public eGameMode GameMode
     {
         get
@@ -59,7 +66,6 @@ public class WaveManager : Singleton<WaveManager>
             ChangeMode(gameMode);
         }
     }
-
     bool IsWaveProgressing
     {
         get
@@ -71,19 +77,57 @@ public class WaveManager : Singleton<WaveManager>
     private void Start()
     {
         SetNextWave();
+
+        foreach (var enemy in enemyList)
+        {
+            enemyDic.Add(enemy.enemyData.monsterType, enemy);
+        }
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (GameMode == eGameMode.DEFENSE)
             {
+                if (BuildManager.Instance.movingTowerImg != null)
+                {
+                    BuildManager.Instance.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
+                    BuildManager.Instance.ResetCheckedTiles();
+                    BuildManager.Instance.movingTowerImg = null;
+                }
+
                 UIManager.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
                 GameMode = eGameMode.OFFENSE;
+
+                //타워 지우기
+                foreach (Tower tower in BuildManager.Instance.spawnedTowers)
+                {
+                    Destroy(tower.gameObject);
+                }
+                BuildManager.Instance.spawnedTowers.Clear();
+
+                //공격 전부 꺼주기(Bullet 상속 받은 친구들)
+                Transform[] poolManagerChildren = poolManagerTrm.GetComponentsInChildren<Transform>();
+                Transform[] poolingObjs = new Transform[poolManagerChildren.Length - 1];
+
+                //맨 위의 PoolManagerObj 제외시키기.
+                for (int i = 1; i < poolManagerChildren.Length; i++)
+                {
+                    poolingObjs[i - 1] = poolManagerChildren[i];
+                }
+
+                for (int i = 0; i < poolingObjs.Length; i++)
+                {
+                    poolingObjs[i].gameObject.SetActive(false);
+                }
             }
             else
             {
+                if (InvadeManager.Instance.draggingBtn != null)
+                {
+                    InvadeManager.Instance.draggingBtn.OnDragEnd();
+                }
                 UIManager.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
                 GameMode = eGameMode.DEFENSE;
             }
@@ -91,12 +135,13 @@ public class WaveManager : Singleton<WaveManager>
     }
 
 
+
     public void SetNextWave()
     {
         if (enemySpawnQueue.Count == 0) // 다음 웨이브가 있으면,
         {
             Wave++;
-            
+
             SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
             foreach (SpawnerMonsterCount item in enemyBox)
             {
@@ -121,32 +166,64 @@ public class WaveManager : Singleton<WaveManager>
 
     public void WaveStart()
     {
-        if(false == IsWaveProgressing)
+        if (false == IsWaveProgressing)
         {
             RecordManager.Instance.StartRecord();
             StartCoroutine(Spawn());
         }
     }
 
+    public void OnWaveEnd(int rewardGold, int rewardWave)
+    {
+        if (gameMode == eGameMode.DEFENSE)
+        {
+            GoldManager.Instance.GoldPlus(rewardGold);
+            UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
+            Debug.Log("돈 추가");
+        }
+        else
+        {
+            InvadeManager.Instance.MaxMonsterCount += rewardWave;
+            UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
+            Debug.Log("인원 추가");
+        }
+
+    }
+
     public void CheckWaveEnd()
     {
-        //몹이 죽을 때 실행되는 함수
-        if(IsWaveProgressing == false && enemySpawnQueue.Count == 0) 
+        if (gameMode == eGameMode.DEFENSE)
         {
-            // 여기서 해주면 돼
-            RecordManager.Instance.EndRecord();
+            //몹이 죽을 때 실행되는 함수
+            if (IsWaveProgressing == false && enemySpawnQueue.Count == 0)
+            {
+                // 여기서 해주면 돼
+                RecordManager.Instance.EndRecord();
 
-            // 웨이크 클리어 체크
-            if (Wave >= waveSO.waveEnemyInfos.Length)
-            {
-                // 오펜스 모드로 교체!
-                GameMode = eGameMode.OFFENSE;
-            }
-            else
-            {
-                SetNextWave();
+                // 웨이크 클리어 체크
+                if (Wave >= waveSO.waveEnemyInfos.Length)
+                {
+                    // UI나 컷신같은거 나오고 교체..일걸요?
+
+                    // 오펜스 모드로 교체!
+                    GameMode = eGameMode.OFFENSE;
+                }
+                else
+                {
+                    // 돈 추가 , 인원추가
+                    OnWaveEnd(300, 0);
+                    SetNextWave();
+                }
             }
         }
+        else
+        {
+            if (IsWaveProgressing == false && InvadeManager.Instance.waitingActs.Count == 0)
+            {
+                OnWaveEnd(0, 2);
+            }
+        }
+
     }
 
     IEnumerator Spawn()

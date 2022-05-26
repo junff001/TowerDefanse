@@ -6,10 +6,10 @@ using DG.Tweening;
 using UnityEngine.UI;
 public class InvadeManager : Singleton<InvadeManager>
 {
-    private readonly int MaxRestCountInOneWave = 5;
-    private int curAddedRestActCount = 0;
+    private readonly int MaxRestCount = 5;
+    private int curAddedRestCount = 0;
 
-    public int maxAddedMonsterCount = 5;
+    public int MaxMonsterCount = 5;
     public int curAddedMonsterCount = 0;
     
 
@@ -26,6 +26,8 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public RectTransform waitingActContentTrm;
     public RectTransform invisibleObj;
+
+    public UI_AddActBtn draggingBtn = null;
 
     int beforeIdx = 0;
     float sideLength = 0f;
@@ -62,21 +64,33 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
+    int spawnedCount = 0;
+
     public IEnumerator SpawnEnemy(MonsterType monsterType)
     {
-        //switch(monsterType)
-        //{
-        //    case MonsterType.Goblin:
-        //        Debug.Log("Goblin");
-        //    break;
-        //    case MonsterType.Ghost:
-        //        Debug.Log("Ghost");
-        //        break;
-        //}
+        if (spawnedCount % 5 == 0 && spawnedCount != 0)
+        {
+            yield return new WaitForSeconds(1f);
+        }
 
-        //테스트용
-        Debug.Log(monsterType.ToString());
-        yield return ws;
+        EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
+
+        EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
+        HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
+
+        enemyObj.WaveStatControl(WaveManager.Instance.Wave);
+        WaveManager.Instance.aliveEnemies.Add(enemyObj);
+
+        enemyHealth.OnDied += () =>
+        {
+            WaveManager.Instance.aliveEnemies.Remove(enemyObj);
+            WaveManager.Instance.CheckWaveEnd();
+            Destroy(enemyObj.gameObject);
+        };
+
+        spawnedCount++;
+
+        yield return new WaitForSeconds(0.2f);
         TryAct();
     }
 
@@ -88,7 +102,19 @@ public class InvadeManager : Singleton<InvadeManager>
         }
         else
         {
-            curAddedRestActCount++;
+            curAddedRestCount++;
+        }
+    }
+
+    public void OnCancelAct(ActType actType)
+    {
+        if (actType == ActType.Enemy)
+        {
+            curAddedMonsterCount--;
+        }
+        else
+        {
+            curAddedRestCount--;
         }
     }
 
@@ -264,9 +290,16 @@ public class InvadeManager : Singleton<InvadeManager>
         newBtn.transform.SetSiblingIndex(idx);
     }
 
-    public bool CanSetWave()
+    public bool CanSetWave(ActType actType)
     {
-        return maxAddedMonsterCount > curAddedMonsterCount;
+        if(actType == ActType.Enemy)
+        {
+            return MaxMonsterCount > curAddedMonsterCount;
+        }
+        else
+        {
+            return MaxRestCount > curAddedRestCount;
+        }
     }
 
 

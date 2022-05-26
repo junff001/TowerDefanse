@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class BuildManager : Singleton<BuildManager>
 {
+    #region
     private Vector3Int tilePos = Vector3Int.zero;                  // 타일 위치
 
     private Vector3Int[] checkedPos = null;
@@ -20,6 +21,7 @@ public class BuildManager : Singleton<BuildManager>
     private Vector3Int downLeft = Vector3Int.zero;
     private Vector3Int down = Vector3Int.zero;
     private Vector3Int downRight = Vector3Int.zero;
+    #endregion
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     private Camera mainCam = null;
@@ -29,6 +31,8 @@ public class BuildManager : Singleton<BuildManager>
 
     private Dictionary<CoreType, CoreBase> coreDic = new Dictionary<CoreType, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
+
+    public List<Tower> spawnedTowers = new List<Tower>();
 
     Vector3 plusPos = Vector2.zero;
 

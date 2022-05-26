@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1260734271}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InvadeManager, Assembly-CSharp
         m_MethodName: WaveStart
         m_Mode: 1
@@ -2003,12 +2003,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 1874019285}
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
-  movingTowerImg: {fileID: 0}
   coreList:
   - {fileID: 4597706378882197371, guid: 1913f9cfb66c07f42a921ced9bc43637, type: 3}
   - {fileID: 3349517641496805959, guid: 8f57f80ca9eb2f442a8d3c789620792d, type: 3}
   - {fileID: 864607307150061629, guid: 9f2d812708d44a34e879eecd6e1b95ba, type: 3}
   spawnedTowers: []
+  movingTowerImg: {fileID: 0}
 --- !u!1 &533688925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,30 +2153,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 594647438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6693466ef453c064e8374525ad8aed70, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7f913e5dc35e44ab2c5bc3ab255253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waypointsParent: {fileID: 1671764105}
-  wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  wayPoints: []
   enemySprites:
   - {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
-  - {fileID: 21300000, guid: 7083818d45937d54dbd73d7936d46d2a, type: 3}
-  - {fileID: 21300000, guid: 5f9eb49cc8454784d81096857a22291a, type: 3}
-  - {fileID: 21300000, guid: afbcd526c7b676842917c2eb1bf3172f, type: 3}
-  - {fileID: 21300000, guid: a14c81517717b0a4a86d58777c83176c, type: 3}
   waitSprite: {fileID: 21300000, guid: bb140da66e8f5f147b7f477f6641e302, type: 3}
 --- !u!1 &607263683
 GameObject:
@@ -7820,9 +7803,9 @@ RectTransform:
   m_Father: {fileID: 396860756}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -135}
   m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1204155646
@@ -8206,24 +8189,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1260734269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092f62fed98ed634886e2cdcd2662b37, type: 3}
+  m_Script: {fileID: 11500000, guid: d4a267292e6be764f9206c4583b08bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMonsterInOneWave: 5
-  curAddedRestActCount: 0
+  MaxMonsterCount: 5
   curAddedMonsterCount: 0
-  monsterCountText: {fileID: 261151372}
-  hpText: {fileID: 1630417420}
-  overlapColor: {r: 1, g: 0.5886792, b: 0.5886792, a: 1}
+  overlapColor: {r: 0.9433962, g: 0.752047, b: 0.752047, a: 0}
+  hpText: {fileID: 0}
+  monsterText: {fileID: 0}
   waitingActs: []
-  addedBtn: {fileID: 0}
-  cancleBtnPrefab: {fileID: 6760498008738100699, guid: 166430bc14206274da5e3438a41a82ab, type: 3}
-  draggingBtn: {fileID: 0}
-  waitingActContentTrm: {fileID: 396860756}
-  invisibleObj: {fileID: 1204155645}
   addedAct:
     actType: 0
     monsterType: 0
+  addedBtn: {fileID: 0}
+  cancleBtnPrefab: {fileID: 6760498008738100699, guid: 166430bc14206274da5e3438a41a82ab, type: 3}
+  waitingActContentTrm: {fileID: 1326283500}
+  invisibleObj: {fileID: 0}
+  draggingBtn: {fileID: 0}
 --- !u!1 &1263349798
 GameObject:
   m_ObjectHideFlags: 0
