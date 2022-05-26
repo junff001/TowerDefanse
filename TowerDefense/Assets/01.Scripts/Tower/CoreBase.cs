@@ -20,7 +20,7 @@ public abstract class CoreBase : MonoBehaviour
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
-    IEnumerator Rader()
+    protected IEnumerator Rader()
     {
         enemyMask = LayerMask.GetMask("Enemy");
         while (true)
@@ -50,7 +50,7 @@ public abstract class CoreBase : MonoBehaviour
 #endif
 
     // 공격 실행 함수
-    IEnumerator OnAttack()
+    public virtual IEnumerator OnAttack()
     {
         while (true)
         {
