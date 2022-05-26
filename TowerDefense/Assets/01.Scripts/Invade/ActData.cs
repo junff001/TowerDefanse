@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class ActData
 {
-    public ActType actType = ActType.None;
+    public ActType actType = ActType.Enemy;
     public MonsterType monsterType  = MonsterType.None;
 
     public ActData(ActType actType, MonsterType monsterType = MonsterType.None)

@@ -21,7 +21,7 @@ public class UI_CancelActBtn : MonoBehaviour
 
     public void Cancel()
     {
-        InvadeManager.Instance.curSpawnMonsterCount--;
+        InvadeManager.Instance.curAddedMonsterCount--;
         actStackCount--;
         countText.text = actStackCount.ToString();
         DestroyCheck();

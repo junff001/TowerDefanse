@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
 using DG.Tweening;
 
 public class InvadeManager : Singleton<InvadeManager>
 {
     private readonly int MaxRestCountInOneWave = 5;
-    private const float SpawnTerm = 0.2f;
     private int curAddedRestActCount = 0;
 
-    public int maxSpawnMonsterCount = 5;
-    public int curSpawnMonsterCount = 0;
+    public int maxAddedMonsterCount = 5;
+    public int curAddedMonsterCount = 0;
+    
+    private const float SpawnTerm = 0.2f;
 
     WaitForSeconds ws = new WaitForSeconds(SpawnTerm);
 
@@ -80,6 +80,18 @@ public class InvadeManager : Singleton<InvadeManager>
         TryAct();
     }
 
+    public void OnAddAct(ActData actData)
+    {
+        if(actData.actType == ActType.Enemy)
+        {
+            curAddedMonsterCount++;
+        }
+        else
+        {
+            curAddedRestActCount++;
+        }
+    }
+
     public void CheckActType(ActData actData)
     {
         switch (actData.actType)
@@ -132,12 +144,10 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void InsertAct(Vector3 dragEndPos, ActType actType, MonsterType monsterType)
     {
-        int insertIdx = GetInsertIndex(dragEndPos);
         ActData newAct = new ActData(actType, monsterType);
+        int insertIdx = GetInsertIndex(dragEndPos);
 
         // list에 아무것도 없으면 insertIdx가 -2, 맨 왼쪽이면 -1 
-
-        Debug.Log($"실행, {insertIdx} ");
 
         if (insertIdx == -2) // 추가한게 없으면
         {
@@ -241,30 +251,27 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void AddBtn(ActData newAct)
     {
-        if (CanSetWave())
-        {
-            UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
-            waitingActs.Add(newBtn);
-            OnCreateRemoveBtn(newAct, newBtn);
-        }
+        UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
+        waitingActs.Add(newBtn);
+        OnCreateRemoveBtn(newAct, newBtn);
     }
 
     public void InsertBtn(ActData newAct, int idx)
     {
-        if (CanSetWave())
-        {
-            UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
-            waitingActs.Insert(idx, newBtn);
-            OnCreateRemoveBtn(newAct, newBtn);
-            newBtn.transform.SetSiblingIndex(idx);
-        }
+        UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
+        waitingActs.Insert(idx, newBtn);
+        OnCreateRemoveBtn(newAct, newBtn);
+        newBtn.transform.SetSiblingIndex(idx);
     }
 
-    bool CanSetWave() => maxSpawnMonsterCount > curSpawnMonsterCount; // 이미 최대치만큼 추가했는지.
+    public bool CanSetWave()
+    {
+        return maxAddedMonsterCount > curAddedMonsterCount;
+    }
+
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
     {
-        curSpawnMonsterCount++;
         newBtn.Init(newAct);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
@@ -286,9 +293,9 @@ public class InvadeManager : Singleton<InvadeManager>
         }
         else if (waitingActs.Count > idx) //내가 삭제한게 맨 오른쪽 끝이 아님.
         {
-            if(IsSameAct(waitingActs[idx - 1].actData, waitingActs[idx].actData))
+            if (IsSameAct(waitingActs[idx - 1].actData, waitingActs[idx].actData))
             {
-                for(int i =0; i < waitingActs[idx].actStackCount; i++)
+                for (int i = 0; i < waitingActs[idx].actStackCount; i++)
                 {
                     waitingActs[idx - 1].Stack();
                 }

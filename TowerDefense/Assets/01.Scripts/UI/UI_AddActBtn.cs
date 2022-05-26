@@ -30,7 +30,14 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     {
         if (!bDraged)
         {
-            InvadeManager.Instance.AddAct(actData.actType, actData.monsterType);
+            if (InvadeManager.Instance.CanSetWave())
+            {
+                InvadeManager.Instance.AddAct(actData.actType, actData.monsterType);
+            }
+            else
+            {
+                UIManager.SummonText(transform.position, "웨이브를 추가할 수 없습니다.", 30);
+            }
         }
         bDraged = false;
     }
@@ -44,24 +51,30 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     public void OnBeginDrag(PointerEventData eventData)
     {
         mask.enabled = false;
-
         InvadeManager.Instance.invisibleObj.gameObject.SetActive(true);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        mask.enabled = true;
-        List<RaycastResult> results = new List<RaycastResult>();
-        gr.Raycast(eventData, results);
-
-        foreach (var item in results)
+        if (InvadeManager.Instance.CanSetWave())
         {
-            if (item.gameObject.CompareTag("ActContent"))
+            List<RaycastResult> results = new List<RaycastResult>();
+            gr.Raycast(eventData, results);
+
+            foreach (var item in results)
             {
-                InvadeManager.Instance.InsertAct(Input.mousePosition, actData.actType, actData.monsterType);
+                if (item.gameObject.CompareTag("ActContent"))
+                {
+                    InvadeManager.Instance.InsertAct(Input.mousePosition, actData.actType, actData.monsterType);
+                }
             }
         }
+        else
+        {
+            UIManager.SummonText(transform.position, "웨이브를 추가할 수 없습니다.", 30);
+        }
 
+        mask.enabled = true;
         moveImg.anchoredPosition = Vector3.zero;
         InvadeManager.Instance.ReduceDummyObj();
         InvadeManager.Instance.ResetButtons();
