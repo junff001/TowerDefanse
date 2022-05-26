@@ -14,12 +14,13 @@ public class EnemyData
     public bool IsGuardian;
     public bool IsFlying;
     public PropertyType PropertyResistance;
-    public bool IsDebuffIimmune;
+    public bool IsDebuffIimmune;   
 }
 
 public class EnemyBase : MonoBehaviour
 {
     protected HealthSystem healthSystem;
+    private MeshRenderer mesh;
 
     [SerializeField] protected EnemySO enemySO;
     public EnemyData myStat = new EnemyData();
@@ -35,10 +36,13 @@ public class EnemyBase : MonoBehaviour
     {
         InitEnemyData();
         healthSystem = GetComponent<HealthSystem>();
+        mesh = GetComponent<MeshRenderer>();
     }
 
     private void Start()
     {
+        mesh.sortingLayerName = "Character";
+
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(myStat.RewardGold);
