@@ -5,6 +5,8 @@ using UnityEngine;
 public class Spike_Attack : CoreBase
 {
     [SerializeField] private ParticleSystem hitEffect = null;
+    [SerializeField] private Sprite onSpike = null;
+    [SerializeField] private Sprite offSpike = null;
 
     public override void Attack(int power, HealthSystem enemy)
     {

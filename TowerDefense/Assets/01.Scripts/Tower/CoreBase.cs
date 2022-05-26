@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class CoreBase : MonoBehaviour
 {
+    [SerializeField] private float gizmoHeight = 0f;
+
     private LayerMask enemyMask = default;                      // 적을 분별하는 마스크
     public Collider2D[] enemies = null;                         // 공격 범위이 안에 있는 적들
     public Collider2D currentTarget { get; set; } = null;       // 현재 타겟
@@ -24,15 +26,28 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
-            enemies = EnemyRader(enemyMask);
+            enemies = EnemyRader(enemyMask); 
         }
     }
 
     // 공격 범위 처리 함수
     Collider2D[] EnemyRader(LayerMask targetMask)
     {
-        return Physics2D.OverlapCircleAll(transform.position, towerData.AttackRange, targetMask);
+        return Physics2D.OverlapCircleAll(transform.position + new Vector3(0, gizmoHeight, 0), towerData.AttackRange, targetMask);
     }
+
+    // 공격 범위 기즈모 표시
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (UnityEditor.Selection.activeObject == gameObject)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position + new Vector3(0, gizmoHeight, 0), towerData.AttackRange);
+            Gizmos.color = Color.white;
+        }
+    }
+#endif
 
     // 공격 실행 함수
     IEnumerator OnAttack()

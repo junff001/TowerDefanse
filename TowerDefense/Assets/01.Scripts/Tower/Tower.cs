@@ -17,6 +17,7 @@ public struct TowerData
 public class Tower : MonoBehaviour
 {
     [SerializeField] private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
+    
     public TowerData TowerData { get => towerData; set => value = towerData; }
 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
@@ -40,17 +41,4 @@ public class Tower : MonoBehaviour
     {
 
     }
-
-    // 공격 범위 기즈모 표시
-#if UNITY_EDITOR 
-    private void OnDrawGizmos()
-    {   
-        if (UnityEditor.Selection.activeObject == gameObject)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, towerData.AttackRange);
-            Gizmos.color = Color.white;
-        }
-    }
-#endif
 }

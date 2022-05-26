@@ -32,11 +32,6 @@ public class Penetration_Attack : CoreBase
             Quaternion rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
             bowBody.rotation = Quaternion.Slerp(bowBody.rotation, rotation, rotateSpeed * Time.deltaTime);
         }
-        else
-        {
-            Debug.Log("없음");
-        }
-
     }
 
     public override void Attack(int power, HealthSystem enemy)
@@ -47,21 +42,18 @@ public class Penetration_Attack : CoreBase
             bullet.bulletDamage = power;
 
             bullet.Init();
-
-            bullet = PoolManager.GetItem<Bullet>();
-            bullet.transform.position = bowLauncher.position;
         }
-        //else
-        //{
-        //    bullet = PoolManager.GetItem<Bullet>();
+        else
+        {
+            bullet = PoolManager.GetItem<Bullet>();
 
-        //    bullet.transform.position = bowLauncher.position;
-        //    bullet.target = enemy.transform;
-        //    bullet.bulletDamage = power;
+            bullet.transform.position = bowLauncher.position;
+            bullet.target = enemy.transform;
+            bullet.bulletDamage = power;
 
-        //    bullet.Init();
-        //}
+            bullet.Init();
+        }
 
-        //bullet = null;
+        bullet = null;
     }
 }
