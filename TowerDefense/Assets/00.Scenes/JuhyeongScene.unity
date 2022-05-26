@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1260734271}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InvadeManager, Assembly-CSharp
         m_MethodName: WaveStart
         m_Mode: 1
@@ -8194,17 +8194,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxMonsterCount: 5
   curAddedMonsterCount: 0
-  overlapColor: {r: 1, g: 0.7028302, b: 0.7028302, a: 1}
-  hpText: {fileID: 1524911934}
-  monsterText: {fileID: 2141911411}
+  overlapColor: {r: 0.9433962, g: 0.752047, b: 0.752047, a: 0}
+  hpText: {fileID: 0}
+  monsterText: {fileID: 0}
   waitingActs: []
   addedAct:
     actType: 0
     monsterType: 0
   addedBtn: {fileID: 0}
   cancleBtnPrefab: {fileID: 6760498008738100699, guid: 166430bc14206274da5e3438a41a82ab, type: 3}
-  waitingActContentTrm: {fileID: 396860756}
-  invisibleObj: {fileID: 1204155645}
+  waitingActContentTrm: {fileID: 1326283500}
+  invisibleObj: {fileID: 0}
   draggingBtn: {fileID: 0}
 --- !u!1 &1263349798
 GameObject:
