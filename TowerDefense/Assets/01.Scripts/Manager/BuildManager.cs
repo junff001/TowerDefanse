@@ -217,5 +217,7 @@ public class BuildManager : Singleton<BuildManager>
         // 레코드
         RecordTowerPlace recordSegment = new RecordTowerPlace(Get2By2TilesCenter(Get2By2Tiles()), newTower.TowerData);
         RecordManager.Instance.AddRecord(recordSegment);
+
+        spawnedTowers.Add(newTower);
     }
 }
