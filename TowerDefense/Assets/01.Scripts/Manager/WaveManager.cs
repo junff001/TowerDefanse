@@ -91,44 +91,11 @@ public class WaveManager : Singleton<WaveManager>
             GameManager.Instance.UpdateHPText();
             if (GameMode == eGameMode.DEFENSE)
             {
-                if (BuildManager.Instance.movingTowerImg != null)
-                {
-                    BuildManager.Instance.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
-                    BuildManager.Instance.ResetCheckedTiles();
-                    BuildManager.Instance.movingTowerImg = null;
-                }
-
                 UIManager.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
                 GameMode = eGameMode.OFFENSE;
-
-                //타워 지우기
-                foreach (Tower tower in BuildManager.Instance.spawnedTowers)
-                {
-                    Destroy(tower.gameObject);
-                }
-                BuildManager.Instance.spawnedTowers.Clear();
-
-                //공격 전부 꺼주기(Bullet 상속 받은 친구들)
-                Transform[] poolManagerChildren = poolManagerTrm.GetComponentsInChildren<Transform>();
-                Transform[] poolingObjs = new Transform[poolManagerChildren.Length - 1];
-
-                //맨 위의 PoolManagerObj 제외시키기.
-                for (int i = 1; i < poolManagerChildren.Length; i++)
-                {
-                    poolingObjs[i - 1] = poolManagerChildren[i];
-                }
-
-                for (int i = 0; i < poolingObjs.Length; i++)
-                {
-                    poolingObjs[i].gameObject.SetActive(false);
-                }
             }
             else
             {
-                if (InvadeManager.Instance.draggingBtn != null)
-                {
-                    InvadeManager.Instance.draggingBtn.OnDragEnd();
-                }
                 UIManager.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
                 GameMode = eGameMode.DEFENSE;
             }
@@ -222,6 +189,7 @@ public class WaveManager : Singleton<WaveManager>
             if (IsWaveProgressing == false && InvadeManager.Instance.waitingActs.Count == 0)
             {
                 OnWaveEnd(0, 2);
+                InvadeManager.Instance.IsWaveProgress = false;
             }
         }
 
@@ -267,6 +235,11 @@ public class WaveManager : Singleton<WaveManager>
         {
             case eGameMode.DEFENSE:
                 {
+                    if (InvadeManager.Instance.draggingBtn != null)
+                    {
+                        InvadeManager.Instance.draggingBtn.OnDragEnd();
+                    }
+
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
@@ -284,6 +257,13 @@ public class WaveManager : Singleton<WaveManager>
                 break;
             case eGameMode.OFFENSE:
                 {
+                    if (BuildManager.Instance.movingTowerImg != null)
+                    {
+                        BuildManager.Instance.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
+                        BuildManager.Instance.ResetCheckedTiles();
+                        BuildManager.Instance.movingTowerImg = null;
+                    }
+
                     Wave = 1;
 
                     GameManager.hpText = offenseHpText;
@@ -299,6 +279,28 @@ public class WaveManager : Singleton<WaveManager>
 
                     CanvasGroupInit(defenseTowerGroup, false);
                     towerRect.DOAnchorPosY(-towerRect.sizeDelta.y, 0.5f);
+
+                    //타워 지우기
+                    foreach (Tower tower in BuildManager.Instance.spawnedTowers)
+                    {
+                        Destroy(tower.gameObject);
+                    }
+                    BuildManager.Instance.spawnedTowers.Clear();
+
+                    //공격 전부 꺼주기(Bullet 상속 받은 친구들)
+                    Transform[] poolManagerChildren = poolManagerTrm.GetComponentsInChildren<Transform>();
+                    Transform[] poolingObjs = new Transform[poolManagerChildren.Length - 1];
+
+                    //맨 위의 PoolManagerObj 제외시키기.
+                    for (int i = 1; i < poolManagerChildren.Length; i++)
+                    {
+                        poolingObjs[i - 1] = poolManagerChildren[i];
+                    }
+
+                    for (int i = 0; i < poolingObjs.Length; i++)
+                    {
+                        poolingObjs[i].gameObject.SetActive(false);
+                    }
                 }
                 break;
         }
