@@ -9,6 +9,7 @@ public class InvadeManager : Singleton<InvadeManager>
     private readonly int MaxRestCount = 5;
     private int curAddedRestCount = 0;
 
+
     public int MaxMonsterCount = 5;
     public int curAddedMonsterCount = 0;
 
@@ -16,6 +17,8 @@ public class InvadeManager : Singleton<InvadeManager>
     public Text monsterText;
 
     public bool isWaveProgress = false;
+    public float currentTime { get; private set; } = 0f;
+    private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
 
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 
@@ -34,6 +37,45 @@ public class InvadeManager : Singleton<InvadeManager>
     private void Start()
     {
         sideLength = cancleBtnPrefab.GetComponent<RectTransform>().rect.width;
+    }
+
+    private void Update()
+    {
+        if(isWaveProgress)
+        {
+            currentTime += Time.deltaTime;
+
+            RecordedSegmentCheck();
+        }
+    }
+
+    public void RecordedSegmentCheck()
+    {
+        if (RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count > actIndex)
+        {
+            RecordBase recordSegment = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
+
+            if (recordSegment.recordedTime >= currentTime)
+            {
+                RecordSegmentPlay(recordSegment);
+
+                actIndex++;
+                RecordedSegmentCheck(); // 같은 시간에 설치될 수 있기때문에 재귀
+            }
+        }
+    }
+
+    private void RecordSegmentPlay(RecordBase recordSegment)
+    {
+        switch(recordSegment.recordType)
+        {
+            case eRecordType.TOWER_PLACE:
+                
+                break;
+            case eRecordType.TOWER_UPGRADE:
+
+                break;
+        }
     }
 
     public bool IsSameAct(ActData compareActData, ActData newActData) // 전에 추가한 것과 

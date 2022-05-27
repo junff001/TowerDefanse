@@ -189,7 +189,7 @@ public class WaveManager : Singleton<WaveManager>
             if (IsWaveProgressing == false && InvadeManager.Instance.waitingActs.Count == 0)
             {
                 OnWaveEnd(0, 2);
-                InvadeManager.Instance.IsWaveProgress = false;
+                InvadeManager.Instance.isWaveProgress = false;
             }
         }
 
