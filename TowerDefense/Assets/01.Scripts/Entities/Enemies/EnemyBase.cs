@@ -26,6 +26,7 @@ public class EnemyBase : MonoBehaviour
     public EnemyData enemyData = new EnemyData();
 
     private List<BuffBase> buffList = new List<BuffBase>();
+    private MeshRenderer mesh = null;
 
     private int currentWayPointIndex = 0;
 
@@ -36,10 +37,13 @@ public class EnemyBase : MonoBehaviour
     {
         InitEnemyData();
         healthSystem = GetComponent<HealthSystem>();
+        mesh = GetComponent<MeshRenderer>();
     }
 
     private void Start()
     {
+        mesh.sortingLayerName = "Character";
+
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(enemyData.RewardGold);

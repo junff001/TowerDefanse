@@ -137,8 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb66769672c93ad4db05c0294d50955c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSlots: []
-  attachmentKeys: []
+  targetSlots:
+  - Arm_L
+  attachmentKeys:
+  - Arm_L
 --- !u!114 &2370735874463284289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +217,10 @@ PrefabInstance:
     - target: {fileID: 6721540223340681132, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
       propertyPath: m_Name
       value: HealthBarPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721540223340681132, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6721540223340681134, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
       propertyPath: healthSystem

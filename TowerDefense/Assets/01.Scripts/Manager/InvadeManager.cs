@@ -15,6 +15,8 @@ public class InvadeManager : Singleton<InvadeManager>
     public Color overlapColor;
     public Text monsterText;
 
+    public bool isWaveProgress = false;
+
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 
     public ActData addedAct = null;
@@ -102,12 +104,6 @@ public class InvadeManager : Singleton<InvadeManager>
         }
         UpdateTexts();
     }
-
-    public void UpdateTexts()
-    {
-        monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
-    }
-
     public void OnCancelAct(ActType actType)
     {
         if (actType == ActType.Enemy)
@@ -119,6 +115,10 @@ public class InvadeManager : Singleton<InvadeManager>
             curAddedRestCount--;
         }
         UpdateTexts();
+    }
+    public void UpdateTexts()
+    {
+        monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
     public void CheckActType(ActData actData)
@@ -137,16 +137,24 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void WaveStart() //TryAct라는 말이 웨이브 시작할 때 실행할 함수명으로 적절치 않아서 그냥 WaveStart라고 따로 만들어뒀어여
     {
-        if(curAddedMonsterCount == MaxMonsterCount)
+        if(!isWaveProgress)
         {
-            TryAct();
+            if (curAddedMonsterCount <= MaxMonsterCount && curAddedMonsterCount > 0) // 아예 안소환하는건 이상하니까.. 0은 체크했습니당
+            {
+                isWaveProgress = true;
+                TryAct();
+            }
+            else
+            {
+                UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
+                    $"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}", 60);
+            }
         }
         else
         {
             UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
-                $"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}", 60);
+                    $"웨이브 진행중입니다!", 60);
         }
-
     }
 
     IEnumerator Wait()
@@ -162,7 +170,6 @@ public class InvadeManager : Singleton<InvadeManager>
         if (waitingActs.Count > 0)
         {
             CheckActType(waitingActs[0].actData);
-            
         }
     }
 
