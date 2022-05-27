@@ -11,7 +11,7 @@ public abstract class CoreBase : MonoBehaviour
     public Collider2D currentTarget { get; set; } = null;       // 현재 타겟
 
     public TowerData towerData { get; set; } = default;
-    public CoreType coreType;
+    public eCoreName coreType;
 
     public virtual void Start()
     {

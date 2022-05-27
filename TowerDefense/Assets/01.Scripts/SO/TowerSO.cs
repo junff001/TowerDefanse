@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CoreType
+public enum eCoreName
 {
-    SingleAttack,
-    ExplosionAttack,
-    PenetrationAttack,
-    SpikeAttack    
+    Bow,
+    Catapult,
+    Spike,
+    WoodenKeg    
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]
@@ -39,7 +39,7 @@ public class TowerSO : ScriptableObject
     public Sprite towerSprite;
 
     public PlaceTileType placeTileType = PlaceTileType.None;
-    public CoreType coreType = CoreType.SingleAttack; // 위 머리 판단기준
+    public eCoreName coreType = eCoreName.Bow; // 위 머리 판단기준
     public PropertyType propertyType = PropertyType.NONE;
 
     public bool hasTower = true;

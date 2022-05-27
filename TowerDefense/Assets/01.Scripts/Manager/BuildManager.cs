@@ -29,7 +29,7 @@ public class BuildManager : Singleton<BuildManager>
     public Map map;
     [SerializeField] private Tower towerBase;
 
-    private Dictionary<CoreType, CoreBase> coreDic = new Dictionary<CoreType, CoreBase>();
+    private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
     public List<Tower> spawnedTowers = new List<Tower>();
