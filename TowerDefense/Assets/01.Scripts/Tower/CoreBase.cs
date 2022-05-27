@@ -10,7 +10,7 @@ public abstract class CoreBase : MonoBehaviour
     public Collider2D[] enemies = null;                         // 공격 범위이 안에 있는 적들
     public Collider2D currentTarget { get; set; } = null;       // 현재 타겟
 
-    public TowerData towerData;
+    public TowerData towerData { get; set; } = default;
     public CoreType coreType;
 
     public virtual void Start()
@@ -20,7 +20,7 @@ public abstract class CoreBase : MonoBehaviour
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
-    IEnumerator Rader()
+    protected IEnumerator Rader()
     {
         enemyMask = LayerMask.GetMask("Enemy");
         while (true)
@@ -50,7 +50,7 @@ public abstract class CoreBase : MonoBehaviour
 #endif
 
     // 공격 실행 함수
-    IEnumerator OnAttack()
+    public virtual IEnumerator OnAttack()
     {
         while (true)
         {
@@ -59,11 +59,12 @@ public abstract class CoreBase : MonoBehaviour
 
             for(int i = 0; i< enemies.Length; i++)
             {
-                if (i >= towerData.attackTargetCount) break;
+                if (i >= towerData.attackTargetCount) 
+                    break;
 
-                if (enemies[0] != null)
+                if (enemies[i] != null)
                 {
-                    Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
+                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
                 }
             }
         
