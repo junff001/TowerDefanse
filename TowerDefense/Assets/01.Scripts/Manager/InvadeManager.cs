@@ -67,8 +67,9 @@ public class InvadeManager : Singleton<InvadeManager>
     {
         if (spawnedCount % 5 == 0 && spawnedCount != 0)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
         }
+        waitingActs[0].Cancel();
 
         EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
@@ -152,7 +153,7 @@ public class InvadeManager : Singleton<InvadeManager>
     {
         Debug.Log("1초 대기");
         yield return new WaitForSeconds(1f);
-
+        waitingActs[0].Cancel();
         TryAct();
     }
 
@@ -161,7 +162,7 @@ public class InvadeManager : Singleton<InvadeManager>
         if (waitingActs.Count > 0)
         {
             CheckActType(waitingActs[0].actData);
-            waitingActs[0].Cancel();
+            
         }
     }
 
