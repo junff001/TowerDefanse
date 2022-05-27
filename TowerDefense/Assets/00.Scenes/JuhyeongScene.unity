@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1260734271}
         m_TargetAssemblyTypeName: InvadeManager, Assembly-CSharp
         m_MethodName: WaveStart
         m_Mode: 1
@@ -8202,8 +8202,8 @@ MonoBehaviour:
     monsterType: 0
   addedBtn: {fileID: 0}
   cancleBtnPrefab: {fileID: 6760498008738100699, guid: 166430bc14206274da5e3438a41a82ab, type: 3}
-  waitingActContentTrm: {fileID: 1326283500}
-  invisibleObj: {fileID: 0}
+  waitingActContentTrm: {fileID: 396860756}
+  invisibleObj: {fileID: 1204155645}
   draggingBtn: {fileID: 0}
 --- !u!1 &1263349798
 GameObject:
