@@ -17,7 +17,7 @@ public class InvadeManager : Singleton<InvadeManager>
     public Text monsterText;
 
     public bool isWaveProgress = false;
-    public float currentTime { get; private set; } = 0f;
+    public float currentTime { get; set; } = 0f;
     private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
 
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
@@ -49,19 +49,39 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
+    public void InitRecordLoad()
+    {
+        actIndex = 0;
+        currentTime = 0;
+        RecordedSegmentCheck();
+    }
+
     public void RecordedSegmentCheck()
     {
         if (RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count > actIndex)
         {
             RecordBase recordSegment = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
 
-            if (recordSegment.recordedTime >= currentTime)
+            if (recordSegment.recordedTime <= currentTime)
             {
                 RecordSegmentPlay(recordSegment);
 
                 actIndex++;
-                RecordedSegmentCheck(); // 같은 시간에 설치될 수 있기때문에 재귀
+
+                // 같은 시간에 기록될 수 있으니 재귀
+                RecordedSegmentCheck();
             }
+        }
+    }
+
+    public void RecordedSegmentPlayAll()
+    {
+        int count = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count;
+
+        for (int i = actIndex; i < count; i++)
+        {
+            RecordBase recordSegment = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
+            RecordSegmentPlay(recordSegment);
         }
     }
 
@@ -70,7 +90,9 @@ public class InvadeManager : Singleton<InvadeManager>
         switch(recordSegment.recordType)
         {
             case eRecordType.TOWER_PLACE:
-                
+                RecordTowerPlace segment = recordSegment as RecordTowerPlace;
+                BuildManager.Instance.SpawnTower(segment.towerSO, segment.towerPos);
+
                 break;
             case eRecordType.TOWER_UPGRADE:
 
@@ -118,7 +140,6 @@ public class InvadeManager : Singleton<InvadeManager>
         EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
         HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
-        enemyObj.WaveStatControl(WaveManager.Instance.Wave);
         WaveManager.Instance.aliveEnemies.Add(enemyObj);
 
         enemyHealth.OnDied += () =>

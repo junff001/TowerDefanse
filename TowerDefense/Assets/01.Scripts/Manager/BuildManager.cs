@@ -188,9 +188,9 @@ public class BuildManager : Singleton<BuildManager>
     }
 
     // 타워를 스폰하는 함수
-    public void SpawnTower(TowerSO towerSO)
+    public void SpawnTower(TowerSO towerSO, Vector3 placePos)
     {
-        Tower newTower = Instantiate(towerBase, Get2By2TilesCenter(Get2By2Tiles()), Quaternion.identity);
+        Tower newTower = Instantiate(towerBase, placePos, Quaternion.identity);
         newTower.InitTowerData(towerSO);
 
         if(towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
@@ -204,9 +204,12 @@ public class BuildManager : Singleton<BuildManager>
 
         //원래는 타일 값에 따라 받아와야 하지만, 어차피 타일 값 == 포지션 값이니까..
 
-        foreach (var item in newTower.GetComponentsInChildren<SpriteRenderer>())
+        if (towerSO.coreType != eCoreName.Spike)
         {
-            item.sortingOrder = map.height - (int)newTower.transform.position.y;
+            foreach (var item in newTower.GetComponentsInChildren<SpriteRenderer>())
+            {
+                item.sortingOrder = map.height - (int)newTower.transform.position.y;
+            }
         }
 
         foreach (var pos in checkedPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
@@ -215,7 +218,7 @@ public class BuildManager : Singleton<BuildManager>
         }
 
         // 레코드
-        RecordTowerPlace recordSegment = new RecordTowerPlace(Get2By2TilesCenter(Get2By2Tiles()), newTower.TowerData);
+        RecordTowerPlace recordSegment = new RecordTowerPlace(placePos, towerSO);
         RecordManager.Instance.AddRecord(recordSegment);
 
         spawnedTowers.Add(newTower);

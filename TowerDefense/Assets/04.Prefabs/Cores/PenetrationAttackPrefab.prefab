@@ -45,15 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f105448e26c21194098e300fbdbb08a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmoHeight: 0
   enemies: []
-  towerData:
-    Level: 0
-    OffensePower: 0
-    AttackSpeed: 0
-    AttackRange: 0
-    PlaceCost: 0
-    attackTargetCount: 0
-  coreType: 2
+  coreType: 0
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
   rotateSpeed: 20

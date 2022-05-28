@@ -28,13 +28,6 @@ public class GameManager : Singleton<GameManager>
         UpdateHPText();
     }
 
-    private void Start()
-    {
-        // Test
-        //RecordManager.Instance.StartRecord();
-
-    }
-
     public Sprite GetActBtnSprite(MonsterType monsterType)
     {
         Sprite retSpr = null;
