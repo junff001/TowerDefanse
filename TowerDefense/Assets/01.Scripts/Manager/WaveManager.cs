@@ -19,7 +19,7 @@ public class WaveManager : Singleton<WaveManager>
     public Transform poolManagerTrm;
 
     [Header("웨이브")]
-    private int _wave = 0;
+    private int _wave = 1;
     public int Wave
     {
         get
@@ -76,7 +76,7 @@ public class WaveManager : Singleton<WaveManager>
 
     private void Start()
     {
-        SetNextWave();
+        DefenseSetNextWave();
 
         foreach (var enemy in enemyList)
         {
@@ -104,32 +104,22 @@ public class WaveManager : Singleton<WaveManager>
 
 
 
-    public void SetNextWave()
+    public void DefenseSetNextWave()
     {
-        if (enemySpawnQueue.Count == 0) // 다음 웨이브가 있으면,
+        SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
+        foreach (SpawnerMonsterCount item in enemyBox)
         {
-            Wave++;
-
-            SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
-            foreach (SpawnerMonsterCount item in enemyBox)
+            for (int i = 0; i < item.enemyCount; i++)
             {
-                for (int i = 0; i < item.enemyCount; i++)
-                {
-                    enemySpawnQueue.Enqueue(item.enemy);
-                }
+                enemySpawnQueue.Enqueue(item.enemy);
             }
-
-            if (waveSO.waveEnemyInfos[Wave - 1].boss != null)
-            {
-                enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
-            }
-            // 보스도 있으면 큐에 추가해줘야함
         }
-        else
+
+        if (waveSO.waveEnemyInfos[Wave - 1].boss != null)
         {
-            //체력이 0보다 크면 스테이지 클리어
-            Debug.Log("스테이지 클리어");
+            enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
         }
+        // 보스도 있으면 큐에 추가해줘야함
     }
 
     public void WaveStart()
@@ -168,7 +158,7 @@ public class WaveManager : Singleton<WaveManager>
                 // 여기서 해주면 돼
                 RecordManager.Instance.EndRecord();
 
-                // 웨이크 클리어 체크
+                // 디펜스 클리어 체크
                 if (Wave >= waveSO.waveEnemyInfos.Length)
                 {
                     // UI나 컷신같은거 나오고 교체..일걸요?
@@ -180,19 +170,33 @@ public class WaveManager : Singleton<WaveManager>
                 {
                     // 돈 추가 , 인원추가
                     OnWaveEnd(300, 0);
-                    SetNextWave();
+
+                    Wave++;
+                    DefenseSetNextWave();
                 }
             }
         }
-        else
+        else // 오펜스 모드라면
         {
-            if (IsWaveProgressing == false && InvadeManager.Instance.waitingActs.Count == 0)
+            if (IsWaveProgressing == false)
             {
-                OnWaveEnd(0, 2);
-                InvadeManager.Instance.isWaveProgress = false;
+                // 오펜스 클리어 체크
+                if (Wave >= waveSO.waveEnemyInfos.Length)
+                {
+                    // UI나 컷신같은거 나오고 게임 클리어!
+                    Debug.Log("게임 클리어");
+                }
+                else
+                {
+                    OnWaveEnd(0, 2);
+                    InvadeManager.Instance.isWaveProgress = false;
+                    InvadeManager.Instance.RecordedSegmentPlayAll();
+
+                    Wave++;
+                    InvadeManager.Instance.InitRecordLoad();
+                }
             }
         }
-
     }
 
     IEnumerator Spawn()
@@ -213,7 +217,6 @@ public class WaveManager : Singleton<WaveManager>
             EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
             HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
 
-            enemyObj.WaveStatControl(Wave);
             aliveEnemies.Add(enemyObj);
 
             enemyHealth.OnDied += () =>
@@ -301,6 +304,8 @@ public class WaveManager : Singleton<WaveManager>
                     {
                         poolingObjs[i].gameObject.SetActive(false);
                     }
+
+                    InvadeManager.Instance.InitRecordLoad();
                 }
                 break;
         }

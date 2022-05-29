@@ -23,3 +23,8 @@ MonoBehaviour:
     - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 10
     boss: {fileID: 0}
+  - infoName: "\uC6E8\uC774\uBE0C 3"
+    monsterBox:
+    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+      enemyCount: 15
+    boss: {fileID: 0}

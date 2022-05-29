@@ -158,12 +158,4 @@ public class EnemyBase : MonoBehaviour
     {
         currentWayPointIndex += 1;
     }
-
-    public virtual void WaveStatControl(int wave)
-    {
-        float value_f = (wave * Mathf.Pow(1.5f, 0)) * 100;
-        int value = (int)value_f;
-
-        healthSystem.SetHealthAmountMax(value, true); // 체력 조절
-    }
 }

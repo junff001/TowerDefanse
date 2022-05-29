@@ -36,7 +36,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
                 {
                     if (GoldManager.Instance.GoldMinus(towerSO.PlaceCost))
                     {
-                        BuildManager.Instance.SpawnTower(towerSO);
+                        BuildManager.Instance.SpawnTower(towerSO, BuildManager.Instance.Get2By2TilesCenter(BuildManager.Instance.Get2By2Tiles()));
 
                         UIManager.SummonText(towerImage.transform.position, "설치 완료!", 30);
                     }
