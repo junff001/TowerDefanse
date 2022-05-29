@@ -19,6 +19,7 @@ MonoBehaviour:
   placeCost: 100
   attackTargetCount: 1
   towerSprite: {fileID: 3954836654050351759, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
-  placeTileType: 0
-  coreType: 1
+  placeTileType: 1
+  coreType: 3
   propertyType: 1
+  hasTower: 1

@@ -1,6 +1,5 @@
 public enum PlaceTileType
 {
-    None,
+    Place,
     Road,
-    Place
 }

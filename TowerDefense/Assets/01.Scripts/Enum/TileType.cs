@@ -5,5 +5,8 @@ public enum TileType
     Place,
     Tower,
     Obstacle,
-    Tunnel
+    Tunnel,
+
+    Road_Tower,
+    Place_Tower,
 }

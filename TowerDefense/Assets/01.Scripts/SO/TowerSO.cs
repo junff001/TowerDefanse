@@ -38,7 +38,7 @@ public class TowerSO : ScriptableObject
 
     public Sprite towerSprite;
 
-    public PlaceTileType placeTileType = PlaceTileType.None;
+    public PlaceTileType placeTileType = PlaceTileType.Place;
     public eCoreName coreType = eCoreName.Bow; // 위 머리 판단기준
     public PropertyType propertyType = PropertyType.NONE;
 

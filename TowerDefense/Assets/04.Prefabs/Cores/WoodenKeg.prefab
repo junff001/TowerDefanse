@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 864607307150061629}
   - component: {fileID: 864607307150061628}
   m_Layer: 0
-  m_Name: ExplosionAttackPrefab
+  m_Name: WoodenKeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,14 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1402157c26ed648b63d2c2a1ede4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerData:
-    Level: 1
-    OffensePower: 0
-    AttackSpeed: 2
-    AttackRange: 4
-    PlaceCost: 0
-    attackTargetCount: 150
-  coreType: 1
+  gizmoHeight: 0
+  enemies: []
+  coreType: 3
 --- !u!212 &864607307150061628
 SpriteRenderer:
   m_ObjectHideFlags: 0

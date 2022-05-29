@@ -26,6 +26,24 @@ public class Map : MonoBehaviour
         InitMap(width, height);
     }
 
+    public void ResetMapData() // 그 전환 시 배열 데이타 다시 사용하기 위해서 초기화
+    { 
+        for(int x =0; x< width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if(mapTileTypeArray[x,y] == TileType.Road_Tower)
+                {
+                    mapTileTypeArray[x, y] = TileType.Place;
+                }
+                if (mapTileTypeArray[x, y] == TileType.Place_Tower)
+                {
+                    mapTileTypeArray[x, y] = TileType.Road;
+                }
+            }
+        }
+    }
+
     void InitMap(int width, int height)
     {
         mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정

@@ -211,7 +211,18 @@ public class BuildManager : Singleton<BuildManager>
 
         foreach (var pos in checkedPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
         {
-            map.mapTileTypeArray[pos.x, pos.y] = TileType.Tower;
+            TileType placeTileType = TileType.None;
+
+            switch(towerSO.placeTileType)
+            {
+                case PlaceTileType.Place:
+                    placeTileType = TileType.Place_Tower;
+                    break;
+                case PlaceTileType.Road:
+                    placeTileType = TileType.Road_Tower;
+                    break;
+            }
+            map.mapTileTypeArray[pos.x, pos.y] = placeTileType;
         }
 
         // 레코드
