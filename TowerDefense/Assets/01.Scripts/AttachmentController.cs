@@ -33,10 +33,10 @@ public class AttachmentController : MonoBehaviour
            skeleton.SetAttachment(baseAttachments[i], baseAttachments[i]);
        }
 
-        //for (int i = 0; i< targetSlots.Length; i++)
-        //{
-        //    skeleton.SetAttachment(targetSlots[i], attachmentKeys[i]);
-        //}
+       for (int i = 0; i< targetSlots.Length; i++)
+       {
+           skeleton.SetAttachment(targetSlots[i], attachmentKeys[i]);
+       }
 
     }
 }

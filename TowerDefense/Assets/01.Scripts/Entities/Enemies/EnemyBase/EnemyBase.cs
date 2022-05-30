@@ -15,7 +15,7 @@ public class EnemyData
     public bool IsFlying;
     public PropertyType PropertyResistance;
     public bool IsDebuffIimmune;
-    public MonsterType monsterType;
+    public MonsterType MonsterType;
 }
 
 public class EnemyBase : MonoBehaviour
@@ -35,7 +35,6 @@ public class EnemyBase : MonoBehaviour
 
     void Awake()
     {
-        InitEnemyData();
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
     }
@@ -43,7 +42,7 @@ public class EnemyBase : MonoBehaviour
     private void Start()
     {
         mesh.sortingLayerName = "Character";
-
+        healthSystem.Init(); // 내 체력 초기화 전에 가져오길래..
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(enemyData.RewardGold);
@@ -104,7 +103,7 @@ public class EnemyBase : MonoBehaviour
         buffList.Add(buff);
     }
 
-    void InitEnemyData()
+    public void InitEnemyData()
     {
         enemyData.HP = enemySO.HP;
         enemyData.Shield = enemySO.Shield;
@@ -116,6 +115,7 @@ public class EnemyBase : MonoBehaviour
         enemyData.IsFlying = enemySO.IsFlying;
         enemyData.PropertyResistance = enemySO.PropertyResistance;
         enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
+        enemyData.MonsterType = enemySO.MonsterType;
     }
 
     void Move()

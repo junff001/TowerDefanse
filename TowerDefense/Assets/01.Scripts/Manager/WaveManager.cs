@@ -78,9 +78,14 @@ public class WaveManager : Singleton<WaveManager>
     {
         DefenseSetNextWave();
 
-        foreach (var enemy in enemyList)
+        for(int i = 0; i< enemyList.Count; i++)
         {
-            enemyDic.Add(enemy.enemyData.monsterType, enemy);
+            enemyList[i].InitEnemyData();
+        }
+
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
         }
     }
 

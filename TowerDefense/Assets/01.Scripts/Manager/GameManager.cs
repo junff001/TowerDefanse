@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,32 +16,29 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
 
-    public Sprite[] enemySprites;
     public Sprite waitSprite;
 
-    public Dictionary<string, Sprite> tileSpritesDic = new Dictionary<string, Sprite>();
-
+    public Dictionary<MonsterType, Sprite> enemySpriteDic = new Dictionary<MonsterType, Sprite>();
+    public Sprite[] enemySprites; // 스프라이트 이름을 MonsterType에 써둔 enum명으로 해줘야 오류가 안생겨용
     private void Awake()
     {
         SetWaypoints(waypointsParent);
         hpText = WaveManager.Instance.defenseHpText;
         InvadeManager.Instance.UpdateTexts();
         UpdateHPText();
+        SetEnemySpriteDic();
     }
 
-    public Sprite GetActBtnSprite(MonsterType monsterType)
+    public void SetEnemySpriteDic() 
     {
-        Sprite retSpr = null;
-        switch (monsterType)
+        enemySpriteDic.Add(MonsterType.None, waitSprite);
+        foreach (var item in enemySprites)
         {
-            case MonsterType.Goblin:
-                retSpr = enemySprites[0];
-                break;
+            enemySpriteDic.Add((MonsterType)Enum.Parse(typeof(MonsterType), item.name), item);
         }
-        //여기까지 오면 Wait 추가 버튼임.
-        if (retSpr == null) retSpr = waitSprite;
-        return retSpr;
     }
+
+    public Sprite GetActBtnSprite(MonsterType monsterType) => enemySpriteDic[monsterType];
 
     public void UpdateHPText()
     {

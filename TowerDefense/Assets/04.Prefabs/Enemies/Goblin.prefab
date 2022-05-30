@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cdef6032ea6c54dabe453eb3fc039c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmountMax: 100
+  healthAmountMax: 1000
 --- !u!114 &3433754494996545547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,17 +166,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}
   enemyData:
-    HP: 0
+    HP: 100
     Shield: 0
-    OffensePower: 0
-    MoveSpeed: 0
-    RewardGold: 0
+    OffensePower: 1
+    MoveSpeed: 1.5
+    RewardGold: 50
     IsHide: 0
     IsGuardian: 0
     IsFlying: 0
     PropertyResistance: 0
     IsDebuffIimmune: 0
-    monsterType: 1
+    MonsterType: 1
   aliveTime: 0
   movedDistance: 0
 --- !u!61 &8386346479705798

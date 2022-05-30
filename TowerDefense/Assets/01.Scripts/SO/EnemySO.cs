@@ -44,4 +44,7 @@ public class EnemySO : ScriptableObject
     // 디버프 면역 여부
     [SerializeField] private bool isDebuffIimmune = false;
     public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }
+
+    [SerializeField] private MonsterType monsterType;
+    public MonsterType MonsterType { get => monsterType; set => value = monsterType; }
 }

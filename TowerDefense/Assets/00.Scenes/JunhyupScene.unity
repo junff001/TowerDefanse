@@ -7542,6 +7542,7 @@ MonoBehaviour:
   waveSO: {fileID: 11400000, guid: dfe01a6b7f9fdd94d870f401aae4c783, type: 2}
   enemyList:
   - {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+  - {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
   aliveEnemies: []
   defenseTowerGroup: {fileID: 813569301}
   defenseStatus: {fileID: 1942251301}
@@ -13666,7 +13667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6749774290861803340, guid: dcffe36f8fedb9245a304c101217156d, type: 3}
       propertyPath: actData.monsterType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6749774290861803341, guid: dcffe36f8fedb9245a304c101217156d, type: 3}
       propertyPath: m_Pivot.x
@@ -17221,7 +17222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6749774290861803340, guid: dcffe36f8fedb9245a304c101217156d, type: 3}
       propertyPath: actData.monsterType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6749774290861803341, guid: dcffe36f8fedb9245a304c101217156d, type: 3}
       propertyPath: m_Pivot.x
@@ -28202,9 +28203,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointsParent: {fileID: 1902222928}
   wayPoints: []
+  waitSprite: {fileID: 21300000, guid: bb140da66e8f5f147b7f477f6641e302, type: 3}
   enemySprites:
   - {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
-  waitSprite: {fileID: 21300000, guid: bb140da66e8f5f147b7f477f6641e302, type: 3}
+  - {fileID: 21300000, guid: afbcd526c7b676842917c2eb1bf3172f, type: 3}
 --- !u!1 &2069416104
 GameObject:
   m_ObjectHideFlags: 0
