@@ -42,7 +42,7 @@ public class EnemyBase : MonoBehaviour
     private void Start()
     {
         mesh.sortingLayerName = "Character";
-        healthSystem.Init(); // 내 체력 초기화 전에 가져오길래..
+        healthSystem.SetAmountMax(eHealthType.HEALTH, (int)enemyData.HP, true);
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(enemyData.RewardGold);

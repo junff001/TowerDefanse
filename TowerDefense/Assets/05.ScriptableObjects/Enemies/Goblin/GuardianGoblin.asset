@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
-  m_Name: Goblin
+  m_Name: GuardianGoblin
   m_EditorClassIdentifier: 
   hp: 300
   shield: 0
   offensePower: 1
-  moveSpeed: 1.5
-  rewardGold: 50
-  isHide: 0
+  moveSpeed: 1
+  rewardGold: 100
+  isHide: 1
   isGuardian: 0
   isFlying: 0
   propertyResistance: 0
   isDebuffIimmune: 0
-  monsterType: 1
+  monsterType: 3

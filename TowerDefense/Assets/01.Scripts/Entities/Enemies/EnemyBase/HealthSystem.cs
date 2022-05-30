@@ -15,7 +15,6 @@ public class HealthSystem : MonoBehaviour
     public Action OnDied;
 
     private EnemyBase enemyBase;
-    [SerializeField]
     private float healthAmountMax = 100;
     private float curHealthAmount
     {
@@ -44,10 +43,10 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+
     private void Awake()
     {
         enemyBase = GetComponent<EnemyBase>();
-        curHealthAmount = healthAmountMax;
     }
 
     private void Damage(float damageAmount, bool penetration)
