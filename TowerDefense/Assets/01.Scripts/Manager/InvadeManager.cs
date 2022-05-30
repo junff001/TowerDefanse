@@ -8,17 +8,18 @@ public class InvadeManager : Singleton<InvadeManager>
 {
     private readonly int MaxRestCount = 5;
     private int curAddedRestCount = 0;
-
-
     public int MaxMonsterCount = 5;
     public int curAddedMonsterCount = 0;
+    private int spawnedCount = 0;
+    private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
+    int beforeIdx = 0;
 
     public Color overlapColor;
     public Text monsterText;
 
     public bool isWaveProgress = false;
     public float currentTime { get; set; } = 0f;
-    private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
+    float sideLength = 0f;
 
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 
@@ -31,8 +32,6 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public UI_AddActBtn draggingBtn = null;
 
-    int beforeIdx = 0;
-    float sideLength = 0f;
 
     private void Start()
     {
@@ -127,8 +126,6 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
-    int spawnedCount = 0;
-
     public IEnumerator SpawnEnemy(MonsterType monsterType)
     {
         if (spawnedCount % 5 == 0 && spawnedCount != 0)
@@ -152,14 +149,29 @@ public class InvadeManager : Singleton<InvadeManager>
         spawnedCount++;
 
         yield return new WaitForSeconds(0.2f);
-        TryAct();
+
+        if(waitingActs.Count == 1 && waitingActs[0].actData.actType == ActType.Wait)
+        {
+            Debug.Log("마지막 행동이 휴우식");
+            //남은 행동이 전부 휴식이면 그냥 전부 해제하장
+            
+            // 약간의 최적화를 원하면 안에서 해야하는 로직 꺼내쓰면 될듯. 근데 굳이?
+            foreach(var item in waitingActs)
+            {
+                item.Cancel();
+            }
+        }
+        else
+        {
+            TryAct();
+        }
     }
 
-    public void OnAddAct(ActType actType)
+    public void OnAddAct(ActData actData)
     {
-        if(actType == ActType.Enemy)
+        if(actData.actType == ActType.Enemy)
         {
-            curAddedMonsterCount++;
+            curAddedMonsterCount += actData.spawnCost;
         }
         else
         {
@@ -167,11 +179,11 @@ public class InvadeManager : Singleton<InvadeManager>
         }
         UpdateTexts();
     }
-    public void OnCancelAct(ActType actType)
+    public void OnCancelAct(ActData actData)
     {
-        if (actType == ActType.Enemy)
+        if (actData.actType == ActType.Enemy)
         {
-            curAddedMonsterCount--;
+            curAddedMonsterCount -= actData.spawnCost;
         }
         else
         {
@@ -204,6 +216,7 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             if (curAddedMonsterCount <= MaxMonsterCount && curAddedMonsterCount > 0) // 아예 안소환하는건 이상하니까.. 0은 체크했습니당
             {
+                spawnedCount = 0; // 스폰한 몬스터 수가 5 배수일 때마다 딜레이 걸거라서.
                 isWaveProgress = true;
                 TryAct();
             }
@@ -236,11 +249,10 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
-    public void AddAct(ActType actType, MonsterType monsterType)
+    public void AddAct(ActData actData)
     {
-        OnAddAct(actType);
-        ActData newAct = new ActData(actType, monsterType);
-
+        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.spawnCost);
+        OnAddAct(newAct);
         if (IsSameAct(addedAct, newAct))
         {
             if (addedBtn != null) addedBtn.Stack();
@@ -251,10 +263,11 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
-    public void InsertAct(Vector3 dragEndPos, ActType actType, MonsterType monsterType)
+    public void InsertAct(Vector3 dragEndPos, ActData actData)
     {
-        OnAddAct(actType);
-        ActData newAct = new ActData(actType, monsterType);
+        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.spawnCost);
+
+        OnAddAct(newAct);
         int insertIdx = GetInsertIndex(dragEndPos);
 
         if (insertIdx == -2) // 추가한게 없으면
@@ -300,7 +313,7 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void ResetButtons()
     {
-        foreach (var item in waitingActs) item.cancleActBtn.image.color = Color.white;
+        foreach (var item in waitingActs) item.cancelActBtn.image.color = Color.white;
     }
 
     public void ShowInsertPlace(Vector3 dragEndPos, ActData newAct)
@@ -319,7 +332,7 @@ public class InvadeManager : Singleton<InvadeManager>
             SetInvisibleObj(0);
             if (waitingActs.Count > 0 && IsSameAct(waitingActs[0].actData, newAct))
             {
-                waitingActs[0].cancleActBtn.image.color = overlapColor;
+                waitingActs[0].cancelActBtn.image.color = overlapColor;
             }
         }
         else // 인덱스에 알맞게 투명 이미지 옮겨주기
@@ -327,13 +340,13 @@ public class InvadeManager : Singleton<InvadeManager>
             SetInvisibleObj(insertIdx + 1);
             if (IsSameAct(waitingActs[insertIdx].actData, newAct)) // 드래그 해서 넣은 곳 기준 왼쪽 버튼
             {
-                waitingActs[insertIdx].cancleActBtn.image.color = overlapColor;
+                waitingActs[insertIdx].cancelActBtn.image.color = overlapColor;
             }
             else if (insertIdx + 1 <= waitingActs.Count - 1) // 인덱스 안넘어가도록..
             {
                 if (IsSameAct(waitingActs[insertIdx + 1].actData, newAct)) // 왼쪽 버튼 옆의 오른쪽 놈.
                 {
-                    waitingActs[insertIdx + 1].cancleActBtn.image.color = overlapColor;
+                    waitingActs[insertIdx + 1].cancelActBtn.image.color = overlapColor;
                 }
             }
         }
@@ -384,13 +397,16 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
     {
+        Debug.Log(newBtn.name);
+        Debug.Log($"{newAct.actType} | {newAct.monsterType} | {newAct.spawnCost}");
+
         newBtn.Init(newAct);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
         addedAct = newAct;
         RefreshRemoveIdxes();
 
-        newBtn.cancleActBtn.onClick.AddListener(() =>
+        newBtn.cancelActBtn.onClick.AddListener(() =>
         {
             newBtn.Cancel();
             RefreshRemoveIdxes();

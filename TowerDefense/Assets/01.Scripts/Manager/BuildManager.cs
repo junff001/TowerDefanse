@@ -228,10 +228,10 @@ public class BuildManager : Singleton<BuildManager>
             map.mapTileTypeArray[pos.x, pos.y] = placeTileType;
         }
 
+        spawnedTowers.Add(newTower);
         // 레코드
         RecordTowerPlace recordSegment = new RecordTowerPlace(placePos, towerSO);
         RecordManager.Instance.AddRecord(recordSegment);
 
-        spawnedTowers.Add(newTower);
     }
 }

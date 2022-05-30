@@ -213,7 +213,8 @@ MonoBehaviour:
   actData:
     actType: 0
     monsterType: 0
-  cancleActBtn: {fileID: 3932102008783723252}
+    spawnCost: 0
+  cancelActBtn: {fileID: 3932102008783723252}
   actStackCount: 0
   idx: 0
   monsterImg: {fileID: 962670647684418163}

@@ -178,7 +178,7 @@ public class WaveManager : Singleton<WaveManager>
         }
         else // 오펜스 모드라면
         {
-            if (IsWaveProgressing == false)
+            if (IsWaveProgressing == false && InvadeManager.Instance.isWaveProgress)
             {
                 // 오펜스 클리어 체크
                 if (Wave >= waveSO.waveEnemyInfos.Length)

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UI_CancelActBtn : MonoBehaviour
 {
     public ActData actData = null;
-    public Button cancleActBtn;
+    public Button cancelActBtn;
     public int actStackCount = 0;
     public int idx = 0;
 
@@ -21,7 +21,7 @@ public class UI_CancelActBtn : MonoBehaviour
 
     public void Cancel()
     {
-        InvadeManager.Instance.OnCancelAct(actData.actType);
+        InvadeManager.Instance.OnCancelAct(actData);
         actStackCount--;
         countText.text = actStackCount.ToString();
         DestroyCheck();

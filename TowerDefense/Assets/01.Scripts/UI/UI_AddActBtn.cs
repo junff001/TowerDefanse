@@ -32,7 +32,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         {
             if (InvadeManager.Instance.CanSetWave(actData.actType))
             {
-                InvadeManager.Instance.AddAct(actData.actType, actData.monsterType);
+                InvadeManager.Instance.AddAct(actData);
             }
             else
             {
@@ -68,7 +68,8 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
             {
                 if (item.gameObject.CompareTag("ActContent"))
                 {
-                    InvadeManager.Instance.InsertAct(Input.mousePosition, actData.actType, actData.monsterType);
+                    
+                    InvadeManager.Instance.InsertAct(Input.mousePosition, actData);
                 }
             }
         }
