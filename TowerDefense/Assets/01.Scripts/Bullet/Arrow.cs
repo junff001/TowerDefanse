@@ -51,4 +51,21 @@ public class Arrow : Bullet
     {
         return Vector2.Distance(targetCatchPos, transform.position) <= 0.1f ? true : false;
     }
+
+    public override void CollisionEvent()
+    {
+        if (target != null)
+        {
+            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage, true);
+            var ps = Instantiate(hitEffect);
+            ps.transform.position = target.position;
+            ps.Play();
+
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum eHealthType
+{
+    HEALTH,
+    SHIELD
+}
+
 public class HealthSystem : MonoBehaviour
 {
     public Action OnDamaged;
@@ -24,7 +30,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private float shieldhAmountMax = 100;
+    private float shieldAmountMax = 100;
     private float curShieldAmount
     {
         get
@@ -44,10 +50,25 @@ public class HealthSystem : MonoBehaviour
         curHealthAmount = healthAmountMax;
     }
 
-    public void Damage(float damageAmount)
+    private void Damage(float damageAmount, bool penetration)
     {
-        curHealthAmount -= damageAmount;
-        curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
+        float tempAmount = curShieldAmount;
+
+        curShieldAmount -= damageAmount;
+        curShieldAmount = Mathf.Clamp(curShieldAmount, 0, shieldAmountMax);
+
+        if(curShieldAmount <= 0)
+        {
+            float realDamage = damageAmount - tempAmount; // 데미지 초과 분량
+            curHealthAmount -= realDamage;
+            curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
+        }
+
+        if (penetration)
+        {
+            curHealthAmount -= damageAmount;
+            curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
+        }
     }
 
     public bool IsDead()
@@ -55,35 +76,44 @@ public class HealthSystem : MonoBehaviour
         return curHealthAmount == 0;
     }
 
-    public bool IsFullHealth()
+    public bool IsFullValue(eHealthType type)
     {
-        return curHealthAmount == healthAmountMax;
+        return (type == eHealthType.HEALTH) ? curHealthAmount == healthAmountMax : curShieldAmount == shieldAmountMax;
     }
 
-    public float GetHealthAmount()
+    public float GetAmount(eHealthType type)
     {
-        return curHealthAmount;
+        return (type == eHealthType.HEALTH) ? curHealthAmount : curShieldAmount;
     }
 
-    public float GetHealthAmountNormalized()
+    public float GetAmountNormalized(eHealthType type)
     {
-        return (float)curHealthAmount / healthAmountMax;
+        return (type == eHealthType.HEALTH) ? (float)curHealthAmount / healthAmountMax : (float)curShieldAmount / shieldAmountMax;
     }
 
-    public void SetHealthAmountMax(int hpAmountMax, bool updateHpAmount)
+    public void SetAmountMax(eHealthType type, int amountMax, bool updateAmount)
     {
-        healthAmountMax = hpAmountMax;
-        if (updateHpAmount)
+        if (type == eHealthType.HEALTH)
         {
-            curHealthAmount = hpAmountMax;
+            healthAmountMax = amountMax;
+            if (updateAmount)
+            {
+                curHealthAmount = amountMax;
+            }
+        }
+        else
+        {
+            shieldAmountMax = amountMax;
+            if (updateAmount)
+            {
+                curShieldAmount = amountMax;
+            }
         }
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, bool penetration = false)
     {
-        //transform.GetComponent<EnemyBase>().EnemyFlashStart();
-
-        Damage(damageAmount);
+        Damage(damageAmount, penetration);
         OnDamaged?.Invoke();
 
         if (IsDead())
