@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Spike_Attack : CoreBase
 {
@@ -27,7 +28,6 @@ public class Spike_Attack : CoreBase
         while (true)
         {
             yield return new WaitUntil(() => enemies?.Length > 0);
-            currentTarget = enemies[0];
 
             for (int i = 0; i < enemies.Length; i++)
             {
@@ -36,14 +36,18 @@ public class Spike_Attack : CoreBase
 
                 if (enemies[i] != null)
                 {
-                    spriteObj.sprite = onSpike;
                     Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
+                    StartCoroutine(SpikeAnimation());
                 }
-            }
-
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고
-            spriteObj.sprite = offSpike;
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed); // 공속만큼 기다리고
+            }  
         }
+    }
+
+    IEnumerator SpikeAnimation()
+    {
+        spriteObj.sprite = onSpike;
+        yield return new WaitForSeconds(1f / towerData.AttackSpeed); 
+        spriteObj.sprite = offSpike;
+        yield return new WaitForSeconds(1f / towerData.AttackSpeed); 
     }
 }

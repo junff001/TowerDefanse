@@ -30,7 +30,7 @@ public class Bomb : Bullet
             }
 
             timerCurrent += Time.deltaTime * speed;
-            FlyBullet();
+            Shoot();
 
             if (IsCollision())
             {
@@ -51,7 +51,7 @@ public class Bomb : Bullet
         }
     }
 
-    public override void FlyBullet()
+    public override void Shoot()
     {
         Vector3 direction = targetCatchPos - projectilePos;
         Vector3 z = Vector3.forward;

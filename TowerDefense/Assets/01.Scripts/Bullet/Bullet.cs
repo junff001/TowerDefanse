@@ -17,7 +17,7 @@ public abstract class Bullet : MonoBehaviour
     {
         if (target != null) 
         {
-            FlyBullet();
+            Shoot();
 
             if (IsCollision())
             {
@@ -31,7 +31,7 @@ public abstract class Bullet : MonoBehaviour
     }
 
     // 기본 유도탄
-    public virtual void FlyBullet()
+    public virtual void Shoot()
     {
         transform.position += (target.position - transform.position).normalized * speed * Time.deltaTime;
     }

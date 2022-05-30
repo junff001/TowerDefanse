@@ -4,33 +4,61 @@ using UnityEngine;
 
 public class Penetration_Attack : CoreBase
 {
-    [SerializeField] private Transform bowBody = null;         // 활대
-    [SerializeField] private Transform bowLauncher = null;     // 런처
-    [SerializeField] private float rotateSpeed = 0f;           // 회전 속도
+    [SerializeField] private Transform bowBody = null;         
+    [SerializeField] private Transform bowLauncher = null;     
+    [SerializeField] private float rotateSpeed = 0f;
+    [SerializeField] private float pullTime = 0f;
 
     private Bullet bullet = null;
+    private Animator animator = null;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     public override void Start()
     {
-        base.Start();
-
-        bullet = PoolManager.GetItem<Bullet>();
-        bullet.transform.position = bowLauncher.position;
+        StartCoroutine(Rader());
+        StartCoroutine(OnAttack());
+        StartCoroutine(LookAtTarget());
     }
 
-    void Update()
+    IEnumerator LookAtTarget()
     {
-        LookAtTarget();
-    }
-  
-    void LookAtTarget()
-    {
-        if (currentTarget != null)
+        while (true)
         {
-            Vector2 direction = currentTarget.transform.position - bowBody.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
-            bowBody.rotation = Quaternion.Slerp(bowBody.rotation, rotation, rotateSpeed * Time.deltaTime);
+            if (currentTarget != null)
+            {
+                Vector2 direction = currentTarget.transform.position - bowBody.position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
+                bowBody.rotation = Quaternion.Slerp(bowBody.rotation, rotation, rotateSpeed * Time.deltaTime);
+            }
+
+            yield return null;
+        }
+    }
+
+    public override IEnumerator OnAttack()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => enemies?.Length > 0);
+            currentTarget = enemies[0];
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (i >= towerData.attackTargetCount)
+                    break;
+
+                if (enemies[i] != null)
+                {
+                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
+                }
+            }
+
+            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }
 
@@ -38,13 +66,14 @@ public class Penetration_Attack : CoreBase
     {
         if (bullet != null)
         {
+            bullet.transform.position = bowLauncher.position;
             bullet.target = enemy.transform;
             bullet.bulletDamage = power;
 
             bullet.Init();
         }
         else
-        {
+        {           
             bullet = PoolManager.GetItem<Bullet>();
 
             bullet.transform.position = bowLauncher.position;
