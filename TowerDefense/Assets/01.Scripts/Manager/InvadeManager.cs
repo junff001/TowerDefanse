@@ -152,13 +152,12 @@ public class InvadeManager : Singleton<InvadeManager>
 
         if(waitingActs.Count == 1 && waitingActs[0].actData.actType == ActType.Wait)
         {
-            Debug.Log("마지막 행동이 휴우식");
             //남은 행동이 전부 휴식이면 그냥 전부 해제하장
-            
-            // 약간의 최적화를 원하면 안에서 해야하는 로직 꺼내쓰면 될듯. 근데 굳이?
-            foreach(var item in waitingActs)
+            int count = waitingActs[0].actStackCount;
+
+            for (int i =0; i< count; i++)
             {
-                item.Cancel();
+                waitingActs[0].Cancel();
             }
         }
         else
@@ -397,9 +396,6 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
     {
-        Debug.Log(newBtn.name);
-        Debug.Log($"{newAct.actType} | {newAct.monsterType} | {newAct.spawnCost}");
-
         newBtn.Init(newAct);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
