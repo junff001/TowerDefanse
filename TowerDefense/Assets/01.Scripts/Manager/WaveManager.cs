@@ -332,6 +332,7 @@ public class WaveManager : Singleton<WaveManager>
 
     private void WaveAnim()
     {
+        waveRect.DOKill();
         waveRect.DOAnchorPosY(100, 0.75f).SetEase(Ease.InOutBack).OnComplete(() =>
         {
             waveRoundCount.text = $"Wave {_wave}";

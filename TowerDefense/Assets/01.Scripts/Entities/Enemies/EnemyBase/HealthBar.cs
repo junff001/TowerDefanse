@@ -23,6 +23,23 @@ public class HealthBar : MonoBehaviour
         UpdateHealthBarVisible();
     }
 
+    private void Update()
+    {
+        float xScale = healthSystem.transform.localScale.x;
+
+        if (xScale > 0)
+        {
+            xScale /= xScale;
+            xScale *= -1;
+        }
+        else
+        {
+            xScale /= xScale;
+        }
+
+        transform.localScale = new Vector3(-xScale, 1, 1);
+    }
+
     private void CallHealthSystemOnDamaged()
     {
         UpdateBar();
