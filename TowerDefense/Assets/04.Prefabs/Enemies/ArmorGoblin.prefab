@@ -197,12 +197,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 22568520586d11c4f886d6307fd40a69, type: 2}
   enemyData:
-    HP: 300
-    Shield: 0
+    HP: 600
+    Shield: 600
     OffensePower: 1
-    MoveSpeed: 1
+    MoveSpeed: 0.85
     RewardGold: 100
-    IsHide: 1
+    IsHide: 0
     IsGuardian: 0
     IsFlying: 0
     PropertyResistance: 0

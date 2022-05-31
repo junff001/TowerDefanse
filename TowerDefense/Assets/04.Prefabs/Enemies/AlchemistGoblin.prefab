@@ -197,11 +197,11 @@ MonoBehaviour:
     OffensePower: 1
     MoveSpeed: 2
     RewardGold: 100
-    IsHide: 1
+    IsHide: 0
     IsGuardian: 0
     IsFlying: 0
     PropertyResistance: 0
-    IsDebuffIimmune: 0
+    IsDebuffIimmune: 1
     MonsterType: 4
   aliveTime: 0
   movedDistance: 0

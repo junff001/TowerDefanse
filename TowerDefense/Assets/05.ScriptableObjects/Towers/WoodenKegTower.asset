@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WoodenKegTower
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 50
-  attackSpeed: 3
+  offensePower: 100
+  attackSpeed: 0.5
   attackRange: 4
   placeCost: 100
   attackTargetCount: 1
