@@ -399,9 +399,9 @@ RectTransform:
   m_Father: {fileID: 1508162787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -135}
   m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &74229279
@@ -7539,7 +7539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveRoundCount: {fileID: 1054401608}
   poolManagerTrm: {fileID: 488542035}
-  waveSO: {fileID: 11400000, guid: dfe01a6b7f9fdd94d870f401aae4c783, type: 2}
+  waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
   enemyList:
   - {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
   - {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}

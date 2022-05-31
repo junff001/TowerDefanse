@@ -17,9 +17,9 @@ MonoBehaviour:
   offensePower: 1
   moveSpeed: 2
   rewardGold: 100
-  isHide: 1
+  isHide: 0
   isGuardian: 0
   isFlying: 0
   propertyResistance: 0
-  isDebuffIimmune: 0
+  isDebuffIimmune: 1
   monsterType: 4
