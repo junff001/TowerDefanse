@@ -18,7 +18,7 @@ public abstract class CoreBase : MonoBehaviour
         StartCoroutine(Rader());
         StartCoroutine(OnAttack());
     }
-
+    //
     // 0.1珥?????먭퀬 怨듦꺽 踰붿쐞 泥댄겕 泥섎━
     protected IEnumerator Rader()
     {
