@@ -28028,10 +28028,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveRoundCount: {fileID: 1427559595}
   poolManagerTrm: {fileID: 44086954}
-  waveRect: {fileID: 0}
+  waveRect: {fileID: 1427559597}
   waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
   enemyList:
-  - {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+  - {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
   - {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
   - {fileID: -4615959411394944946, guid: b9529a263503a704697ed46d3b424d28, type: 3}
   - {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}

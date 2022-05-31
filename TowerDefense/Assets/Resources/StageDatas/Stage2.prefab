@@ -8791,6 +8791,7 @@ GameObject:
   - component: {fileID: 2161762173788667634}
   - component: {fileID: 2161762173788667636}
   - component: {fileID: 2161762173788667635}
+  - component: {fileID: 3829027675319999249}
   m_Layer: 0
   m_Name: Stage2
   m_TagString: Untagged
@@ -8841,6 +8842,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorInHierarchy: {r: 0.35686275, g: 0.37888026, b: 0.49019608, a: 1}
+--- !u!114 &3829027675319999249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161762173788667633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c12463709d78e74986da692f356c22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypointsParent: {fileID: 2161762172719924502}
+  gridObj: {fileID: 2161762173788667633}
+  tilemap: {fileID: 2161762174069900784}
+  waveSO: {fileID: 0}
 --- !u!1 &2161762174069900794
 GameObject:
   m_ObjectHideFlags: 0

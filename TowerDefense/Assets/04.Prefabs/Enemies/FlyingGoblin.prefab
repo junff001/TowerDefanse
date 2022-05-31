@@ -143,6 +143,7 @@ MonoBehaviour:
   attachmentKeys:
   - Wing_L
   - Wing_R
+  dieAnim: Wing_Die
 --- !u!114 &2370735874463284289
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ public class InvadeManager : Singleton<InvadeManager>
     private int curAddedRestCount = 0;
     public int MaxMonsterCount = 5;
     public int curAddedMonsterCount = 0;
-    private int spawnedCount = 0;
     private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
     int beforeIdx = 0;
 
@@ -128,10 +127,6 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public IEnumerator SpawnEnemy(MonsterType monsterType)
     {
-        if (spawnedCount % 5 == 0 && spawnedCount != 0)
-        {
-            yield return new WaitForSeconds(1f);
-        }
         waitingActs[0].Cancel();
 
         EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
@@ -143,10 +138,9 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             WaveManager.Instance.aliveEnemies.Remove(enemyObj);
             WaveManager.Instance.CheckWaveEnd();
-            Destroy(enemyHealth.gameObject);
+            //Destroy(enemyHealth.gameObject);
         };
 
-        spawnedCount++;
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀
 
@@ -215,7 +209,6 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             if (curAddedMonsterCount <= MaxMonsterCount && curAddedMonsterCount > 0) // 아예 안소환하는건 이상하니까.. 0은 체크했습니당
             {
-                spawnedCount = 0; // 스폰한 몬스터 수가 5 배수일 때마다 딜레이 걸거라서.
                 isWaveProgress = true;
                 TryAct();
             }

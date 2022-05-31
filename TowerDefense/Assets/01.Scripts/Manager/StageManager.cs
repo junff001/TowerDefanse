@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : Singleton<StageManager>
 {
-    public List<StageDataSO> stageDatas = new List<StageDataSO>();
+    public List<StageData> stageDatas = new List<StageData>();
     public Button[] stageBtns;
 
-    public StageDataSO selectedStage = null;
+    public StageData selectedStage = null;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class StageManager : Singleton<StageManager>
         object[] datas = Resources.LoadAll("StageDatas");
         for (int i = 0; i < datas.Length; i++)
         {
-            stageDatas.Add(datas[i] as StageDataSO);
+            stageDatas.Add(datas[i] as StageData);
         }
 
         for (int i = 0; i < stageDatas.Count; i++)
@@ -33,9 +33,9 @@ public class StageManager : Singleton<StageManager>
     }
 
 
-    public void SetStageDatas(StageDataSO stageData)
+    public void SetStageDatas(StageData stageData)
     {
-        BuildManager.Instance.SetTilemap(stageData.gridObj);
+        BuildManager.Instance.SetTilemap(stageData.tilemap);
         GameManager.Instance.SetWaypoints(stageData.waypointsParent);
         WaveManager.Instance.waveSO = stageData.waveSO;
         
