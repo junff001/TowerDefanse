@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     public int Hp { get; set; } = 10;
-    public int Gold { get; set; } = 500;
+    public int Gold { get; set; } = 200;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
 

@@ -23,7 +23,7 @@ MonoBehaviour:
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 2
     - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
-      enemyCount: 3
+      enemyCount: 10
     - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
       enemyCount: 5
     boss: {fileID: 0}
