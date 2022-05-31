@@ -7,9 +7,9 @@ public abstract class CoreBase : MonoBehaviour
 {
     [SerializeField] private float gizmoHeight = 0f;
 
-    public LayerMask enemyMask = default;                      // ?곸쓣 遺꾨퀎?섎뒗 留덉뒪??
-    protected Collider2D[] enemies = null;                         // 怨듦꺽 踰붿쐞???덉뿉 ?덈뒗 ?곷뱾
-    protected Collider2D currentTarget { get; set; } = null;       // ?꾩옱 ?寃?
+    public LayerMask enemyMask = default;                      // 적을 분별하는 마스크
+    protected Collider2D[] enemies = null;                         // 공격 범위 안에 있는 적들
+    protected Collider2D currentTarget { get; set; } = null;       // 현재 타겟
 
     public TowerData towerData { get; set; } = default;
     public eCoreName coreType;
@@ -20,7 +20,7 @@ public abstract class CoreBase : MonoBehaviour
         StartCoroutine(OnAttack());
     }
 
-    // 0.1珥?????먭퀬 怨듦꺽 踰붿쐞 泥댄겕 泥섎━
+    // 0.1초 텀을 두고 공격 범위 체크 처리
     protected IEnumerator Rader()
     {
         while (true)
@@ -30,13 +30,13 @@ public abstract class CoreBase : MonoBehaviour
         }
     }
 
-    // 怨듦꺽 踰붿쐞 泥섎━ ?⑥닔
+    // 공격 범위 처리 함수
     Collider2D[] EnemyRader(LayerMask targetMask)
     {
         return Physics2D.OverlapCircleAll(transform.position + new Vector3(0, gizmoHeight, 0), towerData.AttackRange, targetMask);
     }
 
-    // 怨듦꺽 踰붿쐞 湲곗쫰紐??쒖떆
+    // 공격 범위 기즈모 표시
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -49,7 +49,7 @@ public abstract class CoreBase : MonoBehaviour
     }
 #endif
 
-    // 怨듦꺽 ?ㅽ뻾 ?⑥닔
+    // 공격 실행 함수
     public virtual IEnumerator OnAttack()
     {
         while (true)
@@ -82,6 +82,6 @@ public abstract class CoreBase : MonoBehaviour
         }
     }
 
-    // 怨듦꺽 濡쒖쭅 ?⑥닔
+    // 공격 로직 함수
     public abstract void Attack(int power, HealthSystem enemy);
 }
