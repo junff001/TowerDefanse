@@ -130,7 +130,7 @@ public class InvadeManager : Singleton<InvadeManager>
     {
         if (spawnedCount % 5 == 0 && spawnedCount != 0)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
         }
         waitingActs[0].Cancel();
 
@@ -148,7 +148,7 @@ public class InvadeManager : Singleton<InvadeManager>
 
         spawnedCount++;
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f); // 스폰 텀
 
         if(waitingActs.Count == 1 && waitingActs[0].actData.actType == ActType.Wait)
         {

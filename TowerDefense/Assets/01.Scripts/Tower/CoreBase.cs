@@ -6,7 +6,7 @@ public abstract class CoreBase : MonoBehaviour
 {
     [SerializeField] private float gizmoHeight = 0f;
 
-    private LayerMask enemyMask = default;                      // ?곸쓣 遺꾨퀎?섎뒗 留덉뒪??
+    [SerializeField] private LayerMask enemyMask = default;                      // ?곸쓣 遺꾨퀎?섎뒗 留덉뒪??
     public Collider2D[] enemies = null;                         // 怨듦꺽 踰붿쐞???덉뿉 ?덈뒗 ?곷뱾
     public Collider2D currentTarget { get; set; } = null;       // ?꾩옱 ?寃?
 
@@ -22,7 +22,6 @@ public abstract class CoreBase : MonoBehaviour
     // 0.1珥?????먭퀬 怨듦꺽 踰붿쐞 泥댄겕 泥섎━
     protected IEnumerator Rader()
     {
-        enemyMask = LayerMask.GetMask("Enemy");
         while (true)
         {
             yield return new WaitForSeconds(0.1f);

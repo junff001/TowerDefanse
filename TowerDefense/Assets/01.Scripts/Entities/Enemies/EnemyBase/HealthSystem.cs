@@ -15,7 +15,7 @@ public class HealthSystem : MonoBehaviour
     public Action OnDied;
 
     private EnemyBase enemyBase;
-    private float healthAmountMax = 100;
+    private float healthAmountMax;
     private float curHealthAmount
     {
         get
@@ -29,7 +29,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private float shieldAmountMax = 100;
+    private float shieldAmountMax;
     private float curShieldAmount
     {
         get
@@ -87,7 +87,21 @@ public class HealthSystem : MonoBehaviour
 
     public float GetAmountNormalized(eHealthType type)
     {
-        return (type == eHealthType.HEALTH) ? (float)curHealthAmount / healthAmountMax : (float)curShieldAmount / shieldAmountMax;
+        if (type == eHealthType.HEALTH)
+        {
+            return (float)curHealthAmount / healthAmountMax;
+        }
+        else
+        {
+            if (shieldAmountMax != 0)
+            {
+                return (float)curShieldAmount / shieldAmountMax;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 
     public void SetAmountMax(eHealthType type, int amountMax, bool updateAmount)

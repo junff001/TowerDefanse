@@ -9,7 +9,7 @@ public class Penetration_Attack : CoreBase
     [SerializeField] private float rotateSpeed = 0f;
     [SerializeField] private float pullTime = 0f;
 
-    private Bullet bullet = null;
+    private Arrow bullet = null;
     private Animator animator = null;
 
     void Awake()
@@ -74,7 +74,7 @@ public class Penetration_Attack : CoreBase
         }
         else
         {           
-            bullet = PoolManager.GetItem<Bullet>();
+            bullet = PoolManager.GetItem<Arrow>();
 
             bullet.transform.position = bowLauncher.position;
             bullet.target = enemy.transform;

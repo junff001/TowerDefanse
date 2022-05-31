@@ -43,6 +43,7 @@ public class EnemyBase : MonoBehaviour
     {
         mesh.sortingLayerName = "Character";
         healthSystem.SetAmountMax(eHealthType.HEALTH, (int)enemyData.HP, true);
+        healthSystem.SetAmountMax(eHealthType.SHIELD, (int)enemyData.Shield, true);
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(enemyData.RewardGold);
@@ -133,8 +134,8 @@ public class EnemyBase : MonoBehaviour
 
         float absXScale = Mathf.Abs(transform.localScale.x);
         float xScale = dir.x > 0 ? -absXScale : absXScale;
+
         transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
-        
 
         if (WayPointDistance())
         {

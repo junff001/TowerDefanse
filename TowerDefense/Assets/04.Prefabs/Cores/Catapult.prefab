@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 864607307150061630}
   - component: {fileID: 864607307150061628}
-  - component: {fileID: 4509998251513848918}
+  - component: {fileID: -1383168390690562843}
   m_Layer: 0
-  m_Name: WoodenKeg
+  m_Name: Catapult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3954836654050351759, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
+  m_Sprite: {fileID: -3043711648414944898, guid: 6d878ababb928894985e64936c103eff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4509998251513848918
+--- !u!114 &-1383168390690562843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,9 +92,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 864607307150061631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227f4ffee3b19584b9dce61e927d1b17, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d1402157c26ed648b63d2c2a1ede4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoHeight: 0
   enemies: []
-  coreType: 3
+  coreType: 1

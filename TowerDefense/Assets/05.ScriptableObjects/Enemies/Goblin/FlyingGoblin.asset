@@ -15,11 +15,11 @@ MonoBehaviour:
   hp: 300
   shield: 0
   offensePower: 1
-  moveSpeed: 2.5
+  moveSpeed: 1.2
   rewardGold: 100
-  isHide: 1
+  isHide: 0
   isGuardian: 0
-  isFlying: 0
+  isFlying: 1
   propertyResistance: 0
   isDebuffIimmune: 0
   monsterType: 6

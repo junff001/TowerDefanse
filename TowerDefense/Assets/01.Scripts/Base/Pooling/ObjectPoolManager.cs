@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class ObjectPoolManager : MonoBehaviour
 {
-    public GameObject bulletPrefab;
+    public GameObject arrowPrefab;
+    public GameObject cannonBallPrefab;
+    public GameObject bombPrefab;
 
     private void Awake()
     {
-        PoolManager.CreatePool<Bullet>(bulletPrefab, transform, 50);
+        PoolManager.CreatePool<Arrow>(arrowPrefab, transform, 50);
+        PoolManager.CreatePool<CannonBall>(cannonBallPrefab, transform, 50);
+        PoolManager.CreatePool<Bomb>(bombPrefab, transform, 50);
     }
 
     private void OnDestroy()
