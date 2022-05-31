@@ -7539,6 +7539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveRoundCount: {fileID: 1054401608}
   poolManagerTrm: {fileID: 488542035}
+  waveRect: {fileID: 1354054138}
   waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
   enemyList:
   - {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
