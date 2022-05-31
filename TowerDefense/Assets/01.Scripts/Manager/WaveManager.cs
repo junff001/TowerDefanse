@@ -111,6 +111,7 @@ public class WaveManager : Singleton<WaveManager>
 
     public void DefenseSetNextWave()
     {
+        RecordManager.Instance.recordBox.Add(new RecordWaveBox());
         SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
         foreach (SpawnerMonsterCount item in enemyBox)
         {
@@ -143,6 +144,8 @@ public class WaveManager : Singleton<WaveManager>
             GoldManager.Instance.GoldPlus(rewardGold);
             UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
+
+            
         }
         else
         {

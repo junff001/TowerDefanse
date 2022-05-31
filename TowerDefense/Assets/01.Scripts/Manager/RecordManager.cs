@@ -39,11 +39,6 @@ public class RecordManager : Singleton<RecordManager>
     {
         if (WaveManager.Instance.GameMode == eGameMode.DEFENSE)
         {
-            while(recordBox.Count < WaveManager.Instance.Wave)
-            {
-                recordBox.Add(new RecordWaveBox());
-            }
-
             recordBox[WaveManager.Instance.Wave - 1].recordLog.Add(recordSegment);
         }
     }
