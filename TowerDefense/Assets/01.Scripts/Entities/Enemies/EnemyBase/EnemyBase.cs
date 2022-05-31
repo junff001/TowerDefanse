@@ -134,8 +134,8 @@ public class EnemyBase : MonoBehaviour
 
         float absXScale = Mathf.Abs(transform.localScale.x);
         float xScale = dir.x > 0 ? -absXScale : absXScale;
+
         transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
-        
 
         if (WayPointDistance())
         {

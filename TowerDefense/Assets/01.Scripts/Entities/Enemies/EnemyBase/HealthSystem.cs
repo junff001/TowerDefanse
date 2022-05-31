@@ -15,7 +15,7 @@ public class HealthSystem : MonoBehaviour
     public Action OnDied;
 
     private EnemyBase enemyBase;
-    private float healthAmountMax = 100;
+    private float healthAmountMax;
     private float curHealthAmount
     {
         get
@@ -29,7 +29,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private float shieldAmountMax = 100;
+    private float shieldAmountMax;
     private float curShieldAmount
     {
         get
