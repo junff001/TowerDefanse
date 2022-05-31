@@ -29,10 +29,10 @@ public class WaveManager : Singleton<WaveManager>
         set
         {
             _wave = value;
-            waveRoundCount.text = $"Wave {_wave}";
+            WaveAnim();
         }
     }
-
+    public RectTransform waveRect;
     public WaveSO waveSO;
 
     public Dictionary<MonsterType, EnemyBase> enemyDic = new Dictionary<MonsterType, EnemyBase>();
@@ -145,7 +145,7 @@ public class WaveManager : Singleton<WaveManager>
             UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
 
-            
+
         }
         else
         {
@@ -328,5 +328,14 @@ public class WaveManager : Singleton<WaveManager>
             group.interactable = appear;
             group.blocksRaycasts = appear;
         }
+    }
+
+    private void WaveAnim()
+    {
+        waveRect.DOAnchorPosY(100, 0.75f).SetEase(Ease.InOutBack).OnComplete(() =>
+        {
+            waveRoundCount.text = $"Wave {_wave}";
+            waveRect.DOAnchorPosY(-6, 0.75f).SetEase(Ease.InOutBack);
+        });
     }
 }
