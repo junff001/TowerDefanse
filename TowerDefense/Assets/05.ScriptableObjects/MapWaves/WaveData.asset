@@ -15,16 +15,16 @@ MonoBehaviour:
   waveEnemyInfos:
   - infoName: "\uC6E8\uC774\uBE0C 1"
     monsterBox:
-    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 10
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 2"
     monsterBox:
-    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
       enemyCount: 15
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 3"
     monsterBox:
-    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+    - enemy: {fileID: -2869406021732995179, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
       enemyCount: 20
     boss: {fileID: 0}
