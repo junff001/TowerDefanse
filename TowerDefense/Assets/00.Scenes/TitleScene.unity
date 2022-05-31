@@ -2565,6 +2565,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitBtn: {fileID: 889134548}
   difficultyPanel: {fileID: 660606602}
+  eseyBtn: {fileID: 2005967211}
+  nomalBtn: {fileID: 725342715}
+  hardBtn: {fileID: 1040260977}
 --- !u!1 &698305326
 GameObject:
   m_ObjectHideFlags: 0
