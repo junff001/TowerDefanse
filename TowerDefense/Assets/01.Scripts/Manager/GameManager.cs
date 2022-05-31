@@ -20,6 +20,11 @@ public class GameManager : Singleton<GameManager>
 
     public Dictionary<MonsterType, Sprite> enemySpriteDic = new Dictionary<MonsterType, Sprite>();
     public Sprite[] enemySprites; // 스프라이트 이름을 MonsterType에 써둔 enum명으로 해줘야 오류가 안생겨용
+    
+    //몇 스테이지 인가
+    public int stageNum = 0;
+    //1: 쉬움      2: 보통     3: 어려움
+    public int stageLevel = 0;
     private void Awake()
     {
         SetWaypoints(waypointsParent);

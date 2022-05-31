@@ -12,8 +12,10 @@ public class UI_TitleManager : MonoBehaviour
     public GameObject selectPanel;
     public GameObject lobyPanel;
     public GameObject topPanel;
+    public GameObject difficultyPanel;
+
     public int num = 0;
-    public TextMeshProUGUI diffculty;
+    public TextMeshProUGUI diffcultyTex;
     public RectTransform mid;
     
     public Button nextBtn;
@@ -24,7 +26,7 @@ public class UI_TitleManager : MonoBehaviour
     void Start()
     {
         Diffculty();
-
+        difficultyPanel.transform.localScale = new Vector3(0, 0, 0);
         //일단 맵 움직이는 것부터
         selectPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * -2);
         topPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * 2);
@@ -106,29 +108,37 @@ public class UI_TitleManager : MonoBehaviour
     {
         switch (num)
         {
-            case 0 : 
-                diffculty.text = "Easy";
-                diffculty.color = new Color(255, 255, 0);
+            case 0 :
+                diffcultyTex.text = "Easy";
+                diffcultyTex.color = new Color(0, 255, 0);
                 break;
             case 1:
-                diffculty.text = "Nomal";
-                diffculty.color = new Color(255, 120, 0);
+                diffcultyTex.text = "Nomal";
+                diffcultyTex.color = new Color(255, 250, 0);
                 break;
             case 2:
-                diffculty.text = "Hard";
-                diffculty.color = new Color(255, 0, 0);
+                diffcultyTex.text = "Hard";
+                diffcultyTex.color = new Color(255, 0, 0);
                 break;
             case 3:
-                diffculty.text = "Tutorial";
-                diffculty.color = new Color(150, 255, 255);
+                diffcultyTex.text = "Tutorial";
+                diffcultyTex.color = new Color(150, 255, 255);
                 break;
         }
     }
 
     IEnumerator ClickDelay()
     {
+        Diffculty();
         isClick = true;
         yield return new WaitForSeconds(0.3f);
         isClick = false;
+    }
+
+    public void ChooseStage(int stage)
+    {
+        Debug.Log(stage);
+        GameManager.Instance.stageNum = stage;
+        difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
     }
 }
