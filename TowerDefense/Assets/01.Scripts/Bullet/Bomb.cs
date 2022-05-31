@@ -93,6 +93,11 @@ public class Bomb : Bullet
         gameObject.SetActive(false);
     }
 
+    public override void Init()
+    {
+
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -104,9 +109,6 @@ public class Bomb : Bullet
         }
     }
 
-    public override void Init()
-    {
-        
-    }
+    
 #endif
 }

@@ -16,10 +16,15 @@ public class Map : MonoBehaviour
 
     private void Start()
     {
-        width = tilemap.size.x;
-        height = tilemap.size.y;
-
-        InitMap(width, height);
+        if(mapTileArray == null)
+        {
+            InitMap();
+            Debug.Log("스테이지 로딩 X, 맵 데이터 초기화");
+        }
+        else
+        {
+            Debug.Log("스테이지 로딩 후 맵 데이터 초기화를 마친 상태");
+        }
     }
 
     public void ResetMapData() // 그 전환 시 배열 데이타 다시 사용하기 위해서 초기화
@@ -40,8 +45,11 @@ public class Map : MonoBehaviour
         }
     }
 
-    void InitMap(int width, int height)
+    public void InitMap()
     {
+        width = tilemap.size.x;
+        height = tilemap.size.y;
+
         mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정
         mapTileArray = new Tile[width, height];                 // 맵 사이즈 설정
 

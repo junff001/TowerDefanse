@@ -29,6 +29,14 @@ public class GameManager : Singleton<GameManager>
         SetEnemySpriteDic();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("JuhyeongScene");
+        }
+    }
+
     public void SetEnemySpriteDic() 
     {
         enemySpriteDic.Add(MonsterType.None, waitSprite);
@@ -47,7 +55,7 @@ public class GameManager : Singleton<GameManager>
 
     public void SetWaypoints(Transform waypointParent)
     {
-        waypointParent.GetComponentsInChildren<Transform>(wayPoints);
+        waypointParent.GetComponentsInChildren(wayPoints);
         wayPoints.RemoveAt(0);
     }
 

@@ -23,12 +23,11 @@ public class StageManager : Singleton<StageManager>
 
         for (int i = 0; i < stageDatas.Count; i++)
         {
-            
             stageBtns[i].onClick.AddListener(() =>
             {
                 int stageIdx = i - 1;
                 selectedStage = stageDatas[stageIdx];
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("JuhyeongScene");
             });
         }
     }
@@ -36,16 +35,18 @@ public class StageManager : Singleton<StageManager>
 
     public void SetStageDatas(StageDataSO stageData)
     {
-        //BuildManager.Instance.SetTilemap(stageData.tileMap);
+        BuildManager.Instance.SetTilemap(stageData.gridObj);
         GameManager.Instance.SetWaypoints(stageData.waypointsParent);
         WaveManager.Instance.waveSO = stageData.waveSO;
         
+
+        //여기서 스테이지 타워 데이터, 내가 가져온 몹 데이터 기반으로 버튼들 초기화 해주고
+        //나머지는 매니저나 씬 자체에서 알아서 관리.
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //StageDataSO stageData = selectedStage;
         SetStageDatas(selectedStage);
-        Debug.Log("ㅎㅇ");
     }
 }

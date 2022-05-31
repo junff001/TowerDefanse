@@ -56,6 +56,12 @@ public class BuildManager : Singleton<BuildManager>
         SetAroundTiles();
     }
 
+    public void SetTilemap(GameObject grid)
+    {
+        map.tilemap = grid.GetComponentInChildren<Tilemap>(); //
+        map.InitMap();
+    }
+
     public void SeTilePos()
     {
         Vector3 pos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -75,7 +81,6 @@ public class BuildManager : Singleton<BuildManager>
         down = new Vector3Int(tilePos.x, tilePos.y - 1, tilePos.z);
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
-
 
     public void ResetCheckedTiles() // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
