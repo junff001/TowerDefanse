@@ -23,7 +23,7 @@ public class EnemyBase : MonoBehaviour
     protected HealthSystem healthSystem;
 
     [SerializeField] protected EnemySO enemySO;
-    public EnemyData enemyData = new EnemyData();
+    [HideInInspector] public EnemyData enemyData = new EnemyData();
 
     private List<BuffBase> buffList = new List<BuffBase>();
     private MeshRenderer mesh = null;
