@@ -87,7 +87,21 @@ public class HealthSystem : MonoBehaviour
 
     public float GetAmountNormalized(eHealthType type)
     {
-        return (type == eHealthType.HEALTH) ? (float)curHealthAmount / healthAmountMax : (float)curShieldAmount / shieldAmountMax;
+        if (type == eHealthType.HEALTH)
+        {
+            return (float)curHealthAmount / healthAmountMax;
+        }
+        else
+        {
+            if (shieldAmountMax != 0)
+            {
+                return (float)curShieldAmount / shieldAmountMax;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 
     public void SetAmountMax(eHealthType type, int amountMax, bool updateAmount)
