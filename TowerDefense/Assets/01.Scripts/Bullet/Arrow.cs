@@ -23,7 +23,7 @@ public class Arrow : Bullet
 
     public override void Update()
     {
-        FlyBullet();
+        Shoot();
 
         if (IsCollision())
         {
@@ -34,7 +34,7 @@ public class Arrow : Bullet
         }
     }
 
-    public override void FlyBullet()
+    public override void Shoot()
     {
         transform.position += moveDirection * speed * Time.deltaTime;
     }
