@@ -818,6 +818,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3188361967190122603, guid: 1d9a575f6c8528f449886247ff0f1b17, type: 3}
   cannonBallPrefab: {fileID: 3188361967190122603, guid: 04edca3ee700b464d9da922f87696905, type: 3}
   bombPrefab: {fileID: 3188361967190122603, guid: edec9d3e733c00647bc1ff29b27986dc, type: 3}
+  effectStoneFragment: {fileID: 8321958829034275152, guid: d07e943e8df1fc14798ee9d25d91f4d0, type: 3}
 --- !u!1 &86159574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,7 +1691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1980804223904782014, guid: 6d40745c213bde34aa49272f4547107e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16
+      value: 10.97
       objectReference: {fileID: 0}
     - target: {fileID: 1980804223904782014, guid: 6d40745c213bde34aa49272f4547107e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6748,6 +6749,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5f9eb49cc8454784d81096857a22291a, type: 3}
   - {fileID: 21300000, guid: 88a949ed25ec5854db4f2bc5c87558fb, type: 3}
   - {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
+  stageNum: 0
+  stageLevel: 0
 --- !u!1 &542729310
 GameObject:
   m_ObjectHideFlags: 0
@@ -20871,7 +20874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1980804223904782014, guid: 6d40745c213bde34aa49272f4547107e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: 10.52
       objectReference: {fileID: 0}
     - target: {fileID: 1980804223904782014, guid: 6d40745c213bde34aa49272f4547107e, type: 3}
       propertyPath: m_LocalPosition.y

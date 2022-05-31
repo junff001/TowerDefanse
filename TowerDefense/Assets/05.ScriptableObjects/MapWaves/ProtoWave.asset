@@ -16,25 +16,23 @@ MonoBehaviour:
   - infoName: "\uC6E8\uC774\uBE0C 1"
     monsterBox:
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 3
+      enemyCount: 5
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 2"
     monsterBox:
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 2
     - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
-      enemyCount: 1
-    - enemy: {fileID: 3433754494996545547, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 2
+      enemyCount: 10
+    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
+      enemyCount: 5
     boss: {fileID: 0}
   - infoName: "\uC6E8\uC774\uBE0C 3"
     monsterBox:
     - enemy: {fileID: -2869406021732995179, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
-      enemyCount: 1
-    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
       enemyCount: 2
     - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
-      enemyCount: 2
+      enemyCount: 3
     - enemy: {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
       enemyCount: 5
     boss: {fileID: 0}
@@ -54,15 +52,13 @@ MonoBehaviour:
   - infoName: "\uC6E8\uC774\uBE0C 5"
     monsterBox:
     - enemy: {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
-      enemyCount: 3
+      enemyCount: 4
     - enemy: {fileID: -2869406021732995179, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
-      enemyCount: 1
+      enemyCount: 2
     - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
       enemyCount: 4
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 3
     - enemy: {fileID: -4615959411394944946, guid: b9529a263503a704697ed46d3b424d28, type: 3}
-      enemyCount: 1
+      enemyCount: 2
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       enemyCount: 8
     boss: {fileID: 0}
