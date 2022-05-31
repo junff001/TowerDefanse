@@ -4,26 +4,25 @@ using UnityEngine;
 using Spine.Unity;
 using Spine;
 
-public class AttachmentController : MonoBehaviour
+public class SpineController : MonoBehaviour
 {
     private string[] baseAttachments =
     {
         "Eye", "HeadParts", "Ear_L", "Ear_R", "Head", "Arm_L", "Arm_R", "Leg_Up_L", "Leg_Up_R", "Leg_Down_L", "Leg_Down_R",  "Body",
         //"Armor_Body", "Shadow_Head", "Shadow_L", "Shadow_R", "Armor_L", "Armor_R", "Guardian","Wing_L","Wing_R"
-    };  
+    };
 
+    [Header("추가 파츠들")]
     [SpineSlot] public string[] targetSlots;
     [SpineAttachment] public string[] attachmentKeys; // 고글 어테치먼트의 이름
 
+    [Header("애니메이션 이름")]
+    [SpineAnimation] public string dieAnim;
+
+    SkeletonAnimation sa;
     private void Start()
     {
-        //if (attachmentKeys.Length != targetSlots.Length)
-        //{
-        //    Debug.LogError("두 배열의 길이는 같고, 인덱스 1번에 1번에 넣을 파츠를 골라서 넣어줘야 함!!");
-        //    return;
-        //}
-
-        SkeletonAnimation sa = GetComponent<SkeletonAnimation>();
+        sa = GetComponent<SkeletonAnimation>();
         Skeleton skeleton = sa.skeleton; // 스켈레톤 클래스
 
         foreach(Slot slot in skeleton.Slots) slot.Attachment = null;
@@ -38,5 +37,16 @@ public class AttachmentController : MonoBehaviour
            skeleton.SetAttachment(targetSlots[i], attachmentKeys[i]);
        }
 
+
+       if(this.GetComponent<EnemyBase>().enemyData.IsHide == true)
+        {
+            skeleton.A = 0.5f;
+        }
+    }
+
+    public void Die()
+    {
+        sa.loop = false;
+        sa.AnimationName = dieAnim;
     }
 }

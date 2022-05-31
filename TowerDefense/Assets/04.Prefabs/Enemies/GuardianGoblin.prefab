@@ -141,6 +141,7 @@ MonoBehaviour:
   - Guardian
   attachmentKeys:
   - Guardian
+  dieAnim: Normal_Die
 --- !u!114 &2370735874463284289
 MonoBehaviour:
   m_ObjectHideFlags: 0

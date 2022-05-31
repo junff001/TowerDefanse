@@ -47,7 +47,6 @@ public class BuildManager : Singleton<BuildManager>
             coreDic.Add(item.coreType, item);
         }
 
-        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y,0) / 2; // 0.5정도임, 타일의 중앙 지점 찾기 용
     }
 
     private void Update()
@@ -56,10 +55,11 @@ public class BuildManager : Singleton<BuildManager>
         SetAroundTiles();
     }
 
-    public void SetTilemap(GameObject grid)
+    public void SetTilemap(Tilemap tilemap)
     {
-        map.tilemap = grid.GetComponentInChildren<Tilemap>(); //
+        map.tilemap = tilemap; //
         map.InitMap();
+        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2; // 0.5정도임, 타일의 중앙 지점 찾기 용
     }
 
     public void SeTilePos()

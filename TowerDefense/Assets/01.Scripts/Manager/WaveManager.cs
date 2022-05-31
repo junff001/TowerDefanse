@@ -231,7 +231,7 @@ public class WaveManager : Singleton<WaveManager>
             {
                 aliveEnemies.Remove(enemyObj);
                 CheckWaveEnd();
-                Destroy(enemyObj.gameObject);
+                //Destroy(enemyObj.gameObject);
             };
 
             count_five++;

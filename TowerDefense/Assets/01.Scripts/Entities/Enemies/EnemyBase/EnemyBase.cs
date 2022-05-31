@@ -18,7 +18,7 @@ public class EnemyData
     public MonsterType MonsterType;
 }
 
-public class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour
 {
     protected HealthSystem healthSystem;
 
@@ -33,10 +33,13 @@ public class EnemyBase : MonoBehaviour
     public float aliveTime = 0f;
     public float movedDistance = 0f;
 
+    SpineController animController;
+
     void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
+        animController = GetComponent<SpineController>();
     }
 
     private void Start()
@@ -47,6 +50,7 @@ public class EnemyBase : MonoBehaviour
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(enemyData.RewardGold);
+            animController.Die();
         };
     }
 
