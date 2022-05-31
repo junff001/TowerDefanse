@@ -145,7 +145,6 @@ public class WaveManager : Singleton<WaveManager>
             UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
 
-
         }
         else
         {
@@ -246,6 +245,7 @@ public class WaveManager : Singleton<WaveManager>
                         InvadeManager.Instance.draggingBtn.OnDragEnd();
                     }
 
+                    GameManager.Instance.Hp = 10;
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);

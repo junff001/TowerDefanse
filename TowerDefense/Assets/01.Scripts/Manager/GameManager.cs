@@ -34,17 +34,10 @@ public class GameManager : Singleton<GameManager>
         SetEnemySpriteDic();
     }
 
-    private void Update()
+    public void LoadScene(string sceneName)
     {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("JuhyeongScene");
-        }
-    }
-
-    public void LoadCurScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1;
     }
 
     public void SetEnemySpriteDic() 

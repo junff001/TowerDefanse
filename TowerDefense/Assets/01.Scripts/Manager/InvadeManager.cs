@@ -20,6 +20,8 @@ public class InvadeManager : Singleton<InvadeManager>
     public float currentTime { get; set; } = 0f;
     float sideLength = 0f;
 
+
+
     public List<UI_CancelActBtn> waitingActs = new List<UI_CancelActBtn>(); // 몹 편성 눌러서 여기에 추가.
 
     public ActData addedAct = null;
@@ -146,10 +148,8 @@ public class InvadeManager : Singleton<InvadeManager>
                 waitingActs[0].Cancel();
             }
         }
-        else
-        {
-            TryAct();
-        }
+        TryAct();
+
     }
 
     public void OnAddAct(ActData actData)
@@ -202,6 +202,7 @@ public class InvadeManager : Singleton<InvadeManager>
             if (curAddedMonsterCount <= MaxMonsterCount && curAddedMonsterCount > 0) // 아예 안소환하는건 이상하니까.. 0은 체크했습니당
             {
                 isWaveProgress = true;
+                canAddWave = false;
                 TryAct();
             }
             else
@@ -225,11 +226,17 @@ public class InvadeManager : Singleton<InvadeManager>
         TryAct();
     }
 
+    public bool canAddWave = true;
+
     void TryAct() // waiting 행동을 그거를 버튼으로 
     {
         if (waitingActs.Count > 0)
         {
             CheckActType(waitingActs[0].actData);
+        }
+        else
+        {
+            canAddWave = true;
         }
     }
 
@@ -370,11 +377,11 @@ public class InvadeManager : Singleton<InvadeManager>
     {
         if(actType == ActType.Enemy)
         {
-            return MaxMonsterCount > curAddedMonsterCount;
+            return MaxMonsterCount > curAddedMonsterCount && canAddWave;
         }
         else
         {
-            return MaxRestCount > curAddedRestCount;
+            return MaxRestCount > curAddedRestCount && canAddWave;
         }
     }
 
