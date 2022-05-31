@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -40,6 +40,11 @@ public class GameManager : Singleton<GameManager>
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("JuhyeongScene");
         }
+    }
+
+    public void LoadCurScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void SetEnemySpriteDic() 
