@@ -6,9 +6,9 @@ public abstract class CoreBase : MonoBehaviour
 {
     [SerializeField] private float gizmoHeight = 0f;
 
-    [SerializeField] private LayerMask enemyMask = default;                      // ?곸쓣 遺꾨퀎?섎뒗 留덉뒪??
-    public Collider2D[] enemies = null;                         // 怨듦꺽 踰붿쐞???덉뿉 ?덈뒗 ?곷뱾
-    public Collider2D currentTarget { get; set; } = null;       // ?꾩옱 ?寃?
+    public LayerMask enemyMask = default;                      // ?곸쓣 遺꾨퀎?섎뒗 留덉뒪??
+    protected Collider2D[] enemies = null;                         // 怨듦꺽 踰붿쐞???덉뿉 ?덈뒗 ?곷뱾
+    protected Collider2D currentTarget { get; set; } = null;       // ?꾩옱 ?寃?
 
     public TowerData towerData { get; set; } = default;
     public eCoreName coreType;

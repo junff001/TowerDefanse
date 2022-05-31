@@ -96,5 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoHeight: 0
-  enemies: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 15872
   coreType: 1

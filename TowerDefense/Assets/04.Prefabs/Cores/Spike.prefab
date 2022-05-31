@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoHeight: 0.5
-  enemies: []
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 31744
   coreType: 2
   spriteObj: {fileID: 4570415824717851062}
   hitEffect: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}

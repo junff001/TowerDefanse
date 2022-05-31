@@ -40,6 +40,7 @@ public class Bomb : Bullet
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
+                        Debug.Log("스플뎀");
                         enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
                     }
                 }
