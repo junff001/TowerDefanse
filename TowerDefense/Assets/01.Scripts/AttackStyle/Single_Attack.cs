@@ -6,7 +6,7 @@ public class Single_Attack : CoreBase
 { 
     public override void Attack(int power, HealthSystem enemy)
     {
-        Bullet bullet = PoolManager.GetItem<Bullet>();
+        CannonBall bullet = PoolManager.GetItem<CannonBall>();
 
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
