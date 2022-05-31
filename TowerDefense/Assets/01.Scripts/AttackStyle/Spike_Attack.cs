@@ -18,9 +18,14 @@ public class Spike_Attack : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        enemy.TakeDamage(power);
+        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
 
-        hitEffect.transform.position = -enemy.transform.up;
+        if (false == enemyBase.enemyData.IsFlying)
+        {
+            enemy.TakeDamage(power);
+
+            hitEffect.transform.position = -enemy.transform.up;
+        }
     }
 
     public override IEnumerator OnAttack()
