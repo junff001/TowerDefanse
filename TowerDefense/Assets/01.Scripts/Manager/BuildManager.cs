@@ -238,5 +238,8 @@ public class BuildManager : Singleton<BuildManager>
         RecordTowerPlace recordSegment = new RecordTowerPlace(placePos, towerSO);
         RecordManager.Instance.AddRecord(recordSegment);
 
+        // 설치 이펙트
+        Effect_StoneFrag effectStone = PoolManager.GetItem<Effect_StoneFrag>();
+        effectStone.transform.position = placePos;
     }
 }
