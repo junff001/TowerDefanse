@@ -10,11 +10,15 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject cannonBallPrefab;
     public GameObject bombPrefab;
 
+    [Header("Effects")]
+    public GameObject effectStoneFragment;
+
     private void Awake()
     {
         PoolManager.CreatePool<Arrow>(arrowPrefab, transform, 50);
         PoolManager.CreatePool<CannonBall>(cannonBallPrefab, transform, 50);
         PoolManager.CreatePool<Bomb>(bombPrefab, transform, 50);
+        PoolManager.CreatePool<Effect_StoneFrag>(effectStoneFragment, transform, 5);
     }
 
     private void OnDestroy()
