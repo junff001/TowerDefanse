@@ -177,7 +177,7 @@ public class WaveManager : Singleton<WaveManager>
                 else
                 {
                     // 돈 추가 , 인원추가
-                    OnWaveEnd(300, 0);
+                    OnWaveEnd(100, 0);
 
                     Wave++;
                     DefenseSetNextWave();
@@ -227,12 +227,7 @@ public class WaveManager : Singleton<WaveManager>
 
             aliveEnemies.Add(enemyObj);
 
-            enemyHealth.OnDied += () =>
-            {
-                aliveEnemies.Remove(enemyObj);
-                CheckWaveEnd();
-                //Destroy(enemyObj.gameObject);
-            };
+
 
             count_five++;
 

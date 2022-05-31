@@ -134,14 +134,6 @@ public class InvadeManager : Singleton<InvadeManager>
         HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
         WaveManager.Instance.aliveEnemies.Add(enemyObj);
 
-        enemyHealth.OnDied += () =>
-        {
-            WaveManager.Instance.aliveEnemies.Remove(enemyObj);
-            WaveManager.Instance.CheckWaveEnd();
-            //Destroy(enemyHealth.gameObject);
-        };
-
-
         yield return new WaitForSeconds(0.5f); // 스폰 텀
 
         if(waitingActs.Count == 1 && waitingActs[0].actData.actType == ActType.Wait)
