@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   hp: 300
-  shield: 0
+  shield: 1000
   offensePower: 1
   moveSpeed: 1.5
   rewardGold: 50

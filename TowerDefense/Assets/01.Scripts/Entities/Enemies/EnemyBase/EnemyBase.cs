@@ -43,6 +43,7 @@ public class EnemyBase : MonoBehaviour
     {
         mesh.sortingLayerName = "Character";
         healthSystem.SetAmountMax(eHealthType.HEALTH, (int)enemyData.HP, true);
+        healthSystem.SetAmountMax(eHealthType.SHIELD, (int)enemyData.Shield, true);
         healthSystem.OnDied += () =>
         {
             GoldManager.Instance.GoldPlus(enemyData.RewardGold);
