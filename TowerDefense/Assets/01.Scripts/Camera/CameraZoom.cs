@@ -6,11 +6,22 @@ using Cinemachine;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera cinemachine;
-    [SerializeField] private float scrollDegree;
-    [SerializeField] private float maxSize;
+    [SerializeField] private float zoomSpeed;
+    [Range(5,20)] [SerializeField] private float maxSize;
+    private const float minSize = 5f;
+    private float addSize = 0f;
 
     void Update()
     {
-        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(Input.mouseScrollDelta.y * scrollDegree, 5, maxSize);
+        if (Input.mouseScrollDelta.y > 0) 
+        {
+            addSize = Time.deltaTime * zoomSpeed;
+        }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            addSize = -(Time.deltaTime * zoomSpeed);
+        }
+
+        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + addSize, minSize, maxSize);
     }
 }
