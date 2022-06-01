@@ -19,7 +19,7 @@ public class Penetration_Attack : CoreBase
 
     public override void Start()
     {
-        StartCoroutine(Rader());
+        StartCoroutine(OnRader());
         StartCoroutine(OnAttack());
         StartCoroutine(LookAtTarget());
     }

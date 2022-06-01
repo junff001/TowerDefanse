@@ -12,7 +12,7 @@ public class Spike_Attack : CoreBase
 
     public override void Start()
     {
-        StartCoroutine(Rader());
+        StartCoroutine(OnRader());
         StartCoroutine(OnAttack());
     }
 
