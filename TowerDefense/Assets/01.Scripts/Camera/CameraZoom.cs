@@ -13,7 +13,26 @@ public class CameraZoom : MonoBehaviour
 
     void Update()
     {
-        if (Input.mouseScrollDelta.y > 0) 
+        if (Input.touchCount == 2)
+        {
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchZero.deltaPosition;
+
+            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+            float difference = currentMagnitude - prevMagnitude;
+
+            Zoom_Mobile(difference * 0.01f);
+        }
+    }
+
+    void Zoom_PC()
+    {
+        if (Input.mouseScrollDelta.y > 0)
         {
             addSize = Time.deltaTime * zoomSpeed;
         }
@@ -23,5 +42,10 @@ public class CameraZoom : MonoBehaviour
         }
 
         cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + addSize, minSize, maxSize);
+    }
+
+    void Zoom_Mobile(float increment)
+    {
+        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + increment, minSize, maxSize);
     }
 }
