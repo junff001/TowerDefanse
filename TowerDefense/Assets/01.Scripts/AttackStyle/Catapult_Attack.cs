@@ -6,7 +6,7 @@ public class Catapult_Attack : CoreBase
 { 
     public override void Attack(int power, HealthSystem enemy)
     {
-        CannonBall bullet = PoolManager.GetItem<CannonBall>();
+        CannonBall bullet = Managers.Pool.GetItem<CannonBall>();
 
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;

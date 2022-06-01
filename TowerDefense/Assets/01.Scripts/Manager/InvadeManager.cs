@@ -56,9 +56,9 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void RecordedSegmentCheck()
     {
-        if (RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count > actIndex)
+        if (Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count > actIndex)
         {
-            RecordBase recordSegment = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
+            RecordBase recordSegment = Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
 
             if (recordSegment.recordedTime <= currentTime)
             {
@@ -74,11 +74,11 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void RecordedSegmentPlayAll()
     {
-        int count = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count;
+        int count = Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count;
 
         for (int i = actIndex; i < count; i++)
         {
-            RecordBase recordSegment = RecordManager.Instance.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
+            RecordBase recordSegment = Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
             RecordSegmentPlay(recordSegment);
         }
     }
@@ -105,14 +105,14 @@ public class InvadeManager : Singleton<InvadeManager>
 
         if (compareActData == null) return false; //처음이면 당연히 새로 추가
 
-        if (compareActData.actType == ActType.Wait) // 전에 추가한게 휴식일 때,
+        if (compareActData.actType == Define.ActType.Wait) // 전에 추가한게 휴식일 때,
         {
             if (compareActData.actType == newActData.actType) // 새로 추가한것도 휴식이면 같음.
                 return true;
             else
                 return false;
         }
-        else if (newActData.actType == ActType.Enemy)
+        else if (newActData.actType == Define.ActType.Enemy)
         {
             if (compareActData.monsterType == newActData.monsterType) // 둘의 소환하는 몬스터 데이터가 같으면 같음
                 return true;
@@ -125,36 +125,34 @@ public class InvadeManager : Singleton<InvadeManager>
         }
     }
 
-    public IEnumerator SpawnEnemy(MonsterType monsterType)
+    public IEnumerator SpawnEnemy(Define.MonsterType monsterType)
     {
         waitingActs[0].Cancel();
 
         EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
-        EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
+        EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
         HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
         WaveManager.Instance.aliveEnemies.Add(enemyObj);
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀
 
-        if(waitingActs.Count == 1 && waitingActs[0].actData.actType == ActType.Wait)
+        if (waitingActs.Count == 1 && waitingActs[0].actData.actType == Define.ActType.Wait)
         {
             //남은 행동이 전부 휴식이면 그냥 전부 해제하장
             int count = waitingActs[0].actStackCount;
 
-            for (int i =0; i< count; i++)
+            for (int i = 0; i < count; i++)
             {
                 waitingActs[0].Cancel();
             }
         }
-        else
-        {
-            TryAct();
-        }
+        TryAct();
+
     }
 
     public void OnAddAct(ActData actData)
     {
-        if(actData.actType == ActType.Enemy)
+        if(actData.actType == Define.ActType.Enemy)
         {
             curAddedMonsterCount += actData.spawnCost;
         }
@@ -166,7 +164,7 @@ public class InvadeManager : Singleton<InvadeManager>
     }
     public void OnCancelAct(ActData actData)
     {
-        if (actData.actType == ActType.Enemy)
+        if (actData.actType == Define.ActType.Enemy)
         {
             curAddedMonsterCount -= actData.spawnCost;
         }
@@ -185,11 +183,11 @@ public class InvadeManager : Singleton<InvadeManager>
     {
         switch (actData.actType)
         {
-            case ActType.Wait:
+            case Define.ActType.Wait:
                 StartCoroutine(Wait());
                 break;
 
-            case ActType.Enemy:
+            case Define.ActType.Enemy:
                 StartCoroutine(SpawnEnemy(actData.monsterType));
                 break;
         }
@@ -202,6 +200,7 @@ public class InvadeManager : Singleton<InvadeManager>
             if (curAddedMonsterCount <= MaxMonsterCount && curAddedMonsterCount > 0) // 아예 안소환하는건 이상하니까.. 0은 체크했습니당
             {
                 isWaveProgress = true;
+                canAddWave = false;
                 TryAct();
             }
             else
@@ -225,11 +224,16 @@ public class InvadeManager : Singleton<InvadeManager>
         TryAct();
     }
 
+    public bool canAddWave = true;
+
     void TryAct() // waiting 행동을 그거를 버튼으로 
     {
         if (waitingActs.Count > 0)
         {
             CheckActType(waitingActs[0].actData);
+        }
+        {
+            canAddWave = true;
         }
     }
 
@@ -366,15 +370,15 @@ public class InvadeManager : Singleton<InvadeManager>
         newBtn.transform.SetSiblingIndex(idx);
     }
 
-    public bool CanSetWave(ActType actType)
+    public bool CanSetWave(Define.ActType actType)
     {
-        if(actType == ActType.Enemy)
+        if(actType == Define.ActType.Enemy)
         {
-            return MaxMonsterCount > curAddedMonsterCount;
+            return MaxMonsterCount > curAddedMonsterCount && canAddWave;
         }
         else
         {
-            return MaxRestCount > curAddedRestCount;
+            return MaxRestCount > curAddedRestCount && canAddWave;
         }
     }
 

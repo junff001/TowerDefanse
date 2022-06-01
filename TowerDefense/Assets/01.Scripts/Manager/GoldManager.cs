@@ -4,21 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class GoldManager : Singleton<GoldManager>
+public class GoldManager : MonoBehaviour
 {
     public Text moneyText;
 
-    public int Gold
-    {
-        get
-        {
-            return GameManager.Instance.Gold;
-        }
-        set
-        {
-            GameManager.Instance.Gold = value;
-        }
-    }
+    public int Gold { get; set; } = 200;
 
     private void Start()
     {

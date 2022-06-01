@@ -38,13 +38,13 @@ public class EnemySO : ScriptableObject
     public bool IsFlying { get => isFlying; set => value = isFlying; }
 
     // 속성 저항
-    [SerializeField] private PropertyType propertyResistance = PropertyType.NONE;
-    public PropertyType PropertyResistance { get => propertyResistance; set => value = propertyResistance; }
+    [SerializeField] private Define.PropertyType propertyResistance = Define.PropertyType.NONE;
+    public Define.PropertyType PropertyResistance { get => propertyResistance; set => value = propertyResistance; }
 
     // 디버프 면역 여부
     [SerializeField] private bool isDebuffIimmune = false;
     public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }
 
-    [SerializeField] private MonsterType monsterType;
-    public MonsterType MonsterType { get => monsterType; set => value = monsterType; }
+    [SerializeField] private Define.MonsterType monsterType;
+    public Define.MonsterType MonsterType { get => monsterType; set => value = monsterType; }
 }

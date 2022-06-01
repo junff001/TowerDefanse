@@ -13,9 +13,9 @@ public class EnemyData
     public bool IsHide;
     public bool IsGuardian;
     public bool IsFlying;
-    public PropertyType PropertyResistance;
+    public Define.PropertyType PropertyResistance;
     public bool IsDebuffIimmune;
-    public MonsterType MonsterType;
+    public Define.MonsterType MonsterType;
 }
 
 public abstract class EnemyBase : MonoBehaviour
@@ -49,7 +49,7 @@ public abstract class EnemyBase : MonoBehaviour
         healthSystem.SetAmountMax(eHealthType.SHIELD, (int)enemyData.Shield, true);
         healthSystem.OnDied += () =>
         {
-            GoldManager.Instance.GoldPlus(enemyData.RewardGold);
+            Managers.Gold.GoldPlus(enemyData.RewardGold);
             animController.Die();
             WaveManager.Instance.aliveEnemies.Remove(this);
             WaveManager.Instance.CheckWaveEnd();
@@ -138,16 +138,16 @@ public abstract class EnemyBase : MonoBehaviour
 
     void Move()
     {
-        if (currentWayPointIndex == GameManager.Instance.wayPoints.Count)
+        if (currentWayPointIndex == Managers.Game.wayPoints.Count)
         {
-            GameManager.Instance.OnEnemyArrivedLastWaypoint(this);
+            Managers.Game.OnEnemyArrivedLastWaypoint(this);
             return;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.wayPoints[currentWayPointIndex].transform.position,
+        transform.position = Vector3.MoveTowards(transform.position, Managers.Game.wayPoints[currentWayPointIndex].transform.position,
             Time.deltaTime * enemyData.MoveSpeed);
 
-        Vector3 dir = GameManager.Instance.wayPoints[currentWayPointIndex].transform.position - transform.position;
+        Vector3 dir = Managers.Game.wayPoints[currentWayPointIndex].transform.position - transform.position;
 
         float absXScale = Mathf.Abs(transform.localScale.x);
         float xScale = dir.x > 0 ? -absXScale : absXScale;
@@ -162,7 +162,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     bool WayPointDistance()
     {
-        if (Vector2.Distance(GameManager.Instance.wayPoints[currentWayPointIndex].transform.position, transform.position) < 0.01f)
+        if (Vector2.Distance(Managers.Game.wayPoints[currentWayPointIndex].transform.position, transform.position) < 0.01f)
         {
             return true;
         }

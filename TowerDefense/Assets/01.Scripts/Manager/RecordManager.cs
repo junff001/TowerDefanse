@@ -9,14 +9,14 @@ public class RecordWaveBox
     public List<RecordBase> recordLog = new List<RecordBase>();
 }
 
-public class RecordManager : Singleton<RecordManager>
+public class RecordManager
 {
     public static bool isRecord { get; private set; } = false;
     public float currentTime { get; private set; } = 0f;
 
     public List<RecordWaveBox> recordBox = new List<RecordWaveBox>();
 
-    private void Update()
+    public void Update()
     {
         if(isRecord)
         {
@@ -37,7 +37,7 @@ public class RecordManager : Singleton<RecordManager>
 
     public void AddRecord(RecordBase recordSegment)
     {
-        if (WaveManager.Instance.GameMode == eGameMode.DEFENSE)
+        if (WaveManager.Instance.GameMode == Define.GameMode.DEFENSE)
         {
             recordBox[WaveManager.Instance.Wave - 1].recordLog.Add(recordSegment);
         }

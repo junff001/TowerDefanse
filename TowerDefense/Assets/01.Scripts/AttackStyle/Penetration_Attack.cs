@@ -74,7 +74,7 @@ public class Penetration_Attack : CoreBase
         }
         else
         {           
-            bullet = PoolManager.GetItem<Arrow>();
+            bullet = Managers.Pool.GetItem<Arrow>();
 
             bullet.transform.position = bowLauncher.position;
             bullet.target = enemy.transform;

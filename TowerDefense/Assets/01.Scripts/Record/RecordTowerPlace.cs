@@ -11,7 +11,7 @@ public class RecordTowerPlace : RecordBase
 
     public RecordTowerPlace(Vector3 _towerPos, TowerSO _towerSO)
     {
-        recordedTime = RecordManager.Instance.currentTime;
+        recordedTime = Managers.Record.currentTime;
         recordType = eRecordType.TOWER_PLACE;
 
         towerPos = _towerPos;

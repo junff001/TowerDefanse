@@ -37,7 +37,7 @@ public class UI_ChooseDiffculty : MonoBehaviour
 
     public void GoInGame(int Level)
     {
-        GameManager.Instance.stageLevel = 3;
+        GameManager.stageLevel = 3;
         SceneManager.LoadScene(1);
     }
 }

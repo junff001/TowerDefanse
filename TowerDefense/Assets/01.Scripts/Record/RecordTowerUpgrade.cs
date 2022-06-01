@@ -9,7 +9,7 @@ public class RecordTowerUpgrade : RecordBase
 
     public RecordTowerUpgrade(TowerData _towerData)
     {
-        recordedTime = RecordManager.Instance.currentTime;
+        recordedTime = Managers.Record.currentTime;
         recordType = eRecordType.TOWER_UPGRADE;
 
         towerData = _towerData;

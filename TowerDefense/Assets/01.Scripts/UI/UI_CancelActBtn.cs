@@ -30,7 +30,7 @@ public class UI_CancelActBtn : MonoBehaviour
     public void Init(ActData actData)
     {
         this.actData = actData;
-        this.monsterImg.sprite = GameManager.Instance.GetActBtnSprite(actData.monsterType);
+        this.monsterImg.sprite = Managers.Game.GetActBtnSprite(actData.monsterType);
         this.name = actData.monsterType.ToString();
     }
         

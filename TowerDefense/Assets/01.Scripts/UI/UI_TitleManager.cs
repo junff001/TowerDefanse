@@ -138,7 +138,7 @@ public class UI_TitleManager : MonoBehaviour
     public void ChooseStage(int stage)
     {
         Debug.Log(stage);
-        GameManager.Instance.stageNum = stage;
+        GameManager.stageNum = stage;
         difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
     }
 }

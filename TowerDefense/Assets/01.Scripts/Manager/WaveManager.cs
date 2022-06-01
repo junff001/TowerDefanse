@@ -4,12 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public enum eGameMode
-{
-    DEFENSE,
-    OFFENSE
-}
-
 public class WaveManager : Singleton<WaveManager>
 {
     [Header("Object Field")]
@@ -35,7 +29,7 @@ public class WaveManager : Singleton<WaveManager>
     public RectTransform waveRect;
     public WaveSO waveSO;
 
-    public Dictionary<MonsterType, EnemyBase> enemyDic = new Dictionary<MonsterType, EnemyBase>();
+    public Dictionary<Define.MonsterType, EnemyBase> enemyDic = new Dictionary<Define.MonsterType, EnemyBase>();
     public List<EnemyBase> enemyList = new List<EnemyBase>();
 
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
@@ -51,9 +45,9 @@ public class WaveManager : Singleton<WaveManager>
     public RectTransform offenseStatus;
     public Text offenseHpText;
 
-    private eGameMode gameMode;
+    private Define.GameMode gameMode;
     [HideInInspector]
-    public eGameMode GameMode
+    public Define.GameMode GameMode
     {
         get
         {
@@ -93,25 +87,23 @@ public class WaveManager : Singleton<WaveManager>
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameManager.Instance.UpdateHPText();
-            if (GameMode == eGameMode.DEFENSE)
+            Managers.Game.UpdateHPText();
+            if (GameMode == Define.GameMode.DEFENSE)
             {
                 UIManager.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
-                GameMode = eGameMode.OFFENSE;
+                GameMode = Define.GameMode.OFFENSE;
             }
             else
             {
                 UIManager.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
-                GameMode = eGameMode.DEFENSE;
+                GameMode = Define.GameMode.DEFENSE;
             }
         }
     }
 
-
-
     public void DefenseSetNextWave()
     {
-        RecordManager.Instance.recordBox.Add(new RecordWaveBox());
+        Managers.Record.recordBox.Add(new RecordWaveBox());
         SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
         foreach (SpawnerMonsterCount item in enemyBox)
         {
@@ -132,16 +124,16 @@ public class WaveManager : Singleton<WaveManager>
     {
         if (false == IsWaveProgressing)
         {
-            RecordManager.Instance.StartRecord();
+            Managers.Record.StartRecord();
             StartCoroutine(Spawn());
         }
     }
 
     public void OnWaveEnd(int rewardGold, int rewardWave)
     {
-        if (gameMode == eGameMode.DEFENSE)
+        if (gameMode == Define.GameMode.DEFENSE)
         {
-            GoldManager.Instance.GoldPlus(rewardGold);
+            Managers.Gold.GoldPlus(rewardGold);
             UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
 
@@ -158,13 +150,13 @@ public class WaveManager : Singleton<WaveManager>
 
     public void CheckWaveEnd()
     {
-        if (gameMode == eGameMode.DEFENSE)
+        if (gameMode == Define.GameMode.DEFENSE)
         {
             //몹이 죽을 때 실행되는 함수
             if (IsWaveProgressing == false && enemySpawnQueue.Count == 0)
             {
                 // 여기서 해주면 돼
-                RecordManager.Instance.EndRecord();
+                Managers.Record.EndRecord();
 
                 // 디펜스 클리어 체크
                 if (Wave >= waveSO.waveEnemyInfos.Length)
@@ -172,7 +164,7 @@ public class WaveManager : Singleton<WaveManager>
                     // UI나 컷신같은거 나오고 교체..일걸요?
 
                     // 오펜스 모드로 교체!
-                    GameMode = eGameMode.OFFENSE;
+                    GameMode = Define.GameMode.OFFENSE;
                 }
                 else
                 {
@@ -222,7 +214,7 @@ public class WaveManager : Singleton<WaveManager>
 
             EnemyBase enemy = enemySpawnQueue.Dequeue();
 
-            EnemyBase enemyObj = Instantiate(enemy, GameManager.Instance.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
+            EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
             HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
 
             aliveEnemies.Add(enemyObj);
@@ -235,17 +227,18 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
-    private void ChangeMode(eGameMode gameMode)
+    private void ChangeMode(Define.GameMode gameMode)
     {
         switch (gameMode)
         {
-            case eGameMode.DEFENSE:
+            case Define.GameMode.DEFENSE:
                 {
                     if (InvadeManager.Instance.draggingBtn != null)
                     {
                         InvadeManager.Instance.draggingBtn.OnDragEnd();
                     }
 
+                    Managers.Game.Hp = 10;
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
@@ -261,7 +254,7 @@ public class WaveManager : Singleton<WaveManager>
                     monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
                 }
                 break;
-            case eGameMode.OFFENSE:
+            case Define.GameMode.OFFENSE:
                 {
                     if (BuildManager.Instance.movingTowerImg != null)
                     {
@@ -313,7 +306,7 @@ public class WaveManager : Singleton<WaveManager>
                 break;
         }
 
-        GameManager.Instance.UpdateHPText();
+        Managers.Game.UpdateHPText();
 
         void CanvasGroupInit(CanvasGroup group, bool appear)
         {

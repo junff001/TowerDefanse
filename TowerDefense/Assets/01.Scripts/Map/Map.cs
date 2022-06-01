@@ -8,7 +8,7 @@ public class Map : MonoBehaviour
 {
     public Tilemap tilemap = null;        // 타일맵
 
-    public TileType[,] mapTileTypeArray = null;
+    public Define.TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
 
     public int width;
@@ -33,13 +33,13 @@ public class Map : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if(mapTileTypeArray[x,y] == TileType.Road_Tower)
+                if(mapTileTypeArray[x,y] == Define.TileType.Road_Tower)
                 {
-                    mapTileTypeArray[x, y] = TileType.Place;
+                    mapTileTypeArray[x, y] = Define.TileType.Place;
                 }
-                if (mapTileTypeArray[x, y] == TileType.Place_Tower)
+                if (mapTileTypeArray[x, y] == Define.TileType.Place_Tower)
                 {
-                    mapTileTypeArray[x, y] = TileType.Road;
+                    mapTileTypeArray[x, y] = Define.TileType.Road;
                 }
             }
         }
@@ -50,7 +50,7 @@ public class Map : MonoBehaviour
         width = tilemap.size.x;
         height = tilemap.size.y;
 
-        mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정
+        mapTileTypeArray = new Define.TileType[width, height];                 // 맵 사이즈 설정
         mapTileArray = new Tile[width, height];                 // 맵 사이즈 설정
 
         int x = 0, y = 0;
@@ -77,13 +77,13 @@ public class Map : MonoBehaviour
         }
     }
 
-    TileType GetTileType(Tile tile)
+    Define.TileType GetTileType(Tile tile)
     {
         if (tile.sprite.name.Contains("Road")) // 나중에 읽기 편하라고 
-            return TileType.Road;
+            return Define.TileType.Road;
         else if(tile.sprite.name.Contains("Place")) 
-            return TileType.Place;
+            return Define.TileType.Place;
         else
-            return TileType.Obstacle;
+            return Define.TileType.Obstacle;
     }
 }

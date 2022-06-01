@@ -6,11 +6,11 @@ using UnityEngine;
 [System.Serializable]
 public class ActData
 {
-    public ActType actType = ActType.Enemy;
-    public MonsterType monsterType  = MonsterType.None;
+    public Define.ActType actType = Define.ActType.Enemy;
+    public Define.MonsterType monsterType  = Define.MonsterType.None;
     public int spawnCost = 1;
 
-    public ActData(ActType actType, MonsterType monsterType = MonsterType.None, int spawnCost = 1)
+    public ActData(Define.ActType actType, Define.MonsterType monsterType = Define.MonsterType.None, int spawnCost = 1)
     {
         this.actType = actType;
         this.monsterType = monsterType;

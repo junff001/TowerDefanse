@@ -88,7 +88,7 @@ public class BuildManager : Singleton<BuildManager>
         foreach (var pos in checkedPos) map.tilemap.SetColor(pos, Color.white);
     }
 
-    public void SetTilesColor(PlaceTileType placeTileType)
+    public void SetTilesColor(Define.PlaceTileType placeTileType)
     {
         ResetCheckedTiles();
 
@@ -109,7 +109,7 @@ public class BuildManager : Singleton<BuildManager>
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
     }
 
-    public bool CanPlace(PlaceTileType placeTileType) // 2x2 타일 검사
+    public bool CanPlace(Define.PlaceTileType placeTileType) // 2x2 타일 검사
     {
         bool canPlace = true;
 
@@ -137,18 +137,18 @@ public class BuildManager : Singleton<BuildManager>
 
     }
 
-    public bool IsPlaceableTile(Vector3Int pos, PlaceTileType placeTileType)
+    public bool IsPlaceableTile(Vector3Int pos, Define.PlaceTileType placeTileType)
     {
         if (pos.x < 0 || pos.y < 0) return false;
         if (pos.x >= map.width || pos.y >= map.height) return false;
 
         switch(placeTileType)
         {
-            case PlaceTileType.Place:
-                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Place) return false;
+            case Define.PlaceTileType.Place:
+                if (map.mapTileTypeArray[pos.x, pos.y] != Define.TileType.Place) return false;
                 break;
-            case PlaceTileType.Road:
-                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Road) return false;
+            case Define.PlaceTileType.Road:
+                if (map.mapTileTypeArray[pos.x, pos.y] != Define.TileType.Road) return false;
                 break;
         }
 
@@ -219,15 +219,15 @@ public class BuildManager : Singleton<BuildManager>
 
         foreach (var pos in checkedPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
         {
-            TileType placeTileType = TileType.None;
+            Define.TileType placeTileType = Define.TileType.None;
 
             switch(towerSO.placeTileType)
             {
-                case PlaceTileType.Place:
-                    placeTileType = TileType.Place_Tower;
+                case Define.PlaceTileType.Place:
+                    placeTileType = Define.TileType.Place_Tower;
                     break;
-                case PlaceTileType.Road:
-                    placeTileType = TileType.Road_Tower;
+                case Define.PlaceTileType.Road:
+                    placeTileType = Define.TileType.Road_Tower;
                     break;
             }
             map.mapTileTypeArray[pos.x, pos.y] = placeTileType;
@@ -236,10 +236,10 @@ public class BuildManager : Singleton<BuildManager>
         spawnedTowers.Add(newTower);
         // 레코드
         RecordTowerPlace recordSegment = new RecordTowerPlace(placePos, towerSO);
-        RecordManager.Instance.AddRecord(recordSegment);
+        Managers.Record.AddRecord(recordSegment);
 
         // 설치 이펙트
-        Effect_StoneFrag effectStone = PoolManager.GetItem<Effect_StoneFrag>();
+        Effect_StoneFrag effectStone = Managers.Pool.GetItem<Effect_StoneFrag>();
         effectStone.transform.position = placePos;
     }
 }

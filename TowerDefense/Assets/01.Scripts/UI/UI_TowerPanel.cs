@@ -34,7 +34,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
             {
                 if (BuildManager.Instance.CanPlace(towerSO.placeTileType))
                 {
-                    if (GoldManager.Instance.GoldMinus(towerSO.PlaceCost))
+                    if (Managers.Gold.GoldMinus(towerSO.PlaceCost))
                     {
                         BuildManager.Instance.SpawnTower(towerSO, BuildManager.Instance.Get2By2TilesCenter(BuildManager.Instance.Get2By2Tiles()));
 
