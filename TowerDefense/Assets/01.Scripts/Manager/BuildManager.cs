@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-public class BuildManager : Singleton<BuildManager>
+public class BuildManager : MonoBehaviour
 {
     #region
     private Vector3Int tilePos = Vector3Int.zero;                  // 타일 위치

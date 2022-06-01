@@ -14,21 +14,30 @@ public class Managers : MonoBehaviour
         }
     }
 
+    UIManager _ui = new UIManager();
     ResourceManager _resource = new ResourceManager();
     SoundManager _sound = new SoundManager();
     PoolManager _pool = new PoolManager();
     RecordManager _record = new RecordManager();
 
-    GoldManager _gold;
-    GameManager _game;
-
+    public static UIManager UI { get { return Instance._ui; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SoundManager Sound { get { return Instance._sound; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static RecordManager Record { get { return Instance._record; } }
 
+
+    GoldManager _gold;
+    GameManager _game;
+    WaveManager _wave;
+    BuildManager _build;
+    InvadeManager _invade;
+
     public static GoldManager Gold { get { return Instance._gold; } }
     public static GameManager Game { get { return Instance._game; } }
+    public static WaveManager Wave { get { return Instance._wave; } }
+    public static BuildManager Build { get { return Instance._build; } }
+    public static InvadeManager Invade { get { return Instance._invade; } }
 
     void Start()
     {
@@ -64,18 +73,23 @@ public class Managers : MonoBehaviour
             s_instance = myObj.GetComponent<Managers>();
 
             //초기화들
+            s_instance._ui.Init();
             s_instance._sound.Init();
             Transform poolObjectBox = obj.transform.Find("@Pool");
             s_instance._pool.Init(poolObjectBox);
 
             s_instance._gold = obj.transform.Find("@Gold").GetComponent<GoldManager>();
             s_instance._game = obj.transform.Find("@Game").GetComponent<GameManager>();
+            s_instance._wave = obj.transform.Find("@Wave").GetComponent<WaveManager>();
+            s_instance._build = obj.transform.Find("@Build").GetComponent<BuildManager>();
+            s_instance._invade = obj.transform.Find("@Invade").GetComponent<InvadeManager>();
         }
     }
 
     public static void Clear()
     {
         // ...
+        Sound.Clear();
         Pool.Clear();
     }
 }

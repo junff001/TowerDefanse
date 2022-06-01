@@ -48,7 +48,6 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateBar()
     {
-        Debug.Log("바 추가됨");
         healthBarTrm.localScale = new Vector3(healthSystem.GetAmountNormalized(eHealthType.HEALTH), 1, 1);
         shieldBarTrm.localScale = new Vector3(healthSystem.GetAmountNormalized(eHealthType.SHIELD), 1, 1);
     }

@@ -399,9 +399,9 @@ RectTransform:
   m_Father: {fileID: 1508162787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -135}
   m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &74229279
@@ -7506,7 +7506,7 @@ GameObject:
   - component: {fileID: 379243484}
   - component: {fileID: 379243485}
   m_Layer: 0
-  m_Name: WaveManager
+  m_Name: '@Wave'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7633,7 +7633,7 @@ GameObject:
   - component: {fileID: 439249337}
   - component: {fileID: 439249338}
   m_Layer: 0
-  m_Name: BuildManager
+  m_Name: '@Build'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8097,6 +8097,7 @@ MonoBehaviour:
   waitingActContentTrm: {fileID: 1508162787}
   invisibleObj: {fileID: 74229278}
   draggingBtn: {fileID: 0}
+  canAddWave: 1
 --- !u!4 &575686116
 Transform:
   m_ObjectHideFlags: 0
