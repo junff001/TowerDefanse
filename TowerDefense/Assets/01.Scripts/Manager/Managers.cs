@@ -19,12 +19,14 @@ public class Managers : MonoBehaviour
     SoundManager _sound = new SoundManager();
     PoolManager _pool = new PoolManager();
     RecordManager _record = new RecordManager();
+    LoadingSceneManager _loadScene = new LoadingSceneManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SoundManager Sound { get { return Instance._sound; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static RecordManager Record { get { return Instance._record; } }
+    public static LoadingSceneManager LoadScene { get { return Instance._loadScene; } }
 
 
     GoldManager _gold;
@@ -77,6 +79,7 @@ public class Managers : MonoBehaviour
             s_instance._sound.Init();
             Transform poolObjectBox = obj.transform.Find("@Pool");
             s_instance._pool.Init(poolObjectBox);
+            s_instance._loadScene.Init();
 
             s_instance._gold = obj.transform.Find("@Gold").GetComponent<GoldManager>();
             s_instance._game = obj.transform.Find("@Game").GetComponent<GameManager>();
