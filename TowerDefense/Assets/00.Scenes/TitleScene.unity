@@ -152,10 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7f913e5dc35e44ab2c5bc3ab255253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypointsParent: {fileID: 0}
+  waypointsParent: {fileID: 7623120645945282027, guid: 6947173581e1eb44ba9c52f9d28f79df, type: 3}
   wayPoints: []
-  waitSprite: {fileID: 0}
-  enemySprites: []
+  waitSprite: {fileID: 21300000, guid: ffa0031104dbefd418237b6218b0b46e, type: 3}
+  enemySprites:
+  - {fileID: 21300000, guid: 88a949ed25ec5854db4f2bc5c87558fb, type: 3}
+  - {fileID: 21300000, guid: 7083818d45937d54dbd73d7936d46d2a, type: 3}
+  - {fileID: 21300000, guid: a14c81517717b0a4a86d58777c83176c, type: 3}
+  - {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
+  - {fileID: 21300000, guid: 5f9eb49cc8454784d81096857a22291a, type: 3}
+  - {fileID: 21300000, guid: afbcd526c7b676842917c2eb1bf3172f, type: 3}
   stageNum: 0
   stageLevel: 0
 --- !u!4 &13505630
