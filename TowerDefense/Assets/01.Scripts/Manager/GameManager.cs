@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SetWaypoints(waypointsParent);
-        hpText = WaveManager.Instance.defenseHpText;
-        InvadeManager.Instance.UpdateTexts();
+        hpText = Managers.Wave.defenseHpText;
+        Managers.Invade.UpdateTexts();
         UpdateHPText();
         SetEnemySpriteDic();
     }
@@ -77,8 +77,8 @@ public class GameManager : MonoBehaviour
             Hp = 0;
         }
         UpdateHPText();
-        WaveManager.Instance.aliveEnemies.Remove(enemy);
-        WaveManager.Instance.CheckWaveEnd();
+        Managers.Wave.aliveEnemies.Remove(enemy);
+        Managers.Wave.CheckWaveEnd();
         Destroy(enemy.gameObject);
     }
 }

@@ -21,7 +21,7 @@ public class UI_CancelActBtn : MonoBehaviour
 
     public void Cancel()
     {
-        InvadeManager.Instance.OnCancelAct(actData);
+        Managers.Invade.OnCancelAct(actData);
         actStackCount--;
         countText.text = actStackCount.ToString();
         DestroyCheck();
@@ -38,14 +38,14 @@ public class UI_CancelActBtn : MonoBehaviour
     {
         if (actStackCount == 0)
         {
-            InvadeManager im = InvadeManager.Instance;
+            InvadeManager im = Managers.Invade;
             im.waitingActs.Remove(this);
 
             if (im.waitingActs.Count > 0)
             {
                 im.addedAct = im.waitingActs[im.waitingActs.Count - 1].actData;
                 im.addedBtn = im.waitingActs[im.waitingActs.Count - 1];
-                InvadeManager.Instance.OnBtnRemoved(idx);
+                Managers.Invade.OnBtnRemoved(idx);
             }
             else
             {

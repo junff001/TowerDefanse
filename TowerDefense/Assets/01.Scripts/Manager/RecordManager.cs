@@ -37,9 +37,9 @@ public class RecordManager
 
     public void AddRecord(RecordBase recordSegment)
     {
-        if (WaveManager.Instance.GameMode == Define.GameMode.DEFENSE)
+        if (Managers.Wave.GameMode == Define.GameMode.DEFENSE)
         {
-            recordBox[WaveManager.Instance.Wave - 1].recordLog.Add(recordSegment);
+            recordBox[Managers.Wave.Wave - 1].recordLog.Add(recordSegment);
         }
     }
 }

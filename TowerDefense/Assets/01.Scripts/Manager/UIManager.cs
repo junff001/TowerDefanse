@@ -5,33 +5,25 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class UIManager : MonoBehaviour
+public class UIManager
 {
-    private static UIManager Instance;
+    private GameObject textPrefab = null;
+    private Transform txtTrans = null;
 
-    public GameObject textPrefab = null;
-    public Transform txtTrans = null;
-
-    public static void Init()
+    public void Init()
     {
-        if(!Instance)
-        {
-            GameObject uiManager = Resources.Load<GameObject>("UIManager");
-            uiManager = Instantiate(uiManager, null);
+        GameObject uiManager = Resources.Load<GameObject>("UI/@UI");
+        uiManager = Object.Instantiate(uiManager, null);
+        MonoBehaviour.DontDestroyOnLoad(uiManager);
 
-            Instance = uiManager.GetComponent<UIManager>();
-            DontDestroyOnLoad(Instance.gameObject);
-        }
-        else
-        {
-            Instance.gameObject.SetActive(true);
-        }
+        textPrefab = Resources.Load<GameObject>("UI/PopupText");
+
+        Transform canvas = uiManager.transform.Find("Canvas");
+        txtTrans = canvas;
     }
 
-    public static void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)
+    public void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)
     {
-        Init();
-
         if (fade)
         {
             group.DOFade(1, duration).SetUpdate(setUpdate).OnComplete(() =>
@@ -56,11 +48,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public static void SummonText(Vector2 pos, string text, int maxSize, UnityAction callback = null)
+    public void SummonText(Vector2 pos, string text, int maxSize, UnityAction callback = null)
     {
-        Init();
-
-        Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
+        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
         textObj.rectTransform.anchoredPosition = pos;
         textObj.text = text;
         textObj.resizeTextMaxSize = maxSize;
@@ -70,15 +60,13 @@ public class UIManager : MonoBehaviour
         {
             if (callback != null)
                 callback.Invoke();
-            Destroy(textObj);
+            Object.Destroy(textObj);
         });
     }
 
-    public static void SummonText(Vector2 pos, string text, float time, int maxSize, UnityAction callback = null)
+    public void SummonText(Vector2 pos, string text, float time, int maxSize, UnityAction callback = null)
     {
-        Init();
-
-        Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
+        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
         textObj.rectTransform.anchoredPosition = pos;
         textObj.text = text;
         textObj.resizeTextMaxSize = maxSize;
@@ -88,15 +76,13 @@ public class UIManager : MonoBehaviour
         {
             if (callback != null)
                 callback.Invoke();
-            Destroy(textObj);
+            Object.Destroy(textObj);
         });
     }
 
-    public static void SummonText(Vector2 pos, Vector2 dir, string text, float time, int maxSize, UnityAction callback = null)
+    public void SummonText(Vector2 pos, Vector2 dir, string text, float time, int maxSize, UnityAction callback = null)
     {
-        Init();
-
-        Text textObj = Instantiate(Instance.textPrefab, Instance.txtTrans).GetComponent<Text>();
+        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
         textObj.rectTransform.anchoredPosition = pos;
         textObj.text = text;
         textObj.resizeTextMaxSize = maxSize;
@@ -106,7 +92,7 @@ public class UIManager : MonoBehaviour
         {
             if (callback != null)
                 callback.Invoke();
-            Destroy(textObj);
+            Object.Destroy(textObj);
         });
     }
 }

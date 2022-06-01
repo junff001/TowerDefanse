@@ -32,27 +32,27 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
             float movedDist = Vector3.Distance(rt.anchoredPosition, eventData.position);
             if (movedDist > rt.sizeDelta.y / 2)
             {
-                if (BuildManager.Instance.CanPlace(towerSO.placeTileType))
+                if (Managers.Build.CanPlace(towerSO.placeTileType))
                 {
                     if (Managers.Gold.GoldMinus(towerSO.PlaceCost))
                     {
-                        BuildManager.Instance.SpawnTower(towerSO, BuildManager.Instance.Get2By2TilesCenter(BuildManager.Instance.Get2By2Tiles()));
+                        Managers.Build.SpawnTower(towerSO, Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles()));
 
-                        UIManager.SummonText(towerImage.transform.position, "설치 완료!", 30);
+                        Managers.UI.SummonText(towerImage.transform.position, "설치 완료!", 30);
                     }
                     else
                     {
-                        UIManager.SummonText(towerImage.transform.position, "타워 설치 비용이 부족합니다.", 30);
+                        Managers.UI.SummonText(towerImage.transform.position, "타워 설치 비용이 부족합니다.", 30);
                     }
                 }
                 else
                 {
-                    UIManager.SummonText(towerImage.transform.position, "설치 불가능한 위치입니다.", 30);
+                    Managers.UI.SummonText(towerImage.transform.position, "설치 불가능한 위치입니다.", 30);
                 }
             }
             else
             {
-                UIManager.SummonText(towerImage.transform.position, "설치 취소", 20);
+                Managers.UI.SummonText(towerImage.transform.position, "설치 취소", 20);
             }
         }
 
@@ -62,8 +62,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     public void OnDragEnd()
     {
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
-        BuildManager.Instance.ResetCheckedTiles();
-        BuildManager.Instance.movingTowerImg = null;
+        Managers.Build.ResetCheckedTiles();
+        Managers.Build.movingTowerImg = null;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -71,7 +71,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         if (IsLeftBtn(eventData) && CanDrag())
         {
             towerImage.transform.position = Input.mousePosition;
-            BuildManager.Instance.SetTilesColor(towerSO.placeTileType);
+            Managers.Build.SetTilesColor(towerSO.placeTileType);
         }
     }
 
@@ -79,13 +79,13 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if(IsLeftBtn(eventData) && CanDrag())
         {
-            BuildManager.Instance.movingTowerImg = towerImage.gameObject;
+            Managers.Build.movingTowerImg = towerImage.gameObject;
         }
     }
 
     public bool CanDrag()
     {
-        GameObject movingObj = BuildManager.Instance.movingTowerImg;
+        GameObject movingObj = Managers.Build.movingTowerImg;
 
         return movingObj == towerImage.gameObject || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
     }

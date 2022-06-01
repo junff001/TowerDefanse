@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4601185878101027895}
-  - component: {fileID: 4601185878101027894}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: '@UI'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,20 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4601185878101027894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4601185878101027896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65bfd4bc85b80044f8a50365f10d9bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textPrefab: {fileID: 518971017538334912, guid: f83b17352fc94dd409ae5c19eae12c9d, type: 3}
-  txtTrans: {fileID: 7341405986619305135}
 --- !u!1 &4842280383954586695
 GameObject:
   m_ObjectHideFlags: 0

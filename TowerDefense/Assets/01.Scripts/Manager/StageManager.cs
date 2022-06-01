@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StageManager : Singleton<StageManager>
+public class StageManager : MonoBehaviour
 {
     public List<StageData> stageDatas = new List<StageData>();
     public Button[] stageBtns;
@@ -35,9 +35,9 @@ public class StageManager : Singleton<StageManager>
 
     public void SetStageDatas(StageData stageData)
     {
-        BuildManager.Instance.SetTilemap(stageData.tilemap);
+        Managers.Build.SetTilemap(stageData.tilemap);
         Managers.Game.SetWaypoints(stageData.waypointsParent);
-        WaveManager.Instance.waveSO = stageData.waveSO;
+        Managers.Wave.waveSO = stageData.waveSO;
         
 
         //여기서 스테이지 타워 데이터, 내가 가져온 몹 데이터 기반으로 버튼들 초기화 해주고

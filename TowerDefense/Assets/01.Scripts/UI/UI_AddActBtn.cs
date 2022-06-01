@@ -30,13 +30,13 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     {
         if (!bDraged)
         {
-            if (InvadeManager.Instance.CanSetWave(actData.actType))
+            if (Managers.Invade.CanSetWave(actData.actType))
             {
-                InvadeManager.Instance.AddAct(actData);
+                Managers.Invade.AddAct(actData);
             }
             else
             {
-                UIManager.SummonText(transform.position, "웨이브를 추가할 수 없습니다.", 30);
+                Managers.UI.SummonText(transform.position, "웨이브를 추가할 수 없습니다.", 30);
             }
         }
         bDraged = false;
@@ -44,22 +44,22 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     public void OnDrag(PointerEventData eventData)
     {
-        InvadeManager.Instance.ShowInsertPlace(Input.mousePosition, actData);
+        Managers.Invade.ShowInsertPlace(Input.mousePosition, actData);
         moveImg.transform.position = Input.mousePosition;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        InvadeManager.Instance.draggingBtn = this;
+        Managers.Invade.draggingBtn = this;
         mask.enabled = false;
-        InvadeManager.Instance.invisibleObj.gameObject.SetActive(true);
+        Managers.Invade.invisibleObj.gameObject.SetActive(true);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         OnDragEnd();
-        InvadeManager.Instance.draggingBtn = null;
-        if (InvadeManager.Instance.CanSetWave(actData.actType))
+        Managers.Invade.draggingBtn = null;
+        if (Managers.Invade.CanSetWave(actData.actType))
         {
             List<RaycastResult> results = new List<RaycastResult>();
             gr.Raycast(eventData, results);
@@ -68,14 +68,13 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
             {
                 if (item.gameObject.CompareTag("ActContent"))
                 {
-                    
-                    InvadeManager.Instance.InsertAct(Input.mousePosition, actData);
+                    Managers.Invade.InsertAct(Input.mousePosition, actData);
                 }
             }
         }
         else
         {
-            UIManager.SummonText(transform.position, "웨이브를 추가할 수 없습니다.", 30);
+            Managers.UI.SummonText(transform.position, "웨이브를 추가할 수 없습니다.", 30);
         }
 
     }
@@ -84,8 +83,8 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     {
         mask.enabled = true;
         moveImg.anchoredPosition = Vector3.zero;
-        InvadeManager.Instance.ReduceDummyObj();
-        InvadeManager.Instance.ResetButtons();
+        Managers.Invade.ReduceDummyObj();
+        Managers.Invade.ResetButtons();
     }
 
     IEnumerator CheckDrag()

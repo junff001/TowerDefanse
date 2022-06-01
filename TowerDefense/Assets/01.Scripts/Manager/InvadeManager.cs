@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-public class InvadeManager : Singleton<InvadeManager>
+public class InvadeManager : MonoBehaviour
 {
     private readonly int MaxRestCount = 5;
     private int curAddedRestCount = 0;
@@ -56,9 +56,9 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void RecordedSegmentCheck()
     {
-        if (Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count > actIndex)
+        if (Managers.Record.recordBox[Managers.Wave.Wave - 1].recordLog.Count > actIndex)
         {
-            RecordBase recordSegment = Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
+            RecordBase recordSegment = Managers.Record.recordBox[Managers.Wave.Wave - 1].recordLog[actIndex];
 
             if (recordSegment.recordedTime <= currentTime)
             {
@@ -74,11 +74,11 @@ public class InvadeManager : Singleton<InvadeManager>
 
     public void RecordedSegmentPlayAll()
     {
-        int count = Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog.Count;
+        int count = Managers.Record.recordBox[Managers.Wave.Wave - 1].recordLog.Count;
 
         for (int i = actIndex; i < count; i++)
         {
-            RecordBase recordSegment = Managers.Record.recordBox[WaveManager.Instance.Wave - 1].recordLog[actIndex];
+            RecordBase recordSegment = Managers.Record.recordBox[Managers.Wave.Wave - 1].recordLog[actIndex];
             RecordSegmentPlay(recordSegment);
         }
     }
@@ -89,7 +89,7 @@ public class InvadeManager : Singleton<InvadeManager>
         {
             case eRecordType.TOWER_PLACE:
                 RecordTowerPlace segment = recordSegment as RecordTowerPlace;
-                BuildManager.Instance.SpawnTower(segment.towerSO, segment.towerPos);
+                Managers.Build.SpawnTower(segment.towerSO, segment.towerPos);
 
                 break;
             case eRecordType.TOWER_UPGRADE:
@@ -129,10 +129,10 @@ public class InvadeManager : Singleton<InvadeManager>
     {
         waitingActs[0].Cancel();
 
-        EnemyBase enemy = WaveManager.Instance.enemyDic[monsterType];
+        EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
         HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
-        WaveManager.Instance.aliveEnemies.Add(enemyObj);
+        Managers.Wave.aliveEnemies.Add(enemyObj);
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀
 
@@ -202,16 +202,17 @@ public class InvadeManager : Singleton<InvadeManager>
                 isWaveProgress = true;
                 canAddWave = false;
                 TryAct();
+                Managers.Sound.Play("System/StartWave");
             }
             else
             {
-                UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
+                Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
                     $"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}", 60);
             }
         }
         else
         {
-            UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
+            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2),
                     $"웨이브 진행중입니다!", 60);
         }
     }

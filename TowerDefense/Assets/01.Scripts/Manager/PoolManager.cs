@@ -25,18 +25,18 @@ public class PoolManager
 
     public void Init(Transform initPos)
     {
-        GameObject arrow = Managers.Resource.Load<GameObject>("Bullet/Arrow");
+        GameObject arrow = Resources.Load<GameObject>("Bullet/Arrow");
         CreatePool<Arrow>(arrow, initPos, 50);
 
-        GameObject bomb = Managers.Resource.Load<GameObject>("Bullet/Bomb");
+        GameObject bomb = Resources.Load<GameObject>("Bullet/Bomb");
         CreatePool<Bomb>(bomb, initPos, 50);
 
-        GameObject canonBall = Managers.Resource.Load<GameObject>("Bullet/CanonBall");
+        GameObject canonBall = Resources.Load<GameObject>("Bullet/CanonBall");
         CreatePool<CannonBall>(canonBall, initPos, 50);
 
         // ¿Ã∆Â∆Æ
-        GameObject effectStoneFragment = Managers.Resource.Load<GameObject>("Effects/Effect_StoneFragment");
-        CreatePool<Effect_StoneFrag>(effectStoneFragment, initPos, 50);
+        GameObject effectStoneFragment = Resources.Load<GameObject>("Effects/Effect_StoneFragment");
+        CreatePool<Effect_StoneFrag>(effectStoneFragment, initPos, 5);
     }
 
     public void Clear()

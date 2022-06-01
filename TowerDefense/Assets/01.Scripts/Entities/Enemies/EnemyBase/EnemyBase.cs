@@ -42,7 +42,7 @@ public abstract class EnemyBase : MonoBehaviour
         animController = GetComponent<SpineController>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         mesh.sortingLayerName = "Character";
         healthSystem.SetAmountMax(eHealthType.HEALTH, (int)enemyData.HP, true);
@@ -51,8 +51,8 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Managers.Gold.GoldPlus(enemyData.RewardGold);
             animController.Die();
-            WaveManager.Instance.aliveEnemies.Remove(this);
-            WaveManager.Instance.CheckWaveEnd();
+            Managers.Wave.aliveEnemies.Remove(this);
+            Managers.Wave.CheckWaveEnd();
             transform.GetChild(0).gameObject.SetActive(false);
 
             GetComponent<Collider2D>().enabled = false;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class WaveManager : Singleton<WaveManager>
+public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
     public Text waveRoundCount;
@@ -90,12 +90,12 @@ public class WaveManager : Singleton<WaveManager>
             Managers.Game.UpdateHPText();
             if (GameMode == Define.GameMode.DEFENSE)
             {
-                UIManager.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
+                Managers.UI.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
                 GameMode = Define.GameMode.OFFENSE;
             }
             else
             {
-                UIManager.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
+                Managers.UI.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
                 GameMode = Define.GameMode.DEFENSE;
             }
         }
@@ -126,6 +126,7 @@ public class WaveManager : Singleton<WaveManager>
         {
             Managers.Record.StartRecord();
             StartCoroutine(Spawn());
+            Managers.Sound.Play("System/StartWave");
         }
     }
 
@@ -134,18 +135,18 @@ public class WaveManager : Singleton<WaveManager>
         if (gameMode == Define.GameMode.DEFENSE)
         {
             Managers.Gold.GoldPlus(rewardGold);
-            UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
+            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
 
 
         }
         else
         {
-            InvadeManager.Instance.MaxMonsterCount += rewardWave;
-            UIManager.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
+            Managers.Invade.MaxMonsterCount += rewardWave;
+            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
             Debug.Log("인원 추가");
         }
-        InvadeManager.Instance.UpdateTexts();
+        Managers.Invade.UpdateTexts();
     }
 
     public void CheckWaveEnd()
@@ -178,22 +179,23 @@ public class WaveManager : Singleton<WaveManager>
         }
         else // 오펜스 모드라면
         {
-            if (IsWaveProgressing == false && InvadeManager.Instance.isWaveProgress)
+            if (IsWaveProgressing == false && Managers.Invade.isWaveProgress)
             {
                 // 오펜스 클리어 체크
                 if (Wave >= waveSO.waveEnemyInfos.Length)
                 {
                     // UI나 컷신같은거 나오고 게임 클리어!
+                    Managers.Sound.Play("System/Win");
                     Debug.Log("게임 클리어");
                 }
                 else
                 {
                     OnWaveEnd(0, 2);
-                    InvadeManager.Instance.isWaveProgress = false;
-                    InvadeManager.Instance.RecordedSegmentPlayAll();
+                    Managers.Invade.isWaveProgress = false;
+                    Managers.Invade.RecordedSegmentPlayAll();
 
                     Wave++;
-                    InvadeManager.Instance.InitRecordLoad();
+                    Managers.Invade.InitRecordLoad();
                 }
             }
         }
@@ -233,9 +235,9 @@ public class WaveManager : Singleton<WaveManager>
         {
             case Define.GameMode.DEFENSE:
                 {
-                    if (InvadeManager.Instance.draggingBtn != null)
+                    if (Managers.Invade.draggingBtn != null)
                     {
-                        InvadeManager.Instance.draggingBtn.OnDragEnd();
+                        Managers.Invade.draggingBtn.OnDragEnd();
                     }
 
                     Managers.Game.Hp = 10;
@@ -256,11 +258,11 @@ public class WaveManager : Singleton<WaveManager>
                 break;
             case Define.GameMode.OFFENSE:
                 {
-                    if (BuildManager.Instance.movingTowerImg != null)
+                    if (Managers.Build.movingTowerImg != null)
                     {
-                        BuildManager.Instance.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
-                        BuildManager.Instance.ResetCheckedTiles();
-                        BuildManager.Instance.movingTowerImg = null;
+                        Managers.Build.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
+                        Managers.Build.ResetCheckedTiles();
+                        Managers.Build.movingTowerImg = null;
                     }
 
                     Wave = 1;
@@ -280,11 +282,11 @@ public class WaveManager : Singleton<WaveManager>
                     towerRect.DOAnchorPosY(-towerRect.sizeDelta.y, 0.5f);
 
                     //타워 지우기
-                    foreach (Tower tower in BuildManager.Instance.spawnedTowers)
+                    foreach (Tower tower in Managers.Build.spawnedTowers)
                     {
                         Destroy(tower.gameObject);
                     }
-                    BuildManager.Instance.spawnedTowers.Clear();
+                    Managers.Build.spawnedTowers.Clear();
 
                     //공격 전부 꺼주기(Bullet 상속 받은 친구들)
                     Transform[] poolManagerChildren = poolManagerTrm.GetComponentsInChildren<Transform>();
@@ -301,7 +303,7 @@ public class WaveManager : Singleton<WaveManager>
                         poolingObjs[i].gameObject.SetActive(false);
                     }
 
-                    InvadeManager.Instance.InitRecordLoad();
+                    Managers.Invade.InitRecordLoad();
                 }
                 break;
         }
