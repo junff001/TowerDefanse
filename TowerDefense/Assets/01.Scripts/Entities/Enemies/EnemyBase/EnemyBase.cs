@@ -42,7 +42,7 @@ public abstract class EnemyBase : MonoBehaviour
         animController = GetComponent<SpineController>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         mesh.sortingLayerName = "Character";
         healthSystem.SetAmountMax(eHealthType.HEALTH, (int)enemyData.HP, true);

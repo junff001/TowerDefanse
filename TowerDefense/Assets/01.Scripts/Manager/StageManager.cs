@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StageManager : Singleton<StageManager>
+public class StageManager : MonoBehaviour
 {
     public List<StageData> stageDatas = new List<StageData>();
     public Button[] stageBtns;

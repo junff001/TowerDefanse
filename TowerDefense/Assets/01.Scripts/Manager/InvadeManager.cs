@@ -202,6 +202,7 @@ public class InvadeManager : MonoBehaviour
                 isWaveProgress = true;
                 canAddWave = false;
                 TryAct();
+                Managers.Sound.Play("System/StartWave");
             }
             else
             {

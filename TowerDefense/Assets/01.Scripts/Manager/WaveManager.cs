@@ -126,6 +126,7 @@ public class WaveManager : MonoBehaviour
         {
             Managers.Record.StartRecord();
             StartCoroutine(Spawn());
+            Managers.Sound.Play("System/StartWave");
         }
     }
 
@@ -184,6 +185,7 @@ public class WaveManager : MonoBehaviour
                 if (Wave >= waveSO.waveEnemyInfos.Length)
                 {
                     // UI나 컷신같은거 나오고 게임 클리어!
+                    Managers.Sound.Play("System/Win");
                     Debug.Log("게임 클리어");
                 }
                 else
