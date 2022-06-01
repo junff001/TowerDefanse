@@ -15,22 +15,11 @@ public class CameraZoom : MonoBehaviour
     {
         if (Input.touchCount == 2)
         {
-            Touch touchZero = Input.GetTouch(0);
-            Touch touchOne = Input.GetTouch(1);
-
-            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-            Vector2 touchOnePrevPos = touchOne.position - touchZero.deltaPosition;
-
-            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
-
-            float difference = currentMagnitude - prevMagnitude;
-
-            Zoom_Mobile(difference * 0.01f);
+            PinchZoom();
         }
     }
 
-    void Zoom_PC()
+    void MouseZoom()
     {
         if (Input.mouseScrollDelta.y > 0)
         {
@@ -41,10 +30,26 @@ public class CameraZoom : MonoBehaviour
             addSize = -(Time.deltaTime * zoomSpeed);
         }
 
-        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + addSize, minSize, maxSize);
+        Zoom(addSize);
     }
 
-    void Zoom_Mobile(float increment)
+    void PinchZoom()
+    {
+        Touch touchZero = Input.GetTouch(0);
+        Touch touchOne = Input.GetTouch(1);
+
+        Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+        Vector2 touchOnePrevPos = touchOne.position - touchZero.deltaPosition;
+
+        float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+        float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+        float difference = currentMagnitude - prevMagnitude;
+
+        Zoom(difference * 0.01f);
+    }
+
+    void Zoom(float increment)
     {
         cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + increment, minSize, maxSize);
     }
