@@ -14,17 +14,10 @@ public class Map : MonoBehaviour
     public int width;
     public int height;
 
-    private void Start()
+    private void Awake()
     {
-        if(mapTileArray == null)
-        {
-            InitMap();
-            Debug.Log("스테이지 로딩 X, 맵 데이터 초기화");
-        }
-        else
-        {
-            Debug.Log("스테이지 로딩 후 맵 데이터 초기화를 마친 상태");
-        }
+        tilemap = GetComponent<Tilemap>();
+        InitMap();
     }
 
     public void ResetMapData() // 그 전환 시 배열 데이타 다시 사용하기 위해서 초기화

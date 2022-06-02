@@ -41,25 +41,18 @@ public class BuildManager : MonoBehaviour
     private void Start()
     {
         mainCam = Camera.main;
+        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
 
-        foreach(var item in coreList)
+        foreach (var item in coreList)
         {
             coreDic.Add(item.coreType, item);
         }
-
     }
 
     private void Update()
     {
         SeTilePos();
         SetAroundTiles();
-    }
-
-    public void SetTilemap(Tilemap tilemap)
-    {
-        map.tilemap = tilemap; //
-        map.InitMap();
-        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2; // 0.5정도임, 타일의 중앙 지점 찾기 용
     }
 
     public void SeTilePos()

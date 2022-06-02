@@ -4,10 +4,11 @@ using UnityEngine;
 
 public enum eCoreName
 {
+    Canon,
     Bow,
     Catapult,
     Spike,
-    WoodenKeg    
+    WoodenBarrel
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]

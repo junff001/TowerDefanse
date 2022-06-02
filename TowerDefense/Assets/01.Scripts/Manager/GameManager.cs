@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public int Hp { get; set; } = 10;
+    public int maxHp { get; set; } = 10;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
 
@@ -26,13 +27,26 @@ public class GameManager : MonoBehaviour
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;
 
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("JuhyeongScene");
+        }
+    }
+
     private void Awake()
+    {
+        SetEnemySpriteDic();
+    }
+
+    private void Start()
     {
         SetWaypoints(waypointsParent);
         hpText = Managers.Wave.defenseHpText;
         Managers.Invade.UpdateTexts();
         UpdateHPText();
-        SetEnemySpriteDic();
+        
     }
 
     public void LoadScene(string sceneName)
@@ -51,6 +65,7 @@ public class GameManager : MonoBehaviour
         enemySpriteDic.Add(Define.MonsterType.None, waitSprite);
         foreach (var item in enemySprites)
         {
+            Debug.Log("ㅎㅇㅎㅇ");
             enemySpriteDic.Add((Define.MonsterType)Enum.Parse(typeof(Define.MonsterType), item.name), item);
         }
     }
