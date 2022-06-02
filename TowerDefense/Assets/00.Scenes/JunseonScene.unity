@@ -14121,7 +14121,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveRoundCount: {fileID: 828934571}
+  poolManagerTrm: {fileID: 0}
+  waveRect: {fileID: 0}
   waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
+  enemyList: []
   aliveEnemies: []
   defenseTowerGroup: {fileID: 1416806965}
   defenseStatus: {fileID: 616660147}
@@ -14255,9 +14258,9 @@ RectTransform:
   m_Father: {fileID: 1211758638}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -135}
   m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &715352414
@@ -27498,6 +27501,7 @@ MonoBehaviour:
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
   coreList:
   - {fileID: 4597706378882197371, guid: 1913f9cfb66c07f42a921ced9bc43637, type: 3}
+  spawnedTowers: []
   movingTowerImg: {fileID: 0}
 --- !u!1 &1917030875
 GameObject:
