@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Explosion_Attack : CoreBase
+public class Explosion_Core : CoreBase
 {
     public override void Attack(int power, HealthSystem enemy)
     {

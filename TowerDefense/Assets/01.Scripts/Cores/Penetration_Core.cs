@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Penetration_Attack : CoreBase
+public class Penetration_Core : CoreBase
 {
     [SerializeField] private Transform bowBody = null;         
     [SerializeField] private Transform bowLauncher = null;     

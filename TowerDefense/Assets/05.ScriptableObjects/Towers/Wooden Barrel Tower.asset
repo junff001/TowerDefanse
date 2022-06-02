@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
-  m_Name: CatapultTower
+  m_Name: Wooden Barrel Tower
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 50
-  attackSpeed: 2
+  offensePower: 100
+  attackSpeed: 0.5
   attackRange: 4
-  placeCost: 150
+  placeCost: 100
   attackTargetCount: 1
-  towerSprite: {fileID: -3043711648414944898, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  towerSprite: {fileID: 7232727797619221383, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   placeTileType: 0
-  coreType: 1
-  propertyType: 0
+  coreType: 3
+  propertyType: 1
   hasTower: 1

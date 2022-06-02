@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Spike_Attack : CoreBase
+public class Spike_Core : CoreBase
 {
     [SerializeField] private SpriteRenderer spriteObj = null;
     [SerializeField] private ParticleSystem hitEffect = null;

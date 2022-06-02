@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Catapult_Attack : CoreBase
+public class Catapult_Core : CoreBase
 { 
     public override void Attack(int power, HealthSystem enemy)
     {
-        CannonBall bullet = Managers.Pool.GetItem<CannonBall>();
+        CanonBall bullet = Managers.Pool.GetItem<CanonBall>();
 
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;

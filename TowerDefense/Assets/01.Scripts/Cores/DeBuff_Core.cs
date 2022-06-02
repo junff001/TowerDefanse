@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeBuff_Attack : CoreBase
+public class DeBuff_Core : CoreBase
 {
     public override IEnumerator OnAttack()
     {

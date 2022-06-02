@@ -32,7 +32,7 @@ public class PoolManager
         CreatePool<Bomb>(bomb, initPos, 50);
 
         GameObject canonBall = Resources.Load<GameObject>("Bullet/CanonBall");
-        CreatePool<CannonBall>(canonBall, initPos, 50);
+        CreatePool<CanonBall>(canonBall, initPos, 50);
 
         // ¿Ã∆Â∆Æ
         GameObject effectStoneFragment = Resources.Load<GameObject>("Effects/Effect_StoneFragment");
