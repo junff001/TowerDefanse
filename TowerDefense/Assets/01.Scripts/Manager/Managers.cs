@@ -44,11 +44,7 @@ public class Managers : MonoBehaviour
 
     void Start()
     {
-        if(IsInitCompleted == false)
-        {
-            Init();
-            IsInitCompleted = true;
-        }
+         Init();
     }
 
     void Update()
@@ -60,8 +56,9 @@ public class Managers : MonoBehaviour
 
     static void Init()
     {
-        if (s_instance == null)
+        if (s_instance == null && IsInitCompleted == false)
         {
+            IsInitCompleted = true;
             GameObject obj = GameObject.Find("@Management");
             if (obj == null)
             {
