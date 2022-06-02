@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class StageManager
 {
-    public StageManager() { }
     public List<StageData> stageDatas;
     public static StageData selectedStage = null;
+    public static bool isSceneLoadedAllocated = false;
 
     public void Init()
     {
@@ -18,7 +18,21 @@ public class StageManager
         {
             stageDatas.Add(datas[i]);
         }
+
+        if (isSceneLoadedAllocated == false)
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            isSceneLoadedAllocated = true;
+        }
     }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StageManager sm = new StageManager();
+        sm.Init();
+        sm.SetStageDatas(selectedStage);
+    }
+
     public void SetTargetStage(int stageNum)
     {
         selectedStage = stageDatas[stageNum];

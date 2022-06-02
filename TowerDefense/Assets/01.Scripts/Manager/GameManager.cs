@@ -34,21 +34,17 @@ public class GameManager : MonoBehaviour
         Managers.Invade.UpdateTexts();
         UpdateHPText();
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
 
     private void Start()
     {
         SetWaypoints(waypointsParent);
+
+
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //StageDataSO stageData = selectedStage;
-        StageManager sm = new StageManager();
-        sm.Init();
-        sm.SetStageDatas(StageManager.selectedStage);
-    }
+
 
     public void LoadScene(string sceneName)
     {

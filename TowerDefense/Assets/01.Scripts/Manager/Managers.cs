@@ -28,6 +28,7 @@ public class Managers : MonoBehaviour
     public static RecordManager Record { get { return Instance._record; } }
     public static LoadingSceneManager LoadScene { get { return Instance._loadScene; } }
 
+    public static bool IsInitCompleted = false;
 
     GoldManager _gold;
     GameManager _game;
@@ -43,12 +44,16 @@ public class Managers : MonoBehaviour
 
     void Start()
     {
-        Init();
+        if(IsInitCompleted == false)
+        {
+            Init();
+            IsInitCompleted = true;
+        }
     }
 
     void Update()
     {
-        // °¢ ¸Å´ÏÀúµé¸¶´Ù ¾÷µ¥ÀÌÆ®
+        // ê° ë§¤ë‹ˆì €ë“¤ë§ˆë‹¤ ì—…ë°ì´íŠ¸
 
         s_instance._record.Update();
     }
@@ -60,7 +65,7 @@ public class Managers : MonoBehaviour
             GameObject obj = GameObject.Find("@Management");
             if (obj == null)
             {
-                Debug.LogError("\"@Management\" ÀÌ¸§À» °¡Áø ¿ÀºêÁ§Æ®°¡ Scene¿¡ ÀÖ¾î¾ßÇÕ´Ï´Ù.");
+                Debug.LogError("\"@Management\" ì´ë¦„ì„ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ Sceneì— ìˆì–´ì•¼í•©ë‹ˆë‹¤.");
                 return;
             }
 
@@ -68,13 +73,13 @@ public class Managers : MonoBehaviour
 
             if(myObj == null)
             {
-                Debug.LogError("\"@Management\" ¿ÀºêÁ§Æ® ¾È¿¡ \"@Manager\" ÀÌ¸§À» °¡Áø, Managers ÄÄÆ÷³ÍÆ®°¡ ÀÖ´Â ¿ÀºêÁ§Æ®°¡ Scene¿¡ ÀÖ¾î¾ßÇÕ´Ï´Ù.");
+                Debug.LogError("\"@Management\" ì˜¤ë¸Œì íŠ¸ ì•ˆì— \"@Manager\" ì´ë¦„ì„ ê°€ì§„, Managers ì»´í¬ë„ŒíŠ¸ê°€ ìˆëŠ” ì˜¤ë¸Œì íŠ¸ê°€ Sceneì— ìˆì–´ì•¼í•©ë‹ˆë‹¤.");
                 return;
             }
 
             s_instance = myObj.GetComponent<Managers>();
 
-            //ÃÊ±âÈ­µé
+            //ì´ˆê¸°í™”ë“¤
             s_instance._ui.Init();
             s_instance._sound.Init();
             Transform poolObjectBox = obj.transform.Find("@Pool");
