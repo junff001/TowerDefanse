@@ -38,14 +38,14 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SetEnemySpriteDic();
+        hpText = Managers.Wave.defenseHpText;
+        Managers.Invade.UpdateTexts();
+        UpdateHPText();
     }
 
     private void Start()
     {
         SetWaypoints(waypointsParent);
-        hpText = Managers.Wave.defenseHpText;
-        Managers.Invade.UpdateTexts();
-        UpdateHPText();
         
     }
 
