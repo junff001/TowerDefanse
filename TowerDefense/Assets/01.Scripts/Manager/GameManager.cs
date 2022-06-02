@@ -37,11 +37,16 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        SetEnemySpriteDic();
+    }
+
+    private void Start()
+    {
         SetWaypoints(waypointsParent);
         hpText = Managers.Wave.defenseHpText;
         Managers.Invade.UpdateTexts();
         UpdateHPText();
-        SetEnemySpriteDic();
+        
     }
 
     public void LoadScene(string sceneName)
@@ -60,6 +65,7 @@ public class GameManager : MonoBehaviour
         enemySpriteDic.Add(Define.MonsterType.None, waitSprite);
         foreach (var item in enemySprites)
         {
+            Debug.Log("ㅎㅇㅎㅇ");
             enemySpriteDic.Add((Define.MonsterType)Enum.Parse(typeof(Define.MonsterType), item.name), item);
         }
     }
