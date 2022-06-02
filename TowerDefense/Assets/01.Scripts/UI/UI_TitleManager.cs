@@ -23,11 +23,20 @@ public class UI_TitleManager : MonoBehaviour
     public Button selectBtn;
     public Button exitBtn;
     bool isClick = false;
+
+    public StageManager sm = new StageManager();
+
+
     void Start()
     {
+        sm.Init();
+
+        difficultyPanel.SetActive(true);
+
         Diffculty();
+
+        // UI 이동
         difficultyPanel.transform.localScale = new Vector3(0, 0, 0);
-        //일단 맵 움직이는 것부터
         selectPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * -2);
         topPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * 2);
 
@@ -36,13 +45,11 @@ public class UI_TitleManager : MonoBehaviour
             Diffculty();
             NextSlide();
         });
-
         backBtn.onClick.AddListener(() =>
         {
             Diffculty();
             BackSlide();
         });
-
         selectBtn.onClick.AddListener(() =>
         {
             lobyPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * -2, 0.5f);
@@ -50,7 +57,6 @@ public class UI_TitleManager : MonoBehaviour
                 selectPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.5f).SetEase(Ease.OutBack);
             });
         });
-
         exitBtn.onClick.AddListener(() =>
         {
             lobyPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.5f).SetEase(Ease.OutBack);
@@ -100,7 +106,7 @@ public class UI_TitleManager : MonoBehaviour
                 num--;
             }
 
-            StartCoroutine("ClickDelay");
+            StartCoroutine(ClickDelay());
         }
     }
 
@@ -137,8 +143,8 @@ public class UI_TitleManager : MonoBehaviour
 
     public void ChooseStage(int stage)
     {
-        Debug.Log(stage);
-        GameManager.stageNum = stage;
+        Debug.Log($"Target Stage : {stage}");
         difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
+        sm.SetTargetStage(stage);
     }
 }

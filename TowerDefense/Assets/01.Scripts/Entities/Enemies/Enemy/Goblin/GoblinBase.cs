@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : EnemyBase
+public class GoblinBase : EnemyBase
 {
     protected override void Start()
     {
@@ -12,7 +12,7 @@ public class Goblin : EnemyBase
 
     private void CallHealthSystemOnDamaged()
     {
-        if(!healthSystem.IsDead())
+        if (!healthSystem.IsDead())
         {
             Managers.Sound.Play("Goblin/GoblinDamage");
         }

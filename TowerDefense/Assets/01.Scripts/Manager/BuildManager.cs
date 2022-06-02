@@ -57,7 +57,9 @@ public class BuildManager : MonoBehaviour
 
     public void SetTilemap(Tilemap tilemap)
     {
+        Debug.Log("하이");
         map.tilemap = tilemap; //
+        map.tilemap.RefreshAllTiles();
         map.InitMap();
         plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2; // 0.5정도임, 타일의 중앙 지점 찾기 용
     }

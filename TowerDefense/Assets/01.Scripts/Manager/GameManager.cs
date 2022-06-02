@@ -27,6 +27,14 @@ public class GameManager : MonoBehaviour
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;
 
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("JuhyeongScene");
+        }
+    }
+
     private void Awake()
     {
         SetWaypoints(waypointsParent);

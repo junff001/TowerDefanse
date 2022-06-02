@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShadowGoblin : EnemyBase
+public class GuardianGoblin : GoblinBase
 {
 
 }
