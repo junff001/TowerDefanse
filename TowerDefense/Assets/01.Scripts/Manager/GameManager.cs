@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public int Hp { get; set; } = 10;
+    public int maxHp { get; set; } = 10;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
 

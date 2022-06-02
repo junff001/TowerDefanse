@@ -17,17 +17,18 @@ public class CameraZoom : MonoBehaviour
         {
             PinchZoom();
         }
+        MouseZoom();
     }
 
     void MouseZoom()
     {
         if (Input.mouseScrollDelta.y > 0)
         {
-            addSize = Time.deltaTime * zoomSpeed;
+            addSize = -Time.deltaTime * zoomSpeed;
         }
         else if (Input.mouseScrollDelta.y < 0)
         {
-            addSize = -(Time.deltaTime * zoomSpeed);
+            addSize = Time.deltaTime * zoomSpeed;
         }
 
         Zoom(addSize);

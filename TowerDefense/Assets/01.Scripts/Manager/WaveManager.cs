@@ -240,7 +240,7 @@ public class WaveManager : MonoBehaviour
                         Managers.Invade.draggingBtn.OnDragEnd();
                     }
 
-                    Managers.Game.Hp = 10;
+                    
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
@@ -266,7 +266,7 @@ public class WaveManager : MonoBehaviour
                     }
 
                     Wave = 1;
-
+                    Managers.Game.Hp = Managers.Game.maxHp; // 웨이브 전환시..
                     GameManager.hpText = offenseHpText;
                     offenseStatus.transform.SetAsLastSibling();
                     offenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
