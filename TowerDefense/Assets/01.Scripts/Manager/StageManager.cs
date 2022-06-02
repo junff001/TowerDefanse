@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class StageManager
 {
+    public StageManager() { }
     public List<StageData> stageDatas;
-    public StageData selectedStage = null;
+    public static StageData selectedStage = null;
 
     public void Init()
     {
         stageDatas = new List<StageData>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
         StageData[] datas = Resources.LoadAll<StageData>("StageDatas");
         for (int i = 0; i < datas.Length; i++)
@@ -19,12 +19,10 @@ public class StageManager
             stageDatas.Add(datas[i]);
         }
     }
-
     public void SetTargetStage(int stageNum)
     {
         selectedStage = stageDatas[stageNum];
     }
-
     public void SetStageDatas(StageData stageData)
     {
         StageData obj = MonoBehaviour.Instantiate(stageData);
@@ -40,9 +38,5 @@ public class StageManager
         //나머지는 매니저나 씬 자체에서 알아서 관리.
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //StageDataSO stageData = selectedStage;
-        SetStageDatas(selectedStage);
-    }
+
 }

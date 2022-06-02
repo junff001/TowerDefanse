@@ -145,6 +145,6 @@ public class UI_TitleManager : MonoBehaviour
     {
         Debug.Log($"Target Stage : {stage}");
         difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
-        sm.SetTargetStage(stage);
+        sm.SetTargetStage(stage - 1);
     }
 }

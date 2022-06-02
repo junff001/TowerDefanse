@@ -70,7 +70,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        DefenseSetNextWave();
+        Debug.Log("ㅎㅇㅎㅇ");
 
         for(int i = 0; i< enemyList.Count; i++)
         {
@@ -81,6 +81,9 @@ public class WaveManager : MonoBehaviour
         {
             enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
         }
+
+        DefenseSetNextWave();
+
     }
 
     private void Update()
@@ -184,9 +187,9 @@ public class WaveManager : MonoBehaviour
                 // 오펜스 클리어 체크
                 if (Wave >= waveSO.waveEnemyInfos.Length)
                 {
-                    // UI나 컷신같은거 나오고 게임 클리어!
                     Managers.Sound.Play("System/Win");
-                    Debug.Log("게임 클리어");
+                    Managers.Game.clearUI.gameObject.SetActive(true);
+                    Time.timeScale = 0;
                 }
                 else
                 {

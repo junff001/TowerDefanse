@@ -169,7 +169,6 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.TowerData;
-
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
