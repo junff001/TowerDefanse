@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
         enemySpriteDic.Add(Define.MonsterType.None, waitSprite);
         foreach (var item in enemySprites)
         {
-            Debug.Log("ㅎㅇㅎㅇ");
             enemySpriteDic.Add((Define.MonsterType)Enum.Parse(typeof(Define.MonsterType), item.name), item);
         }
     }

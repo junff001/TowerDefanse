@@ -50,7 +50,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 15360
-  coreType: 0
+  coreType: 1
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
   rotateSpeed: 20
