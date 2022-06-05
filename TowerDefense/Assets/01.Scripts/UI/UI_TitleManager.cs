@@ -24,13 +24,8 @@ public class UI_TitleManager : MonoBehaviour
     public Button exitBtn;
     bool isClick = false;
 
-    public StageManager sm = new StageManager();
-
-
     void Start()
     {
-        sm.Init();
-
         difficultyPanel.SetActive(true);
 
         Diffculty();
@@ -145,6 +140,6 @@ public class UI_TitleManager : MonoBehaviour
     {
         Debug.Log($"Target Stage : {stage}");
         difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
-        sm.SetTargetStage(stage - 1);
+        Managers.Stage.SetTargetStage(stage - 1);
     }
 }

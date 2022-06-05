@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class StageManager
 {
     public List<StageData> stageDatas;
-    public static StageData selectedStage = null;
-    public static bool isSceneLoadedAllocated = false;
+    public StageData selectedStage = null;
 
     public void Init()
     {
@@ -18,19 +17,12 @@ public class StageManager
         {
             stageDatas.Add(datas[i]);
         }
-
-        if (isSceneLoadedAllocated == false)
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            isSceneLoadedAllocated = true;
-        }
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void OnSceneLoaded()
     {
-        StageManager sm = new StageManager();
-        sm.Init();
-        sm.SetStageDatas(selectedStage);
+        Debug.Log("OnSceneLoaded");
+        SetStageDatas(selectedStage);
     }
 
     public void SetTargetStage(int stageNum)

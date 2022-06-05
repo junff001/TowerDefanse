@@ -30,30 +30,26 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         SetEnemySpriteDic();
-        hpText = Managers.Wave.defenseHpText;
-        Managers.Invade.UpdateTexts();
-        UpdateHPText();
-
-        
     }
 
     private void Start()
     {
         SetWaypoints(waypointsParent);
 
-
+        hpText = Managers.Wave.defenseHpText;
+        Managers.Invade.UpdateTexts();
+        UpdateHPText();
     }
-
-
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
         Time.timeScale = 1;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void LoadCurScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
