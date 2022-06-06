@@ -11,7 +11,6 @@ public class StageManager
     public void Init()
     {
         stageDatas = new List<StageData>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
         StageData[] datas = Resources.LoadAll<StageData>("StageDatas");
         for (int i = 0; i < datas.Length; i++)
@@ -20,11 +19,16 @@ public class StageManager
         }
     }
 
+    public void OnSceneLoaded()
+    {
+        Debug.Log("OnSceneLoaded");
+        SetStageDatas(selectedStage);
+    }
+
     public void SetTargetStage(int stageNum)
     {
         selectedStage = stageDatas[stageNum];
     }
-
     public void SetStageDatas(StageData stageData)
     {
         StageData obj = MonoBehaviour.Instantiate(stageData);
@@ -40,9 +44,5 @@ public class StageManager
         //나머지는 매니저나 씬 자체에서 알아서 관리.
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //StageDataSO stageData = selectedStage;
-        SetStageDatas(selectedStage);
-    }
+
 }

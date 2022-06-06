@@ -51,11 +51,11 @@ public class BuildManager : MonoBehaviour
 
     private void Update()
     {
-        SeTilePos();
+        SetTilePos();
         SetAroundTiles();
     }
 
-    public void SeTilePos()
+    public void SetTilePos()
     {
         Vector3 pos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         tilePos = map.tilemap.WorldToCell(pos);    // 마우스 위치에 위치한 타일 받아오기
@@ -169,7 +169,6 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.TowerData;
-
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)

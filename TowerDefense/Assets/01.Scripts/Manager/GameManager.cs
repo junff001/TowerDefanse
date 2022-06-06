@@ -20,43 +20,36 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<Define.MonsterType, Sprite> enemySpriteDic = new Dictionary<Define.MonsterType, Sprite>();
     public Sprite[] enemySprites; // 스프라이트 이름을 MonsterType에 써둔 enum명으로 해줘야 오류가 안생겨용
-    
-    //몇 스테이지 인가
-    public static int stageNum = 0;
+
+    public GameObject clearUI;
+    public GameObject gameOverUI;
 
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;
 
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("JuhyeongScene");
-        }
-    }
-
     private void Awake()
     {
         SetEnemySpriteDic();
-        hpText = Managers.Wave.defenseHpText;
-        Managers.Invade.UpdateTexts();
-        UpdateHPText();
     }
 
     private void Start()
     {
         SetWaypoints(waypointsParent);
-        
+
+        hpText = Managers.Wave.defenseHpText;
+        Managers.Invade.UpdateTexts();
+        UpdateHPText();
     }
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
         Time.timeScale = 1;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void LoadCurScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -86,9 +79,11 @@ public class GameManager : MonoBehaviour
     {
         Hp--;
 
-        if (Hp < 0)
+        if (Hp <= 0)
         {
             Hp = 0;
+            gameOverUI.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
         UpdateHPText();
         Managers.Wave.aliveEnemies.Remove(enemy);

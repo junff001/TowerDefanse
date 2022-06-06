@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
@@ -14,12 +15,18 @@ public class Managers : MonoBehaviour
         }
     }
 
+    static GameObject managementObj;
+    static GameObject myObj;
+
+    #region Managers
+
     UIManager _ui = new UIManager();
     ResourceManager _resource = new ResourceManager();
     SoundManager _sound = new SoundManager();
     PoolManager _pool = new PoolManager();
     RecordManager _record = new RecordManager();
     LoadingSceneManager _loadScene = new LoadingSceneManager();
+    StageManager _stage = new StageManager();
 
     public static UIManager UI { get { return Instance._ui; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
@@ -27,7 +34,7 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool { get { return Instance._pool; } }
     public static RecordManager Record { get { return Instance._record; } }
     public static LoadingSceneManager LoadScene { get { return Instance._loadScene; } }
-
+    public static StageManager Stage { get { return Instance._stage; } }
 
     GoldManager _gold;
     GameManager _game;
@@ -41,52 +48,78 @@ public class Managers : MonoBehaviour
     public static BuildManager Build { get { return Instance._build; } }
     public static InvadeManager Invade { get { return Instance._invade; } }
 
+    #endregion
+
     void Start()
     {
-        Init();
+         Init();
     }
 
     void Update()
     {
-        // ∞¢ ∏≈¥œ¿˙µÈ∏∂¥Ÿ æ˜µ•¿Ã∆Æ
+        // Í∞Å Îß§ÎãàÏ†ÄÎì§ÎßàÎã§ ÏóÖÎç∞Ïù¥Ìä∏
 
         s_instance._record.Update();
     }
 
     static void Init()
     {
+        managementObj = GameObject.Find("@Management");
+        myObj = GameObject.Find("@Manager");
+
         if (s_instance == null)
         {
-            GameObject obj = GameObject.Find("@Management");
-            if (obj == null)
+            if (managementObj == null)
             {
-                Debug.LogError("\"@Management\" ¿Ã∏ß¿ª ∞°¡¯ ø¿∫Í¡ß∆Æ∞° Sceneø° ¿÷æÓæﬂ«’¥œ¥Ÿ.");
-                return;
+                managementObj = new GameObject("@Management");
             }
 
-            Transform myObj = obj.transform.Find("@Manager");
-
-            if(myObj == null)
+            if (myObj == null)
             {
-                Debug.LogError("\"@Management\" ø¿∫Í¡ß∆Æ æ»ø° \"@Manager\" ¿Ã∏ß¿ª ∞°¡¯, Managers ƒƒ∆˜≥Õ∆Æ∞° ¿÷¥¬ ø¿∫Í¡ß∆Æ∞° Sceneø° ¿÷æÓæﬂ«’¥œ¥Ÿ.");
-                return;
+                myObj = new GameObject("@Manager");
+                myObj.AddComponent<Managers>();
             }
 
             s_instance = myObj.GetComponent<Managers>();
+            DontDestroyOnLoad(myObj);
 
-            //√ ±‚»≠µÈ
+            //Ï¥àÍ∏∞ÌôîÎì§
             s_instance._ui.Init();
             s_instance._sound.Init();
-            Transform poolObjectBox = obj.transform.Find("@Pool");
-            s_instance._pool.Init(poolObjectBox);
             s_instance._loadScene.Init();
+            s_instance._stage.Init();
+            Transform poolObjectBox = myObj.transform.Find("@Pool");
 
-            s_instance._gold = obj.transform.Find("@Gold").GetComponent<GoldManager>();
-            s_instance._game = obj.transform.Find("@Game").GetComponent<GameManager>();
-            s_instance._wave = obj.transform.Find("@Wave").GetComponent<WaveManager>();
-            s_instance._build = obj.transform.Find("@Build").GetComponent<BuildManager>();
-            s_instance._invade = obj.transform.Find("@Invade").GetComponent<InvadeManager>();
+            if (poolObjectBox == null)
+            {
+                poolObjectBox = new GameObject("@Pool").transform;
+                poolObjectBox.SetParent(myObj.transform);
+            }
+
+            s_instance._pool.Init(poolObjectBox);
+
+            SceneManager.sceneLoaded += OnSceneChanged;
+
+            s_instance._gold = managementObj.transform.Find("@Gold")?.GetComponent<GoldManager>();
+            s_instance._game = managementObj.transform.Find("@Game")?.GetComponent<GameManager>();
+            s_instance._wave = managementObj.transform.Find("@Wave")?.GetComponent<WaveManager>();
+            s_instance._build = managementObj.transform.Find("@Build")?.GetComponent<BuildManager>();
+            s_instance._invade = managementObj.transform.Find("@Invade")?.GetComponent<InvadeManager>();
         }
+    }
+
+    public static void OnSceneChanged(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Managers.OnSceneChanged");
+        managementObj = GameObject.Find("@Management");
+
+        s_instance._gold = managementObj.transform.Find("@Gold")?.GetComponent<GoldManager>();
+        s_instance._game = managementObj.transform.Find("@Game")?.GetComponent<GameManager>();
+        s_instance._wave = managementObj.transform.Find("@Wave")?.GetComponent<WaveManager>();
+        s_instance._build = managementObj.transform.Find("@Build")?.GetComponent<BuildManager>();
+        s_instance._invade = managementObj.transform.Find("@Invade")?.GetComponent<InvadeManager>();
+
+        Stage.OnSceneLoaded();
     }
 
     public static void Clear()
