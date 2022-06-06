@@ -36,7 +36,7 @@ public class BuildManager : MonoBehaviour
 
     Vector3 plusPos = Vector2.zero;
 
-    public GameObject movingTowerImg = null;
+    public GameObject movingImg = null;
 
     private void Start()
     {
@@ -81,6 +81,8 @@ public class BuildManager : MonoBehaviour
         foreach (var pos in checkedPos) map.tilemap.SetColor(pos, Color.white);
     }
 
+
+
     public void SetTilesColor(Define.PlaceTileType placeTileType)
     {
         ResetCheckedTiles();
@@ -100,6 +102,11 @@ public class BuildManager : MonoBehaviour
         }
 
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
+    }
+
+    public bool IsMagicUsable()
+    {
+        return IsPlaceableTile(tilePos, Define.PlaceTileType.Road); // 아마 길에만 던지겠지 설마 진짜 나한테 왜그래 
     }
 
     public bool CanPlace(Define.PlaceTileType placeTileType) // 2x2 타일 검사

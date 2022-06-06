@@ -131,7 +131,6 @@ public class InvadeManager : MonoBehaviour
 
         EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
-        HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
         Managers.Wave.aliveEnemies.Add(enemyObj);
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀

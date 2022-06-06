@@ -32,6 +32,9 @@ public class WaveManager : MonoBehaviour
     public Dictionary<Define.MonsterType, EnemyBase> enemyDic = new Dictionary<Define.MonsterType, EnemyBase>();
     public List<EnemyBase> enemyList = new List<EnemyBase>();
 
+    public Dictionary<Define.MagicType, MagicBase> magicDic = new Dictionary<Define.MagicType, MagicBase>();
+    [Header("고블린통 같은거")] public List<MagicBase> magicList = new List<MagicBase>();
+
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<EnemyBase> enemySpawnQueue = new Queue<EnemyBase>();
 
@@ -70,20 +73,20 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("ㅎㅇㅎㅇ");
-
         for(int i = 0; i< enemyList.Count; i++)
         {
             enemyList[i].InitEnemyData();
+            enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
         }
 
         for (int i = 0; i < enemyList.Count; i++)
         {
-            enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
+            magicList[i].InitEnemyData();
+            magicDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
         }
 
-        DefenseSetNextWave();
 
+        DefenseSetNextWave();
     }
 
     private void Update()
@@ -261,11 +264,11 @@ public class WaveManager : MonoBehaviour
                 break;
             case Define.GameMode.OFFENSE:
                 {
-                    if (Managers.Build.movingTowerImg != null)
+                    if (Managers.Build.movingImg != null)
                     {
-                        Managers.Build.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
+                        Managers.Build.movingImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
                         Managers.Build.ResetCheckedTiles();
-                        Managers.Build.movingTowerImg = null;
+                        Managers.Build.movingImg = null;
                     }
 
                     Wave = 1;
