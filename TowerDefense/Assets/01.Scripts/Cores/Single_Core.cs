@@ -26,7 +26,11 @@ public class Single_Core : CoreBase
     public override void Start()
     {
         base.Start();
-        StartCoroutine(RotateCanon(angleSpeed));
+    }
+
+    private void Update()
+    {
+        RotateCanon(angleSpeed);
     }
 
     public override void Attack(int power, HealthSystem enemy)
@@ -54,25 +58,20 @@ public class Single_Core : CoreBase
     }
 
     // 대포 머리 회전
-    IEnumerator RotateCanon(float angleSpeed)
+    void RotateCanon(float angleSpeed)
     {
-        while (true)
+        if (currentTarget != null)
         {
-            if (currentTarget != null)
+            Vector2 direction = currentTarget.transform.position - head.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            float slerp = Quaternion.Slerp(head.rotation, rotation, angleSpeed * Time.deltaTime).z;
+            head.rotation = Quaternion.Euler(0, 0, Mathf.Clamp(Time.deltaTime * angleSpeed, minValue, maxValue));
+
+            if (rotationZ > maxValue || rotationZ < minValue)
             {
-                Vector2 direction = currentTarget.transform.position - head.position;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
-                float slerp = Quaternion.Slerp(head.rotation, rotation, angleSpeed * Time.deltaTime).z;
-                head.rotation = Quaternion.Euler(0, 0, Mathf.Clamp(slerp, minValue, maxValue));
-
-                if (rotationZ > maxValue || rotationZ < minValue)
-                {
-                    Flip(haedSprite, body_forward, body_back);
-                }
+                Flip(haedSprite, body_forward, body_back);
             }
-
-            yield return null;
         }
     }
 
