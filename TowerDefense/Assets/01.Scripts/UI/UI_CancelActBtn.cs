@@ -9,6 +9,8 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
     public Button cancelActBtn;
     public int actStackCount = 0;
     public int idx = 0;
+    public int cost;
+
 
     public Image monsterImg;
     public Text countText;
@@ -28,7 +30,7 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
 
     public void Cancel()
     {
-        Managers.Invade.OnCancelAct(actData);
+        Managers.Invade.OnCancelAct(actData, cost);
         actStackCount--;
         countText.text = actStackCount.ToString();
         DestroyCheck();
@@ -38,7 +40,9 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
     public void Init(ActData actData, Transform parentTrm)
     {
         this.actData = actData;
-        this.monsterImg.sprite = Managers.Game.GetActBtnSprite(actData.monsterType);
+        EnemySO enemySO = Managers.Game.GetActBtnSprite(actData.monsterType);
+        this.monsterImg.sprite = enemySO.Sprite;
+        cost = enemySO.Cost;
         this.name = actData.monsterType.ToString();
         this.parent = parentTrm;
     }

@@ -6,7 +6,8 @@ using System.Linq;
 
 public class Map : MonoBehaviour
 {
-    public Tilemap tilemap = null;        // 타일맵
+    [HideInInspector] public Tilemap tilemap = null;        // 타일맵
+    public Tilemap tilemap_view = null;        // 타일맵
 
     public Define.TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
@@ -16,7 +17,7 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
-        tilemap = GetComponent<Tilemap>();
+        if(tilemap == null) tilemap = GetComponent<Tilemap>();
         InitMap();
     }
 
@@ -59,14 +60,15 @@ public class Map : MonoBehaviour
                 continue;
             }
 
-
             Tile tile = tilemap.GetTile<Tile>(position);
             mapTileArray[x, y] = tile;
             mapTileTypeArray[x, y] = GetTileType(tile);
-
-            tilemap.SetTileFlags(position, TileFlags.None);
-
             x++;
+        }
+
+        foreach (var position in tilemap_view.cellBounds.allPositionsWithin)
+        {
+            tilemap_view.SetTileFlags(position, TileFlags.None); // 변하게 하는건 보여지는 Tilmeap_View니까
         }
     }
 

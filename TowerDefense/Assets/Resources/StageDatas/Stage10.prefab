@@ -7691,7 +7691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointsParent: {fileID: 2161762172719924502}
   map: {fileID: 0}
-  waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
+  waveSO: {fileID: 11400000, guid: 0a988c2e4aa0ea94181ed0545ab0bb6e, type: 2}
 --- !u!1 &6822243198945238397
 GameObject:
   m_ObjectHideFlags: 0
@@ -8205,7 +8205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6767476746026372705
 Transform:
   m_ObjectHideFlags: 0
@@ -10193,6 +10193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
+  tilemap_view: {fileID: 0}
   width: 0
   height: 0
 --- !u!19719996 &2344000655810968978

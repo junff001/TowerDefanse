@@ -177,7 +177,7 @@ public class WaveManager : MonoBehaviour
                 {
                     Managers.Sound.Play("System/Win");
                     Managers.Game.clearUI.gameObject.SetActive(true);
-                    Time.timeScale = 0;
+                    //Time.timeScale = 0;
                 }
                 else
                 {

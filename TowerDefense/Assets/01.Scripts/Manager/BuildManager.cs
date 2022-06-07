@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Tilemaps;
 
 public class BuildManager : MonoBehaviour
 {
@@ -78,7 +74,7 @@ public class BuildManager : MonoBehaviour
     public void ResetCheckedTiles() // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
         if (checkedPos == null) return; // 처음에 널이라 오류
-        foreach (var pos in checkedPos) map.tilemap.SetColor(pos, Color.white);
+        foreach (var pos in checkedPos) map.tilemap_view.SetColor(pos, Color.white);
     }
 
     public void SetTilesColor(Define.PlaceTileType placeTileType)
@@ -91,11 +87,11 @@ public class BuildManager : MonoBehaviour
         {
             if (IsPlaceableTile(pos, placeTileType))
             {
-                map.tilemap.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
+                map.tilemap_view.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
             }
             else
             {
-                map.tilemap.SetColor(pos, new Color(1, 0, 0, 0.5f)); // 아마 레드
+                map.tilemap_view.SetColor(pos, new Color(1, 0, 0, 0.5f)); // 아마 레드
             }
         }
 

@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointerUpHandler, IBeginDragHandler
 {
     public ActData actData = null;
-    public RectTransform moveImg; // 버튼 대신에 움직여줄 이미지 
+    public Image moveImg; // 버튼 대신에 움직여줄 이미지 
     public float movedDist = 0f;
+    public int cost = 1;
+
     bool bDraged = false;
     WaitForSeconds ws = new WaitForSeconds(0.1f);
 
@@ -21,7 +23,9 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         mask = transform.GetComponentInChildren<Mask>();
         gr = transform.root.GetComponent<GraphicRaycaster>();
 
-        moveImg.GetComponent<Image>().sprite = Managers.Game.GetActBtnSprite(actData.monsterType);
+        EnemySO enemySO = Managers.Game.GetActBtnSprite(actData.monsterType);
+        moveImg.sprite = enemySO.Sprite;
+        cost = enemySO.Cost;
 
         StartCoroutine(CheckDrag());
     }
@@ -30,9 +34,9 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     {
         if (!bDraged)
         {
-            if (Managers.Invade.CanSetWave(actData.actType))
+            if (Managers.Invade.CanSetWave(actData.actType, cost))
             {
-                Managers.Invade.AddAct(actData);
+                Managers.Invade.AddAct(actData, cost);
             }
             else
             {
@@ -59,7 +63,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     {
         OnDragEnd();
         Managers.Invade.draggingBtn = null;
-        if (Managers.Invade.CanSetWave(actData.actType))
+        if (Managers.Invade.CanSetWave(actData.actType, cost))
         {
             List<RaycastResult> results = new List<RaycastResult>();
             gr.Raycast(eventData, results);
@@ -68,7 +72,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
             {
                 if (results[i].gameObject.CompareTag("ActContent"))
                 {
-                    Managers.Invade.InsertAct(Input.mousePosition, actData);
+                    Managers.Invade.InsertAct(Input.mousePosition, actData, cost);
                 }
             }
         }
@@ -82,7 +86,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
     public void OnDragEnd()
     {
         mask.enabled = true;
-        moveImg.anchoredPosition = Vector3.zero;
+        moveImg.rectTransform.anchoredPosition = Vector3.zero;
         Managers.Invade.ReduceDummyObj();
         Managers.Invade.ResetButtons();
     }
@@ -92,7 +96,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         while (true)
         {
             yield return ws;
-            movedDist = Vector3.Distance(moveImg.anchoredPosition, Vector3.zero);
+            movedDist = Vector3.Distance(moveImg.rectTransform.anchoredPosition, Vector3.zero);
             if (movedDist > 10) // 10 진짜 엄청 조금 움직인거임 화면상 0.1cm 미만
             {
                 bDraged = true;

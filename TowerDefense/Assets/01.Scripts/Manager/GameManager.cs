@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     public Sprite waitSprite;
 
-    public Dictionary<Define.MonsterType, Sprite> enemySpriteDic = new Dictionary<Define.MonsterType, Sprite>();
-    public Sprite[] enemySprites; // 스프라이트 이름을 MonsterType에 써둔 enum명으로 해줘야 오류가 안생겨용
+    public Dictionary<Define.MonsterType, EnemySO> enemySoDic = new Dictionary<Define.MonsterType, EnemySO>();
+    public EnemySO[] enemySOs;
 
     public GameObject clearUI;
     public GameObject gameOverUI;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SetEnemySpriteDic();
+        SetEnemySoDic();
     }
 
     private void Start()
@@ -59,16 +59,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void SetEnemySpriteDic() 
+    public void SetEnemySoDic() 
     {
-        enemySpriteDic.Add(Define.MonsterType.None, waitSprite);
-        foreach (var item in enemySprites)
+        foreach (var item in enemySOs)
         {
-            enemySpriteDic.Add((Define.MonsterType)Enum.Parse(typeof(Define.MonsterType), item.name), item);
+            enemySoDic.Add(item.MonsterType, item);
         }
     }
 
-    public Sprite GetActBtnSprite(Define.MonsterType monsterType) => enemySpriteDic[monsterType];
+    public EnemySO GetActBtnSprite(Define.MonsterType monsterType) => enemySoDic[monsterType];
 
     public void UpdateHPText()
     {

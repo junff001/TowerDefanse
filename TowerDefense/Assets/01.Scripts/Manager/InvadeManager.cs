@@ -149,11 +149,11 @@ public class InvadeManager : MonoBehaviour
 
     }
 
-    public void OnAddAct(ActData actData)
+    public void OnAddAct(ActData actData, int cost)
     {
         if(actData.actType == Define.ActType.Enemy)
         {
-            curAddedMonsterCount += actData.spawnCost;
+            curAddedMonsterCount += cost;
         }
         else
         {
@@ -161,11 +161,11 @@ public class InvadeManager : MonoBehaviour
         }
         UpdateTexts();
     }
-    public void OnCancelAct(ActData actData)
+    public void OnCancelAct(ActData actData,int cost)
     {
         if (actData.actType == Define.ActType.Enemy)
         {
-            curAddedMonsterCount -= actData.spawnCost;
+            curAddedMonsterCount -= cost;
         }
         else
         {
@@ -238,30 +238,30 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
-    public void AddAct(ActData actData)
+    public void AddAct(ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.spawnCost);
-        OnAddAct(newAct);
+        ActData newAct = new ActData(actData.actType, actData.monsterType);
+        OnAddAct(newAct, cost);
         if (IsSameAct(addedAct, newAct))
         {
             if (addedBtn != null) addedBtn.Stack();
         }
         else // 새로 버튼 추가
         {
-            AddBtn(newAct);
+            AddBtn(newAct, cost);
         }
     }
 
-    public void InsertAct(Vector3 dragEndPos, ActData actData)
+    public void InsertAct(Vector3 dragEndPos, ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.spawnCost);
+        ActData newAct = new ActData(actData.actType, actData.monsterType);
 
-        OnAddAct(newAct);
+        OnAddAct(newAct, cost);
         int insertIdx = GetInsertIndex(dragEndPos);
 
         if (insertIdx == -2) // 추가한게 없으면
         {
-            AddBtn(newAct);
+            AddBtn(newAct, cost);
         }
 
         if (insertIdx == -1) // 맨 왼쪽이면.
@@ -272,7 +272,7 @@ public class InvadeManager : MonoBehaviour
             }
             else
             {
-                InsertBtn(newAct, 0);
+                InsertBtn(newAct, 0, cost);
             }
         }
         else if (insertIdx >= 0)// 0이상일 때
@@ -289,12 +289,12 @@ public class InvadeManager : MonoBehaviour
                 }
                 else
                 {
-                    InsertBtn(newAct, insertIdx + 1);
+                    InsertBtn(newAct, insertIdx + 1, cost);
                 }
             }
             else
             {
-                InsertBtn(newAct, insertIdx + 1);
+                InsertBtn(newAct, insertIdx + 1, cost);
             }
         }
         addedAct = newAct;
@@ -356,26 +356,26 @@ public class InvadeManager : MonoBehaviour
         invisibleObj.gameObject.SetActive(false);
     }
 
-    public void AddBtn(ActData newAct)
+    public void AddBtn(ActData newAct, int cost)
     {
         UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
         waitingActs.Add(newBtn);
-        OnCreateRemoveBtn(newAct, newBtn);
+        OnCreateRemoveBtn(newAct, newBtn, cost);
     }
 
-    public void InsertBtn(ActData newAct, int idx)
+    public void InsertBtn(ActData newAct, int idx, int cost)
     {
         UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
         waitingActs.Insert(idx, newBtn);
-        OnCreateRemoveBtn(newAct, newBtn);
+        OnCreateRemoveBtn(newAct, newBtn, cost);
         newBtn.transform.SetSiblingIndex(idx);
     }
 
-    public bool CanSetWave(Define.ActType actType)
+    public bool CanSetWave(Define.ActType actType, int cost)
     {
         if(actType == Define.ActType.Enemy)
         {
-            return MaxMonsterCount > curAddedMonsterCount && canAddWave;
+            return MaxMonsterCount >= curAddedMonsterCount + cost && canAddWave;
         }
         else
         {
@@ -384,7 +384,7 @@ public class InvadeManager : MonoBehaviour
     }
 
 
-    public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
+    public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn, int cost)
     {
         newBtn.Init(newAct,waitingActContentTrm);
         newBtn.Stack();
