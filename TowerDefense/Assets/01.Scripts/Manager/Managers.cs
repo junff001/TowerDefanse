@@ -60,6 +60,7 @@ public class Managers : MonoBehaviour
         // 각 매니저들마다 업데이트
 
         s_instance._record.Update();
+        s_instance._ui.Update();
     }
 
     static void Init()

@@ -9,7 +9,8 @@ public class UIManager
 {
     private GameObject textPrefab = null;
     private Transform txtTrans = null;
-    private CanvasGroup cheatCodeGroup = null;
+
+    private UI_CheatCode cheatCodeGroup = null;
 
     public void Init()
     {
@@ -21,13 +22,32 @@ public class UIManager
 
         Transform canvas = uiManager.transform.Find("Canvas/TipTextBox");
         txtTrans = canvas;
+
+        Transform cheatCode = uiManager.transform.Find("Canvas/CheatCode");
+        cheatCodeGroup = cheatCode.GetComponent<UI_CheatCode>();
     }
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Slash))
+        if (!cheatCodeGroup.isShow)
         {
-            
+            if (Input.GetKeyDown(KeyCode.Slash))
+            {
+                cheatCodeGroup.Show(true);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                cheatCodeGroup.ResetWindow();
+                cheatCodeGroup.Show(false);
+            }
+
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                cheatCodeGroup.CheckCommand();
+            }
         }
     }
 

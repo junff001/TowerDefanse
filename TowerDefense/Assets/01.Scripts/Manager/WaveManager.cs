@@ -76,24 +76,6 @@ public class WaveManager : MonoBehaviour
         DefenseSetNextWave();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Managers.Game.UpdateHPText();
-            if (GameMode == Define.GameMode.DEFENSE)
-            {
-                Managers.UI.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
-                GameMode = Define.GameMode.OFFENSE;
-            }
-            else
-            {
-                Managers.UI.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
-                GameMode = Define.GameMode.DEFENSE;
-            }
-        }
-    }
-
     public void DefenseSetNextWave()
     {
         Managers.Record.recordBox.Add(new RecordWaveBox());
