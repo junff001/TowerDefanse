@@ -98,7 +98,7 @@ public abstract class EnemyBase : MonoBehaviour
 
         for (int i = 0; i < buffList.Count; i++)
         {
-            if (buffList[i] == buff)
+            if (buffList[i].GetType() == buff.GetType())
             {
                 if (Mathf.Abs(buffList[i].amplification - buff.amplification) < 0.01f)
                 {
