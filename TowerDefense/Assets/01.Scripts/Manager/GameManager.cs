@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
 
     public Transform waypointsParent;
+
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
+    public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
     public Sprite waitSprite;
 
@@ -67,6 +69,11 @@ public class GameManager : MonoBehaviour
     public void UpdateHPText()
     {
         hpText.text = Hp.ToString();
+    }
+
+    public int GetWaypointCount(int listIndex)
+    {
+        return pointLists[listIndex].indexWayPoints.Count;
     }
 
     public void SetWaypoints(Transform waypointParent)

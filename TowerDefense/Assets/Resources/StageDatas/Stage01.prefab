@@ -1831,6 +1831,8 @@ MonoBehaviour:
   waypointsParent: {fileID: 2161762172719924502}
   map: {fileID: 8459898057745397682}
   waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
+  pointLists:
+  - indexWayPoints: 0000000001000000
 --- !u!1 &2161762174069900794
 GameObject:
   m_ObjectHideFlags: 0

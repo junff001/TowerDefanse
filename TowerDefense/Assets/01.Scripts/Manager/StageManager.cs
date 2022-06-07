@@ -36,6 +36,7 @@ public class StageManager
         obj.transform.position = makeMapPos;
 
         Managers.Game.waypointsParent = obj.waypointsParent;
+        Managers.Game.pointLists = obj.pointLists;
         Managers.Wave.waveSO = obj.waveSO;
         Managers.Build.map = obj.map;
 

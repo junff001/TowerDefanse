@@ -85,13 +85,13 @@ public class Bomb : Bullet
         ps.Play();
 
         target = null;
-        timerCurrent = 0;
         gameObject.SetActive(false);
     }
 
     public override void Init()
     {
         Debug.Log("Init");
+        timerCurrent = 0;
         targetCatchPos = target.position;
         projectilePos = transform.position;
     }
