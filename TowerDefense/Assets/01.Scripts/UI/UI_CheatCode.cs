@@ -2,10 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UI_CheatCode : MonoBehaviour
 {
+    private CanvasGroup canvasGroup;
+    public bool isShow { get; set; } = false;
     public Text cheatText;
+
+    private void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    public void Show(bool show)
+    {
+        canvasGroup.DOFade(show ? 1 : 0, 0.5f);
+        canvasGroup.blocksRaycasts = show;
+        canvasGroup.interactable = show;
+        isShow = show;
+    }
 
     public void CheckCommand()
     {
