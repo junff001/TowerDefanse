@@ -114,7 +114,7 @@ public class UI_TitleManager : MonoBehaviour
                 diffcultyTex.color = new Color(0, 255, 0);
                 break;
             case 1:
-                diffcultyTex.text = "Nomal";
+                diffcultyTex.text = "Normal";
                 diffcultyTex.color = new Color(255, 250, 0);
                 break;
             case 2:

@@ -9,9 +9,6 @@ public class WaveManager : MonoBehaviour
     [Header("Object Field")]
     public Text waveRoundCount;
 
-    [Header("풀매니저 오브젝트")]
-    public Transform poolManagerTrm;
-
     [Header("웨이브")]
     private int _wave = 1;
     public int Wave
@@ -282,7 +279,7 @@ public class WaveManager : MonoBehaviour
                     Managers.Build.spawnedTowers.Clear();
 
                     //공격 전부 꺼주기(Bullet 상속 받은 친구들)
-                    Transform[] poolManagerChildren = poolManagerTrm.GetComponentsInChildren<Transform>();
+                    Transform[] poolManagerChildren = Managers.Pool.poolInitPos.GetComponentsInChildren<Transform>();
                     Transform[] poolingObjs = new Transform[poolManagerChildren.Length - 1];
 
                     //맨 위의 PoolManagerObj 제외시키기.

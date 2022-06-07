@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using Spine;
+using DG.Tweening;
 
 public class SpineController : MonoBehaviour
 {
@@ -48,5 +49,6 @@ public class SpineController : MonoBehaviour
     {
         sa.loop = false;
         sa.AnimationName = dieAnim;
+        DOTween.To(() => sa.skeleton.A, value => sa.skeleton.A = value, 0, 0.75f).SetDelay(0.75f);
     }
 }

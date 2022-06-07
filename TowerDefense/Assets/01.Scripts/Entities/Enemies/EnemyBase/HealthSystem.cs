@@ -13,6 +13,9 @@ public class HealthSystem : MonoBehaviour
 {
     public Action OnDamaged;
     public Action OnDied;
+    public bool canDamaged { get; set; } = true;
+
+    public float damagedDelay { get; set; } = 0f;
 
     private EnemyBase enemyBase;
     private float healthAmountMax;
@@ -43,10 +46,30 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         enemyBase = GetComponent<EnemyBase>();
+    }
+
+    void Start()
+    {
+        StartCoroutine(DotDamage());
+    }
+
+    IEnumerator DotDamage()
+    {
+        while (true)
+        {
+            if (!canDamaged)
+            {
+                yield return new WaitForSeconds(damagedDelay);
+                canDamaged = true;
+            }
+            else
+            {
+                yield return null;
+            }  
+        }
     }
 
     private void Damage(float damageAmount, bool penetration)
@@ -58,7 +81,7 @@ public class HealthSystem : MonoBehaviour
 
         if(curShieldAmount <= 0)
         {
-            float realDamage = damageAmount - tempAmount; // µ¥¹ÌÁö ÃÊ°ú ºÐ·®
+            float realDamage = damageAmount - tempAmount; // ë°ë¯¸ì§€ ì´ˆê³¼ ë¶„ëŸ‰
             curHealthAmount -= realDamage;
             curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
         }
