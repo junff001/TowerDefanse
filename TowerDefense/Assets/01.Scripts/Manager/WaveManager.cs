@@ -60,7 +60,7 @@ public class WaveManager : MonoBehaviour
             ChangeMode(gameMode);
         }
     }
-    bool IsWaveProgressing
+    public bool IsWaveProgressing
     {
         get
         {
@@ -70,20 +70,13 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("ㅎㅇㅎㅇ");
-
-        for(int i = 0; i< enemyList.Count; i++)
+        for(int i = 0; i< enemyList.Count; i++) // 에너미 딕셔너리 세팅
         {
             enemyList[i].InitEnemyData();
-        }
-
-        for (int i = 0; i < enemyList.Count; i++)
-        {
             enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
         }
 
         DefenseSetNextWave();
-
     }
 
     private void Update()
@@ -140,8 +133,6 @@ public class WaveManager : MonoBehaviour
             Managers.Gold.GoldPlus(rewardGold);
             Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
-
-
         }
         else
         {
@@ -149,7 +140,7 @@ public class WaveManager : MonoBehaviour
             Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
             Debug.Log("인원 추가");
         }
-        Managers.Invade.UpdateTexts();
+        Managers.Invade.UpdateTexts(true); // 웨이브 끝났으니까 텍스트 0으로 초기화
     }
 
     public void CheckWaveEnd()
@@ -220,7 +211,6 @@ public class WaveManager : MonoBehaviour
             EnemyBase enemy = enemySpawnQueue.Dequeue();
 
             EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
-            HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
 
             aliveEnemies.Add(enemyObj);
 
@@ -261,11 +251,11 @@ public class WaveManager : MonoBehaviour
                 break;
             case Define.GameMode.OFFENSE:
                 {
-                    if (Managers.Build.movingTowerImg != null)
+                    if (Managers.Build.movingImg != null)
                     {
-                        Managers.Build.movingTowerImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
+                        Managers.Build.movingImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
                         Managers.Build.ResetCheckedTiles();
-                        Managers.Build.movingTowerImg = null;
+                        Managers.Build.movingImg = null;
                     }
 
                     Wave = 1;

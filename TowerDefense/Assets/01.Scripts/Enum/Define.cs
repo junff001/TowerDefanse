@@ -8,7 +8,7 @@ public class Define
     {
         Bgm,
         Effect,
-        MaxCount,  // ¾Æ¹«°Íµµ ¾Æ´Ô. ±×³É Sound enumÀÇ °³¼ö ¼¼±â À§ÇØ Ãß°¡. (0, 1, '2' ÀÌ·¸°Ô 2°³) 
+        MaxCount,  // ì•„ë¬´ê²ƒë„ ì•„ë‹˜. ê·¸ëƒ¥ Sound enumì˜ ê°œìˆ˜ ì„¸ê¸° ìœ„í•´ ì¶”ê°€. (0, 1, '2' ì´ë ‡ê²Œ 2ê°œ) 
     }
 
     public enum ActType
@@ -36,7 +36,7 @@ public class Define
         Place_Tower,
     }
 
-    public enum MonsterType // ¸÷ Ãß°¡µÉ ¶§¸¶´Ù..
+    public enum MonsterType // ëª¹ ì¶”ê°€ë  ë•Œë§ˆë‹¤ ì¶”ê°€í•´ì¤˜
     {
         None,
         Goblin,
@@ -45,6 +45,13 @@ public class Define
         AlchemistGoblin,
         ArmorGoblin,
         FlyingGoblin,
+    }
+
+    public enum MagicType // ë§ˆë²• ì¶”ê°€ë  ë•Œ ë§ˆë‹¤ ì¶”ê°€í•´ì¤˜
+    {
+        None, 
+        GoblinBarrel,
+        FireBall, // ë­”ê°€ ë¯¸ë˜ê°€ ë³´ì—¬ì„œ ë„£ì–´ë´¤ì–´..
     }
 
     public enum PropertyType

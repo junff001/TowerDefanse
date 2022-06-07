@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -20,6 +21,8 @@ public class EnemyData
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    public Vector3 targetPos = Vector3.zero; // 이거는 나중에 매직같은거 할 때
+
     protected HealthSystem healthSystem;
 
     [SerializeField] protected EnemySO enemySO;
@@ -35,7 +38,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     SpineController animController;
 
-    void Awake()
+    protected virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
@@ -67,7 +70,7 @@ public abstract class EnemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         aliveTime += Time.deltaTime;
         movedDistance = aliveTime * enemyData.MoveSpeed;
@@ -158,6 +161,13 @@ public abstract class EnemyBase : MonoBehaviour
         {
             NextPoint();
         }
+    }
+
+    public void SetStartWaypoint() // 고블린 통 같은 것으로 고블린을 소환했을 때, 웨이포인트를 어떻게 설정해줄지
+    {
+        //List<Transform> wayPoints = Managers.Game.wayPoints.ToList();
+        //
+        //wayPoints.Sort((x,y) => x.position.x > );
     }
 
     bool WayPointDistance()

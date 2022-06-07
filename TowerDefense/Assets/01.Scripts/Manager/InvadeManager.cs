@@ -131,7 +131,6 @@ public class InvadeManager : MonoBehaviour
 
         EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
-        HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
         Managers.Wave.aliveEnemies.Add(enemyObj);
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀
@@ -164,6 +163,8 @@ public class InvadeManager : MonoBehaviour
     }
     public void OnCancelAct(ActData actData)
     {
+        if (isWaveProgress) return; // 게임 진행중에는 감소 안함. 0일때 알아서 초기화 해줄거임 
+
         if (actData.actType == Define.ActType.Enemy)
         {
             curAddedMonsterCount -= actData.spawnCost;
@@ -174,8 +175,12 @@ public class InvadeManager : MonoBehaviour
         }
         UpdateTexts();
     }
-    public void UpdateTexts()
+    public void UpdateTexts(bool bWaveEnd = false)
     {
+        if(bWaveEnd == true)
+        {
+            curAddedMonsterCount = 0;
+        }
         monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
@@ -233,6 +238,7 @@ public class InvadeManager : MonoBehaviour
         {
             CheckActType(waitingActs[0].actData);
         }
+        else
         {
             canAddWave = true;
         }

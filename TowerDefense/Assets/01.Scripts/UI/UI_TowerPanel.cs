@@ -63,7 +63,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
         Managers.Build.ResetCheckedTiles();
-        Managers.Build.movingTowerImg = null;
+        Managers.Build.movingImg = null;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -79,13 +79,13 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if(IsLeftBtn(eventData) && CanDrag())
         {
-            Managers.Build.movingTowerImg = towerImage.gameObject;
+            Managers.Build.movingImg = towerImage.gameObject;
         }
     }
 
     public bool CanDrag()
     {
-        GameObject movingObj = Managers.Build.movingTowerImg;
+        GameObject movingObj = Managers.Build.movingImg;
 
         return movingObj == towerImage.gameObject || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
     }

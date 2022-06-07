@@ -16,7 +16,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     private Mask mask;
 
-    void Start()
+    private void Start()
     {
         mask = transform.GetComponentInChildren<Mask>();
         gr = transform.root.GetComponent<GraphicRaycaster>();
@@ -64,9 +64,9 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
             List<RaycastResult> results = new List<RaycastResult>();
             gr.Raycast(eventData, results);
 
-            foreach (var item in results)
+            for(int i = 0; i< results.Count; i++)
             {
-                if (item.gameObject.CompareTag("ActContent"))
+                if (results[i].gameObject.CompareTag("ActContent"))
                 {
                     Managers.Invade.InsertAct(Input.mousePosition, actData);
                 }
