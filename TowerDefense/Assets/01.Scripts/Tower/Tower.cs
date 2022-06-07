@@ -26,6 +26,13 @@ public class Tower : MonoBehaviour
 
     public Transform coreTrm;
 
+    private List<BuffBase> buffList = new List<BuffBase>();
+
+    void Start()
+    {
+        
+    }
+
     public void InitTowerData(TowerSO towerSO)
     {
         towerData.Level = towerSO.Level;

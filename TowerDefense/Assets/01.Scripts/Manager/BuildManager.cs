@@ -30,6 +30,12 @@ public class BuildManager : MonoBehaviour
     public Map map;
     [SerializeField] private Tower towerBase;
 
+    [SerializeField] private Sprite waterJewel;
+    [SerializeField] private Sprite fireJewel;
+    [SerializeField] private Sprite lightJewel;
+    [SerializeField] private Sprite darknessJewel;
+    [SerializeField] private Sprite lightning;
+
     private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
@@ -174,6 +180,8 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.TowerData;
+
+
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
@@ -197,7 +205,7 @@ public class BuildManager : MonoBehaviour
 
         if(towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {
-            MakeNewCore(towerSO,newTower);
+            MakeNewCore(towerSO, newTower);
         }
         else
         {

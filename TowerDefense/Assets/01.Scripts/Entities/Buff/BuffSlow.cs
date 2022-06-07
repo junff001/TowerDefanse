@@ -25,7 +25,6 @@ public class BuffSlow : BuffBase
     public override void Update()
     {
         base.Update();
-
     }
 
     public override void Destroy()

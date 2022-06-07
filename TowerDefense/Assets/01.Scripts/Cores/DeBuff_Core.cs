@@ -1,20 +1,82 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct BuffData
+{
+    // 버프
+    public int addOffense;
+    public float addAttackSpeed;
+    public float addRange;
+
+    // 디버프
+    public float slow_percentage;
+    public float addDotDamage;
+
+    // 지속 시간
+    public float duration;
+}
+
 public class DeBuff_Core : CoreBase
 {
-    [SerializeField] private Sprite fireJewel = null;
-    [SerializeField] private Sprite waterJewel = null;
-    [SerializeField] private Sprite lightJewel = null;
-    [SerializeField] private Sprite lightingJewel = null;
-    [SerializeField] private Sprite darkessJewel = null;
+    [SerializeField] private BuffSO buffSO = null;
+    private BuffData buffData = new BuffData();
+    private SpriteRenderer sr;
+    public LayerMask towerMask = default;
 
-    private SpriteRenderer sprite = null;
+    private Collider2D[] towers = null;
+
+    private Action<GameObject> buffAction;
+
+    void Init(BuffSO buffSO)
+    {
+        buffData.addOffense = buffSO.AddOffense;
+        buffData.addAttackSpeed = buffSO.AddAttackSpeed;
+        buffData.addRange = buffSO.AddRange;
+        buffData.slow_percentage = buffSO.Slow_Percentage;
+        buffData.addDotDamage = buffSO.AddDotDamage;
+        buffData.duration = buffSO.Duraion;
+    }
 
     void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    public override void Start()
+    {
+        base.Start();
+
+        Init(buffSO);
+    }
+
+    public override IEnumerator OnRader()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            enemies = Rader(enemyMask);
+            towers = Rader(towerMask);
+        }
+    }
+
+    IEnumerator OnBuffTower()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => towers?.Length > 0);
+
+            for (int i = 0; i < towers.Length; i++)
+            {
+                if (towers[i] != null)
+                {
+                    buffAction.Invoke(towers[i].gameObject);
+                }
+            }
+
+            yield return null;
+        }
     }
 
     public override IEnumerator OnAttack()
@@ -31,13 +93,8 @@ public class DeBuff_Core : CoreBase
 
                 if (enemies[i] != null)
                 {
-                    if (enemies[i].GetComponent<HealthSystem>().canDamaged)
-                    {
-                        enemies[i].GetComponent<HealthSystem>().damagedDelay = towerData.AttackSpeed;
-                        Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
-                        
-                        enemies[i].GetComponent<HealthSystem>().canDamaged = false;
-                    } 
+                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
+                    buffAction.Invoke(enemies[i].gameObject);
                 }
             }
 
@@ -55,20 +112,32 @@ public class DeBuff_Core : CoreBase
         switch (towerData.property)
         {
             case Define.PropertyType.WATER:
-                sprite.sprite = waterJewel;
+                buffAction += Slow;
                 break;
             case Define.PropertyType.FIRE:
-                sprite.sprite = fireJewel;
+               
                 break;
             case Define.PropertyType.LIGHTNING:
-                sprite.sprite = lightingJewel;
+                
                 break;
             case Define.PropertyType.LIGHT:
-                sprite.sprite = lightJewel;
+                
                 break;
             case Define.PropertyType.DARKNESS:
-                sprite.sprite = darkessJewel;
+                buffAction += Dot;
                 break;
         }
+    }
+
+    void Slow(GameObject target)
+    {
+        BuffSlow slow = new BuffSlow(target, buffData.duration, buffData.slow_percentage);
+        target.GetComponent<EnemyBase>().AddBuff(slow);
+    }
+
+    void Dot(GameObject target)
+    {
+        BuffDOT dot = new BuffDOT(target, buffData.duration, buffData.addDotDamage);
+        target.GetComponent<EnemyBase>().AddBuff(dot);
     }
 }

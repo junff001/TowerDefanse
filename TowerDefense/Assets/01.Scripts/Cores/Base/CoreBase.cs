@@ -6,7 +6,7 @@ public abstract class CoreBase : MonoBehaviour
 {
     [SerializeField] private float gizmoHeight = 0f;
 
-    public LayerMask enemyMask = default;                          // 적을 분별하는 마스크
+    public LayerMask enemyMask = default;                          // 적을 분별하는 마스크    
     protected Collider2D[] enemies = null;                         // 공격 범위 안에 있는 적들
     protected Collider2D currentTarget { get; set; } = null;       // 현재 타겟
 
@@ -16,21 +16,23 @@ public abstract class CoreBase : MonoBehaviour
     public virtual void Start()
     {
         StartCoroutine(OnRader());
-        StartCoroutine(OnAttack());    
+        StartCoroutine(OnAttack());
+
+        PropertyCheck();
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
-    protected IEnumerator OnRader()
+    public virtual IEnumerator OnRader()
     {
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
-            enemies = Rader(enemyMask); 
+            enemies = Rader(enemyMask);
         }
     }
 
     // 공격 범위 처리 함수
-    Collider2D[] Rader(LayerMask targetMask)
+    public virtual Collider2D[] Rader(LayerMask targetMask)
     {
         return Physics2D.OverlapCircleAll(transform.position + new Vector3(0, gizmoHeight, 0), towerData.AttackRange, targetMask);
     }
