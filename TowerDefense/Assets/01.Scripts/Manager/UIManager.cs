@@ -9,6 +9,7 @@ public class UIManager
 {
     private GameObject textPrefab = null;
     private Transform txtTrans = null;
+    private CanvasGroup cheatCodeGroup = null;
 
     public void Init()
     {
@@ -20,6 +21,14 @@ public class UIManager
 
         Transform canvas = uiManager.transform.Find("Canvas/TipTextBox");
         txtTrans = canvas;
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Slash))
+        {
+            
+        }
     }
 
     public void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)

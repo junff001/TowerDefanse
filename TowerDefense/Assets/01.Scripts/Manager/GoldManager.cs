@@ -20,6 +20,12 @@ public class GoldManager : MonoBehaviour
         moneyText.text = Gold.ToString();
     }
 
+    public void GoldSet(int value)
+    {
+        Gold = value;
+        UpdateGoldText();
+    }
+
     public void GoldPlus(int plus)
     {
         Gold += plus;
