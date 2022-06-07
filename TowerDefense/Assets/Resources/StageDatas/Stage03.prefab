@@ -8810,7 +8810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointsParent: {fileID: 2161762172719924502}
   map: {fileID: 2161762174069900795}
-  waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
+  waveSO: {fileID: 11400000, guid: 0a988c2e4aa0ea94181ed0545ab0bb6e, type: 2}
 --- !u!1 &2161762174069900794
 GameObject:
   m_ObjectHideFlags: 0
@@ -10820,6 +10820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
+  tilemap_view: {fileID: 4563793071954192067}
   width: 0
   height: 0
 --- !u!19719996 &5736116030303860290
