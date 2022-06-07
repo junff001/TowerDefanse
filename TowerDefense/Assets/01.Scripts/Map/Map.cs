@@ -86,10 +86,13 @@ public class Map : MonoBehaviour
     {
         if (tile == roadTile) // 나중에 읽기 편하라고 
             return Define.TileType.Road;
+
         else if (tile == placeTile)
             return Define.TileType.Place;
+
         else if (tile == waterTile)
             return Define.TileType.Water;
+
         else
             return Define.TileType.Obstacle;
     }
