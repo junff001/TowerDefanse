@@ -10,6 +10,8 @@ public class UIManager
     private GameObject textPrefab = null;
     private Transform txtTrans = null;
 
+    private UI_CheatCode cheatCodeGroup = null;
+
     public void Init()
     {
         GameObject uiManager = Resources.Load<GameObject>("UI/@UI");
@@ -18,8 +20,35 @@ public class UIManager
 
         textPrefab = Resources.Load<GameObject>("UI/PopupText");
 
-        Transform canvas = uiManager.transform.Find("Canvas");
+        Transform canvas = uiManager.transform.Find("Canvas/TipTextBox");
         txtTrans = canvas;
+
+        Transform cheatCode = uiManager.transform.Find("Canvas/CheatCode");
+        cheatCodeGroup = cheatCode.GetComponent<UI_CheatCode>();
+    }
+
+    public void Update()
+    {
+        if (!cheatCodeGroup.isShow)
+        {
+            if (Input.GetKeyDown(KeyCode.Slash))
+            {
+                cheatCodeGroup.Show(true);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                cheatCodeGroup.ResetWindow();
+                cheatCodeGroup.Show(false);
+            }
+
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                cheatCodeGroup.CheckCommand();
+            }
+        }
     }
 
     public void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)

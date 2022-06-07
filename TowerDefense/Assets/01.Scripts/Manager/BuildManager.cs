@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class BuildManager : MonoBehaviour
@@ -23,11 +20,21 @@ public class BuildManager : MonoBehaviour
     private Vector3Int downRight = Vector3Int.zero;
     #endregion
 
+    public Tile placeTile;
+    public Tile roadTile;
+    public Tile waterTile;
+
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     private Camera mainCam = null;
 
     public Map map;
     [SerializeField] private Tower towerBase;
+
+    [SerializeField] private Sprite waterJewel;
+    [SerializeField] private Sprite fireJewel;
+    [SerializeField] private Sprite lightJewel;
+    [SerializeField] private Sprite darknessJewel;
+    [SerializeField] private Sprite lightning;
 
     private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
@@ -78,7 +85,7 @@ public class BuildManager : MonoBehaviour
     public void ResetCheckedTiles() // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
         if (checkedPos == null) return; // 처음에 널이라 오류
-        foreach (var pos in checkedPos) map.tilemap.SetColor(pos, Color.white);
+        foreach (var pos in checkedPos) map.tilemap_view.SetColor(pos, Color.white);
     }
 
     public void SetTilesColor(Define.PlaceTileType placeTileType)
@@ -91,11 +98,11 @@ public class BuildManager : MonoBehaviour
         {
             if (IsPlaceableTile(pos, placeTileType))
             {
-                map.tilemap.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
+                map.tilemap_view.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
             }
             else
             {
-                map.tilemap.SetColor(pos, new Color(1, 0, 0, 0.5f)); // 아마 레드
+                map.tilemap_view.SetColor(pos, new Color(1, 0, 0, 0.5f)); // 아마 레드
             }
         }
 
@@ -173,6 +180,8 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.TowerData;
+
+
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
@@ -196,7 +205,7 @@ public class BuildManager : MonoBehaviour
 
         if(towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {
-            MakeNewCore(towerSO,newTower);
+            MakeNewCore(towerSO, newTower);
         }
         else
         {

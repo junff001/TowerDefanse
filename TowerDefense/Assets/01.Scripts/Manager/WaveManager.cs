@@ -30,7 +30,7 @@ public class WaveManager : MonoBehaviour
     public List<EnemyBase> enemyList = new List<EnemyBase>();
 
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
-    public Queue<EnemyBase> enemySpawnQueue = new Queue<EnemyBase>();
+    public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
@@ -76,24 +76,6 @@ public class WaveManager : MonoBehaviour
         DefenseSetNextWave();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Managers.Game.UpdateHPText();
-            if (GameMode == Define.GameMode.DEFENSE)
-            {
-                Managers.UI.SummonText(new Vector2(960, 300), "디버그 : 오펜스 모드!", 40);
-                GameMode = Define.GameMode.OFFENSE;
-            }
-            else
-            {
-                Managers.UI.SummonText(new Vector2(960, 300), "디버그 : 디펜스 모드!", 40);
-                GameMode = Define.GameMode.DEFENSE;
-            }
-        }
-    }
-
     public void DefenseSetNextWave()
     {
         Managers.Record.recordBox.Add(new RecordWaveBox());
@@ -102,15 +84,9 @@ public class WaveManager : MonoBehaviour
         {
             for (int i = 0; i < item.enemyCount; i++)
             {
-                enemySpawnQueue.Enqueue(item.enemy);
+                enemySpawnQueue.Enqueue(item);
             }
         }
-
-        if (waveSO.waveEnemyInfos[Wave - 1].boss != null)
-        {
-            enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
-        }
-        // 보스도 있으면 큐에 추가해줘야함
     }
 
     public void WaveStart()
@@ -137,7 +113,7 @@ public class WaveManager : MonoBehaviour
             Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
             Debug.Log("인원 추가");
         }
-        Managers.Invade.UpdateTexts(true); // 웨이브 끝났으니까 텍스트 0으로 초기화
+        Managers.Invade.UpdateTexts();
     }
 
     public void CheckWaveEnd()
@@ -177,11 +153,11 @@ public class WaveManager : MonoBehaviour
                 {
                     Managers.Sound.Play("System/Win");
                     Managers.Game.clearUI.gameObject.SetActive(true);
-                    Time.timeScale = 0;
+                    //Time.timeScale = 0;
                 }
                 else
                 {
-                    OnWaveEnd(0, 2);
+                    OnWaveEnd(0, 3);
                     Managers.Invade.isWaveProgress = false;
                     Managers.Invade.RecordedSegmentPlayAll();
 
@@ -205,9 +181,10 @@ public class WaveManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
             }
 
-            EnemyBase enemy = enemySpawnQueue.Dequeue();
+            SpawnerMonsterCount enemyInfo = enemySpawnQueue.Dequeue();
 
-            EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
+            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[0].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
+            enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
             aliveEnemies.Add(enemyObj);
 

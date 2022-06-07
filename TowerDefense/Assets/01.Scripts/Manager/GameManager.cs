@@ -11,15 +11,18 @@ public class GameManager : MonoBehaviour
     public int maxHp { get; set; } = 10;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
+    public bool isAnyActing = false;
 
     public Transform waypointsParent;
+
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
+    public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
     public Sprite waitSprite;
 
-    public Dictionary<Define.MonsterType, Sprite> enemySpriteDic = new Dictionary<Define.MonsterType, Sprite>();
-    public Sprite[] enemySprites; // 스프라이트 이름을 MonsterType에 써둔 enum명으로 해줘야 오류가 안생겨용
+    public Dictionary<Define.MonsterType, EnemySO> enemySoDic = new Dictionary<Define.MonsterType, EnemySO>();
+    public EnemySO[] enemySOs;
 
     public GameObject clearUI;
     public GameObject gameOverUI;
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SetEnemySpriteDic();
+        SetEnemySoDic();
     }
 
     private void Start()
@@ -41,9 +44,14 @@ public class GameManager : MonoBehaviour
         UpdateHPText();
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName = null)
     {
         Time.timeScale = 1;
+
+        if(sceneName == null)
+        {
+            sceneName = "SampleScene";
+        }
         SceneManager.LoadScene(sceneName);
     }
 
@@ -53,20 +61,24 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void SetEnemySpriteDic() 
+    public void SetEnemySoDic() 
     {
-        enemySpriteDic.Add(Define.MonsterType.None, waitSprite);
-        foreach (var item in enemySprites)
+        foreach (var item in enemySOs)
         {
-            enemySpriteDic.Add((Define.MonsterType)Enum.Parse(typeof(Define.MonsterType), item.name), item);
+            enemySoDic.Add(item.MonsterType, item);
         }
     }
 
-    public Sprite GetActBtnSprite(Define.MonsterType monsterType) => enemySpriteDic[monsterType];
+    public EnemySO GetActBtnSprite(Define.MonsterType monsterType) => enemySoDic[monsterType];
 
     public void UpdateHPText()
     {
         hpText.text = Hp.ToString();
+    }
+
+    public int GetWaypointCount(int listIndex)
+    {
+        return pointLists[listIndex].indexWayPoints.Count;
     }
 
     public void SetWaypoints(Transform waypointParent)
@@ -89,6 +101,12 @@ public class GameManager : MonoBehaviour
         Managers.Wave.aliveEnemies.Remove(enemy);
         Managers.Wave.CheckWaveEnd();
         Destroy(enemy.gameObject);
+    }
+
+    public void SetHP(int value)
+    {
+        Hp = value;
+        UpdateHPText();
     }
 }
 

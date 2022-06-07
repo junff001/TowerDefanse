@@ -13,8 +13,6 @@ public class SpawnerInfo
 {
     public string infoName; // 가독성 떨어질까봐...
     public SpawnerMonsterCount[] monsterBox;
-    [Header("보스")]
-    public EnemyBase boss;
 }
 
 [System.Serializable]
@@ -24,4 +22,6 @@ public class SpawnerMonsterCount
     public EnemyBase enemy;
     [Header("적 수")]
     public int enemyCount;
+    [Header("웨이 포인트 인덱스")]
+    public int wayPointListIndex;
 }

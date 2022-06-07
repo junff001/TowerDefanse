@@ -48,13 +48,21 @@ public class Bomb : Bullet
 
     public override void Shoot()
     {
-        Vector3 direction = targetCatchPos - projectilePos;
-        Vector3 z = Vector3.forward;
-        Vector3 curve = Vector3.Cross(direction, z);
+        /*        Vector3 direction = targetCatchPos - projectilePos;
+                Vector3 z = Vector3.forward;
+                Vector3 curve = Vector3.Cross(direction, z);
 
-        Vector3 pos = projectilePos + direction / 2;
+                Vector3 pos = projectilePos + direction / 2;
+        
+                Vector3 result = pos + curve.normalized * Vector3.Distance(targetCatchPos, projectilePos) / 2;
+         */
 
-        Vector3 result = pos + curve.normalized * Vector3.Distance(targetCatchPos, projectilePos) / 2;
+        float x = (targetCatchPos.x + projectilePos.x) / 2;
+
+        float y = targetCatchPos.y > projectilePos.y ? targetCatchPos.y : projectilePos.y;
+        y += 1;
+
+        Vector3 result = new Vector3(x, y, 0);
         
         transform.position = BezierCurves(projectilePos, result, targetCatchPos, timerCurrent / timerMax);
     }
@@ -85,13 +93,13 @@ public class Bomb : Bullet
         ps.Play();
 
         target = null;
-        timerCurrent = 0;
         gameObject.SetActive(false);
     }
 
     public override void Init()
     {
         Debug.Log("Init");
+        timerCurrent = 0;
         targetCatchPos = target.position;
         projectilePos = transform.position;
     }

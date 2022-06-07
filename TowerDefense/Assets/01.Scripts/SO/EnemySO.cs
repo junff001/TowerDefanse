@@ -45,6 +45,15 @@ public class EnemySO : ScriptableObject
     [SerializeField] private bool isDebuffIimmune = false;
     public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }
 
+    //어떤 몬스터인지
     [SerializeField] private Define.MonsterType monsterType;
     public Define.MonsterType MonsterType { get => monsterType; set => value = monsterType; }
+
+    // 버튼에 사용할 스프라이트
+    [SerializeField] private Sprite sprite = null;
+    public Sprite Sprite { get => sprite; set => value = sprite; }
+
+    // 스폰 비용
+    [SerializeField] private int cost = 0;
+    public int Cost { get => cost; set => value = cost; }
 }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Linq;
 
 public class Map : MonoBehaviour
 {
-    public Tilemap tilemap = null;        // 타일맵
+    [HideInInspector] public Tilemap tilemap = null;        // 타일맵
+    public Tilemap tilemap_view = null;        // 타일맵
 
     public Define.TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
@@ -14,9 +14,16 @@ public class Map : MonoBehaviour
     public int width;
     public int height;
 
+    public Tile placeTile;
+    public Tile roadTile;
+    public Tile waterTile;
+
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
+        if(tilemap_view == null)
+            tilemap_view = tilemap;
+
         InitMap();
     }
 
@@ -40,6 +47,10 @@ public class Map : MonoBehaviour
 
     public void InitMap()
     {
+        placeTile = Managers.Build.placeTile;
+        roadTile = Managers.Build.roadTile;
+        waterTile = Managers.Build.waterTile;
+
         width = tilemap.size.x;
         height = tilemap.size.y;
 
@@ -59,23 +70,29 @@ public class Map : MonoBehaviour
                 continue;
             }
 
-
             Tile tile = tilemap.GetTile<Tile>(position);
             mapTileArray[x, y] = tile;
             mapTileTypeArray[x, y] = GetTileType(tile);
-
-            tilemap.SetTileFlags(position, TileFlags.None);
-
             x++;
+        }
+
+        foreach (var position in tilemap_view.cellBounds.allPositionsWithin)
+        {
+            tilemap_view.SetTileFlags(position, TileFlags.None); // 변하게 하는건 보여지는 Tilmeap_View니까
         }
     }
 
     Define.TileType GetTileType(Tile tile)
     {
-        if (tile.sprite.name.Contains("Road")) // 나중에 읽기 편하라고 
+        if (tile == roadTile) // 나중에 읽기 편하라고 
             return Define.TileType.Road;
-        else if(tile.sprite.name.Contains("Place")) 
+
+        else if (tile == placeTile)
             return Define.TileType.Place;
+
+        else if (tile == waterTile)
+            return Define.TileType.Water;
+
         else
             return Define.TileType.Obstacle;
     }

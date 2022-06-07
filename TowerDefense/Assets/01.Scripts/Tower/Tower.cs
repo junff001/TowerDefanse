@@ -26,6 +26,13 @@ public class Tower : MonoBehaviour
 
     public Transform coreTrm;
 
+    private List<BuffBase> buffList = new List<BuffBase>();
+
+    void Start()
+    {
+        
+    }
+
     public void InitTowerData(TowerSO towerSO)
     {
         towerData.Level = towerSO.Level;
@@ -36,6 +43,38 @@ public class Tower : MonoBehaviour
         towerData.attackTargetCount = towerSO.AttackTargetCount;
         towerData.property = towerSO.propertyType;
         // CoreType에 따라 프리팹 생성
+    }
+
+    public void AddBuff(int offense, float attackSpeed, float range)
+    {
+        for (int i = 0; i < buffList.Count; i++)
+        {
+            if (buffList[i].GetType() == buff.GetType())
+            {
+                if (Mathf.Abs(buffList[i].amplification - buff.amplification) < 0.01f)
+                {
+                    if (buffList[i].duration < buff.duration)
+                    {
+                        buffList[i].duration = buff.duration;
+                        return;
+                    }
+                }
+                else
+                {
+                    if (buffList[i].amplification < buff.amplification)
+                    {
+                        buffList.RemoveAt(i);
+                        break;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        buffList.Add(buff);
     }
 
     // 공격 범위를 표시하는 함수

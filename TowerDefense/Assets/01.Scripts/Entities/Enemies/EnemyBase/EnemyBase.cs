@@ -31,7 +31,9 @@ public abstract class EnemyBase : MonoBehaviour
     private List<BuffBase> buffList = new List<BuffBase>();
     private MeshRenderer mesh = null;
 
+    public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
+    private int realWayPointIndex = 0;
 
     public float aliveTime = 0f;
     public float movedDistance = 0f;
@@ -143,16 +145,20 @@ public abstract class EnemyBase : MonoBehaviour
 
     void Move()
     {
-        if (currentWayPointIndex == Managers.Game.wayPoints.Count)
+        if (currentWayPointIndex == Managers.Game.GetWaypointCount(wayPointListIndex))
         {
             Managers.Game.OnEnemyArrivedLastWaypoint(this);
             return;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, Managers.Game.wayPoints[currentWayPointIndex].transform.position,
+        realWayPointIndex = Managers.Game.pointLists[wayPointListIndex].indexWayPoints[currentWayPointIndex];
+
+        transform.position = Vector3.MoveTowards(transform.position, Managers.Game.wayPoints[realWayPointIndex].transform.position,
             Time.deltaTime * enemyData.MoveSpeed);
 
-        Vector3 dir = Managers.Game.wayPoints[currentWayPointIndex].transform.position - transform.position;
+
+
+        Vector3 dir = Managers.Game.wayPoints[realWayPointIndex].transform.position - transform.position;
 
         float absXScale = Mathf.Abs(transform.localScale.x);
         float xScale = dir.x > 0 ? -absXScale : absXScale;
@@ -174,7 +180,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     bool WayPointDistance()
     {
-        if (Vector2.Distance(Managers.Game.wayPoints[currentWayPointIndex].transform.position, transform.position) < 0.01f)
+        if (Vector2.Distance(Managers.Game.wayPoints[realWayPointIndex].transform.position, transform.position) < 0.01f)
         {
             return true;
         }

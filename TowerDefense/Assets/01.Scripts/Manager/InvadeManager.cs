@@ -8,7 +8,7 @@ public class InvadeManager : MonoBehaviour
 {
     private readonly int MaxRestCount = 5;
     private int curAddedRestCount = 0;
-    public int MaxMonsterCount = 5;
+    public int MaxMonsterCount = 3;
     public int curAddedMonsterCount = 0;
     private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
     int beforeIdx = 0;
@@ -149,11 +149,11 @@ public class InvadeManager : MonoBehaviour
 
     }
 
-    public void OnAddAct(ActData actData)
+    public void OnAddAct(ActData actData, int cost)
     {
         if(actData.actType == Define.ActType.Enemy)
         {
-            curAddedMonsterCount += actData.spawnCost;
+            curAddedMonsterCount += cost;
         }
         else
         {
@@ -161,13 +161,11 @@ public class InvadeManager : MonoBehaviour
         }
         UpdateTexts();
     }
-    public void OnCancelAct(ActData actData)
+    public void OnCancelAct(ActData actData,int cost)
     {
-        if (isWaveProgress) return; // 게임 진행중에는 감소 안함. 0일때 알아서 초기화 해줄거임 
-
         if (actData.actType == Define.ActType.Enemy)
         {
-            curAddedMonsterCount -= actData.spawnCost;
+            curAddedMonsterCount -= cost;
         }
         else
         {
@@ -175,12 +173,8 @@ public class InvadeManager : MonoBehaviour
         }
         UpdateTexts();
     }
-    public void UpdateTexts(bool bWaveEnd = false)
+    public void UpdateTexts()
     {
-        if(bWaveEnd == true)
-        {
-            curAddedMonsterCount = 0;
-        }
         monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
@@ -244,30 +238,30 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
-    public void AddAct(ActData actData)
+    public void AddAct(ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.spawnCost);
-        OnAddAct(newAct);
+        ActData newAct = new ActData(actData.actType, actData.monsterType);
+        OnAddAct(newAct, cost);
         if (IsSameAct(addedAct, newAct))
         {
             if (addedBtn != null) addedBtn.Stack();
         }
         else // 새로 버튼 추가
         {
-            AddBtn(newAct);
+            AddBtn(newAct, cost);
         }
     }
 
-    public void InsertAct(Vector3 dragEndPos, ActData actData)
+    public void InsertAct(Vector3 dragEndPos, ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.spawnCost);
+        ActData newAct = new ActData(actData.actType, actData.monsterType);
 
-        OnAddAct(newAct);
+        OnAddAct(newAct, cost);
         int insertIdx = GetInsertIndex(dragEndPos);
 
         if (insertIdx == -2) // 추가한게 없으면
         {
-            AddBtn(newAct);
+            AddBtn(newAct, cost);
         }
 
         if (insertIdx == -1) // 맨 왼쪽이면.
@@ -278,7 +272,7 @@ public class InvadeManager : MonoBehaviour
             }
             else
             {
-                InsertBtn(newAct, 0);
+                InsertBtn(newAct, 0, cost);
             }
         }
         else if (insertIdx >= 0)// 0이상일 때
@@ -295,12 +289,12 @@ public class InvadeManager : MonoBehaviour
                 }
                 else
                 {
-                    InsertBtn(newAct, insertIdx + 1);
+                    InsertBtn(newAct, insertIdx + 1, cost);
                 }
             }
             else
             {
-                InsertBtn(newAct, insertIdx + 1);
+                InsertBtn(newAct, insertIdx + 1, cost);
             }
         }
         addedAct = newAct;
@@ -348,7 +342,7 @@ public class InvadeManager : MonoBehaviour
         beforeIdx = insertIdx;
     }
 
-    void SetInvisibleObj(int insertIdx)
+    public void SetInvisibleObj(int insertIdx)
     {
         invisibleObj.transform.SetSiblingIndex(insertIdx);
         invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
@@ -362,26 +356,26 @@ public class InvadeManager : MonoBehaviour
         invisibleObj.gameObject.SetActive(false);
     }
 
-    public void AddBtn(ActData newAct)
+    public void AddBtn(ActData newAct, int cost)
     {
         UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
         waitingActs.Add(newBtn);
-        OnCreateRemoveBtn(newAct, newBtn);
+        OnCreateRemoveBtn(newAct, newBtn, cost);
     }
 
-    public void InsertBtn(ActData newAct, int idx)
+    public void InsertBtn(ActData newAct, int idx, int cost)
     {
         UI_CancelActBtn newBtn = Instantiate(cancleBtnPrefab, waitingActContentTrm);
         waitingActs.Insert(idx, newBtn);
-        OnCreateRemoveBtn(newAct, newBtn);
+        OnCreateRemoveBtn(newAct, newBtn, cost);
         newBtn.transform.SetSiblingIndex(idx);
     }
 
-    public bool CanSetWave(Define.ActType actType)
+    public bool CanSetWave(Define.ActType actType, int cost)
     {
         if(actType == Define.ActType.Enemy)
         {
-            return MaxMonsterCount > curAddedMonsterCount && canAddWave;
+            return MaxMonsterCount >= curAddedMonsterCount + cost && canAddWave;
         }
         else
         {
@@ -390,9 +384,9 @@ public class InvadeManager : MonoBehaviour
     }
 
 
-    public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
+    public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn, int cost)
     {
-        newBtn.Init(newAct);
+        newBtn.Init(newAct,waitingActContentTrm);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
         addedAct = newAct;
@@ -400,8 +394,10 @@ public class InvadeManager : MonoBehaviour
 
         newBtn.cancelActBtn.onClick.AddListener(() =>
         {
-            newBtn.Cancel();
-            RefreshRemoveIdxes();
+            if(newBtn.bDragging == false)
+            {
+                newBtn.Cancel();
+            }
         });
     }
 
