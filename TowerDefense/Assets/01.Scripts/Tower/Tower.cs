@@ -12,6 +12,7 @@ public struct TowerData
     public float AttackRange;
     public int PlaceCost;
     public int attackTargetCount;
+    public Define.PropertyType property;
 }
 
 public class Tower : MonoBehaviour
@@ -33,6 +34,7 @@ public class Tower : MonoBehaviour
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
         towerData.attackTargetCount = towerSO.AttackTargetCount;
+        towerData.property = towerSO.propertyType;
         // CoreType에 따라 프리팹 생성
     }
 

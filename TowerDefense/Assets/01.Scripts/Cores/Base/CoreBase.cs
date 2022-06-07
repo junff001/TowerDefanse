@@ -16,7 +16,7 @@ public abstract class CoreBase : MonoBehaviour
     public virtual void Start()
     {
         StartCoroutine(OnRader());
-        StartCoroutine(OnAttack());
+        StartCoroutine(OnAttack());    
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
@@ -73,4 +73,22 @@ public abstract class CoreBase : MonoBehaviour
 
     // 공격 로직 함수
     public abstract void Attack(int power, HealthSystem enemy);
+
+    public virtual void PropertyCheck()
+    {
+        // 애니메이션 이나 그런거 넣으셈
+        switch (towerData.property)
+        {
+            case Define.PropertyType.WATER:
+                break;
+            case Define.PropertyType.FIRE:
+                break;
+            case Define.PropertyType.LIGHTNING:
+                break;
+            case Define.PropertyType.LIGHT:
+                break;
+            case Define.PropertyType.DARKNESS:
+                break;
+        }
+    }
 }

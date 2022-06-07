@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bomb : Bullet
 {
-    private Vector3 targetCatchPos = Vector3.zero;                  // 타겟 포착 위치
-    private Vector3 projectilePos = Vector3.zero;                   // 발사체 위치
+    public Vector3 targetCatchPos = Vector3.zero;                  // 타겟 포착 위치
+    public Vector3 projectilePos = Vector3.zero;                   // 발사체 위치
                                                                     
     [SerializeField] private float curveHeight = 0f;                // 커브 포인트 높이
     [SerializeField] private float explosionRadius = 0f;            // 폭발 반경
@@ -13,15 +13,10 @@ public class Bomb : Bullet
 
     private float timerCurrent = 0f;
     private Collider2D[] enemies = null;                            // 충돌 당한 적 리스트
-    
-    void Start()
-    {
-        targetCatchPos = target.position;
-        projectilePos = transform.position;
-    }
 
     public override void Update()
     {
+        Debug.Log("Update");
         if (target != null)
         {
             if (timerCurrent > timerMax)
@@ -40,7 +35,6 @@ public class Bomb : Bullet
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        Debug.Log("스플뎀");
                         enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
                     }
                 }
@@ -90,12 +84,16 @@ public class Bomb : Bullet
         ps.transform.position = targetCatchPos;
         ps.Play();
 
+        target = null;
         gameObject.SetActive(false);
     }
 
     public override void Init()
     {
-
+        Debug.Log("Init");
+        timerCurrent = 0;
+        targetCatchPos = target.position;
+        projectilePos = transform.position;
     }
 
 #if UNITY_EDITOR

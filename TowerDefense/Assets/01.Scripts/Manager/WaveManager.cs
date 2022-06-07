@@ -30,7 +30,7 @@ public class WaveManager : MonoBehaviour
     public List<EnemyBase> enemyList = new List<EnemyBase>();
 
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
-    public Queue<EnemyBase> enemySpawnQueue = new Queue<EnemyBase>();
+    public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
@@ -102,15 +102,9 @@ public class WaveManager : MonoBehaviour
         {
             for (int i = 0; i < item.enemyCount; i++)
             {
-                enemySpawnQueue.Enqueue(item.enemy);
+                enemySpawnQueue.Enqueue(item);
             }
         }
-
-        if (waveSO.waveEnemyInfos[Wave - 1].boss != null)
-        {
-            enemySpawnQueue.Enqueue(waveSO.waveEnemyInfos[Wave - 1].boss);
-        }
-        // 보스도 있으면 큐에 추가해줘야함
     }
 
     public void WaveStart()
@@ -205,9 +199,10 @@ public class WaveManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
             }
 
-            EnemyBase enemy = enemySpawnQueue.Dequeue();
+            SpawnerMonsterCount enemyInfo = enemySpawnQueue.Dequeue();
 
-            EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
+            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[0].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
+            enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
             aliveEnemies.Add(enemyObj);
 

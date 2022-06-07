@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour
     public bool isAnyActing = false;
 
     public Transform waypointsParent;
+
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
+    public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
     public Sprite waitSprite;
 
@@ -72,6 +74,11 @@ public class GameManager : MonoBehaviour
     public void UpdateHPText()
     {
         hpText.text = Hp.ToString();
+    }
+
+    public int GetWaypointCount(int listIndex)
+    {
+        return pointLists[listIndex].indexWayPoints.Count;
     }
 
     public void SetWaypoints(Transform waypointParent)
