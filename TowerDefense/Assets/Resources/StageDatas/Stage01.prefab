@@ -3783,6 +3783,9 @@ MonoBehaviour:
   tilemap_view: {fileID: 5287538210860401121}
   width: 0
   height: 0
+  placeTile: {fileID: 0}
+  roadTile: {fileID: 0}
+  waterTile: {fileID: 0}
 --- !u!50 &1027697288510419995
 Rigidbody2D:
   serializedVersion: 4

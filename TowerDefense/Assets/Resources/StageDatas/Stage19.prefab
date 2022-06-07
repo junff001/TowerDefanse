@@ -1932,6 +1932,7 @@ MonoBehaviour:
   waypointsParent: {fileID: 2161762172719924502}
   map: {fileID: 0}
   waveSO: {fileID: 11400000, guid: 0a988c2e4aa0ea94181ed0545ab0bb6e, type: 2}
+  pointLists: []
 --- !u!1 &5943915107742317890
 GameObject:
   m_ObjectHideFlags: 0
@@ -3944,6 +3945,9 @@ MonoBehaviour:
   tilemap_view: {fileID: 0}
   width: 0
   height: 0
+  placeTile: {fileID: 0}
+  roadTile: {fileID: 0}
+  waterTile: {fileID: 0}
 --- !u!19719996 &6160919249981330544
 TilemapCollider2D:
   m_ObjectHideFlags: 0

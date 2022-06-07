@@ -113,11 +113,14 @@ public class Managers : MonoBehaviour
         Debug.Log("Managers.OnSceneChanged");
         managementObj = GameObject.Find("@Management");
 
-        s_instance._gold = managementObj.transform.Find("@Gold")?.GetComponent<GoldManager>();
-        s_instance._game = managementObj.transform.Find("@Game")?.GetComponent<GameManager>();
-        s_instance._wave = managementObj.transform.Find("@Wave")?.GetComponent<WaveManager>();
-        s_instance._build = managementObj.transform.Find("@Build")?.GetComponent<BuildManager>();
-        s_instance._invade = managementObj.transform.Find("@Invade")?.GetComponent<InvadeManager>();
+        if (managementObj != null)
+        {
+            s_instance._gold = managementObj.transform.Find("@Gold")?.GetComponent<GoldManager>();
+            s_instance._game = managementObj.transform.Find("@Game")?.GetComponent<GameManager>();
+            s_instance._wave = managementObj.transform.Find("@Wave")?.GetComponent<WaveManager>();
+            s_instance._build = managementObj.transform.Find("@Build")?.GetComponent<BuildManager>();
+            s_instance._invade = managementObj.transform.Find("@Invade")?.GetComponent<InvadeManager>();
+        }
 
         Stage.OnSceneLoaded();
     }

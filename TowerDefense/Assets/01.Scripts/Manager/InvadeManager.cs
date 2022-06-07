@@ -8,7 +8,7 @@ public class InvadeManager : MonoBehaviour
 {
     private readonly int MaxRestCount = 5;
     private int curAddedRestCount = 0;
-    public int MaxMonsterCount = 5;
+    public int MaxMonsterCount = 3;
     public int curAddedMonsterCount = 0;
     private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
     int beforeIdx = 0;

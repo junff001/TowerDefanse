@@ -30,7 +30,10 @@ public class CameraZoom : MonoBehaviour
         {
             addSize = Time.deltaTime * zoomSpeed;
         }
-
+        else
+        {
+            addSize = 0;
+        }
         Zoom(addSize);
     }
 
