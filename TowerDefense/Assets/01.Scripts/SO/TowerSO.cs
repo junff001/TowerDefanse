@@ -8,7 +8,8 @@ public enum eCoreName
     Bow,
     Catapult,
     Spike,
-    WoodenBarrel
+    WoodenBarrel,
+    Jewel
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]

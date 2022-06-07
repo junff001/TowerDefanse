@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 864607307150061630}
   - component: {fileID: 864607307150061628}
+  - component: {fileID: -7119941075376176510}
   m_Layer: 0
   m_Name: Jewel
   m_TagString: Untagged
@@ -82,3 +83,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7119941075376176510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864607307150061631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170d8c1043c0ffe4a8a760cdac17bafa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoHeight: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  coreType: 5

@@ -28,7 +28,7 @@ public class Penetration_Core : CoreBase
     {
         while (true)
         {
-            if (currentTarget != null)
+            if (currentTarget != null && enemies.Length > 0)
             {
                 Vector2 direction = currentTarget.transform.position - bowBody.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -37,28 +37,6 @@ public class Penetration_Core : CoreBase
             }
 
             yield return null;
-        }
-    }
-
-    public override IEnumerator OnAttack()
-    {
-        while (true)
-        {
-            yield return new WaitUntil(() => enemies?.Length > 0);
-            currentTarget = enemies[0];
-
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                if (i >= towerData.attackTargetCount)
-                    break;
-
-                if (enemies[i] != null)
-                {
-                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
-                }
-            }
-
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }
 

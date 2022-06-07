@@ -69,4 +69,10 @@ public class Define
         DEFENSE,
         OFFENSE
     }
+
+    public enum BuffType
+    {
+        BUFF,
+        DEBUFF
+    }
 }
