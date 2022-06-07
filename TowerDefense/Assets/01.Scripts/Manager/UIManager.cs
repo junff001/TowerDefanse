@@ -18,7 +18,7 @@ public class UIManager
 
         textPrefab = Resources.Load<GameObject>("UI/PopupText");
 
-        Transform canvas = uiManager.transform.Find("Canvas");
+        Transform canvas = uiManager.transform.Find("Canvas/TipTextBox");
         txtTrans = canvas;
     }
 
