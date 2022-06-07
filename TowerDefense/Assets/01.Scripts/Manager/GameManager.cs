@@ -102,5 +102,11 @@ public class GameManager : MonoBehaviour
         Managers.Wave.CheckWaveEnd();
         Destroy(enemy.gameObject);
     }
+
+    public void SetHP(int value)
+    {
+        Hp = value;
+        UpdateHPText();
+    }
 }
 
