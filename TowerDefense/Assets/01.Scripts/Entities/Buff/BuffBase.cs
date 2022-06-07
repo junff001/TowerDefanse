@@ -10,6 +10,8 @@ public class BuffBase
     public bool isEnd;
     public GameObject affecter;
 
+    public Define.BuffType buffType;
+
     public BuffBase(GameObject _affecter, float _duration, float _amplification)
     {
         affecter = _affecter;

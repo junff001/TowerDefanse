@@ -10,7 +10,7 @@ public class BuffDOT : BuffBase
 
     public BuffDOT(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
     {
-
+        buffType = Define.BuffType.DEBUFF;
     }
 
     public override void Init()

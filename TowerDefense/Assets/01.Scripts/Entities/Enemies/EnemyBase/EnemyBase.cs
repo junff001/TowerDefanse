@@ -94,11 +94,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void AddBuff(BuffBase buff)
     {
+        if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
+
         for (int i = 0; i < buffList.Count; i++)
         {
             if (buffList[i] == buff)
             {
-                if (Mathf.Abs(buffList[i].amplification - buff.amplification) < 0.1f)
+                if (Mathf.Abs(buffList[i].amplification - buff.amplification) < 0.01f)
                 {
                     if (buffList[i].duration < buff.duration)
                     {
