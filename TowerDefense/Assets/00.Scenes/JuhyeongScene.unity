@@ -929,6 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7f913e5dc35e44ab2c5bc3ab255253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAnyActing: 0
   waypointsParent: {fileID: 0}
   wayPoints: []
   waitSprite: {fileID: 21300000, guid: bb140da66e8f5f147b7f477f6641e302, type: 3}
@@ -5933,7 +5934,7 @@ MonoBehaviour:
   - {fileID: 3349517641496805959, guid: 8f57f80ca9eb2f442a8d3c789620792d, type: 3}
   - {fileID: -6005487465089155998, guid: 6ab527ac63aeb354fb8ef3c908278072, type: 3}
   spawnedTowers: []
-  movingTowerImg: {fileID: 0}
+  movingImg: {fileID: 0}
 --- !u!1 &1527007684
 GameObject:
   m_ObjectHideFlags: 0

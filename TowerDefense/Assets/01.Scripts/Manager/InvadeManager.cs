@@ -163,8 +163,6 @@ public class InvadeManager : MonoBehaviour
     }
     public void OnCancelAct(ActData actData)
     {
-        if (isWaveProgress) return; // 게임 진행중에는 감소 안함. 0일때 알아서 초기화 해줄거임 
-
         if (actData.actType == Define.ActType.Enemy)
         {
             curAddedMonsterCount -= actData.spawnCost;
@@ -175,12 +173,8 @@ public class InvadeManager : MonoBehaviour
         }
         UpdateTexts();
     }
-    public void UpdateTexts(bool bWaveEnd = false)
+    public void UpdateTexts()
     {
-        if(bWaveEnd == true)
-        {
-            curAddedMonsterCount = 0;
-        }
         monsterText.text = $"{curAddedMonsterCount}/{MaxMonsterCount}";
     }
 
@@ -348,7 +342,7 @@ public class InvadeManager : MonoBehaviour
         beforeIdx = insertIdx;
     }
 
-    void SetInvisibleObj(int insertIdx)
+    public void SetInvisibleObj(int insertIdx)
     {
         invisibleObj.transform.SetSiblingIndex(insertIdx);
         invisibleObj.DOSizeDelta(new Vector2(sideLength, sideLength), 0.5f);
@@ -392,7 +386,7 @@ public class InvadeManager : MonoBehaviour
 
     public void OnCreateRemoveBtn(ActData newAct, UI_CancelActBtn newBtn)
     {
-        newBtn.Init(newAct);
+        newBtn.Init(newAct,waitingActContentTrm);
         newBtn.Stack();
         addedBtn = newBtn; // 같은거면 쌓아줘야 하니까 변수에 넣어주고~
         addedAct = newAct;
@@ -400,8 +394,10 @@ public class InvadeManager : MonoBehaviour
 
         newBtn.cancelActBtn.onClick.AddListener(() =>
         {
-            newBtn.Cancel();
-            RefreshRemoveIdxes();
+            if(newBtn.bDragging == false)
+            {
+                newBtn.Cancel();
+            }
         });
     }
 

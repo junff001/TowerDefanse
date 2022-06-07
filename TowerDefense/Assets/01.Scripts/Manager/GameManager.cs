@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int maxHp { get; set; } = 10;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
+    public bool isAnyActing = false;
 
     public Transform waypointsParent;
     [HideInInspector]
@@ -41,9 +42,14 @@ public class GameManager : MonoBehaviour
         UpdateHPText();
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName = null)
     {
         Time.timeScale = 1;
+
+        if(sceneName == null)
+        {
+            sceneName = "SampleScene";
+        }
         SceneManager.LoadScene(sceneName);
     }
 

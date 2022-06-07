@@ -140,7 +140,7 @@ public class WaveManager : MonoBehaviour
             Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
             Debug.Log("인원 추가");
         }
-        Managers.Invade.UpdateTexts(true); // 웨이브 끝났으니까 텍스트 0으로 초기화
+        Managers.Invade.UpdateTexts();
     }
 
     public void CheckWaveEnd()

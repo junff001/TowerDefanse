@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wooden Barrel Tower
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 100
+  offensePower: 50
   attackSpeed: 0.5
   attackRange: 4
-  placeCost: 100
+  placeCost: 300
   attackTargetCount: 1
   towerSprite: {fileID: 3954836654050351759, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
   placeTileType: 0

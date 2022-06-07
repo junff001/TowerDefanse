@@ -47,13 +47,6 @@ public class Define
         FlyingGoblin,
     }
 
-    public enum MagicType // 마법 추가될 때 마다 추가해줘
-    {
-        None, 
-        GoblinBarrel,
-        FireBall, // 뭔가 미래가 보여서 넣어봤어..
-    }
-
     public enum PropertyType
     {
         NONE,
