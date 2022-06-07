@@ -32,9 +32,6 @@ public class WaveManager : MonoBehaviour
     public Dictionary<Define.MonsterType, EnemyBase> enemyDic = new Dictionary<Define.MonsterType, EnemyBase>();
     public List<EnemyBase> enemyList = new List<EnemyBase>();
 
-    public Dictionary<Define.MagicType, MagicBase> magicDic = new Dictionary<Define.MagicType, MagicBase>();
-    [Header("고블린통 같은거")] public List<MagicBase> magicList = new List<MagicBase>();
-
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<EnemyBase> enemySpawnQueue = new Queue<EnemyBase>();
 
@@ -63,7 +60,7 @@ public class WaveManager : MonoBehaviour
             ChangeMode(gameMode);
         }
     }
-    bool IsWaveProgressing
+    public bool IsWaveProgressing
     {
         get
         {
@@ -73,18 +70,11 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i< enemyList.Count; i++)
+        for(int i = 0; i< enemyList.Count; i++) // 에너미 딕셔너리 세팅
         {
             enemyList[i].InitEnemyData();
             enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
         }
-
-        for (int i = 0; i < enemyList.Count; i++)
-        {
-            magicList[i].InitEnemyData();
-            magicDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
-        }
-
 
         DefenseSetNextWave();
     }
@@ -143,8 +133,6 @@ public class WaveManager : MonoBehaviour
             Managers.Gold.GoldPlus(rewardGold);
             Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
             Debug.Log("돈 추가");
-
-
         }
         else
         {
@@ -152,7 +140,7 @@ public class WaveManager : MonoBehaviour
             Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
             Debug.Log("인원 추가");
         }
-        Managers.Invade.UpdateTexts();
+        Managers.Invade.UpdateTexts(true); // 웨이브 끝났으니까 텍스트 0으로 초기화
     }
 
     public void CheckWaveEnd()
@@ -223,7 +211,6 @@ public class WaveManager : MonoBehaviour
             EnemyBase enemy = enemySpawnQueue.Dequeue();
 
             EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
-            HealthSystem enemyHealth = enemyObj.GetComponent<HealthSystem>();
 
             aliveEnemies.Add(enemyObj);
 

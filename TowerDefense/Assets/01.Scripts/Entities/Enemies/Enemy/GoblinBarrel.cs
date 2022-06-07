@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinBarrel : MagicBase
+public class GoblinBarrel : EnemyBase
 {
     Vector3 direction = Vector3.zero;
 
@@ -11,17 +11,23 @@ public class GoblinBarrel : MagicBase
     public float speed;
 
 
-    private void Start()
+    protected override void Awake()
+    {
+        // 그냥 아무것도 안하게.
+    }
+
+    protected override void Start()
     {
         direction = targetPos - transform.position;
         speed = direction.x / timerMax; // 가야 하는 거리를 총 시간으로 빼 봤음..
     }
 
-    public override void Update()
+    protected override void Update()
     {
-        base.Update();
         timerCurrent += Time.deltaTime * speed;
         Shoot();
+
+        if (timerMax <= timerCurrent) OnArrivedTartgetPoint(); // curTime이 더 커지면 목적지까지 이동한거임.
     }
 
     public void Shoot()
@@ -41,11 +47,20 @@ public class GoblinBarrel : MagicBase
         return Vector2.Lerp(lerp1, lerp2, t);
     }
 
-    public override void CollisionEvent()
+    public void OnArrivedTartgetPoint()
     {
-        base.CollisionEvent(); 
+        Vector3Int destPos = Vector3Int.FloorToInt(targetPos); // 목표 지점을 int로 바꿔주고,
+        destPos = Managers.Build.map.tilemap.WorldToCell(destPos);
 
-        
+        // 고블린 소환
+        EnemyBase goblin = Instantiate(Managers.Wave.enemyDic[Define.MonsterType.Goblin], destPos, Quaternion.identity); // 고블린 소환..
+        Managers.Wave.aliveEnemies.Add(this);
+        goblin.InitEnemyData();
+        goblin.SetStartWaypoint();
 
+
+        // 대충 이펙트 던져주고
+        Managers.Wave.aliveEnemies.Remove(this);
+        Destroy(this.gameObject);
     }
 }

@@ -1423,7 +1423,7 @@ MonoBehaviour:
   waveRoundCount: {fileID: 1054401608}
   poolManagerTrm: {fileID: 488542035}
   waveRect: {fileID: 1354054138}
-  waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
+  waveSO: {fileID: 11400000, guid: 7e1280408a3639445913f70f2efe3d2f, type: 2}
   enemyList:
   - {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
   - {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   - {fileID: -6005487465089155998, guid: 6ab527ac63aeb354fb8ef3c908278072, type: 3}
   - {fileID: 6099001705342116935, guid: 6ef95ae64b4a7e3418cbf6c28a63beb8, type: 3}
   spawnedTowers: []
-  movingTowerImg: {fileID: 0}
+  movingImg: {fileID: 0}
 --- !u!1 &488542034
 GameObject:
   m_ObjectHideFlags: 0
@@ -10039,7 +10039,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 7.5
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -11392,7 +11392,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

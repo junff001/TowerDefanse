@@ -16,9 +16,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     private Mask mask;
 
-    [SerializeField] private bool canUseWaiting = true;
-
-    void Start()
+    private void Start()
     {
         mask = transform.GetComponentInChildren<Mask>();
         gr = transform.root.GetComponent<GraphicRaycaster>();
@@ -66,28 +64,13 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
             List<RaycastResult> results = new List<RaycastResult>();
             gr.Raycast(eventData, results);
 
-            if (canUseWaiting) // 대기 시간에 설치할 수 있는 얘인지?
+            for(int i = 0; i< results.Count; i++)
             {
-                foreach (var item in results)
+                if (results[i].gameObject.CompareTag("ActContent"))
                 {
-                    if (item.gameObject.CompareTag("ActContent"))
-                    {
-                        Managers.Invade.InsertAct(Input.mousePosition, actData);
-                    }
+                    Managers.Invade.InsertAct(Input.mousePosition, actData);
                 }
             }
-            else
-            {
-                // 고블린통 같은 거 쓸 수 있는 곳인가?
-                if (Managers.Build.IsMagicUsable())
-                {
-                    // 소환
-                    EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
-                    EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
-                    Managers.Wave.aliveEnemies.Add(enemyObj);
-                }
-            }
-            
         }
         else
         {
