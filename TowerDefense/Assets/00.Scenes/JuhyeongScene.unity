@@ -948,6 +948,7 @@ MonoBehaviour:
   isAnyActing: 0
   waypointsParent: {fileID: 0}
   wayPoints: []
+  pointLists: []
   waitSprite: {fileID: 21300000, guid: bb140da66e8f5f147b7f477f6641e302, type: 3}
   enemySOs:
   - {fileID: 11400000, guid: 6424420886170b743bad94ad7f57538a, type: 2}
@@ -6244,6 +6245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d80b3104858274e8cefd44d1b866b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeTile: {fileID: 11400000, guid: ede42c5a821a8a548b1b991281dd37f6, type: 2}
+  roadTile: {fileID: 11400000, guid: fc26db26152e3c84a9d6290e243b0c3d, type: 2}
+  waterTile: {fileID: 11400000, guid: 66adf1f7ec91d0e41bf77b72191c40fa, type: 2}
   map: {fileID: 0}
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
   coreList:

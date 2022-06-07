@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BuildManager : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class BuildManager : MonoBehaviour
     private Vector3Int down = Vector3Int.zero;
     private Vector3Int downRight = Vector3Int.zero;
     #endregion
+
+    public Tile placeTile;
+    public Tile roadTile;
+    public Tile waterTile;
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     private Camera mainCam = null;

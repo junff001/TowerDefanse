@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Linq;
 
 public class Map : MonoBehaviour
 {
@@ -14,6 +13,10 @@ public class Map : MonoBehaviour
 
     public int width;
     public int height;
+
+    public Tile placeTile;
+    public Tile roadTile;
+    public Tile waterTile;
 
     private void Awake()
     {
@@ -44,6 +47,10 @@ public class Map : MonoBehaviour
 
     public void InitMap()
     {
+        placeTile = Managers.Build.placeTile;
+        roadTile = Managers.Build.roadTile;
+        waterTile = Managers.Build.waterTile;
+
         width = tilemap.size.x;
         height = tilemap.size.y;
 
@@ -77,10 +84,12 @@ public class Map : MonoBehaviour
 
     Define.TileType GetTileType(Tile tile)
     {
-        if (tile.sprite.name.Contains("Road")) // 나중에 읽기 편하라고 
+        if (tile == roadTile) // 나중에 읽기 편하라고 
             return Define.TileType.Road;
-        else if(tile.sprite.name.Contains("Place")) 
+        else if (tile == placeTile)
             return Define.TileType.Place;
+        else if (tile == waterTile)
+            return Define.TileType.Water;
         else
             return Define.TileType.Obstacle;
     }

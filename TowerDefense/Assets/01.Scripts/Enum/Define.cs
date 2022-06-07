@@ -31,6 +31,7 @@ public class Define
         Tower,
         Obstacle,
         Tunnel,
+        Water,
 
         Road_Tower,
         Place_Tower,
