@@ -9,17 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
-  m_Name: ShadowGoblin
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: Goblin_2_Atlas
   m_EditorClassIdentifier: 
-  hp: 200
-  shield: 0
-  offensePower: 1
-  moveSpeed: 1.6
-  rewardGold: 10
-  isHide: 1
-  isGuardian: 0
-  isFlying: 0
-  propertyResistance: 0
-  isDebuffIimmune: 0
-  monsterType: 2
+  atlasFile: {fileID: 4900000, guid: e6d11b9fd29938743ab228cccbb91900, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 0af1bd6b9678b1843999cfd0da62f1f4, type: 2}
