@@ -15,16 +15,6 @@ MonoBehaviour:
   waveEnemyInfos:
   - infoName: 
     monsterBox:
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 2
-      wayPointListIndex: 0
-  - infoName: 
-    monsterBox:
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 4
-      wayPointListIndex: 0
-  - infoName: 
-    monsterBox:
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 8
+    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
+      enemyCount: 1
       wayPointListIndex: 0
