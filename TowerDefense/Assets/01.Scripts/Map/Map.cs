@@ -17,7 +17,10 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
-        if(tilemap == null) tilemap = GetComponent<Tilemap>();
+        tilemap = GetComponent<Tilemap>();
+        if(tilemap_view == null)
+            tilemap_view = tilemap;
+
         InitMap();
     }
 
