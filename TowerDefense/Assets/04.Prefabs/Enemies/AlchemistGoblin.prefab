@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 0af1bd6b9678b1843999cfd0da62f1f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 6cc15b9be41ae244aa831fd62c50d585, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: fcc0410fae063da458e17067dee9e998, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -138,8 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb66769672c93ad4db05c0294d50955c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSlots: []
-  attachmentKeys: []
+  targetSlots:
+  - NiceHat
+  attachmentKeys:
+  - NiceHat
   dieAnim: Normal_Die
 --- !u!114 &2370735874463284289
 MonoBehaviour:
@@ -191,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a59a0a5be7bf243a6972adae811cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0, z: 0}
   enemySO: {fileID: 11400000, guid: 6424420886170b743bad94ad7f57538a, type: 2}
   enemyData:
     HP: 300
