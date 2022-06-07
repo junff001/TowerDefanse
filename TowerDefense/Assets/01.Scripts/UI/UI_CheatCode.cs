@@ -36,6 +36,9 @@ public class UI_CheatCode : MonoBehaviour
                 case "/setvalue":
                     SetValueCommand(split_command);
                     break;
+                case "/timescale":
+                    TimeScaleCommand(split_command);
+                    break;
             }
         }
     }
@@ -60,6 +63,26 @@ public class UI_CheatCode : MonoBehaviour
                         Managers.UI.SummonText(new Vector2(960, 300), $"health 값을 {result2}로 설정했습니다", 40);
                     }
                     break;
+            }
+        }
+    }
+
+    private void TimeScaleCommand(string[] command)
+    {
+        if (CheckNullIndex(command, 1))
+        {
+            if (int.TryParse(command[1], out int result))
+            {
+                if (result >= 0 && result <= 16)
+                {
+
+                    Time.timeScale = result;
+                    Managers.UI.SummonText(new Vector2(960, 300), $"timeScale 값을 {result}로 설정했습니다", 40);
+                }
+                else
+                {
+                    Managers.UI.SummonText(new Vector2(960, 300), $"잘못된 값입니다 : (0 ~ 16)", 40);
+                }
             }
         }
     }
