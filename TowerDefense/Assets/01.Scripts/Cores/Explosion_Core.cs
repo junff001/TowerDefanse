@@ -12,6 +12,7 @@ public class Explosion_Core : CoreBase
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
         bullet.bulletDamage = power;
+        bullet.Init();
     }
 
     public override IEnumerator OnAttack()
