@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class UI_CheatCode : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
     public bool isShow { get; set; } = false;
-    public Text cheatText;
+    public InputField cheatText;
+    public InputField cheatText_temp;
+
+    private GameObject showui_inGameCanvas;
+    private bool showui_enabled = true;
 
     private void Awake()
     {
@@ -17,10 +20,24 @@ public class UI_CheatCode : MonoBehaviour
 
     public void Show(bool show)
     {
-        canvasGroup.DOFade(show ? 1 : 0, 0.5f);
+        ResetWindow();
+
+        canvasGroup.alpha = show ? 1 : 0;
         canvasGroup.blocksRaycasts = show;
         canvasGroup.interactable = show;
         isShow = show;
+
+        if (show)
+        {
+            StartCoroutine(TextSelect());
+        }
+    }
+
+    private IEnumerator TextSelect()
+    {
+        cheatText_temp.Select();
+        yield return null;
+        cheatText.Select();
     }
 
     public void CheckCommand()
@@ -39,8 +56,13 @@ public class UI_CheatCode : MonoBehaviour
                 case "/timescale":
                     TimeScaleCommand(split_command);
                     break;
+                case "/showui":
+                    ShowUICommand(split_command);
+                    break;
             }
         }
+
+        Show(false);
     }
 
     private void SetValueCommand(string[] command)
@@ -75,7 +97,6 @@ public class UI_CheatCode : MonoBehaviour
             {
                 if (result >= 0 && result <= 16)
                 {
-
                     Time.timeScale = result;
                     Managers.UI.SummonText(new Vector2(960, 300), $"timeScale 값을 {result}로 설정했습니다", 40);
                 }
@@ -84,6 +105,35 @@ public class UI_CheatCode : MonoBehaviour
                     Managers.UI.SummonText(new Vector2(960, 300), $"잘못된 값입니다 : (0 ~ 16)", 40);
                 }
             }
+        }
+    }
+
+    private void ShowUICommand(string[] command)
+    {
+        if (CheckNullIndex(command, 1))
+        {
+            if (bool.TryParse(command[1], out bool result))
+            {
+                ChangeUIShow(result);
+            }
+        }
+        else
+        {
+            showui_enabled = !showui_enabled;
+            ChangeUIShow(showui_enabled);
+        }
+
+        void ChangeUIShow(bool value)
+        {
+            if (showui_inGameCanvas == null)
+            {
+                showui_inGameCanvas = GameObject.Find("InGame Canvas");
+            }
+
+            showui_inGameCanvas.SetActive(value);
+            showui_enabled = value;
+
+            Managers.UI.SummonText(new Vector2(960, 300), $"UI 보이기 여부를 {value}로 설정했습니다", 40);
         }
     }
 
