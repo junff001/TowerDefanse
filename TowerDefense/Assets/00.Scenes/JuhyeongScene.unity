@@ -758,11 +758,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193442720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1478016528}
-  m_RootOrder: 6
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &193442722
 MonoBehaviour:
@@ -831,7 +831,7 @@ RectTransform:
   - {fileID: 397669653}
   - {fileID: 2132835081}
   m_Father: {fileID: 1478016528}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -3770,7 +3770,7 @@ RectTransform:
   - {fileID: 721761275}
   - {fileID: 826073209}
   m_Father: {fileID: 1478016528}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -6175,7 +6175,6 @@ RectTransform:
   - {fileID: 1472826654}
   - {fileID: 1702537192}
   - {fileID: 2021173576}
-  - {fileID: 193442721}
   - {fileID: 288854528}
   - {fileID: 1042167672}
   m_Father: {fileID: 0}
@@ -6219,9 +6218,9 @@ RectTransform:
   m_Father: {fileID: 1288744117}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -135}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1509550724
@@ -6433,6 +6432,11 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: 66adf1f7ec91d0e41bf77b72191c40fa, type: 2}
   map: {fileID: 0}
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
+  waterJewel: {fileID: 0}
+  fireJewel: {fileID: 0}
+  lightJewel: {fileID: 0}
+  darknessJewel: {fileID: 0}
+  lightning: {fileID: 0}
   coreList:
   - {fileID: 4597706378882197371, guid: 1913f9cfb66c07f42a921ced9bc43637, type: 3}
   - {fileID: -1383168390690562843, guid: 2510b875c17a8c443be97c64888da84a, type: 3}
