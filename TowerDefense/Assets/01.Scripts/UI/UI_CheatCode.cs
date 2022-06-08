@@ -7,7 +7,8 @@ public class UI_CheatCode : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
     public bool isShow { get; set; } = false;
-    public Text cheatText;
+    public InputField cheatText;
+    public InputField cheatText_temp;
 
     private GameObject showui_inGameCanvas;
     private bool showui_enabled = true;
@@ -19,10 +20,24 @@ public class UI_CheatCode : MonoBehaviour
 
     public void Show(bool show)
     {
+        ResetWindow();
+
         canvasGroup.alpha = show ? 1 : 0;
         canvasGroup.blocksRaycasts = show;
         canvasGroup.interactable = show;
         isShow = show;
+
+        if (show)
+        {
+            StartCoroutine(TextSelect());
+        }
+    }
+
+    private IEnumerator TextSelect()
+    {
+        cheatText_temp.Select();
+        yield return null;
+        cheatText.Select();
     }
 
     public void CheckCommand()
@@ -47,7 +62,7 @@ public class UI_CheatCode : MonoBehaviour
             }
         }
 
-        ResetWindow();
+        Show(false);
     }
 
     private void SetValueCommand(string[] command)
