@@ -65,6 +65,7 @@ public abstract class CoreBase : MonoBehaviour
 
                 if (enemies[i] != null)
                 {
+                    Debug.Log("공격 중");
                     Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
                 }
             }            

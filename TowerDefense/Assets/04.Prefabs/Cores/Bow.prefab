@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 864607307150061630}
   - component: {fileID: 4597706378882197371}
-  - component: {fileID: 8395354958123053276}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -49,31 +48,15 @@ MonoBehaviour:
   gizmoHeight: 0
   enemyMask:
     serializedVersion: 2
-    m_Bits: 15360
+    m_Bits: 4294967295
   coreType: 1
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
+  bow: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  pullBow: {fileID: 584974529283380949, guid: 6d878ababb928894985e64936c103eff, type: 3}
   rotateSpeed: 20
-  pullTime: 0
---- !u!95 &8395354958123053276
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864607307150061631}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2c67e5ac944a78498b8d1ab74ca7669, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  TransitionTime: 1
+  sr: {fileID: 192154975692651868}
 --- !u!1 &1251045487820614655
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,14 +81,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251045487820614655}
-  m_LocalRotation: {x: -0, y: -0, z: -0.8447728, w: 0.53512514}
-  m_LocalPosition: {x: 0, y: 0, z: -0.02}
+  m_LocalRotation: {x: -0, y: -0, z: 0.97795576, w: 0.20881237}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2180965308138597486}
   m_Father: {fileID: 864607307150061630}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -115.295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -564.106}
 --- !u!212 &192154975692651868
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -146,7 +129,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 584974529283380949, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  m_Sprite: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -309,7 +292,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 8002155935406639250, guid: 6d878ababb928894985e64936c103eff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
