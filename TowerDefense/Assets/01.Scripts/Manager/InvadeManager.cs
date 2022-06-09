@@ -13,6 +13,9 @@ public class InvadeManager : MonoBehaviour
     private int actIndex = 0; // 기록된 행동 박스에서 index를 추가하며 time을 비교.
     int beforeIdx = 0;
 
+    private int curSpawnIdx = 0;
+    private int curSpawnCount = 0;
+
     public Color overlapColor;
     public Text monsterText;
 
@@ -45,6 +48,12 @@ public class InvadeManager : MonoBehaviour
 
             RecordedSegmentCheck();
         }
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space) && Managers.Wave.GameMode == Define.GameMode.OFFENSE)
+        {
+            WaveStart();
+        }
+#endif
     }
 
     public void InitRecordLoad()
@@ -129,11 +138,23 @@ public class InvadeManager : MonoBehaviour
     {
         waitingActs[0].Cancel();
 
+        int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
+
+        int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
+
         EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
-        EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[0].transform.position, enemy.transform.rotation, this.transform);
+        EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
         Managers.Wave.aliveEnemies.Add(enemyObj);
+        curSpawnCount++;
+
+        if (curSpawnCount > Managers.Wave.waveSO.offenseHeadCount)
+        {
+            curSpawnCount = 0;
+            curSpawnIdx = (curSpawnIdx + 1) % wayCount;
+        }
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀
+
 
         if (waitingActs.Count == 1 && waitingActs[0].actData.actType == Define.ActType.Wait)
         {

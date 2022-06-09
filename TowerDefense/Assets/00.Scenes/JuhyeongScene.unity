@@ -558,6 +558,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1228332248}
+  - {fileID: 1444771108}
   - {fileID: 1723082698}
   m_Father: {fileID: 1702537192}
   m_RootOrder: 0
@@ -1765,7 +1766,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 287.8449, y: 200}
+  m_SizeDelta: {x: 240, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &563092581
 MonoBehaviour:
@@ -1781,7 +1782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1912407630}
   towerCostText: {fileID: 1680654103}
-  towerSO: {fileID: 11400000, guid: 19ab2609fe6fae8409a1a8a48ea9a6fa, type: 2}
+  towerSO: {fileID: 11400000, guid: a35c7bf79618c8041b68b5f3d42868c7, type: 2}
 --- !u!114 &563092582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,6 +1961,11 @@ MonoBehaviour:
   - {fileID: -2869406021732995179, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
   - {fileID: 5565083786286373815, guid: 5a5ade20a50c67844957786fc4ad696d, type: 3}
   aliveEnemies: []
+  lightAura: {fileID: 168878, guid: 3063e84f78cb62849a63bae47cb1b594, type: 3}
+  lightningAura: {fileID: 1981590522052008, guid: 9def88f10d122044eb64065124d736b0, type: 3}
+  fireAura: {fileID: 107076, guid: 6d4c2b0ea7c28dd43a5a9388e6301ebe, type: 3}
+  darknessAura: {fileID: 178478, guid: a223c2eb6371cdf4ab226ee7a7d979cd, type: 3}
+  waterAura: {fileID: 191372, guid: 8c13461d8a6ef4e4bb0b12e6585a8d66, type: 3}
   defenseTowerGroup: {fileID: 145244611}
   defenseStatus: {fileID: 1074376516}
   defenseHpText: {fileID: 1426151053}
@@ -3531,7 +3537,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 287.8449, y: 200}
+  m_SizeDelta: {x: 240, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &935311895
 MonoBehaviour:
@@ -3547,7 +3553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1264043093}
   towerCostText: {fileID: 733391043}
-  towerSO: {fileID: 11400000, guid: 19ab2609fe6fae8409a1a8a48ea9a6fa, type: 2}
+  towerSO: {fileID: 11400000, guid: 2e080d523e7d69c4aaae014206fc2b73, type: 2}
 --- !u!114 &935311896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3880,7 +3886,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 287.8449, y: 200}
+  m_SizeDelta: {x: 240, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052858728
 MonoBehaviour:
@@ -3896,7 +3902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 639262535}
   towerCostText: {fileID: 1437633851}
-  towerSO: {fileID: 11400000, guid: 61b9d2a63b130584bab5a534362d3ad3, type: 2}
+  towerSO: {fileID: 11400000, guid: 82c5721726ad1114b9c7592b4ee91527, type: 2}
 --- !u!114 &1052858729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4598,7 +4604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.8915094, g: 0.9169878, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5429,7 +5435,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 287.8449, y: 200}
+  m_SizeDelta: {x: 240, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350652267
 MonoBehaviour:
@@ -5445,7 +5451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 792920631}
   towerCostText: {fileID: 1037220414}
-  towerSO: {fileID: 11400000, guid: e71d6bcf012806244a2163fd3f751e3c, type: 2}
+  towerSO: {fileID: 11400000, guid: a271c81d6a9c8c84999532a0d2046e3d, type: 2}
 --- !u!114 &1350652268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5819,19 +5825,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444771107}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 360634334}
-  m_Father: {fileID: 1723082698}
-  m_RootOrder: 5
+  m_Father: {fileID: 145244612}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 220, y: 220}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &1444771109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6444,6 +6450,7 @@ MonoBehaviour:
   - {fileID: -6005487465089155998, guid: 6ab527ac63aeb354fb8ef3c908278072, type: 3}
   spawnedTowers: []
   movingImg: {fileID: 0}
+  placingTileType: 0
 --- !u!1 &1527007684
 GameObject:
   m_ObjectHideFlags: 0
@@ -6690,7 +6697,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 287.8449, y: 200}
+  m_SizeDelta: {x: 240, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1545368723
 MonoBehaviour:
@@ -6706,7 +6713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 672218467}
   towerCostText: {fileID: 1148805306}
-  towerSO: {fileID: 11400000, guid: 4ca1009e4db4d40428eecdf1f8dfd194, type: 2}
+  towerSO: {fileID: 11400000, guid: baee30fafdbcc4b45870d31d283fea43, type: 2}
 --- !u!114 &1545368724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7640,9 +7647,8 @@ RectTransform:
   - {fileID: 1350652266}
   - {fileID: 1545368722}
   - {fileID: 935311894}
-  - {fileID: 1444771108}
   m_Father: {fileID: 145244612}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -7674,9 +7680,9 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 7
-  m_Spacing: -35.7
-  m_ChildForceExpandWidth: 1
+  m_ChildAlignment: 6
+  m_Spacing: 35
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
@@ -8739,6 +8745,7 @@ GameObject:
   - component: {fileID: 2115809727}
   - component: {fileID: 2115809726}
   - component: {fileID: 2115809725}
+  - component: {fileID: 2115809730}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8759,7 +8766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachine: {fileID: 1827872029}
-  zoomSpeed: 30
+  zoomSpeed: 5
   maxSize: 7
 --- !u!114 &2115809726
 MonoBehaviour:
@@ -8860,6 +8867,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2115809730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115809724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &2132835080
 GameObject:
   m_ObjectHideFlags: 0

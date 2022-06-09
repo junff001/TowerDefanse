@@ -14,9 +14,10 @@ public class Bomb : Bullet
     private float timerCurrent = 0f;
     private Collider2D[] enemies = null;                            // 충돌 당한 적 리스트
 
+    public LayerMask enemyMask = default;
+
     public override void Update()
     {
-        Debug.Log("Update");
         if (target != null)
         {
             if (timerCurrent > timerMax)
@@ -31,10 +32,12 @@ public class Bomb : Bullet
             {
                 CollisionEvent();
 
-                if (EnemiesInExplosionRaidus().Length > 0)
+                enemies = EnemiesInExplosionRaidus();
+                if (enemies.Length > 0)
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
+                        Debug.Log(enemies[i].name);
                         enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
                     }
                 }
@@ -82,8 +85,7 @@ public class Bomb : Bullet
 
     Collider2D[] EnemiesInExplosionRaidus()
     {
-        enemies = Physics2D.OverlapCircleAll(targetCatchPos, explosionRadius);
-        return enemies;
+        return Physics2D.OverlapCircleAll(targetCatchPos, explosionRadius, enemyMask);
     }
 
     public override void CollisionEvent()
@@ -114,7 +116,5 @@ public class Bomb : Bullet
             Gizmos.color = Color.white;
         }
     }
-
-    
 #endif
 }

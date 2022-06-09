@@ -17,21 +17,18 @@ public struct TowerData
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private TowerData towerData = new TowerData();              // 인스턴스 타워 정보
-    
+    [SerializeField] private TowerData towerData = new TowerData();// 인스턴스 타워 정보
     public TowerData TowerData { get => towerData; set => value = towerData; }
 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
-    public Action Act = null; // 버프 디버프 공격 등등
-
     public Transform coreTrm;
-
     private List<BuffBase> buffList = new List<BuffBase>();
 
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject lightAura;
+    [SerializeField] private GameObject lightningAura;
+    [SerializeField] private GameObject fireAura;
+    [SerializeField] private GameObject darknessAura;
+    [SerializeField] private GameObject waterAura;
 
     public void InitTowerData(TowerSO towerSO)
     {
@@ -42,12 +39,21 @@ public class Tower : MonoBehaviour
         towerData.PlaceCost = towerSO.PlaceCost;
         towerData.attackTargetCount = towerSO.AttackTargetCount;
         towerData.property = towerSO.propertyType;
-        // CoreType에 따라 프리팹 생성
-    }
 
-    // 공격 범위를 표시하는 함수
-    public void AttackRangeActive()
-    {
 
+        GameObject makeObj = null;
+        switch(towerData.property)
+        {
+            case Define.PropertyType.DARKNESS: makeObj = darknessAura; break;
+            case Define.PropertyType.LIGHT: makeObj = lightAura; break;
+            case Define.PropertyType.LIGHTNING: makeObj = lightningAura; break;
+            case Define.PropertyType.WATER: makeObj = waterAura; break;
+            case Define.PropertyType.FIRE: makeObj = fireAura; break;
+        }
+
+        if(makeObj != null)
+        {
+            Instantiate(makeObj, this.transform);
+        }
     }
 }

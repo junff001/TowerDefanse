@@ -14,8 +14,8 @@ public class EnemyData
     public bool IsHide;
     public bool IsGuardian;
     public bool IsFlying;
-    public Define.PropertyType PropertyResistance;
     public bool IsDebuffIimmune;
+    public Define.PropertyType PropertyResistance;
     public Define.MonsterType MonsterType;
 }
 
@@ -39,6 +39,8 @@ public abstract class EnemyBase : MonoBehaviour
     public float movedDistance = 0f;
 
     SpineController animController;
+
+
 
     protected virtual void Awake()
     {
@@ -65,6 +67,21 @@ public abstract class EnemyBase : MonoBehaviour
             enabled = false;                       // ''
             Invoke("Die", 3f); // 선한쌤이 핏자국 남기라고 하셨던 거 같음 시체나..
         };
+
+        GameObject makeObj = null;
+        switch (enemySO.PropertyResistance)
+        {
+            case Define.PropertyType.DARKNESS: makeObj   = Managers.Wave.darknessAura;  break;
+            case Define.PropertyType.LIGHT: makeObj      = Managers.Wave.lightAura;     break;
+            case Define.PropertyType.LIGHTNING: makeObj  = Managers.Wave.lightningAura; break;
+            case Define.PropertyType.WATER: makeObj      = Managers.Wave.waterAura;     break;
+            case Define.PropertyType.FIRE: makeObj       = Managers.Wave.fireAura;      break;
+        }
+
+        if (makeObj != null)
+        {
+            Instantiate(makeObj, this.transform);
+        }
     }
 
     public void Die()

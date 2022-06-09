@@ -121,6 +121,7 @@ public class Managers : MonoBehaviour
             s_instance._wave = managementObj.transform.Find("@Wave")?.GetComponent<WaveManager>();
             s_instance._build = managementObj.transform.Find("@Build")?.GetComponent<BuildManager>();
             s_instance._invade = managementObj.transform.Find("@Invade")?.GetComponent<InvadeManager>();
+            Record.recordBox.Clear();
         }
 
         Stage.OnSceneLoaded();

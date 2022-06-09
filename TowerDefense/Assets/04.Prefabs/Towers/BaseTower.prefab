@@ -135,7 +135,13 @@ MonoBehaviour:
     AttackRange: 0
     PlaceCost: 0
     attackTargetCount: 0
+    property: 0
   coreTrm: {fileID: 5959093991930460599}
+  lightAura: {fileID: 168878, guid: 2a764fe434920144799e801ce6f949fd, type: 3}
+  lightningAura: {fileID: 1981590522052008, guid: 3652379d21b4c824686891f8f3830088, type: 3}
+  fireAura: {fileID: 107076, guid: 1048366b48a8cc3429168da2a8224d7d, type: 3}
+  darknessAura: {fileID: 178478, guid: babbe5be7b93cf74aa2fd133ac36a83c, type: 3}
+  waterAura: {fileID: 191372, guid: 559b36e032a8acb44a5ffe0ededc6df9, type: 3}
 --- !u!1 &6440560775465285333
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,8 +210,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -56251617
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -1866386917135334742, guid: e615faa09d25d65498858ab965a2db8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

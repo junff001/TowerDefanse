@@ -32,6 +32,13 @@ public class WaveManager : MonoBehaviour
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
+    [Header("속성 이펙트")]
+    public GameObject lightAura;
+    public GameObject lightningAura;
+    public GameObject fireAura;
+    public GameObject darknessAura;
+    public GameObject waterAura;
+
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
     public RectTransform defenseStatus;
@@ -75,6 +82,17 @@ public class WaveManager : MonoBehaviour
 
         DefenseSetNextWave();
     }
+
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && Managers.Wave.GameMode == Define.GameMode.DEFENSE)
+        {
+            WaveStart();
+        }
+    }
+#endif
+
 
     public void DefenseSetNextWave()
     {
@@ -228,7 +246,7 @@ public class WaveManager : MonoBehaviour
                     if (Managers.Build.movingImg != null)
                     {
                         Managers.Build.movingImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
-                        Managers.Build.ResetCheckedTiles();
+                        Managers.Build.ResetCheckedTiles(true);
                         Managers.Build.movingImg = null;
                     }
 

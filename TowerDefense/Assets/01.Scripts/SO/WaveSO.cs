@@ -8,7 +8,7 @@ public class WaveSO : ScriptableObject
     public SpawnerInfo[] waveEnemyInfos;
 
     [Header("오펜스 때 끊어나올 수")]
-    public int offenseHeadCount;
+    public int offenseHeadCount = 5;
 }
 
 [System.Serializable]

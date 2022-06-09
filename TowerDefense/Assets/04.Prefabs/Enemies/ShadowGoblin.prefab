@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b95d8bcfb2fe0a440aa0cd6f5161846d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -196,12 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3786971334562438cc05100164cfe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0, z: 0}
   enemySO: {fileID: 11400000, guid: d1100a2814b3718428d73035c5dc8083, type: 2}
   enemyData:
     HP: 200
     Shield: 0
     OffensePower: 1
-    MoveSpeed: 1.6
+    MoveSpeed: 8
     RewardGold: 10
     IsHide: 1
     IsGuardian: 0
