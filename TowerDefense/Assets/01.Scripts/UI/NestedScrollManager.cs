@@ -14,14 +14,24 @@ public class NestedScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandle
     float distance, curPos ,targetPos;
     bool isDrag;
     int targetIndex =0;
-    
+
+
+    public GameObject selectTowerPanel;
     public Transform parent;
     public GameObject towerCard;
     public GameObject emteCard;
     public List<GameObject> towers = new List<GameObject>();
+    public Button exitBtn;
 
     void Start()
     {
+
+        exitBtn.onClick.AddListener(() =>
+        {
+            //타워 패널 띄움
+            selectTowerPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * 2, 0.5f);
+
+        });
         List<Dictionary<string, object>> data = CSVReader.Read("TowerList.csv");
         size = data.Count + 1;
         pos = new float[size];
