@@ -4,10 +4,8 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
     [HideInInspector] public Tilemap tilemap = null;        // 타일맵
-    [HideInInspector] public Tilemap tilemap_view = null;        // 타일맵
+    [HideInInspector] public Tilemap gridTilemap = null;        // 타일맵
     [HideInInspector] public TilemapRenderer tilemap_view_renderer = null;        // 타일맵
-
-
 
     public Define.TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
@@ -22,8 +20,8 @@ public class Map : MonoBehaviour
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
-        tilemap_view = transform.GetChild(0).GetComponent<Tilemap>();
-        tilemap_view_renderer = tilemap_view.GetComponent<TilemapRenderer>();
+        gridTilemap = transform.GetChild(0).GetComponent<Tilemap>();
+        tilemap_view_renderer = gridTilemap.GetComponent<TilemapRenderer>();
         InitMap();
     }
 
@@ -53,7 +51,7 @@ public class Map : MonoBehaviour
         {
             if(Managers.Build.IsPlaceableTile(pos, placeTileType))
             {
-                tilemap_view.SetColor(pos, Color.white);
+                gridTilemap.SetColor(pos, Color.white);
             }
         }
     }
@@ -88,8 +86,8 @@ public class Map : MonoBehaviour
             mapTileTypeArray[x, y] = GetTileType(tile);
             x++;
 
-            tilemap_view.SetTileFlags(position, TileFlags.None);
-            tilemap_view.SetColor(position, new Color(1, 1, 1, 0f));
+            gridTilemap.SetTileFlags(position, TileFlags.None);
+            gridTilemap.SetColor(position, new Color(1, 1, 1, 0f));
         }
     }
 

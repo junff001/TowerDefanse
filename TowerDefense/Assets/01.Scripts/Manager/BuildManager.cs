@@ -36,6 +36,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private Sprite darknessJewel;
     [SerializeField] private Sprite lightning;
 
+
+
     private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
@@ -90,14 +92,14 @@ public class BuildManager : MonoBehaviour
 
         if (clearTileColor) // 컬러가 없으면
         {
-            foreach(var item in map.tilemap_view.cellBounds.allPositionsWithin) map.tilemap_view.SetColor(item, new Color(1, 1, 1, 0));
+            foreach(var item in map.gridTilemap.cellBounds.allPositionsWithin) map.gridTilemap.SetColor(item, new Color(1, 1, 1, 0));
             return;
         }
 
         foreach (var pos in checkedPos)
         {
             if(IsPlaceableTile(pos, placingTileType))
-                map.tilemap_view.SetColor(pos, Color.white); // 파란색으로 바꿔주기
+                map.gridTilemap.SetColor(pos, Color.white); // 파란색으로 바꿔주기
         }
     }
 
@@ -111,7 +113,7 @@ public class BuildManager : MonoBehaviour
         {
             if (IsPlaceableTile(pos, placeTileType))
             {
-                map.tilemap_view.SetColor(pos, Color.blue); // 아마 블루
+                map.gridTilemap.SetColor(pos, Color.blue); // 아마 블루
             }
         }
 

@@ -6,8 +6,9 @@ using Cinemachine;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera cinemachine;
-    [SerializeField] private float zoomSpeed;
-    [Range(5,20)] [SerializeField] private float maxSize;
+    [SerializeField] private float zoomSpeed = 5f;
+    [Range(5,8)] 
+    [SerializeField] private float maxSize;
     private const float minSize = 5f;
     private float addSize = 0f;
 
@@ -22,19 +23,11 @@ public class CameraZoom : MonoBehaviour
 
     void MouseZoom()
     {
-        if (Input.mouseScrollDelta.y > 0)
-        {
-            addSize = -Time.deltaTime * zoomSpeed;
-        }
-        else if (Input.mouseScrollDelta.y < 0)
-        {
-            addSize = Time.deltaTime * zoomSpeed;
-        }
-        else
-        {
-            addSize = 0;
-        }
-        Zoom(addSize);
+        if (addSize > 0 && Input.mouseScrollDelta.y < 0) addSize = 0;
+        if (addSize < 0 && Input.mouseScrollDelta.y > 0) addSize = 0;
+
+        addSize += -Input.mouseScrollDelta.y * 0.5f;
+        SmoothZoom();
     }
 
     void PinchZoom()
@@ -55,6 +48,14 @@ public class CameraZoom : MonoBehaviour
 
     void Zoom(float increment)
     {
-        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + increment, minSize, maxSize);
+        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(cinemachine.m_Lens.OrthographicSize + increment, minSize, maxSize); 
+    }
+
+    void SmoothZoom()
+    {
+        float camSize = cinemachine.m_Lens.OrthographicSize;
+        float value = Mathf.Lerp(camSize, camSize + addSize, Time.deltaTime * zoomSpeed);
+        addSize -= (value - camSize);
+        cinemachine.m_Lens.OrthographicSize = Mathf.Clamp(value, minSize, maxSize);
     }
 }
