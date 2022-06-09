@@ -228,7 +228,7 @@ public class WaveManager : MonoBehaviour
                     if (Managers.Build.movingImg != null)
                     {
                         Managers.Build.movingImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
-                        Managers.Build.ResetCheckedTiles();
+                        Managers.Build.ResetCheckedTiles(true);
                         Managers.Build.movingImg = null;
                     }
 

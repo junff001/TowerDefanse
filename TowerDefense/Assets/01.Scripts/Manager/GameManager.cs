@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         {
             sceneName = "SampleScene";
         }
-        SceneManager.LoadScene(sceneName);
+        Managers.LoadScene.LoadScene(sceneName);
     }
 
     public void LoadCurScene()

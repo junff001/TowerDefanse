@@ -9,6 +9,7 @@ TagManager:
   - RoadTile
   - Tower
   - ActContent
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Enemy
   - AlchemistEnemy
   - ShadowEnemy
-  - 
+  - GridTilemap
   - 
   - 
   - 
@@ -51,4 +52,7 @@ TagManager:
     locked: 0
   - name: Tower
     uniqueID: 4238715679
+    locked: 0
+  - name: GridTilemap
+    uniqueID: 723380163
     locked: 0

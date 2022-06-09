@@ -82,15 +82,28 @@ public class BuildManager : MonoBehaviour
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
 
-    public void ResetCheckedTiles() // 전에 색을 바꿔주었던 친구들은 다시 리셋
+    public Define.PlaceTileType placingTileType = Define.PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
+
+    public void ResetCheckedTiles(bool clearTileColor = false) // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
         if (checkedPos == null) return; // 처음에 널이라 오류
-        foreach (var pos in checkedPos) map.tilemap_view.SetColor(pos, Color.white);
+
+        if (clearTileColor) // 컬러가 없으면
+        {
+            foreach(var item in map.tilemap_view.cellBounds.allPositionsWithin) map.tilemap_view.SetColor(item, new Color(1, 1, 1, 0));
+            return;
+        }
+
+        foreach (var pos in checkedPos)
+        {
+            if(IsPlaceableTile(pos, placingTileType))
+                map.tilemap_view.SetColor(pos, Color.white); // 파란색으로 바꿔주기
+        }
     }
 
     public void SetTilesColor(Define.PlaceTileType placeTileType)
     {
-        ResetCheckedTiles();
+        ResetCheckedTiles(); // 얘는 그냥 자기 색깔 유지하게 해줘야 함
 
         Vector3Int[] checkPos = Get2By2Tiles();
 
@@ -98,18 +111,12 @@ public class BuildManager : MonoBehaviour
         {
             if (IsPlaceableTile(pos, placeTileType))
             {
-                map.tilemap_view.SetColor(pos, new Color(0, 1, 0, 0.5f)); // 아마 블루
-            }
-            else
-            {
-                map.tilemap_view.SetColor(pos, new Color(1, 0, 0, 0.5f)); // 아마 레드
+                map.tilemap_view.SetColor(pos, Color.blue); // 아마 블루
             }
         }
 
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
     }
-
-    public bool IsMagicUsable() => IsPlaceableTile(tilePos, Define.PlaceTileType.Road); // 아마 길에만 던지겠지 설마 진짜 나한테 왜그래 
 
     public bool CanPlace(Define.PlaceTileType placeTileType) // 2x2 타일 검사
     {
@@ -138,7 +145,6 @@ public class BuildManager : MonoBehaviour
             return new Vector3Int[4] { curPos, left, downLeft, down };
         else  // 4사분면
             return new Vector3Int[4] { curPos, right, downRight, down };
-
     }
 
     public bool IsPlaceableTile(Vector3Int pos, Define.PlaceTileType placeTileType)
@@ -180,8 +186,6 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.TowerData;
-
-
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)

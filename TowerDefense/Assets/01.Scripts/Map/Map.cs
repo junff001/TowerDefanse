@@ -4,7 +4,10 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
     [HideInInspector] public Tilemap tilemap = null;        // 타일맵
-    public Tilemap tilemap_view = null;        // 타일맵
+    [HideInInspector] public Tilemap tilemap_view = null;        // 타일맵
+    [HideInInspector] public TilemapRenderer tilemap_view_renderer = null;        // 타일맵
+
+
 
     public Define.TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
@@ -12,16 +15,15 @@ public class Map : MonoBehaviour
     public int width;
     public int height;
 
-    public Tile placeTile;
-    public Tile roadTile;
-    public Tile waterTile;
+    [HideInInspector] public Tile placeTile;
+    [HideInInspector] public Tile roadTile;
+    [HideInInspector] public Tile waterTile;
 
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
-        if(tilemap_view == null)
-            tilemap_view = tilemap;
-
+        tilemap_view = transform.GetChild(0).GetComponent<Tilemap>();
+        tilemap_view_renderer = tilemap_view.GetComponent<TilemapRenderer>();
         InitMap();
     }
 
@@ -39,6 +41,19 @@ public class Map : MonoBehaviour
                 {
                     mapTileTypeArray[x, y] = Define.TileType.Road;
                 }
+            }
+        }
+    }
+
+    public void ShowPlaceableTiles(Define.PlaceTileType placeTileType)
+    {
+        Managers.Build.placingTileType = placeTileType;
+
+        foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            if(Managers.Build.IsPlaceableTile(pos, placeTileType))
+            {
+                tilemap_view.SetColor(pos, Color.white);
             }
         }
     }
@@ -72,17 +87,15 @@ public class Map : MonoBehaviour
             mapTileArray[x, y] = tile;
             mapTileTypeArray[x, y] = GetTileType(tile);
             x++;
-        }
 
-        foreach (var position in tilemap_view.cellBounds.allPositionsWithin)
-        {
-            tilemap_view.SetTileFlags(position, TileFlags.None); // 변하게 하는건 보여지는 Tilmeap_View니까
+            tilemap_view.SetTileFlags(position, TileFlags.None);
+            tilemap_view.SetColor(position, new Color(1, 1, 1, 0f));
         }
     }
 
     Define.TileType GetTileType(Tile tile)
     {
-        if (tile == roadTile) // 나중에 읽기 편하라고 
+        if (tile == roadTile) 
             return Define.TileType.Road;
 
         else if (tile == placeTile)

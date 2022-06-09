@@ -62,8 +62,9 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     public void OnDragEnd()
     {
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
-        Managers.Build.ResetCheckedTiles();
+        Managers.Build.ResetCheckedTiles(true);
         Managers.Build.movingImg = null;
+        Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -80,6 +81,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         if(IsLeftBtn(eventData) && CanDrag())
         {
             Managers.Build.movingImg = towerImage.gameObject;
+            Managers.Build.map.ShowPlaceableTiles(towerSO.placeTileType);
+            Managers.Build.map.tilemap_view_renderer.sortingOrder = -4; // out Tilemap보다 1 높은 수.
         }
     }
 
