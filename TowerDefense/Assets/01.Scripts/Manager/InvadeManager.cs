@@ -48,6 +48,12 @@ public class InvadeManager : MonoBehaviour
 
             RecordedSegmentCheck();
         }
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            WaveStart();
+        }
+#endif
     }
 
     public void InitRecordLoad()
