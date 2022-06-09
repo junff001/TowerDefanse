@@ -32,6 +32,13 @@ public class WaveManager : MonoBehaviour
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
+    [Header("속성 이펙트")]
+    public GameObject lightAura;
+    public GameObject lightningAura;
+    public GameObject fireAura;
+    public GameObject darknessAura;
+    public GameObject waterAura;
+
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
     public RectTransform defenseStatus;
