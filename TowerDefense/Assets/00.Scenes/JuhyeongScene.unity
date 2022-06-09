@@ -1782,7 +1782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1912407630}
   towerCostText: {fileID: 1680654103}
-  towerSO: {fileID: 11400000, guid: a35c7bf79618c8041b68b5f3d42868c7, type: 2}
+  towerSO: {fileID: 11400000, guid: 302eee483cdf232498d9d6a3c5d51ce8, type: 2}
 --- !u!114 &563092582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 639262535}
   towerCostText: {fileID: 1437633851}
-  towerSO: {fileID: 11400000, guid: 82c5721726ad1114b9c7592b4ee91527, type: 2}
+  towerSO: {fileID: 11400000, guid: 0a1fb3098ff8ab94690f54a3d19d3457, type: 2}
 --- !u!114 &1052858729
 MonoBehaviour:
   m_ObjectHideFlags: 0
