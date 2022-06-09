@@ -76,6 +76,17 @@ public class WaveManager : MonoBehaviour
         DefenseSetNextWave();
     }
 
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            WaveStart();
+        }
+    }
+#endif
+
+
     public void DefenseSetNextWave()
     {
         Managers.Record.recordBox.Add(new RecordWaveBox());
