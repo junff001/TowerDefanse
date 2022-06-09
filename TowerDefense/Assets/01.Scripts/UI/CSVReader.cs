@@ -1,43 +1,60 @@
+using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Text.RegularExpressions;
 using System.IO;
 
 public class CSVReader : MonoBehaviour
 {
-    public List<Dictionary<int, string>> Read(string file)
+    static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
+    static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
+    static char[] TRIM_CHARS = { '\"' };
+
+    public static List<Dictionary<string, object>> Read(string file)
     {
-        var list = new List<Dictionary<int, string>>();
-        StreamReader sr = new StreamReader(Application.dataPath + "/" + file);
+        var list = new List<Dictionary<string, object>>();
+        //TextAsset data = Resources.Load (file) as TextAsset;
 
-        bool endOfFile = false;
-        while (!endOfFile)
+        string source;
+        StreamReader sr = new StreamReader(Application.dataPath + "/StreamingAssets" + "/" + file);
+        source = sr.ReadToEnd();
+        sr.Close();
+
+        //var lines = Regex.Split(data.text, LINE_SPLIT_RE);
+
+        var lines = Regex.Split(source, LINE_SPLIT_RE);
+
+        if (lines.Length <= 1) return list;
+
+        var header = Regex.Split(lines[0], SPLIT_RE);
+        for (var i = 1; i < lines.Length; i++)
         {
-            string data_String = sr.ReadLine();
-            if (data_String == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var data_values = data_String.Split(','); //string, string타입
-            var tmp = new Dictionary<int, string>();
-            tmp.Add(int.Parse(data_values[0]), data_values[1]); //int, string으로 바뀜
-            list.Add(tmp);
-        }
 
+            var values = Regex.Split(lines[i], SPLIT_RE);
+            if (values.Length == 0 || values[0] == "") continue;
+
+            var entry = new Dictionary<string, object>();
+            for (var j = 0; j < header.Length && j < values.Length; j++)
+            {
+                string value = values[j];
+                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
+                object finalvalue = value;
+                int n;
+                float f;
+                if (int.TryParse(value, out n))
+                {
+                    finalvalue = n;
+                }
+                else if (float.TryParse(value, out f))
+                {
+                    finalvalue = f;
+                }
+                entry[header[j]] = finalvalue;
+            }
+            list.Add(entry);
+        }
         return list;
     }
-    //사용 방법
-
-    //public csvReader csvreader;
-
-    //void Start()
-    //{
-    //    List<Dictionary<int, string>> data = csvreader.Read("TowerList.csv"); //스테이지 정보 불러옴
-    //    print(data[0][1]);
-
-    //    //생략
-    //}
 
 }
