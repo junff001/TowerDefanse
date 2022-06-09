@@ -12,7 +12,6 @@ public abstract class Bullet : MonoBehaviour
     public int bulletDamage { get; set; } = 0;                               // 데미지
     public Define.PropertyType propertyType = Define.PropertyType.NONE;
 
-
     public virtual void Init(TowerData towerData)
     {
         propertyType = towerData.property;

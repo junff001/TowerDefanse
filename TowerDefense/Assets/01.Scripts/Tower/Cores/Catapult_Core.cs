@@ -36,30 +36,20 @@ public class Catapult_Core : CoreBase
         if (bullet == null)
         {
             Ready();
-            StartCoroutine(Charging());
+            StartCoroutine(Charging(power, enemy));
             //StartCoroutine(ChargingAndThrow(TransitionTime, power, enemy));
         }  
     }
 
     void Ready()
     {
+        Debug.Log("투사체 생성");
         bullet = Managers.Pool.GetItem<Stone>();
         bullet.transform.SetParent(basket);
         bullet.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    IEnumerator ChargingAndThrow(float TransitionTime, int power, HealthSystem enemy)
-    {
-        //yield return new WaitForSeconds(TransitionTime);
-        StartCoroutine(Charging());
-        //yield return new WaitForSeconds(TransitionTime);
-        //StartCoroutine(Throw(power, enemy));
-        //yield return new WaitForSeconds(TransitionTime);
-        yield return null;
-        bullet = null;
-    }
-
-    IEnumerator Charging()
+    IEnumerator Charging(int power, HealthSystem enemy)
     {
         while (true)
         {
@@ -69,7 +59,7 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.rotation == charging)
             {
-                StartCoroutine(Throw());
+                StartCoroutine(Throw(power, enemy));
                 break;
                 
             }
@@ -80,7 +70,7 @@ public class Catapult_Core : CoreBase
         } 
     }
 
-    IEnumerator Throw()
+    IEnumerator Throw(int power, HealthSystem enemy)
     {
         while (true)
         {
@@ -90,6 +80,8 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.rotation == followThrough)
             {
+                head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
+                bullet = null;
                 break;
             }
             else
@@ -97,10 +89,13 @@ public class Catapult_Core : CoreBase
                 yield return null;
             }
         }
-       
-        //bullet.target = enemy.transform;
-        //bullet.bulletDamage = power;
-        //bullet.transform.SetParent(null);
-        //bullet.Init();
+
+        if (bullet != null)
+        {
+            bullet.target = enemy.transform;
+            bullet.bulletDamage = power;
+            bullet.transform.SetParent(null);
+            bullet.Init(towerData);
+        }
     }
 }

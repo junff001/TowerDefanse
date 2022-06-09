@@ -106,8 +106,8 @@ MonoBehaviour:
   defaultAngle: -20
   chargingAngle: 5
   followThroughAngle: -100
-  chargingSpeed: 2
-  releaseSpeed: 2
+  chargingSpeed: 5
+  releaseSpeed: 5
   TransitionTime: 0.1
   chargingTime: 2
   releaseTime: 1
