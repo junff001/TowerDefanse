@@ -37,7 +37,6 @@ public class Bomb : Bullet
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        Debug.Log(enemies[i].name);
                         enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage,propertyType);
                     }
                 }

@@ -1966,6 +1966,7 @@ MonoBehaviour:
   fireAura: {fileID: 107076, guid: 6d4c2b0ea7c28dd43a5a9388e6301ebe, type: 3}
   darknessAura: {fileID: 178478, guid: a223c2eb6371cdf4ab226ee7a7d979cd, type: 3}
   waterAura: {fileID: 191372, guid: 8c13461d8a6ef4e4bb0b12e6585a8d66, type: 3}
+  absorbEffect: {fileID: 0}
   defenseTowerGroup: {fileID: 145244611}
   defenseStatus: {fileID: 1074376516}
   defenseHpText: {fileID: 1426151053}
@@ -3902,7 +3903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 639262535}
   towerCostText: {fileID: 1437633851}
-  towerSO: {fileID: 11400000, guid: 2e080d523e7d69c4aaae014206fc2b73, type: 2}
+  towerSO: {fileID: 11400000, guid: 19ab2609fe6fae8409a1a8a48ea9a6fa, type: 2}
 --- !u!114 &1052858729
 MonoBehaviour:
   m_ObjectHideFlags: 0
