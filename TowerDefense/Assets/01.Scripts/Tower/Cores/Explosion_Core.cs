@@ -12,7 +12,7 @@ public class Explosion_Core : CoreBase
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
         bullet.enemyMask = enemyMask;
-        bullet.Init(towerData);
+        bullet.Init(towerData,enemy.transform);
     }
 
     public override IEnumerator OnAttack()

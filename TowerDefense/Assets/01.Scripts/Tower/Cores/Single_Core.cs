@@ -41,7 +41,7 @@ public class Single_Core : CoreBase
 
         bullet.transform.position = transform.position;
         bullet.target = enemy.transform;
-        bullet.Init(towerData);
+        bullet.Init(towerData,enemy.transform);
 
         bullet = null;
     }

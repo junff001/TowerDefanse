@@ -47,7 +47,7 @@ public class Penetration_Core : CoreBase
     {
         if (bullet == null)
         {
-            Ready();
+            Ready(enemy.transform);
             StartCoroutine(PullAndShoot(TransitionTime, enemy));
         }
     }
@@ -62,10 +62,10 @@ public class Penetration_Core : CoreBase
         bullet = null;
     }
 
-    void Ready()
+    void Ready(Transform enemyTrm)
     {
         bullet = Managers.Pool.GetItem<Arrow>();
-        bullet.Init(towerData);
+        bullet.Init(towerData,enemyTrm);
         bullet.transform.position = bowLauncher.position;
         bullet.transform.SetParent(bowLauncher);
         bullet.transform.localPosition = new Vector2(0.3f, 0.3f);
@@ -84,7 +84,6 @@ public class Penetration_Core : CoreBase
         bullet.transform.SetParent(null);
         sr.sprite = bow;
         bullet.target = enemy.transform;
-        bullet.bulletDamage = power;
-        bullet.Init(towerData);
+        bullet.Init(towerData, enemy.transform);
     }
 }

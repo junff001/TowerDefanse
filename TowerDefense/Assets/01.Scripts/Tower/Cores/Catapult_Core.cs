@@ -35,17 +35,17 @@ public class Catapult_Core : CoreBase
     {
         if (bullet == null)
         {
-            Ready();
+            Ready(enemy);
             StartCoroutine(Charging(power, enemy));
             //StartCoroutine(ChargingAndThrow(TransitionTime, power, enemy));
         }  
     }
 
-    void Ready()
+    void Ready(HealthSystem enemy)
     {
         Debug.Log("투사체 생성");
         bullet = Managers.Pool.GetItem<Stone>();
-        bullet.Init(towerData);
+        bullet.Init(towerData,enemy.transform);
         bullet.transform.SetParent(basket);
         bullet.transform.localPosition = new Vector3(0, 0, 0);
     }
@@ -60,7 +60,7 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.rotation == charging)
             {
-                StartCoroutine(Throw(power, enemy));
+                StartCoroutine(Throw(enemy));
                 break;
                 
             }
@@ -71,7 +71,7 @@ public class Catapult_Core : CoreBase
         } 
     }
 
-    IEnumerator Throw(int power, HealthSystem enemy)
+    IEnumerator Throw(HealthSystem enemy)
     {
         while (true)
         {
@@ -93,10 +93,7 @@ public class Catapult_Core : CoreBase
 
         if (bullet != null)
         {
-            bullet.target = enemy.transform;
-            bullet.bulletDamage = power;
             bullet.transform.SetParent(null);
-            bullet.Init(towerData);
         }
     }
 }

@@ -97,9 +97,9 @@ public class Bomb : Bullet
         gameObject.SetActive(false);
     }
 
-    public override void Init(TowerData towerData)
+    public override void Init(TowerData towerData, Transform enemyTrm)
     {
-        base.Init(towerData);
+        base.Init(towerData, enemyTrm);
         timerCurrent = 0;
         targetCatchPos = target.position;
         projectilePos = transform.position;

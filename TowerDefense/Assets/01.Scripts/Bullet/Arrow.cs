@@ -7,9 +7,9 @@ public class Arrow : Bullet
     private Vector3 targetCatchPos = Vector3.zero;      // 투사 지점
     Vector3 moveDirection = Vector3.zero;
 
-    public override void Init(TowerData towerData)
+    public override void Init(TowerData towerData, Transform enemyTrm)
     {
-        base.Init(towerData);
+        base.Init(towerData,enemyTrm);
     }
 
     public override void Update()
