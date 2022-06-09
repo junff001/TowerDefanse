@@ -16,6 +16,11 @@ MonoBehaviour:
   - infoName: 
     monsterBox:
     - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
-      enemyCount: 1
+      propertyType: 0
+      enemyCount: 3
+      wayPointListIndex: 0
+    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
+      propertyType: 0
+      enemyCount: 3
       wayPointListIndex: 0
   offenseHeadCount: 5

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
-  m_Name: WoodenBarrel_None
+  m_Name: WoodenBarrel 5
   m_EditorClassIdentifier: 
   level: 1
   offensePower: 50
@@ -21,5 +21,5 @@ MonoBehaviour:
   towerSprite: {fileID: 3954836654050351759, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
   placeTileType: 0
   coreType: 4
-  propertyType: 0
+  propertyType: 5
   hasTower: 1

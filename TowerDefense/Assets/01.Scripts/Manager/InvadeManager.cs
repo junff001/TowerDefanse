@@ -144,6 +144,8 @@ public class InvadeManager : MonoBehaviour
 
         EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
+        enemyObj.MakeEffectObj();
+
         Managers.Wave.aliveEnemies.Add(enemyObj);
         curSpawnCount++;
 

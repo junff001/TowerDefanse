@@ -154,7 +154,8 @@ public class HealthSystem : MonoBehaviour
         if (myProperty != Define.PropertyType.NONE && myProperty == propertyType)
         {
             Debug.Log("동일 속성, 데미지 무시");
-            
+            GameObject makeObj = Managers.Wave.absorbEffect;
+            Instantiate(makeObj, transform.position, makeObj.transform.rotation);
         }
         else
         {

@@ -65,7 +65,10 @@ public abstract class EnemyBase : MonoBehaviour
             enabled = false;                       // ''
             Invoke("Die", 3f); // 선한쌤이 핏자국 남기라고 하셨던 거 같음 시체나..
         };
+    }
 
+    public void MakeEffectObj()
+    {
         GameObject makeObj = null;
         switch (enemySO.PropertyResistance)
         {

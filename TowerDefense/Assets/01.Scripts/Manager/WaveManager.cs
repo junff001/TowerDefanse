@@ -203,6 +203,8 @@ public class WaveManager : MonoBehaviour
             SpawnerMonsterCount enemyInfo = enemySpawnQueue.Dequeue();
 
             EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[0].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
+            enemyObj.enemyData.PropertyResistance = enemyInfo.propertyType;
+            enemyObj.MakeEffectObj();
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
             aliveEnemies.Add(enemyObj);
