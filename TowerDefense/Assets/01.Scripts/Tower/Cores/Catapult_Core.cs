@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Catapult_Core : CoreBase
-<<<<<<< HEAD
 {
     [Header("파츠 변수")]
     [SerializeField] private Transform head = null;
@@ -103,15 +102,5 @@ public class Catapult_Core : CoreBase
         //bullet.bulletDamage = power;
         //bullet.transform.SetParent(null);
         //bullet.Init();
-=======
-{ 
-    public override void Attack(int power, HealthSystem enemy)
-    {
-        CanonBall bullet = Managers.Pool.GetItem<CanonBall>();
-
-        bullet.transform.position = transform.position;
-        bullet.target = enemy.transform;
-        bullet.bulletDamage = power;
->>>>>>> 2e16e90759d7fbe0fd3f2af2d3173c68aabfcb97
     }
 }

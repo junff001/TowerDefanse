@@ -64,27 +64,7 @@ public abstract class CoreBase : MonoBehaviour
         {
             yield return new WaitUntil(() => enemies?.Length > 0);
             currentTarget = enemies[0];
-<<<<<<< HEAD
-<<<<<<< HEAD:TowerDefense/Assets/01.Scripts/Cores/Base/CoreBase.cs
-
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                if (i >= towerData.attackTargetCount)
-                    break;
-
-                if (enemies[i] != null)
-                {
-                    Debug.Log(enemies[i].name);
-                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
-                }
-            }            
-=======
-            Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
->>>>>>> 2e16e90759d7fbe0fd3f2af2d3173c68aabfcb97:TowerDefense/Assets/01.Scripts/Tower/Cores/Base/CoreBase.cs
-=======
-            Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
->>>>>>> 2e16e90759d7fbe0fd3f2af2d3173c68aabfcb97
-        
+            Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());       
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }
