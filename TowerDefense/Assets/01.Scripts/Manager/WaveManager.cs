@@ -79,7 +79,7 @@ public class WaveManager : MonoBehaviour
 #if UNITY_EDITOR
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && Managers.Wave.GameMode == Define.GameMode.DEFENSE)
         {
             WaveStart();
         }

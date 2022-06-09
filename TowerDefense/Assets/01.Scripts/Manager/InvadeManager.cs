@@ -49,7 +49,7 @@ public class InvadeManager : MonoBehaviour
             RecordedSegmentCheck();
         }
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Managers.Wave.GameMode == Define.GameMode.OFFENSE)
         {
             WaveStart();
         }
