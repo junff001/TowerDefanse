@@ -64,8 +64,7 @@ public abstract class CoreBase : MonoBehaviour
         {
             yield return new WaitUntil(() => enemies?.Length > 0);
             currentTarget = enemies[0];
-            Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());
-        
+            Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());       
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }

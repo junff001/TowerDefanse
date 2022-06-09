@@ -7,18 +7,9 @@ public class Arrow : Bullet
     private Vector3 targetCatchPos = Vector3.zero;      // 투사 지점
     Vector3 moveDirection = Vector3.zero;
 
-    public override void Init()
+    public override void Init(TowerData towerData, Transform enemyTrm)
     {
-        if (target != null)
-        {
-            targetCatchPos = target.position;
-            moveDirection = (targetCatchPos - transform.position).normalized;
-            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(moveDirection) - 45);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        base.Init(towerData,enemyTrm);
     }
 
     public override void Update()
@@ -56,7 +47,7 @@ public class Arrow : Bullet
     {
         if (target != null)
         {
-            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage, true);
+            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType, true);
             var ps = Instantiate(hitEffect);
             ps.transform.position = target.position;
             ps.Play();

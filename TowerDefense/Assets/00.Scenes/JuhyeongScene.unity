@@ -1782,7 +1782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1912407630}
   towerCostText: {fileID: 1680654103}
-  towerSO: {fileID: 11400000, guid: a35c7bf79618c8041b68b5f3d42868c7, type: 2}
+  towerSO: {fileID: 11400000, guid: 302eee483cdf232498d9d6a3c5d51ce8, type: 2}
 --- !u!114 &563092582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,6 +1966,7 @@ MonoBehaviour:
   fireAura: {fileID: 107076, guid: 6d4c2b0ea7c28dd43a5a9388e6301ebe, type: 3}
   darknessAura: {fileID: 178478, guid: a223c2eb6371cdf4ab226ee7a7d979cd, type: 3}
   waterAura: {fileID: 191372, guid: 8c13461d8a6ef4e4bb0b12e6585a8d66, type: 3}
+  absorbEffect: {fileID: 0}
   defenseTowerGroup: {fileID: 145244611}
   defenseStatus: {fileID: 1074376516}
   defenseHpText: {fileID: 1426151053}
@@ -3553,7 +3554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1264043093}
   towerCostText: {fileID: 733391043}
-  towerSO: {fileID: 11400000, guid: 2e080d523e7d69c4aaae014206fc2b73, type: 2}
+  towerSO: {fileID: 11400000, guid: a35c7bf79618c8041b68b5f3d42868c7, type: 2}
 --- !u!114 &935311896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3902,7 +3903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 639262535}
   towerCostText: {fileID: 1437633851}
-  towerSO: {fileID: 11400000, guid: 82c5721726ad1114b9c7592b4ee91527, type: 2}
+  towerSO: {fileID: 11400000, guid: 19ab2609fe6fae8409a1a8a48ea9a6fa, type: 2}
 --- !u!114 &1052858729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,7 +5452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 792920631}
   towerCostText: {fileID: 1037220414}
-  towerSO: {fileID: 11400000, guid: a271c81d6a9c8c84999532a0d2046e3d, type: 2}
+  towerSO: {fileID: 11400000, guid: 61b9d2a63b130584bab5a534362d3ad3, type: 2}
 --- !u!114 &1350652268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6713,7 +6714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 672218467}
   towerCostText: {fileID: 1148805306}
-  towerSO: {fileID: 11400000, guid: baee30fafdbcc4b45870d31d283fea43, type: 2}
+  towerSO: {fileID: 11400000, guid: 4ca1009e4db4d40428eecdf1f8dfd194, type: 2}
 --- !u!114 &1545368724
 MonoBehaviour:
   m_ObjectHideFlags: 0

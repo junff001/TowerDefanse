@@ -48,7 +48,7 @@ MonoBehaviour:
   gizmoHeight: 0
   enemyMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32256
   coreType: 1
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}

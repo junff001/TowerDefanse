@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Stone : Bullet
 {
-    public override void Init()
+    public override void Init(TowerData towerData, Transform enemyTrm)
     {
-
+        base.Init(towerData,enemyTrm);
     }
 }

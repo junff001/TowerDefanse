@@ -104,7 +104,7 @@ public class DeBuff_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        enemy.TakeDamage(power);
+        enemy.TakeDamage(towerData.OffensePower, towerData.property);
     }
 
     public override void PropertyCheck()

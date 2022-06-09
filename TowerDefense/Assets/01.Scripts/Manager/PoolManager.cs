@@ -38,6 +38,9 @@ public class PoolManager
         GameObject canonBall = Resources.Load<GameObject>("Bullet/Canon Ball");
         CreatePool<CanonBall>(canonBall, initPos, 50);
 
+        GameObject stone = Resources.Load<GameObject>("Bullet/Stone");
+        CreatePool<Stone>(stone, initPos, 50);
+
         // 이펙트
         GameObject effectStoneFragment = Resources.Load<GameObject>("Effects/Effect_StoneFragment");
         CreatePool<Effect_StoneFrag>(effectStoneFragment, initPos, 5);

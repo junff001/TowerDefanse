@@ -38,6 +38,7 @@ public class WaveManager : MonoBehaviour
     public GameObject fireAura;
     public GameObject darknessAura;
     public GameObject waterAura;
+    public GameObject absorbEffect;
 
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
