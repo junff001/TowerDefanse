@@ -10,8 +10,14 @@ public abstract class Bullet : MonoBehaviour
 
     public Transform target = null;                                          // 목표물
     public int bulletDamage { get; set; } = 0;                               // 데미지
+    public Define.PropertyType propertyType = Define.PropertyType.NONE;
 
-    public abstract void Init();
+
+    public virtual void Init(TowerData towerData)
+    {
+        propertyType = towerData.property;
+        bulletDamage = towerData.OffensePower;
+    }
 
     public virtual void Update()
     {
@@ -47,7 +53,7 @@ public abstract class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
+            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType);
             var ps = Instantiate(hitEffect);
             ps.transform.position = target.position;
             ps.Play();

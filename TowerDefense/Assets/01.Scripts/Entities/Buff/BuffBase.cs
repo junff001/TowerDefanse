@@ -11,7 +11,7 @@ public class BuffBase
     public GameObject affecter;
 
     public Define.BuffType buffType;
-
+    [SerializeField] protected Define.PropertyType propertyType;
     public BuffBase(GameObject _affecter, float _duration, float _amplification)
     {
         affecter = _affecter;

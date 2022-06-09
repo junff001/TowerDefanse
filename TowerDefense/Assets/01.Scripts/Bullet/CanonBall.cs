@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CanonBall : Bullet
 {
-    public override void Init()
+    public override void Init(TowerData towerData)
     {
-        
+        base.Init(towerData);
     }
 }

@@ -17,7 +17,6 @@ public class Single_Core : CoreBase
     private const float maxValue = 90;
     private const float minValue = -80;
 
-
     void Awake()
     {
         haedSprite = head.GetComponent<SpriteRenderer>();
@@ -37,22 +36,12 @@ public class Single_Core : CoreBase
     {
         if (bullet != null)
         {
-            bullet.transform.position = transform.position;
-            bullet.target = enemy.transform;
-            bullet.bulletDamage = power;
-
-            bullet.Init();
-        }
-        else
-        {
             bullet = Managers.Pool.GetItem<Arrow>();
-
-            bullet.transform.position = transform.position;
-            bullet.target = enemy.transform;
-            bullet.bulletDamage = power;
-
-            bullet.Init();
         }
+
+        bullet.transform.position = transform.position;
+        bullet.target = enemy.transform;
+        bullet.Init(towerData);
 
         bullet = null;
     }

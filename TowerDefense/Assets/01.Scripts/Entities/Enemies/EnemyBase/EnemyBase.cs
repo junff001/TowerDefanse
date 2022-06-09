@@ -40,8 +40,6 @@ public abstract class EnemyBase : MonoBehaviour
 
     SpineController animController;
 
-
-
     protected virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();

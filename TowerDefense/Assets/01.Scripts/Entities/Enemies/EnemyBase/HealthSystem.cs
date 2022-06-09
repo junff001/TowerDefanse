@@ -147,8 +147,16 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount, bool penetration = false)
+    public void TakeDamage(float damageAmount, Define.PropertyType propertyType, bool penetration = false)
     {
+        Define.PropertyType myProperty = enemyBase.enemyData.PropertyResistance;
+
+        if (myProperty != Define.PropertyType.NONE && myProperty == propertyType)
+        {
+            Debug.Log("동일 속성, 데미지 무시");
+            return;
+        }    
+
         Damage(damageAmount, penetration);
         OnDamaged?.Invoke();
 
@@ -157,5 +165,4 @@ public class HealthSystem : MonoBehaviour
             OnDied?.Invoke();
         }
     }
-
 }

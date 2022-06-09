@@ -38,7 +38,7 @@ public class Bomb : Bullet
                     for (int i = 0; i < enemies.Length; i++)
                     {
                         Debug.Log(enemies[i].name);
-                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage);
+                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage,propertyType);
                     }
                 }
             }
@@ -98,9 +98,9 @@ public class Bomb : Bullet
         gameObject.SetActive(false);
     }
 
-    public override void Init()
+    public override void Init(TowerData towerData)
     {
-        Debug.Log("Init");
+        base.Init(towerData);
         timerCurrent = 0;
         targetCatchPos = target.position;
         projectilePos = transform.position;
