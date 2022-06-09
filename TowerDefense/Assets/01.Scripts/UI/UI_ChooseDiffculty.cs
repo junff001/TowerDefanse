@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
 
 public class UI_ChooseDiffculty : MonoBehaviour
 {
     public Button exitBtn;
     public GameObject difficultyPanel;
 
-    public Button eseyBtn;
-    public Button nomalBtn;
+    public Button easyBtn;
+    public Button normalBtn;
     public Button hardBtn;
 
     void Start()
@@ -21,11 +18,11 @@ public class UI_ChooseDiffculty : MonoBehaviour
             difficultyPanel.transform.DOScale(0, 0.3f);
         });
 
-        eseyBtn.onClick.AddListener(() =>
+        easyBtn.onClick.AddListener(() =>
         {
             GoInGame(1);
         });
-        nomalBtn.onClick.AddListener(() =>
+        normalBtn.onClick.AddListener(() =>
         {
             GoInGame(2);
         });
