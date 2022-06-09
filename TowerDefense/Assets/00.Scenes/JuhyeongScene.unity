@@ -3553,7 +3553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 1264043093}
   towerCostText: {fileID: 733391043}
-  towerSO: {fileID: 11400000, guid: 2e080d523e7d69c4aaae014206fc2b73, type: 2}
+  towerSO: {fileID: 11400000, guid: a35c7bf79618c8041b68b5f3d42868c7, type: 2}
 --- !u!114 &935311896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 639262535}
   towerCostText: {fileID: 1437633851}
-  towerSO: {fileID: 11400000, guid: 0a1fb3098ff8ab94690f54a3d19d3457, type: 2}
+  towerSO: {fileID: 11400000, guid: 2e080d523e7d69c4aaae014206fc2b73, type: 2}
 --- !u!114 &1052858729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,7 +5451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 792920631}
   towerCostText: {fileID: 1037220414}
-  towerSO: {fileID: 11400000, guid: a271c81d6a9c8c84999532a0d2046e3d, type: 2}
+  towerSO: {fileID: 11400000, guid: 61b9d2a63b130584bab5a534362d3ad3, type: 2}
 --- !u!114 &1350652268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6713,7 +6713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerImage: {fileID: 672218467}
   towerCostText: {fileID: 1148805306}
-  towerSO: {fileID: 11400000, guid: baee30fafdbcc4b45870d31d283fea43, type: 2}
+  towerSO: {fileID: 11400000, guid: 4ca1009e4db4d40428eecdf1f8dfd194, type: 2}
 --- !u!114 &1545368724
 MonoBehaviour:
   m_ObjectHideFlags: 0
