@@ -24,9 +24,9 @@ public class Catapult_Core : CoreBase
 
     private Stone bullet = null;
 
-    public override void Start()
+    public override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
 
         head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
     }
