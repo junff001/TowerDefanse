@@ -154,15 +154,17 @@ public class HealthSystem : MonoBehaviour
         if (myProperty != Define.PropertyType.NONE && myProperty == propertyType)
         {
             Debug.Log("동일 속성, 데미지 무시");
-            return;
-        }    
-
-        Damage(damageAmount, penetration);
-        OnDamaged?.Invoke();
-
-        if (IsDead())
+            
+        }
+        else
         {
-            OnDied?.Invoke();
+            Damage(damageAmount, penetration);
+            OnDamaged?.Invoke();
+
+            if (IsDead())
+            {
+                OnDied?.Invoke();
+            }
         }
     }
 }

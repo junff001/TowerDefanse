@@ -45,6 +45,7 @@ public class Catapult_Core : CoreBase
     {
         Debug.Log("투사체 생성");
         bullet = Managers.Pool.GetItem<Stone>();
+        bullet.Init(towerData);
         bullet.transform.SetParent(basket);
         bullet.transform.localPosition = new Vector3(0, 0, 0);
     }

@@ -16,6 +16,7 @@ public abstract class Bullet : MonoBehaviour
     {
         propertyType = towerData.property;
         bulletDamage = towerData.OffensePower;
+        this.gameObject.SetActive(true);
     }
 
     public virtual void Update()
