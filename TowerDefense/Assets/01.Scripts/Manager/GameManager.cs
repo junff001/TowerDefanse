@@ -44,15 +44,11 @@ public class GameManager : MonoBehaviour
         UpdateHPText();
     }
 
-    public void LoadScene(string sceneName = null)
+    public void LoadScene()
     {
         Time.timeScale = 1;
 
-        if(sceneName == null)
-        {
-            sceneName = "SampleScene";
-        }
-        Managers.LoadScene.LoadScene(sceneName);
+        Managers.LoadScene.LoadScene("SampleScene");
     }
 
     public void LoadCurScene()

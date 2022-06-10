@@ -35,6 +35,6 @@ public class UI_ChooseDiffculty : MonoBehaviour
     public void GoInGame(int Level)
     {
         GameManager.stageLevel = 3;
-        Managers.LoadScene.LoadScene("JuhyeongScene");
+        Managers.LoadScene.LoadScene("SampleScene");
     }
 }
