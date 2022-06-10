@@ -36,8 +36,6 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private Sprite darknessJewel;
     [SerializeField] private Sprite lightning;
 
-
-
     private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 

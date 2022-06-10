@@ -10,6 +10,7 @@ public abstract class Bullet : MonoBehaviour
 
     public Transform target = null;                                          // 목표물
     public int bulletDamage { get; set; } = 0;                               // 데미지
+    public bool isShoot { get; set; } = false;
     public Define.PropertyType propertyType = Define.PropertyType.NONE;
 
     public virtual void Init(TowerData towerData, Transform enemyTrm)
@@ -17,19 +18,21 @@ public abstract class Bullet : MonoBehaviour
         target = enemyTrm;
         propertyType = towerData.property;
         bulletDamage = towerData.OffensePower;
-        this.gameObject.SetActive(true);
     }
 
     public virtual void Update()
     {
         if (target != null) 
         {
-            Shoot();
-
-            if (IsCollision())
+            if (isShoot)
             {
-                CollisionEvent();
-            }
+                Shoot();
+
+                if (IsCollision())
+                {
+                    CollisionEvent();
+                }
+            }        
         }
         else
         {
@@ -58,6 +61,7 @@ public abstract class Bullet : MonoBehaviour
             var ps = Instantiate(hitEffect);
             ps.transform.position = target.position;
             ps.Play();
+            isShoot = false;    
 
             gameObject.SetActive(false);
         }

@@ -82,8 +82,7 @@ public class Penetration_Core : CoreBase
     {       
         bowLauncher.localPosition = new Vector2(0, 0);
         bullet.transform.SetParent(null);
+        bullet.isShoot = true;
         sr.sprite = bow;
-        bullet.target = enemy.transform;
-        bullet.Init(towerData, enemy.transform);
     }
 }
