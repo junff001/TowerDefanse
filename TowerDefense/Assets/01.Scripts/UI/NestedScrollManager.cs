@@ -25,6 +25,7 @@ public class NestedScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandle
 
     void Start()
     {
+        selectTowerPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * 2, 0.5f);
 
         exitBtn.onClick.AddListener(() =>
         {
