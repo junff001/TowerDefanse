@@ -13,6 +13,7 @@ public class UI_TitleManager : MonoBehaviour
     public GameObject lobyPanel;
     public GameObject topPanel;
     public GameObject difficultyPanel;
+    public GameObject selectTowerPanel;
 
     public int num = 0;
     public TextMeshProUGUI diffcultyTex;
@@ -22,6 +23,7 @@ public class UI_TitleManager : MonoBehaviour
     public Button backBtn;
     public Button selectBtn;
     public Button exitBtn;
+    public Button tsBtn;
     bool isClick = false;
 
     void Start()
@@ -57,6 +59,13 @@ public class UI_TitleManager : MonoBehaviour
             lobyPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.5f).SetEase(Ease.OutBack);
             topPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * 2, 0.4f);
             selectPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * -2, 0.5f);
+        });
+
+        tsBtn.onClick.AddListener(() =>
+        {
+            //타워 패널 띄움
+            selectTowerPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.5f).SetEase(Ease.OutBack);
+
         });
     }
 
