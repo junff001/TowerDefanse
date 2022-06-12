@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
     public bool isAnyActing = false;
 
-    public Transform waypointsParent;
+    public Transform waypointsParent { get; set; }
 
     [HideInInspector]
     public List<Transform> wayPoints = new List<Transform>();
+    [HideInInspector]
     public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
     public Sprite waitSprite;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject clearUI;
     public GameObject gameOverUI;
+    public UI_TowerInfo towerInfoUI;
 
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;
