@@ -5,25 +5,25 @@ using UnityEngine;
 public class Catapult_Core : CoreBase
 {
     [Header("파츠 변수")]
-    [SerializeField] private Transform head = null;
-    [SerializeField] private Transform basket = null;
+    [SerializeField] Transform head;
+    [SerializeField] Transform basket;
 
     [Header("각도 변수")]
-    [SerializeField] private float defaultAngle = 0f;
-    [SerializeField] private float chargingAngle = 0f;
-    [SerializeField] private float followThroughAngle = 0f;   
+    [SerializeField] float defaultAngle;
+    [SerializeField] float chargingAngle;
+    [SerializeField] float followThroughAngle;
+    [SerializeField] float throwAngle;
 
     [Header("속도 변수")]
-    [SerializeField] private float chargingSpeed = 0f;
-    [SerializeField] private float releaseSpeed = 0f;   
-    
-    [Header("시간 변수")]
-    [SerializeField] private float TransitionTime = 0f;
-    [SerializeField] private float chargingTime = 0f;
-    [SerializeField] private float releaseTime = 0f;
-    [Range(0, 1)][SerializeField] private float ballLeaveTiming = 0f;
+    [SerializeField] float chargingSpeed;
+    [SerializeField] float releaseSpeed;
 
-    private Stone bullet = null;
+    [Header("시간 변수")]
+    [SerializeField] float TransitionTime;
+    [SerializeField] float chargingTime;
+    [SerializeField] float releaseTime;
+
+    Stone bullet = null;
 
     public override void OnEnable()
     {
@@ -32,12 +32,17 @@ public class Catapult_Core : CoreBase
         head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
     }
 
+    void Update()
+    {
+        
+    }
+
     public override void Attack(int power, HealthSystem enemy)
     {
         if (bullet == null)
         {
             Ready(enemy);
-            StartCoroutine(Charging(power, enemy));
+            StartCoroutine(Charging1(power, enemy));
         }  
     }
 
@@ -49,19 +54,18 @@ public class Catapult_Core : CoreBase
         bullet.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    IEnumerator Charging(int power, HealthSystem enemy)
+    IEnumerator Charging1(int power, HealthSystem enemy)
     {
         while (true)
         {
-            Quaternion charging = Quaternion.Euler(0, 0, chargingAngle - head.transform.rotation.z);
+            Quaternion charging = Quaternion.Euler(0, 0, chargingAngle - head.transform.localRotation.z);
             float t = chargingSpeed * Time.deltaTime;
-            head.transform.rotation = Quaternion.Slerp(head.transform.rotation, charging, t);
+            head.transform.localRotation = Quaternion.Slerp(head.transform.localRotation, charging, t);
 
-            if (head.transform.rotation == charging)
+            if (head.transform.localRotation == charging)
             {
-                StartCoroutine(Throw(enemy));
-                break;
-                
+                StartCoroutine(Throw1(enemy));
+                break;    
             }
             else
             {
@@ -70,21 +74,21 @@ public class Catapult_Core : CoreBase
         } 
     }
 
-    IEnumerator Throw(HealthSystem enemy)
+    IEnumerator Throw1(HealthSystem enemy)
     {
         while (true)
         {
-            Quaternion followThrough = Quaternion.Euler(0, 0, followThroughAngle - head.transform.rotation.z);
+            Quaternion followThrough = Quaternion.Euler(0, 0, followThroughAngle - head.transform.localRotation.z);
             float t = releaseSpeed * Time.deltaTime;
-            head.transform.rotation = Quaternion.Slerp(head.transform.rotation, followThrough, t);
+            head.transform.localRotation = Quaternion.Slerp(head.transform.localRotation, followThrough, t);
 
-            if (t >= ballLeaveTiming)
+            if (head.transform.localRotation.z <= throwAngle)
             {
                 bullet.transform.SetParent(null);
                 bullet.isShoot = true;
             }
 
-            if (head.transform.rotation == followThrough)
+            if (head.transform.localRotation == followThrough)
             {
                 head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
                 bullet = null;

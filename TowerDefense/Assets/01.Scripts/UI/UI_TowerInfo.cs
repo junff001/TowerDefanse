@@ -50,6 +50,14 @@ public class UI_TowerInfo : MonoBehaviour
         currentSelectedTower = tower;
     }
 
+    public void CloseInfo()
+    {
+        Managers.UI.UIFade(canvasGroup, false);
+        CanvasBtnsAnim(currentPage, false);
+        beforePage = null;
+        currentPage = null;
+    }
+
     private void OpenPage(CanvasGroup page)
     {
         beforePage = currentPage;
@@ -94,9 +102,11 @@ public class UI_TowerInfo : MonoBehaviour
 
     private void CallPropertyBtnOnClicked(Define.PropertyType type)
     {
+        Debug.Log(type);
         if (currentSelectedTower != null)
         {
             currentSelectedTower.ChangeProperty(type);
+            CloseInfo();
         }
     }
 
@@ -104,8 +114,7 @@ public class UI_TowerInfo : MonoBehaviour
     {
         if(currentPage == pageDefault)
         {
-            Managers.UI.UIFade(canvasGroup, false);
-            beforePage = null;
+            CloseInfo();
         }
         else if (currentPage == pageProperty)
         {
@@ -113,13 +122,13 @@ public class UI_TowerInfo : MonoBehaviour
         }
     }
 
-    private void CanvasBtnsAnim(CanvasGroup canvasgroup, bool fade)
+    private void CanvasBtnsAnim(CanvasGroup group, bool fade)
     {
-        Button[] btns = canvasgroup.GetComponentsInChildren<Button>();
+        Button[] btns = group.GetComponentsInChildren<Button>();
 
-        canvasGroup.interactable = fade;
-        canvasGroup.blocksRaycasts = fade;
-        canvasGroup.DOFade(fade ? 1 : 0, 0.3f);
+        group.interactable = fade;
+        group.blocksRaycasts = fade;
+        group.DOFade(fade ? 1 : 0, 0.3f);
 
         foreach (Button btn in btns)
         {

@@ -20,7 +20,7 @@ public struct BuffData
 
 public class DeBuff_Core : CoreBase
 {
-    [SerializeField] private BuffSO buffSO = null;
+    public BuffSO buffSO = null;
     private BuffData buffData = new BuffData();
     private SpriteRenderer sr;
     public LayerMask towerMask = default;
@@ -36,7 +36,7 @@ public class DeBuff_Core : CoreBase
         buffData.addRange = buffSO.AddRange;
         buffData.slow_percentage = buffSO.Slow_Percentage;
         buffData.addDotDamage = buffSO.AddDotDamage;
-        buffData.duration = buffSO.Duraion;
+        buffData.duration = buffSO.Duration;
     }
 
     void Awake()
