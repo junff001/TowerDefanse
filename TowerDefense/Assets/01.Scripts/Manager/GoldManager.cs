@@ -8,7 +8,7 @@ public class GoldManager : MonoBehaviour
 {
     public Text moneyText;
 
-    public int Gold { get; set; } = 200;
+    public int Gold { get; set; } = 250;
 
     private void Start()
     {

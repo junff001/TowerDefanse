@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1402157c26ed648b63d2c2a1ede4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoHeight: 0
+  raderHeight: 0
   enemyMask:
     serializedVersion: 2
     m_Bits: 32256
@@ -106,12 +106,12 @@ MonoBehaviour:
   defaultAngle: -20
   chargingAngle: 5
   followThroughAngle: -100
+  throwAngle: -50
   chargingSpeed: 5
   releaseSpeed: 5
   TransitionTime: 0.1
   chargingTime: 2
   releaseTime: 1
-  ballLeaveTiming: 0.7
 --- !u!1 &4893648351645591149
 GameObject:
   m_ObjectHideFlags: 0

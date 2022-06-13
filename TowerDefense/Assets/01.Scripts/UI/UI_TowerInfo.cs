@@ -8,11 +8,18 @@ public class UI_TowerInfo : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
 
+    [SerializeField] private CanvasGroup pageDefault;
+    [SerializeField] private CanvasGroup pageProperty;
+
     [SerializeField] private Button btnLevelUp;
     [SerializeField] private Button btnSale;
     [SerializeField] private Button btnCancel;
 
+    [SerializeField] private Button[] btnProperties; // 속성 enum 순으로 정렬할것
+
     private Tower currentSelectedTower;
+    private CanvasGroup beforePage = null;
+    private CanvasGroup currentPage = null;
 
     private void Awake()
     {
@@ -21,25 +28,52 @@ public class UI_TowerInfo : MonoBehaviour
 
     private void Start()
     {
+        btnCancel.onClick.AddListener(CallCancelBtnOnClicked);
+
         btnSale.onClick.AddListener(CallSaleBtnOnClicked);
+        btnLevelUp.onClick.AddListener(CallUpgradeBtnOnClicked);
 
-        btnCancel.onClick.AddListener(() =>
+        for (int i = 0; i < btnProperties.Length; i++)
         {
-            Managers.UI.UIFade(canvasGroup, false);
-        });
-
-
+            Define.PropertyType type = (Define.PropertyType)(i + 1);
+            btnProperties[i].onClick.AddListener(() => CallPropertyBtnOnClicked(type));
+        }
     }
 
     public void OpenInfo(Tower tower)
     {
         Managers.UI.UIFade(canvasGroup, true);
-        BtnAnim(btnLevelUp, true);
-        BtnAnim(btnSale, true);
+        OpenPage(pageDefault);
         BtnAnim(btnCancel, true);
 
         transform.position = tower.transform.position + new Vector3(0, 1, 0); // 오프셋
         currentSelectedTower = tower;
+    }
+
+    public void CloseInfo()
+    {
+        Managers.UI.UIFade(canvasGroup, false);
+        CanvasBtnsAnim(currentPage, false);
+        beforePage = null;
+        currentPage = null;
+    }
+
+    private void OpenPage(CanvasGroup page)
+    {
+        beforePage = currentPage;
+        currentPage = page;
+
+        CanvasBtnsAnim(page, true);
+
+        if (beforePage != null)
+        {
+            CanvasBtnsAnim(beforePage, false);
+        }
+    }
+
+    private void CallUpgradeBtnOnClicked()
+    {
+        OpenPage(pageProperty);
     }
 
     private void CallSaleBtnOnClicked()
@@ -66,9 +100,40 @@ public class UI_TowerInfo : MonoBehaviour
         }
     }
 
+    private void CallPropertyBtnOnClicked(Define.PropertyType type)
+    {
+        Debug.Log(type);
+        if (currentSelectedTower != null)
+        {
+            currentSelectedTower.ChangeProperty(type);
+            CloseInfo();
+        }
+    }
+
     private void CallCancelBtnOnClicked()
     {
+        if(currentPage == pageDefault)
+        {
+            CloseInfo();
+        }
+        else if (currentPage == pageProperty)
+        {
+            OpenPage(pageDefault);
+        }
+    }
 
+    private void CanvasBtnsAnim(CanvasGroup group, bool fade)
+    {
+        Button[] btns = group.GetComponentsInChildren<Button>();
+
+        group.interactable = fade;
+        group.blocksRaycasts = fade;
+        group.DOFade(fade ? 1 : 0, 0.3f);
+
+        foreach (Button btn in btns)
+        {
+            BtnAnim(btn, fade);
+        }
     }
 
     private void BtnAnim(Button btn, bool fade)
@@ -76,6 +141,7 @@ public class UI_TowerInfo : MonoBehaviour
         if (fade)
         {
             btn.interactable = false;
+
             btn.targetGraphic.rectTransform.anchoredPosition = new Vector2(0, -150);
             btn.targetGraphic.rectTransform.DOAnchorPosY(0, 0.5f).OnComplete(() =>
             {
@@ -84,6 +150,8 @@ public class UI_TowerInfo : MonoBehaviour
         }
         else
         {
+            btn.interactable = false;
+
             btn.targetGraphic.rectTransform.anchoredPosition = new Vector2(0, 0);
             btn.targetGraphic.rectTransform.DOAnchorPosY(-150, 0.5f);
         }
