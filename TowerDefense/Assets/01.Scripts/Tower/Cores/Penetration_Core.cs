@@ -48,9 +48,9 @@ public class Penetration_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        if (bullet == null)
+        if (bullet == null && currentTarget != null)
         {
-            Ready(enemy.transform);
+            Ready();
             StartCoroutine(PullAndShoot(TransitionTime, enemy));
         }
     }
@@ -60,16 +60,16 @@ public class Penetration_Core : CoreBase
         yield return new WaitForSeconds(TransitionTime);
         Pull();
         yield return new WaitForSeconds(TransitionTime);
-        Shoot(towerData.OffensePower, enemy);
+        Shoot();
         yield return new WaitForSeconds(TransitionTime);
         bullet = null;
+        currentTarget = null;
     }
 
-    void Ready(Transform enemyTrm)
+    void Ready()
     {
         bullet = Managers.Pool.GetItem<Arrow>();
-        bullet.Init(towerData, enemyTrm);
-        bullet.currentTarget = currentTarget.transform.position;
+        bullet.Init(towerData, currentTarget.transform);
         bullet.transform.position = bowLauncher.position;
         bullet.transform.SetParent(bowLauncher);
         bullet.transform.localPosition = new Vector2(0.3f, 0.3f);
@@ -81,7 +81,7 @@ public class Penetration_Core : CoreBase
         bowLauncher.localPosition = new Vector2(-0.5f, -0.5f); 
     }
 
-    void Shoot(int power, HealthSystem enemy)
+    void Shoot()
     {
         bullet.transform.SetParent(null);
         bowLauncher.localPosition = new Vector2(0, 0);
