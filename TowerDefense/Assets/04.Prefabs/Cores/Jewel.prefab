@@ -95,8 +95,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170d8c1043c0ffe4a8a760cdac17bafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoHeight: 0
+  raderHeight: 0
   enemyMask:
     serializedVersion: 2
     m_Bits: 4294967295
   coreType: 5
+  buffSO: {fileID: 11400000, guid: 9e929b460d812cb49aefcb0cd007db4c, type: 2}
+  towerMask:
+    serializedVersion: 2
+    m_Bits: 0

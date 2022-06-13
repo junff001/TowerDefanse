@@ -32,6 +32,6 @@ public class BuffSO : ScriptableObject
     #endregion
 
     // 지속 시간
-    [SerializeField] private float duraion = 0f;
-    public float Duraion { get => duraion; set => value = duraion; }    
+    [SerializeField] private float duration = 0f;
+    public float Duration { get => duration; set => value = duration; }    
 }
