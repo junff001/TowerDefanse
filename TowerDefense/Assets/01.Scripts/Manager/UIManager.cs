@@ -84,47 +84,15 @@ public class UIManager
         group.interactable = fade;
     }
 
-    public void SummonText(Vector2 pos, string text, int maxSize, UnityAction callback = null)
+    public void SummonText(Vector2 pos, PopupText info, UnityAction callback = null)
     {
         Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
         textObj.rectTransform.anchoredPosition = pos;
-        textObj.text = text;
-        textObj.resizeTextMaxSize = maxSize;
+        textObj.text = info.text;
+        textObj.resizeTextMaxSize = info.maxSize;
 
-        textObj.rectTransform.DOAnchorPosY(100, 1.5f).SetRelative();
-        textObj.DOFade(0, 3f).SetEase(Ease.InQuart).OnComplete(() =>
-        {
-            if (callback != null)
-                callback.Invoke();
-            Object.Destroy(textObj);
-        });
-    }
-
-    public void SummonText(Vector2 pos, string text, float time, int maxSize, UnityAction callback = null)
-    {
-        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
-        textObj.rectTransform.anchoredPosition = pos;
-        textObj.text = text;
-        textObj.resizeTextMaxSize = maxSize;
-
-        textObj.rectTransform.DOAnchorPosY(100, time / 2).SetRelative();
-        textObj.DOFade(0, time).SetEase(Ease.InQuart).OnComplete(() =>
-        {
-            if (callback != null)
-                callback.Invoke();
-            Object.Destroy(textObj);
-        });
-    }
-
-    public void SummonText(Vector2 pos, Vector2 dir, string text, float time, int maxSize, UnityAction callback = null)
-    {
-        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
-        textObj.rectTransform.anchoredPosition = pos;
-        textObj.text = text;
-        textObj.resizeTextMaxSize = maxSize;
-
-        textObj.rectTransform.DOAnchorPos(dir, time / 2).SetRelative();
-        textObj.DOFade(0, time).SetEase(Ease.InQuart).OnComplete(() =>
+        textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative();
+        textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).OnComplete(() =>
         {
             if (callback != null)
                 callback.Invoke();

@@ -103,8 +103,8 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
 
         if (bThrowAway == true)
         {
-            Managers.UI.SummonText(Camera.main.WorldToScreenPoint(transform.position),
-                $"{actData.actType} {actStackCount}개 삭제", 30);
+            PopupText text = new PopupText($"{actData.actType} {actStackCount}개 삭제");
+            Managers.UI.SummonText(Camera.main.WorldToScreenPoint(transform.position), text);
             while (actStackCount > 0) Cancel();
         }
         else
