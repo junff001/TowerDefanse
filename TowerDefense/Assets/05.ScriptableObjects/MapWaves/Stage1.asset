@@ -17,13 +17,13 @@ MonoBehaviour:
     monsterBox:
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       propertyType: 0
-      enemyCount: 1
+      enemyCount: 2
       wayPointListIndex: 0
   - infoName: 
     monsterBox:
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       propertyType: 0
-      enemyCount: 3
+      enemyCount: 4
       wayPointListIndex: 0
   - infoName: 
     monsterBox:
