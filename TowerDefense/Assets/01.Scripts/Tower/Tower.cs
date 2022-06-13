@@ -69,6 +69,9 @@ public class Tower : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Managers.Game.towerInfoUI.OpenInfo(this);
+        if(Managers.Wave.GameMode == Define.GameMode.DEFENSE)
+        {
+            Managers.Game.towerInfoUI.OpenInfo(this);
+        }
     }
 }
