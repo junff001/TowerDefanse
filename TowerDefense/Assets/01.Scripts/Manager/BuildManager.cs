@@ -107,12 +107,15 @@ public class BuildManager : MonoBehaviour
 
         Vector3Int[] checkPos = Get2By2Tiles();
 
+        bool canPlace = CanPlace(placeTileType);
         foreach (var pos in checkPos)
         {
-            if (IsPlaceableTile(pos, placeTileType))
-            {
-                map.gridTilemap.SetColor(pos, Color.blue); // 아마 블루
-            }
+            if (false == IsPlaceableTile(pos, placeTileType)) continue;
+
+            if (canPlace)
+                map.gridTilemap.SetColor(pos, Color.blue);
+            else
+                map.gridTilemap.SetColor(pos, Color.red);
         }
 
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
