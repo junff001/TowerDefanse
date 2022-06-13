@@ -90,6 +90,7 @@ public class UIManager
         textObj.rectTransform.anchoredPosition = pos;
         textObj.text = info.text;
         textObj.resizeTextMaxSize = info.maxSize;
+        textObj.color = info.textColor;
 
         textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative();
         textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).OnComplete(() =>

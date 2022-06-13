@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GoldManager : MonoBehaviour
 {
     public Text moneyText;
+    public RectTransform moneyPopupTrans;
 
     public int Gold { get; set; } = 250;
 
@@ -45,7 +46,15 @@ public class GoldManager : MonoBehaviour
         if (Gold >= cost)
         {
             Gold -= cost;
-            Debug.Log($"골드 {cost} 소모");
+
+            PopupText text = new PopupText($"-{cost}");
+            text.textColor = Color.red;
+            text.dir = new Vector2(0, -50);
+            text.maxSize = 35;
+            text.duration = 1;
+
+            Managers.UI.SummonText(moneyPopupTrans.transform.position, text);
+
             UpdateGoldText();
             return true;
         }
@@ -65,7 +74,15 @@ public class GoldManager : MonoBehaviour
         if (Gold >= parsed_value)
         {
             Gold -= parsed_value;
-            Debug.Log($"골드 {parsed_value} 소모");
+
+            PopupText text = new PopupText($"-{cost}");
+            text.textColor = Color.red;
+            text.dir = new Vector2(0, -50);
+            text.maxSize = 35;
+            text.duration = 1;
+
+            Managers.UI.SummonText(moneyPopupTrans.transform.position, text);
+
             UpdateGoldText();
             return true;
         }

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public int maxHp { get; set; } = 10;
 
     public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
+    public RectTransform hpPopupTrans;
+
     public bool isAnyActing = false;
 
     public Transform waypointsParent { get; set; }
@@ -94,6 +96,14 @@ public class GameManager : MonoBehaviour
     public void OnEnemyArrivedLastWaypoint(EnemyBase enemy)
     {
         Hp--;
+
+        PopupText text = new PopupText($"-1");
+        text.textColor = Color.red;
+        text.dir = new Vector2(0, -50);
+        text.maxSize = 35;
+        text.duration = 1;
+
+        Managers.UI.SummonText(hpPopupTrans.transform.position, text);
 
         if (Hp <= 0)
         {
