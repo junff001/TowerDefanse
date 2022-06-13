@@ -33,8 +33,8 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
             enemies = Rader(enemyMask);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -62,16 +62,9 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies?.Length > 0);
-            try
-            {
-                currentTarget = enemies[0];
-                Attack(towerData.OffensePower, currentTarget.GetComponent<HealthSystem>());
-            }
-            catch
-            {
-                Debug.Log("CurrentTarget is null");
-            }
+            yield return new WaitUntil(() => enemies.Length > 0);
+            currentTarget = enemies[0];
+            Attack(towerData.OffensePower, currentTarget.GetComponent<HealthSystem>());
 
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
