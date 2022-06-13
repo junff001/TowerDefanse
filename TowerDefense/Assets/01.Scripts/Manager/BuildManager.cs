@@ -36,12 +36,6 @@ public class BuildManager : MonoBehaviour
     public GameObject lightAura;
     public GameObject darknessAura;
 
-    public GameObject lightAura;
-    public GameObject lightningAura;
-    public GameObject fireAura;
-    public GameObject darknessAura;
-    public GameObject waterAura;
-
     private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
