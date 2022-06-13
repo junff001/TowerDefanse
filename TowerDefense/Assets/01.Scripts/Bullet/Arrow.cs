@@ -36,6 +36,7 @@ public class Arrow : Bullet
 
     public override bool IsCollision()
     {
+        if (target == null) return true;
         return Vector2.Distance(target.transform.position, transform.position) <= 0.1f ? true : false;
     }
 

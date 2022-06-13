@@ -196,7 +196,7 @@ public class WaveManager : MonoBehaviour
                 }
                 else
                 {
-                    OnWaveEnd(0, 1);
+                    OnWaveEnd(0, 3);
                     Managers.Invade.isWaveProgress = false;
                     Managers.Invade.RecordedSegmentPlayAll();
 

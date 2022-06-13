@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a267292e6be764f9206c4583b08bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxMonsterCount: 5
+  MaxMonsterCount: 2
   curAddedMonsterCount: 0
   overlapColor: {r: 0.9433962, g: 0.752047, b: 0.752047, a: 0}
   monsterText: {fileID: 518620674}
