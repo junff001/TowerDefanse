@@ -3506,9 +3506,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771025355}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &777789858
 GameObject:
@@ -5343,7 +5343,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a35531479f1f10e4bbd087ffcea4a08a, type: 2}
   clearUI: {fileID: 1203147973}
   gameOverUI: {fileID: 1998239206}
-  towerInfoUI: {fileID: 0}
+  towerInfoUI: {fileID: 771025359}
 --- !u!4 &1079191658
 Transform:
   m_ObjectHideFlags: 0
@@ -8597,7 +8597,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1216768931
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1749629805

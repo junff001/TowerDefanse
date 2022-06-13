@@ -22,7 +22,7 @@ public class Spike_Core : CoreBase
 
         if (false == enemyBase.enemyData.IsFlying)
         {
-            enemy.TakeDamage(towerData.OffensePower, towerData.property);
+            enemy.TakeDamage(towerData.OffensePower, towerData.Property);
 
             hitEffect.transform.position = -enemy.transform.up;
         }

@@ -226,21 +226,8 @@ public class BuildManager : MonoBehaviour
             }
         }
 
-        foreach (var pos in checkedPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
-        {
-            Define.TileType placeTileType = Define.TileType.None;
-
-            switch(towerSO.placeTileType)
-            {
-                case Define.PlaceTileType.Place:
-                    placeTileType = Define.TileType.Place_Tower;
-                    break;
-                case Define.PlaceTileType.Road:
-                    placeTileType = Define.TileType.Road_Tower;
-                    break;
-            }
-            map.mapTileTypeArray[pos.x, pos.y] = placeTileType;
-        }
+        SetTowerGrid(newTower, checkedPos, true);
+        newTower.myCheckedPos = checkedPos; // 저장
 
         spawnedTowers.Add(newTower);
         // 레코드
@@ -250,5 +237,24 @@ public class BuildManager : MonoBehaviour
         // 설치 이펙트
         Effect_StoneFrag effectStone = Managers.Pool.GetItem<Effect_StoneFrag>();
         effectStone.transform.position = placePos;
+    }
+
+    public void SetTowerGrid(Tower tower, Vector3Int[] checkPos, bool value)
+    {
+        foreach (var pos in checkPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
+        {
+            Define.TileType placeTileType = Define.TileType.None;
+
+            switch (tower.TowerData.PlaceTileType)
+            {
+                case Define.PlaceTileType.Place:
+                    placeTileType = value ? Define.TileType.Place_Tower : Define.TileType.Place;
+                    break;
+                case Define.PlaceTileType.Road:
+                    placeTileType = value ? Define.TileType.Road_Tower : Define.TileType.Road;
+                    break;
+            }
+            Managers.Build.map.mapTileTypeArray[pos.x, pos.y] = placeTileType;
+        }
     }
 }

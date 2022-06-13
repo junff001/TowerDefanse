@@ -104,12 +104,12 @@ public class DeBuff_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        enemy.TakeDamage(towerData.OffensePower, towerData.property);
+        enemy.TakeDamage(towerData.OffensePower, towerData.Property);
     }
 
     public override void PropertyCheck()
     {
-        switch (towerData.property)
+        switch (towerData.Property)
         {
             case Define.PropertyType.WATER:
                 buffAction += Slow;

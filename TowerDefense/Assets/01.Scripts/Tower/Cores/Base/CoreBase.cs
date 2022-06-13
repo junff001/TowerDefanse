@@ -75,7 +75,7 @@ public abstract class CoreBase : MonoBehaviour
     public virtual void PropertyCheck()
     {
         // 애니메이션 이나 그런거 넣으셈
-        switch (towerData.property)
+        switch (towerData.Property)
         {
             case Define.PropertyType.WATER:
                 break;
