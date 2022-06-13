@@ -152,10 +152,10 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        monsterTypeArray.Distinct();
+        monsterTypeArray = monsterTypeArray.Distinct().ToList();
 
         Debug.Log(monsterTypeArray.Count);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < monsterTypeArray.Count; i++)
         {
             UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
             addBtn.Init(monsterTypeArray[i]);
