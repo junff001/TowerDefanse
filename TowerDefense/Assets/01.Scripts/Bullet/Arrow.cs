@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Arrow : Bullet
 {
+    Vector2 moveDir = Vector2.zero;
+
     public override void Init(TowerData towerData, Transform enemyTrm)
     {
         base.Init(towerData, enemyTrm);
+        moveDir = (target.transform.position - transform.position).normalized;
     }
 
     public override void Update()
@@ -26,7 +29,7 @@ public class Arrow : Bullet
     {
         if (target != null)
         {
-            transform.LookAt(target);
+            transform.rotation = Quaternion.Euler(0, 0, GetAngleFromVector(moveDir));
             transform.position += (target.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
     }
@@ -34,6 +37,14 @@ public class Arrow : Bullet
     public override bool IsCollision()
     {
         return Vector2.Distance(target.transform.position, transform.position) <= 0.1f ? true : false;
+    }
+
+    private float GetAngleFromVector(Vector3 dir)
+    {
+        float radians = Mathf.Atan2(dir.y, dir.x);
+        float degrees = radians * Mathf.Rad2Deg;
+
+        return degrees;
     }
 
     public override void CollisionEvent()
