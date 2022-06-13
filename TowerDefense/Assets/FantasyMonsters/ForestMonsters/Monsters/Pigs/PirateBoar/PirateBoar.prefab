@@ -71,8 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 50
-  m_Sprite: {fileID: -2464605850734696506, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: -2464605850734696506, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -154,8 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 6882371640200617258, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 6882371640200617258, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -271,8 +269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 15
-  m_Sprite: {fileID: 7747752229143381957, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 7747752229143381957, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -354,8 +351,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 55
-  m_Sprite: {fileID: -764005571947913499, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: -764005571947913499, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -437,8 +433,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 60
-  m_Sprite: {fileID: 6733936084590483329, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 6733936084590483329, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -551,8 +546,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 40
-  m_Sprite: {fileID: 7232727797619221383, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 7232727797619221383, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -664,8 +658,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 30
-  m_Sprite: {fileID: 2636806938598267663, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 2636806938598267663, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -747,8 +740,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 45
-  m_Sprite: {fileID: -1828946549344447192, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: -1828946549344447192, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -840,8 +832,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: -5673618120071735642, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: -5673618120071735642, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -923,8 +914,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 25
-  m_Sprite: {fileID: 6882371640200617258, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 6882371640200617258, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -992,151 +982,6 @@ MonoBehaviour:
   - {fileID: -1381065623766834176, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   Animator: {fileID: 4297573935222675149}
   Variations: 0
-  SpriteNames:
-  - Body
-  - HeadNormal
-  - LegFront
-  - LegFront
-  - LegBack
-  - LegBack
-  - Chain
-  - Cannon
-  - CannonBodyL
-  - CannonBodyR
-  - Wheels
-  - PirateHat
-  TexturePath: Assets/FantasyMonsters/ForestMonsters/Monsters/Pigs/PirateBoar/PirateBoar.png
-  Spritesheet:
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: HeadNormal
-    rect:
-      serializedVersion: 2
-      x: 0
-      y: 320
-      width: 320
-      height: 320
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: HeadAngry
-    rect:
-      serializedVersion: 2
-      x: 320
-      y: 320
-      width: 320
-      height: 320
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: HeadDead
-    rect:
-      serializedVersion: 2
-      x: 640
-      y: 320
-      width: 320
-      height: 320
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: Body
-    rect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 640
-      height: 320
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: LegFront
-    rect:
-      serializedVersion: 2
-      x: 640
-      y: 160
-      width: 160
-      height: 160
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: LegBack
-    rect:
-      serializedVersion: 2
-      x: 800
-      y: 160
-      width: 160
-      height: 160
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 9
-    pivot: {x: 0.62, y: 0.42}
-    name: Cannon
-    rect:
-      serializedVersion: 2
-      x: 960
-      y: 420
-      width: 482
-      height: 220
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 9
-    pivot: {x: 0.6, y: 0.25}
-    name: PirateHat
-    rect:
-      serializedVersion: 2
-      x: 638
-      y: 0
-      width: 320
-      height: 160
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: CannonBodyL
-    rect:
-      serializedVersion: 2
-      x: 960
-      y: 210
-      width: 220
-      height: 210
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 9
-    pivot: {x: 0.3, y: 0.1}
-    name: Chain
-    rect:
-      serializedVersion: 2
-      x: 1332
-      y: 130
-      width: 110
-      height: 290
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: Wheels
-    rect:
-      serializedVersion: 2
-      x: 1180
-      y: 315
-      width: 152
-      height: 105
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: Cannonball
-    rect:
-      serializedVersion: 2
-      x: 1180
-      y: 190
-      width: 152
-      height: 125
-    border: {x: 0, y: 0, z: 0, w: 0}
-  - alignment: 0
-    pivot: {x: 0.5, y: 0.5}
-    name: CannonBodyR
-    rect:
-      serializedVersion: 2
-      x: 960
-      y: 0
-      width: 220
-      height: 210
-    border: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &2241771279466226233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1300,8 +1145,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 35
-  m_Sprite: {fileID: 7747752229143381957, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 7747752229143381957, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1495,8 +1339,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 1717999729494451121, guid: 8ab626048391ead47b545aa750213a01,
-    type: 3}
+  m_Sprite: {fileID: 1717999729494451121, guid: 8ab626048391ead47b545aa750213a01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
