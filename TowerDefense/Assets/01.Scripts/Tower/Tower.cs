@@ -12,7 +12,8 @@ public struct TowerData
     public float AttackRange;
     public int PlaceCost;
     public int attackTargetCount;
-    public Define.PropertyType property;
+    public Define.PropertyType Property;
+    public Define.PlaceTileType PlaceTileType;
 }
 
 public class Tower : MonoBehaviour
@@ -22,6 +23,9 @@ public class Tower : MonoBehaviour
 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
     public Transform coreTrm;
+
+    public Vector3Int[] myCheckedPos { get; set; } // 나의 그리드값을 가진다.
+
     private List<BuffBase> buffList = new List<BuffBase>();
 
     [SerializeField] private GameObject lightAura;
@@ -38,11 +42,11 @@ public class Tower : MonoBehaviour
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
         towerData.attackTargetCount = towerSO.AttackTargetCount;
-        towerData.property = towerSO.propertyType;
-
+        towerData.Property = towerSO.propertyType;
+        towerData.PlaceTileType = towerSO.placeTileType;
 
         GameObject makeObj = null;
-        switch(towerData.property)
+        switch(towerData.Property)
         {
             case Define.PropertyType.DARKNESS: makeObj = darknessAura; break;
             case Define.PropertyType.LIGHT: makeObj = lightAura; break;
@@ -55,5 +59,10 @@ public class Tower : MonoBehaviour
         {
             Instantiate(makeObj, this.transform);
         }
+    }
+
+    private void OnMouseDown()
+    {
+        Managers.Game.towerInfoUI.OpenInfo(this);
     }
 }

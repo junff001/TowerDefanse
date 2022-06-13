@@ -77,6 +77,13 @@ public class UIManager
         }
     }
 
+    public void UIFade(CanvasGroup group, bool fade)
+    {
+        group.alpha = fade ? 1 : 0;
+        group.blocksRaycasts = fade;
+        group.interactable = fade;
+    }
+
     public void SummonText(Vector2 pos, string text, int maxSize, UnityAction callback = null)
     {
         Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();

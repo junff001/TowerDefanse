@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6440560775320885368}
   - component: {fileID: 6440560775320885369}
+  - component: {fileID: 705179786020794454}
   m_Layer: 0
   m_Name: BaseTower
   m_TagString: Untagged
@@ -142,6 +143,32 @@ MonoBehaviour:
   fireAura: {fileID: 107076, guid: 1048366b48a8cc3429168da2a8224d7d, type: 3}
   darknessAura: {fileID: 178478, guid: babbe5be7b93cf74aa2fd133ac36a83c, type: 3}
   waterAura: {fileID: 191372, guid: 559b36e032a8acb44a5ffe0ededc6df9, type: 3}
+--- !u!61 &705179786020794454
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6440560775320885367}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.61}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6440560775465285333
 GameObject:
   m_ObjectHideFlags: 0

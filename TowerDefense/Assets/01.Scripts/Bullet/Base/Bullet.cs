@@ -16,7 +16,7 @@ public abstract class Bullet : MonoBehaviour
     public virtual void Init(TowerData towerData, Transform enemyTrm)
     {
         target = enemyTrm;
-        propertyType = towerData.property;
+        propertyType = towerData.Property;
         bulletDamage = towerData.OffensePower;
     }
 
