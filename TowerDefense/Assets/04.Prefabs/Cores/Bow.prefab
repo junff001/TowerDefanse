@@ -45,18 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f105448e26c21194098e300fbdbb08a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoHeight: 0
+  raderHeight: 0
   enemyMask:
     serializedVersion: 2
     m_Bits: 32256
   coreType: 1
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
+  spriteRenderer: {fileID: 192154975692651868}
   bow: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
   pullBow: {fileID: 584974529283380949, guid: 6d878ababb928894985e64936c103eff, type: 3}
   rotateSpeed: 20
   TransitionTime: 1
-  sr: {fileID: 192154975692651868}
 --- !u!1 &1251045487820614655
 GameObject:
   m_ObjectHideFlags: 0

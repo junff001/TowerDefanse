@@ -4,30 +4,35 @@ using UnityEngine;
 
 public class Arrow : Bullet
 {
+    public Vector3 currentTarget;
     private Vector3 targetCatchPos = Vector3.zero;      // 투사 지점
     Vector3 moveDirection = Vector3.zero;
 
     public override void Init(TowerData towerData, Transform enemyTrm)
     {
-        base.Init(towerData,enemyTrm);
+        base.Init(towerData, enemyTrm);
+        targetCatchPos = currentTarget;
     }
 
     public override void Update()
     {
-        Shoot();
-
-        if (IsCollision())
+        if (isShoot)
         {
-            moveDirection = Vector3.zero;
-            CollisionEvent();
+            Shoot();
 
-            target = null;
+            if (IsCollision())
+            {
+                moveDirection = Vector3.zero;
+                CollisionEvent();
+
+                target = null;
+            }
         }
     }
 
     public override void Shoot()
     {
-        transform.position += moveDirection * speed * Time.deltaTime;
+        transform.position += (targetCatchPos - transform.position).normalized * speed * Time.deltaTime;     
     }
 
     private float GetAngleFromVector(Vector3 dir)
@@ -51,6 +56,7 @@ public class Arrow : Bullet
             var ps = Instantiate(hitEffect);
             ps.transform.position = target.position;
             ps.Play();
+            isShoot = false;
 
             gameObject.SetActive(false);
         }

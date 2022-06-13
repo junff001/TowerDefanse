@@ -11,7 +11,7 @@ public class Catapult_Core : CoreBase
     [Header("각도 변수")]
     [SerializeField] private float defaultAngle = 0f;
     [SerializeField] private float chargingAngle = 0f;
-    [SerializeField] private float followThroughAngle = 0f;
+    [SerializeField] private float followThroughAngle = 0f;   
 
     [Header("속도 변수")]
     [SerializeField] private float chargingSpeed = 0f;
@@ -21,6 +21,7 @@ public class Catapult_Core : CoreBase
     [SerializeField] private float TransitionTime = 0f;
     [SerializeField] private float chargingTime = 0f;
     [SerializeField] private float releaseTime = 0f;
+    [Range(0, 1)][SerializeField] private float ballLeaveTiming = 0f;
 
     private Stone bullet = null;
 
@@ -77,10 +78,14 @@ public class Catapult_Core : CoreBase
             float t = releaseSpeed * Time.deltaTime;
             head.transform.rotation = Quaternion.Slerp(head.transform.rotation, followThrough, t);
 
-            if (head.transform.rotation == followThrough)
+            if (t >= ballLeaveTiming)
             {
                 bullet.transform.SetParent(null);
                 bullet.isShoot = true;
+            }
+
+            if (head.transform.rotation == followThrough)
+            {
                 head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
                 bullet = null;
                 break;

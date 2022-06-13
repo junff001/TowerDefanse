@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class CoreBase : MonoBehaviour
 {
-    [SerializeField] private float gizmoHeight = 0f;
+    [Header("레이더")]
+    [SerializeField] private float raderHeight = 0f;
 
     public LayerMask enemyMask = default;                          // 적을 분별하는 마스크    
     protected Collider2D[] enemies = null;                         // 공격 범위 안에 있는 적들
@@ -40,8 +41,7 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 범위 처리 함수
     public virtual Collider2D[] Rader(LayerMask targetMask)
     {
-        //return Physics2D.OverlapCircleAll(transform.position + new Vector3(0, gizmoHeight, 0), towerData.AttackRange, targetMask);
-        return Physics2D.OverlapCircleAll(transform.position, towerData.AttackRange, targetMask);
+        return Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange, targetMask);
     }
 
     // 공격 범위 기즈모 표시
@@ -51,7 +51,7 @@ public abstract class CoreBase : MonoBehaviour
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position + new Vector3(0, gizmoHeight, 0), towerData.AttackRange);
+            Gizmos.DrawWireSphere(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange);
             Gizmos.color = Color.white;
         }
     }
@@ -64,7 +64,7 @@ public abstract class CoreBase : MonoBehaviour
         {
             yield return new WaitUntil(() => enemies?.Length > 0);
             currentTarget = enemies[0];
-            Attack(towerData.OffensePower, enemies[0].GetComponent<HealthSystem>());       
+            Attack(towerData.OffensePower, currentTarget.GetComponent<HealthSystem>());       
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }

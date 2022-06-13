@@ -111,6 +111,7 @@ MonoBehaviour:
   TransitionTime: 0.1
   chargingTime: 2
   releaseTime: 1
+  ballLeaveTiming: 0.7
 --- !u!1 &4893648351645591149
 GameObject:
   m_ObjectHideFlags: 0

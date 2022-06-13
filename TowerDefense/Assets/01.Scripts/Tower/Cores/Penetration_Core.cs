@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Penetration_Core : CoreBase
 {
+    [Header("파츠")]
     [SerializeField] private Transform bowBody = null;         
     [SerializeField] private Transform bowLauncher = null;
+    [SerializeField] private SpriteRenderer spriteRenderer = null;
+
+    [Header("스프라이트")]
     [SerializeField] private Sprite bow = null;
     [SerializeField] private Sprite pullBow = null;
+
+    [Header("시간/속도")]
     [SerializeField] private float rotateSpeed = 0f;
     [SerializeField] private float TransitionTime = 0f;
 
     private Arrow bullet = null;
-    [SerializeField] private SpriteRenderer sr = null;
-
+    
     public override void OnEnable()
     {
         base.OnEnable();
         StartCoroutine(LookAtTarget());
-
-        Pull();
     }
 
     IEnumerator LookAtTarget()
@@ -65,7 +68,8 @@ public class Penetration_Core : CoreBase
     void Ready(Transform enemyTrm)
     {
         bullet = Managers.Pool.GetItem<Arrow>();
-        bullet.Init(towerData,enemyTrm);
+        bullet.Init(towerData, enemyTrm);
+        bullet.currentTarget = currentTarget.transform.position;
         bullet.transform.position = bowLauncher.position;
         bullet.transform.SetParent(bowLauncher);
         bullet.transform.localPosition = new Vector2(0.3f, 0.3f);
@@ -73,16 +77,15 @@ public class Penetration_Core : CoreBase
 
     void Pull()
     {
-        sr.sprite = pullBow;
+        spriteRenderer.sprite = pullBow;
         bowLauncher.localPosition = new Vector2(-0.5f, -0.5f); 
-        bullet.transform.localPosition = new Vector2(0.5f, 0.5f);
     }
 
     void Shoot(int power, HealthSystem enemy)
-    {       
-        bowLauncher.localPosition = new Vector2(0, 0);
+    {
         bullet.transform.SetParent(null);
+        bowLauncher.localPosition = new Vector2(0, 0);
         bullet.isShoot = true;
-        sr.sprite = bow;
+        spriteRenderer.sprite = bow;
     }
 }
