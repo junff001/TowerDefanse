@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 50
+  offensePower: 100
   attackSpeed: 1
-  attackRange: 4
+  attackRange: 6
   placeCost: 110
   attackTargetCount: 1
   towerSprite: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}

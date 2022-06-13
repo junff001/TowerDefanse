@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   offensePower: 50
-  attackSpeed: 2
-  attackRange: 4
+  attackSpeed: 1.5
+  attackRange: 5
   placeCost: 150
   attackTargetCount: 1
   towerSprite: {fileID: -3043711648414944898, guid: 6d878ababb928894985e64936c103eff, type: 3}

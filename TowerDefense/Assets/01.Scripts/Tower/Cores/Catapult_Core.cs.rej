@@ -1,10 +1,9 @@
 diff a/TowerDefense/Assets/01.Scripts/Tower/Cores/Catapult_Core.cs b/TowerDefense/Assets/01.Scripts/Tower/Cores/Catapult_Core.cs	(rejected hunks)
-@@ -86,8 +86,6 @@
-             {
-                 bullet.transform.SetParent(null);
-                 bullet.isShoot = true;
--
--                Debug.Log("준서 이 새끼..");
-             }
+@@ -79,6 +79,7 @@
  
-             if (head.transform.localRotation == followThrough)
+             if (head.transform.localRotation == charging)
+             {
++                Debug.Log("던지기");
+                 StartCoroutine(Throw1(enemy));
+                 break;    
+             }
