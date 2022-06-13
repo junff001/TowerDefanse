@@ -28,11 +28,11 @@ public class Tower : MonoBehaviour
 
     private List<BuffBase> buffList = new List<BuffBase>();
 
-    [SerializeField] private GameObject lightAura;
-    [SerializeField] private GameObject lightningAura;
-    [SerializeField] private GameObject fireAura;
-    [SerializeField] private GameObject darknessAura;
-    [SerializeField] private GameObject waterAura;
+    
+    
+    
+    
+    
 
     public void InitTowerData(TowerSO towerSO)
     {
@@ -48,11 +48,11 @@ public class Tower : MonoBehaviour
         GameObject makeObj = null;
         switch(towerData.Property)
         {
-            case Define.PropertyType.DARKNESS: makeObj = darknessAura; break;
-            case Define.PropertyType.LIGHT: makeObj = lightAura; break;
-            case Define.PropertyType.LIGHTNING: makeObj = lightningAura; break;
-            case Define.PropertyType.WATER: makeObj = waterAura; break;
-            case Define.PropertyType.FIRE: makeObj = fireAura; break;
+            case Define.PropertyType.DARKNESS: makeObj = Managers.Build.darknessAura; break;
+            case Define.PropertyType.LIGHT: makeObj = Managers.Build.lightAura; break;
+            case Define.PropertyType.LIGHTNING: makeObj = Managers.Build.lightningAura; break;
+            case Define.PropertyType.WATER: makeObj = Managers.Build.waterAura; break;
+            case Define.PropertyType.FIRE: makeObj = Managers.Build.fireAura; break;
         }
 
         if(makeObj != null)
