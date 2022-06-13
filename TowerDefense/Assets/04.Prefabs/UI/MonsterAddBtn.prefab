@@ -137,9 +137,9 @@ MonoBehaviour:
   actData:
     actType: 0
     monsterType: 0
-  moveImg: {fileID: 6749774292135483747}
-  movedDist: 0
+  monsterImg: {fileID: 6749774292135483747}
   cost: 1
+  movedDist: 0
 --- !u!1 &6749774292135483745
 GameObject:
   m_ObjectHideFlags: 0

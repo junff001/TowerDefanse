@@ -1952,7 +1952,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
-  tilemap_view: {fileID: 7883175783855937805}
+  gridTilemap: {fileID: 0}
+  tilemap_view_renderer: {fileID: 0}
   width: 0
   height: 0
   placeTile: {fileID: 0}
@@ -7093,7 +7094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointsParent: {fileID: 2161762172719924502}
   map: {fileID: 8259061102379508564}
-  waveSO: {fileID: 11400000, guid: 0a988c2e4aa0ea94181ed0545ab0bb6e, type: 2}
+  waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
   pointLists:
   - indexWayPoints: 00000000010000000200000003000000
   - indexWayPoints: 040000000200000003000000

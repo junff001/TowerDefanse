@@ -39,9 +39,6 @@ public class StageManager
         Managers.Wave.waveSO = obj.waveSO;
         Managers.Build.map = obj.map;
 
-
-        //여기서 스테이지 타워 데이터, 내가 가져온 몹 데이터 기반으로 버튼들 초기화 해주고
-        //나머지는 매니저나 씬 자체에서 알아서 관리.
     }
 
 

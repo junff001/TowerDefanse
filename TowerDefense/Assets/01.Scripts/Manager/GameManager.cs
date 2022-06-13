@@ -59,6 +59,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void LoadStageSelect()
+    {
+        Managers.LoadScene.LoadScene("TitleScene");
+        Time.timeScale = 1;
+    }
+
     public void SetEnemySoDic() 
     {
         foreach (var item in enemySOs)

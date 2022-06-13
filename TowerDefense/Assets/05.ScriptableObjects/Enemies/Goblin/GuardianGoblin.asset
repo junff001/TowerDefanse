@@ -20,7 +20,7 @@ MonoBehaviour:
   isHide: 0
   isGuardian: 1
   isFlying: 0
-  propertyResistance: 0
+  propertyResistance: 1
   isDebuffIimmune: 0
   monsterType: 3
   sprite: {fileID: 21300000, guid: 5f9eb49cc8454784d81096857a22291a, type: 3}
