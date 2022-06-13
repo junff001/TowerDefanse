@@ -30,12 +30,6 @@ public class Tower : MonoBehaviour
 
     private GameObject propertyEffectObject;
 
-    [SerializeField] private GameObject lightAura;
-    [SerializeField] private GameObject lightningAura;
-    [SerializeField] private GameObject fireAura;
-    [SerializeField] private GameObject darknessAura;
-    [SerializeField] private GameObject waterAura;
-
     public void InitTowerData(TowerSO towerSO)
     {
         towerData.Level = towerSO.Level;
@@ -69,7 +63,7 @@ public class Tower : MonoBehaviour
 
         if (propertyEffectObject != null)
         {
-            Instantiate(propertyEffectObject, this.transform);
+            propertyEffectObject = Instantiate(propertyEffectObject, this.transform);
         }
     }
 
