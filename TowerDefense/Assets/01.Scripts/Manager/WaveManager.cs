@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
@@ -48,7 +49,9 @@ public class WaveManager : MonoBehaviour
     [Header("오펜스UI")]
     public CanvasGroup offenseMonsterGroup;
     public RectTransform offenseStatus;
+    public Transform monsterContent;
     public Text offenseHpText;
+    public UI_AddActBtn addBtnPrefab;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -135,6 +138,30 @@ public class WaveManager : MonoBehaviour
         Managers.Invade.UpdateTexts();
     }
 
+    public void SetMonsterAddBtns() // 이거 테스트하기
+    {
+        List<Define.MonsterType> monsterTypeArray = new List<Define.MonsterType>();
+
+        for (int i = 0; i < waveSO.waveEnemyInfos.Length; i++)
+        {
+            SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[i].monsterBox;
+
+            for(int j = 0; j < enemyBox.Length; j++)
+            {
+                monsterTypeArray.Add(enemyBox[i].enemy.enemyData.MonsterType); // 처음 데이터 체크 X, 추가
+            }
+        }
+
+        monsterTypeArray.Distinct();
+
+        Debug.Log(monsterTypeArray.Count);
+        for (int i = 0; i < 5; i++)
+        {
+            UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
+            addBtn.Init(monsterTypeArray[i]);
+        }
+    }
+
     public void CheckWaveEnd()
     {
         if (gameMode == Define.GameMode.DEFENSE)
@@ -148,10 +175,10 @@ public class WaveManager : MonoBehaviour
                 // 디펜스 클리어 체크
                 if (Wave >= waveSO.waveEnemyInfos.Length)
                 {
-                    // UI나 컷신같은거 나오고 교체..일걸요?
-
                     // 오펜스 모드로 교체!
                     GameMode = Define.GameMode.OFFENSE;
+                    SetMonsterAddBtns();
+
                 }
                 else
                 {
