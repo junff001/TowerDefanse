@@ -123,17 +123,20 @@ public class WaveManager : MonoBehaviour
 
     public void OnWaveEnd(int rewardGold, int rewardWave)
     {
+        PopupText text = new PopupText();
+        text.maxSize = 60;
+
         if (gameMode == Define.GameMode.DEFENSE)
         {
             Managers.Gold.GoldPlus(rewardGold);
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"{rewardGold} 지급!", 60);
-            Debug.Log("돈 추가");
+            text.text = $"{rewardGold} 지급!";
+            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
         else
         {
             Managers.Invade.MaxMonsterCount += rewardWave;
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), $"웨이브 편성 수 {rewardWave} 증가!", 60);
-            Debug.Log("인원 추가");
+            text.text = $"웨이브 편성 수 {rewardWave} 증가!";
+            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
         Managers.Invade.UpdateTexts();
     }

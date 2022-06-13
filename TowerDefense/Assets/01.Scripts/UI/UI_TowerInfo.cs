@@ -91,7 +91,9 @@ public class UI_TowerInfo : MonoBehaviour
             Managers.Gold.GoldPlus(returnGold);
 
             Vector3 screenPos = Camera.main.WorldToScreenPoint(currentSelectedTower.transform.position);
-            Managers.UI.SummonText(screenPos, $"타워 판매!\n{returnGold} Gold를 획득했습니다.", 30);
+
+            PopupText text = new PopupText($"타워 판매!\n{returnGold} Gold를 획득했습니다.");
+            Managers.UI.SummonText(screenPos, text);
 
             Destroy(currentSelectedTower.gameObject);
             Managers.Build.spawnedTowers.RemoveAt(index);

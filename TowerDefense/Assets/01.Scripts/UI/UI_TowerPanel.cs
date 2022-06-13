@@ -30,6 +30,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         if (IsLeftBtn(eventData) && CanDrag())
         {
             float movedDist = Vector3.Distance(rt.anchoredPosition, eventData.position);
+            PopupText text = new PopupText();
+
             if (movedDist > rt.sizeDelta.y / 2)
             {
                 if (Managers.Build.CanPlace(towerSO.placeTileType))
@@ -38,21 +40,26 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
                     {
                         Managers.Build.SpawnTower(towerSO, Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles()));
 
-                        Managers.UI.SummonText(towerImage.transform.position, "설치 완료!", 30);
+                        text.text = "설치 완료!";
+                        Managers.UI.SummonText(towerImage.transform.position, text);
                     }
                     else
                     {
-                        Managers.UI.SummonText(towerImage.transform.position, "타워 설치 비용이 부족합니다.", 30);
+                        text.text = "타워 설치 비용이 부족합니다.";
+                        Managers.UI.SummonText(towerImage.transform.position, text);
                     }
                 }
                 else
                 {
-                    Managers.UI.SummonText(towerImage.transform.position, "설치 불가능한 위치입니다.", 30);
+                    text.text = "설치 불가능한 위치입니다.";
+                    Managers.UI.SummonText(towerImage.transform.position, text);
                 }
             }
             else
             {
-                Managers.UI.SummonText(towerImage.transform.position, "설치 취소", 20);
+                text.text = "설치 취소";
+                text.maxSize = 20;
+                Managers.UI.SummonText(towerImage.transform.position, text);
             }
         }
 
