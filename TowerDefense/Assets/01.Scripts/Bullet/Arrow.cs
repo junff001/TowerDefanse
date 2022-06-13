@@ -24,7 +24,7 @@ public class Arrow : Bullet
 
     public override void Shoot()
     {
-        if(target != null)
+        if (target != null)
         {
             transform.LookAt(target);
             transform.position += (target.transform.position - transform.position).normalized * speed * Time.deltaTime;
