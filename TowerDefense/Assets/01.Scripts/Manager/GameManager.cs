@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     public void LoadStageSelect()
     {
         Managers.LoadScene.LoadScene("TitleScene");
+        Time.timeScale = 1;
     }
 
     public void SetEnemySoDic() 
