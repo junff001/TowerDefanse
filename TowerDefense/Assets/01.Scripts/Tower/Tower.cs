@@ -28,6 +28,8 @@ public class Tower : MonoBehaviour
 
     private List<BuffBase> buffList = new List<BuffBase>();
 
+    private GameObject propertyEffectObject;
+
     [SerializeField] private GameObject lightAura;
     [SerializeField] private GameObject lightningAura;
     [SerializeField] private GameObject fireAura;
@@ -44,20 +46,30 @@ public class Tower : MonoBehaviour
         towerData.attackTargetCount = towerSO.AttackTargetCount;
         towerData.Property = towerSO.propertyType;
         towerData.PlaceTileType = towerSO.placeTileType;
+    }
 
-        GameObject makeObj = null;
-        switch(towerData.Property)
+    public void ChangeProperty(Define.PropertyType propertyType)
+    {
+        towerData.Property = propertyType;
+
+        if (propertyEffectObject != null)
         {
-            case Define.PropertyType.DARKNESS: makeObj = darknessAura; break;
-            case Define.PropertyType.LIGHT: makeObj = lightAura; break;
-            case Define.PropertyType.LIGHTNING: makeObj = lightningAura; break;
-            case Define.PropertyType.WATER: makeObj = waterAura; break;
-            case Define.PropertyType.FIRE: makeObj = fireAura; break;
+            Destroy(propertyEffectObject);
+            propertyEffectObject = null;
         }
 
-        if(makeObj != null)
+        switch (towerData.Property)
         {
-            Instantiate(makeObj, this.transform);
+            case Define.PropertyType.FIRE: propertyEffectObject = Managers.Build.fireAura; break;
+            case Define.PropertyType.WATER: propertyEffectObject = Managers.Build.waterAura; break;
+            case Define.PropertyType.LIGHTNING: propertyEffectObject = Managers.Build.lightningAura; break;
+            case Define.PropertyType.LIGHT: propertyEffectObject = Managers.Build.lightAura; break;
+            case Define.PropertyType.DARKNESS: propertyEffectObject = Managers.Build.darknessAura; break;
+        }
+
+        if (propertyEffectObject != null)
+        {
+            Instantiate(propertyEffectObject, this.transform);
         }
     }
 
