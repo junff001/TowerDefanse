@@ -18,9 +18,17 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     private Mask mask;
 
-    public void Init(Define.MonsterType monsterType)
+    public void Init(Define.MonsterType monsterType = Define.MonsterType.None)
     {
-        actData = new ActData(Define.ActType.Enemy, monsterType);
+        if (monsterType == Define.MonsterType.None)
+        {
+            actData = new ActData(Define.ActType.Wait , monsterType);
+        }
+        else
+        {
+            actData = new ActData(Define.ActType.Enemy, monsterType);
+        }
+        
         mask = transform.GetComponentInChildren<Mask>();
         gr = transform.root.GetComponent<GraphicRaycaster>();
 

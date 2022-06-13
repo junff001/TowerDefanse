@@ -148,18 +148,19 @@ public class WaveManager : MonoBehaviour
 
             for(int j = 0; j < enemyBox.Length; j++)
             {
-                monsterTypeArray.Add(enemyBox[i].enemy.enemyData.MonsterType); // 처음 데이터 체크 X, 추가
+                monsterTypeArray.Add(enemyBox[j].enemy.enemyData.MonsterType); // 처음 데이터 체크 X, 추가
             }
         }
-
         monsterTypeArray = monsterTypeArray.Distinct().ToList();
 
-        Debug.Log(monsterTypeArray.Count);
         for (int i = 0; i < monsterTypeArray.Count; i++)
         {
             UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
             addBtn.Init(monsterTypeArray[i]);
         }
+
+        UI_AddActBtn addWaitBtn = Instantiate(addBtnPrefab, monsterContent);
+        addWaitBtn.Init();
     }
 
     public void CheckWaveEnd()
