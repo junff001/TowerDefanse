@@ -6,9 +6,12 @@ public class Stone : Bullet
 {
     public override void Init(TowerData towerData, Transform enemyTrm)
     {
-        target = enemyTrm;
-        propertyType = towerData.Property;
-        bulletDamage = towerData.OffensePower;
+        base.Init(towerData,enemyTrm);
         gameObject.SetActive(true);
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 }

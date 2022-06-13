@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 50
-  attackSpeed: 1
+  offensePower: 100
+  attackSpeed: 1.2
   attackRange: 4
   placeCost: 110
   attackTargetCount: 1

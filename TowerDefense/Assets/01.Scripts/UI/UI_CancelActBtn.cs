@@ -73,21 +73,23 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
     Transform parent = null;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Managers.Game.isAnyActing = true;
-        bDragging = true;
-        transform.parent = parent.parent; // 잠깐 밖으로 뺐다가 들어오게 해서 정렬 다시하려구
+        //Managers.Game.isAnyActing = true;
+        //bDragging = true;
+        //transform.parent = parent.parent; // 잠깐 밖으로 뺐다가 들어오게 해서 정렬 다시하려구
 
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
+        //transform.position = eventData.position;
     }
 
     private GraphicRaycaster gr;
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        return;
+
         List<RaycastResult> results = new List<RaycastResult>();
         gr.Raycast(eventData, results);
 

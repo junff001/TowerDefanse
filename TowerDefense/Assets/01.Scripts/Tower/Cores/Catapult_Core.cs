@@ -34,7 +34,19 @@ public class Catapult_Core : CoreBase
 
     void Update()
     {
-        
+        if(currentTarget != null)
+        {
+            Vector3 dir = currentTarget.transform.position - transform.position;
+
+            if(dir.x > 0)
+            {
+                this.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                this.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+        }
     }
 
     public override void Attack(int power, HealthSystem enemy)
@@ -42,7 +54,10 @@ public class Catapult_Core : CoreBase
         if (bullet == null)
         {
             Ready(enemy);
-            StartCoroutine(Charging1(power, enemy));
+            bullet.isShoot = true;
+            bullet.transform.SetParent(Managers.Pool.poolInitPos);
+            bullet = null;
+            //StartCoroutine(Charging1(power, enemy));
         }  
     }
 
@@ -64,6 +79,7 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.localRotation == charging)
             {
+                Debug.Log("던지기");
                 StartCoroutine(Throw1(enemy));
                 break;    
             }
@@ -86,6 +102,8 @@ public class Catapult_Core : CoreBase
             {
                 bullet.transform.SetParent(null);
                 bullet.isShoot = true;
+
+                Debug.Log("준서 이 새끼..");
             }
 
             if (head.transform.localRotation == followThrough)
