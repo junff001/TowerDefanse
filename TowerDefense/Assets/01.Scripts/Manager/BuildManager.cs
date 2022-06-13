@@ -30,11 +30,11 @@ public class BuildManager : MonoBehaviour
     public Map map;
     [SerializeField] private Tower towerBase;
 
-    [SerializeField] private Sprite waterJewel;
-    [SerializeField] private Sprite fireJewel;
-    [SerializeField] private Sprite lightJewel;
-    [SerializeField] private Sprite darknessJewel;
-    [SerializeField] private Sprite lightning;
+    public GameObject fireAura;
+    public GameObject waterAura;
+    public GameObject lightningAura;
+    public GameObject lightAura;
+    public GameObject darknessAura;
 
     public GameObject lightAura;
     public GameObject lightningAura;
