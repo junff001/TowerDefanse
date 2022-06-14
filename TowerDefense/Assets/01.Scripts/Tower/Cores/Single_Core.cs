@@ -49,9 +49,9 @@ public class Single_Core : CoreBase
     // 대포 머리 회전
     void RotateCanon(float angleSpeed)
     {
-        if (currentTarget != null)
+        if (target != null)
         {
-            Vector2 direction = currentTarget.transform.position - head.position;
+            Vector2 direction = target.transform.position - head.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             float slerp = Quaternion.Slerp(head.rotation, rotation, angleSpeed * Time.deltaTime).z;

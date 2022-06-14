@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
-
 public class Explosion_Core : CoreBase
 {
     public override void Attack(int power, HealthSystem enemy)
     {
         Bomb bullet = Managers.Pool.GetItem<Bomb>();
-
         bullet.transform.position = transform.position;
         bullet.enemyMask = enemyMask;
         bullet.Init(towerData,enemy.transform);

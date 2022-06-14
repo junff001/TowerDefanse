@@ -12,19 +12,6 @@ public class Arrow : Bullet
         moveDir = (Target.transform.position - transform.position).normalized;
     }
 
-    public override void Update()
-    {
-        if (isShoot)
-        {
-            if (IsCollision())
-            {
-                CollisionEvent();
-
-            }
-            Shoot();
-        }
-    }
-
     public override void Shoot()
     {
         if (Target != null)

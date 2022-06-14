@@ -51,13 +51,18 @@ public class DeBuff_Core : CoreBase
         Init(buffSO);
     }
 
+    public void TowerRader()
+    {
+        towers = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange, towerMask);
+    }
+
     public override IEnumerator OnRader()
     {
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
-            enemies = Rader(enemyMask);
-            towers = Rader(towerMask);
+            EnemyRader(enemyMask);
+            TowerRader();
         }
     }
 
@@ -83,10 +88,10 @@ public class DeBuff_Core : CoreBase
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies?.Length > 0);
-            currentTarget = enemies[0];
+            yield return new WaitUntil(() => enemies.Count > 0);
+            target = enemies[0];
 
-            for (int i = 0; i < enemies.Length; i++)
+            for (int i = 0; i < enemies.Count; i++)
             {
                 if (i >= towerData.attackTargetCount)
                     break;
