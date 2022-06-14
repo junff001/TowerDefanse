@@ -26,13 +26,12 @@ public abstract class Bullet : MonoBehaviour
         {
             if (isShoot)
             {
-                Shoot();
-
                 if (IsCollision())
                 {
                     CollisionEvent();
                 }
-            }        
+                Shoot();
+            }
         }
         else
         {
@@ -57,7 +56,7 @@ public abstract class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            target.gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType);
+            target.GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType);
             var ps = Instantiate(hitEffect);
             ps.transform.position = target.position;
             ps.Play();

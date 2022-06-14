@@ -18,31 +18,24 @@ public class Spike_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-
-        if (false == enemyBase.enemyData.IsFlying)
-        {
-            enemy.TakeDamage(towerData.OffensePower, towerData.Property);
-
-            hitEffect.transform.position = -enemy.transform.up;
-        }
+        enemy.TakeDamage(towerData.OffensePower, towerData.Property);
+        hitEffect.transform.position = -enemy.transform.up;
     }
 
     public override IEnumerator OnAttack()
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies?.Length > 0);
+            yield return new WaitUntil(() => enemies.Count > 0);
 
-            for (int i = 0; i < enemies.Length; i++)
+            StartCoroutine(SpikeAnimation());
+            for (int i = 0; i < enemies.Count; i++)
             {
-                if (i >= towerData.attackTargetCount)
-                    break;
+                if (i >= towerData.attackTargetCount) break;
 
                 if (enemies[i] != null)
                 {
-                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
-                    StartCoroutine(SpikeAnimation());
+                    Attack(towerData.OffensePower, enemies[i].healthSystem);
                 }
             }
 

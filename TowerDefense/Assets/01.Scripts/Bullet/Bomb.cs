@@ -7,7 +7,6 @@ public class Bomb : Bullet
     public Vector3 targetCatchPos = Vector3.zero;                  // 타겟 포착 위치
     public Vector3 projectilePos = Vector3.zero;                   // 발사체 위치
                                                                     
-    [SerializeField] private float curveHeight = 0f;                // 커브 포인트 높이
     [SerializeField] private float explosionRadius = 0f;            // 폭발 반경
     [SerializeField] private float timerMax = 10f;
 
@@ -32,12 +31,12 @@ public class Bomb : Bullet
             {
                 CollisionEvent();
 
-                enemies = EnemiesInExplosionRaidus();
+                enemies = Physics2D.OverlapCircleAll(targetCatchPos, explosionRadius, enemyMask);
                 if (enemies.Length > 0)
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(bulletDamage,propertyType);
+                        enemies[i].GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType);
                     }
                 }
             }
@@ -50,15 +49,6 @@ public class Bomb : Bullet
 
     public override void Shoot()
     {
-        /*        Vector3 direction = targetCatchPos - projectilePos;
-                Vector3 z = Vector3.forward;
-                Vector3 curve = Vector3.Cross(direction, z);
-
-                Vector3 pos = projectilePos + direction / 2;
-        
-                Vector3 result = pos + curve.normalized * Vector3.Distance(targetCatchPos, projectilePos) / 2;
-         */
-
         float x = (targetCatchPos.x + projectilePos.x) / 2;
 
         float y = targetCatchPos.y > projectilePos.y ? targetCatchPos.y : projectilePos.y;
@@ -80,11 +70,6 @@ public class Bomb : Bullet
     public override bool IsCollision()
     {
         return Vector2.Distance(transform.position, targetCatchPos) <= 0.1f ? true : false;
-    }
-
-    Collider2D[] EnemiesInExplosionRaidus()
-    {
-        return Physics2D.OverlapCircleAll(targetCatchPos, explosionRadius, enemyMask);
     }
 
     public override void CollisionEvent()

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class CoreBase : MonoBehaviour
 {
     [Header("레이더")]
-    [SerializeField] private float raderHeight = 0f;
+    [SerializeField] protected float raderHeight = 0f;
 
     public LayerMask enemyMask = default;                          // 적을 분별하는 마스크    
-    protected Collider2D[] enemies = null;                         // 공격 범위 안에 있는 적들
-    protected Collider2D currentTarget { get; set; } = null;       // 현재 타겟
+    protected List<EnemyBase> enemies = new List<EnemyBase>();                         // 공격 범위 안에 있는 적들
+    protected EnemyBase target { get; set; } = null;       // 현재 타겟
 
     public TowerData towerData { get; set; } = default;
     public eCoreName coreType;
@@ -20,6 +21,21 @@ public abstract class CoreBase : MonoBehaviour
         StartCoroutine(OnAttack());
 
         PropertyCheck();
+    }
+
+    public void SetTarget(LayerMask priorityMask = default) // 우선순위나 이동 거리에 따라서 타겟 설정
+    {
+        if (enemies.Count <= 0) return;
+
+        enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); 
+           
+        if(false == priorityMask.Equals(default)) // 우선 타겟팅할 적이 있다면
+        {
+            target = enemies.Find(x => x.gameObject.layer == priorityMask);
+        }
+
+        if(target == null)
+            target = enemies[0];
     }
 
     public virtual void OnDisable()
@@ -33,15 +49,21 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            enemies = Rader(enemyMask);
+            EnemyRader(enemyMask);
             yield return new WaitForSeconds(0.1f);
         }
     }
 
     // 공격 범위 처리 함수
-    public virtual Collider2D[] Rader(LayerMask targetMask)
+    public void EnemyRader(LayerMask targetMask)
     {
-        return Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange, targetMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange, targetMask);
+        enemies.Clear();
+        for(int i =0; i< cols.Length; i++)
+        {
+            enemies.Add(cols[i].GetComponent<EnemyBase>());
+        }
+        SetTarget();
     }
 
     // 공격 범위 기즈모 표시
@@ -62,9 +84,10 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies.Length > 0);
-            currentTarget = enemies[0];
-            Attack(towerData.OffensePower, currentTarget.GetComponent<HealthSystem>());
+            yield return new WaitUntil(() => enemies.Count > 0);
+            
+            if(target != null)
+                Attack(towerData.OffensePower, target.healthSystem);
 
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }

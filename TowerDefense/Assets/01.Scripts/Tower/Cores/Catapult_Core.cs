@@ -34,17 +34,17 @@ public class Catapult_Core : CoreBase
 
     void Update()
     {
-        if(currentTarget != null)
+        if(target != null)
         {
-            Vector3 dir = currentTarget.transform.position - transform.position;
+            Vector3 dir = target.transform.position - transform.position;
 
             if(dir.x > 0)
             {
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             else
             {
-                this.transform.rotation = Quaternion.Euler(0, 180, 0);
+                transform.rotation = Quaternion.Euler(0, 180, 0);
             }
         }
     }
@@ -54,10 +54,7 @@ public class Catapult_Core : CoreBase
         if (bullet == null)
         {
             Ready(enemy);
-            bullet.isShoot = true;
-            bullet.transform.SetParent(Managers.Pool.poolInitPos);
-            bullet = null;
-            //StartCoroutine(Charging1(power, enemy));
+            StartCoroutine(Charging1());
         }  
     }
 
@@ -69,7 +66,7 @@ public class Catapult_Core : CoreBase
         bullet.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    IEnumerator Charging1(int power, HealthSystem enemy)
+    IEnumerator Charging1()
     {
         while (true)
         {
@@ -80,7 +77,7 @@ public class Catapult_Core : CoreBase
             if (head.transform.localRotation == charging)
             {
                 Debug.Log("던지기");
-                StartCoroutine(Throw1(enemy));
+                StartCoroutine(Throw1());
                 break;    
             }
             else
@@ -90,7 +87,7 @@ public class Catapult_Core : CoreBase
         } 
     }
 
-    IEnumerator Throw1(HealthSystem enemy)
+    IEnumerator Throw1()
     {
         while (true)
         {
@@ -100,10 +97,9 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.localRotation.z <= throwAngle)
             {
-                bullet.transform.SetParent(null);
                 bullet.isShoot = true;
-
-                Debug.Log("준서 이 새끼..");
+                bullet.transform.SetParent(Managers.Pool.poolInitPos);
+                bullet = null;
             }
 
             if (head.transform.localRotation == followThrough)

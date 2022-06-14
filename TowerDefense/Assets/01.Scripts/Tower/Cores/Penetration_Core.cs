@@ -29,9 +29,9 @@ public class Penetration_Core : CoreBase
     {
         while (true)
         {
-            if (currentTarget != null && enemies.Length > 0)
+            if (target != null && enemies.Count > 0)
             {
-                Vector2 direction = currentTarget.transform.position - bowBody.position;
+                Vector2 direction = target.transform.position - bowBody.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 Quaternion rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
                 bowBody.rotation = Quaternion.Slerp(bowBody.rotation, rotation, rotateSpeed * Time.deltaTime);
@@ -48,7 +48,7 @@ public class Penetration_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        if (bullet == null && currentTarget != null)
+        if (bullet == null && target != null)
         {
             Ready();
             StartCoroutine(PullAndShoot(TransitionTime, enemy));
@@ -63,13 +63,13 @@ public class Penetration_Core : CoreBase
         Shoot();
         yield return new WaitForSeconds(TransitionTime);
         bullet = null;
-        currentTarget = null;
+        target = null;
     }
 
     void Ready()
     {
         bullet = Managers.Pool.GetItem<Arrow>();
-        bullet.Init(towerData, currentTarget.transform);
+        bullet.Init(towerData, target.transform);
         bullet.transform.position = bowLauncher.position;
         bullet.transform.SetParent(bowLauncher);
         bullet.transform.localPosition = new Vector2(0.3f, 0.3f);

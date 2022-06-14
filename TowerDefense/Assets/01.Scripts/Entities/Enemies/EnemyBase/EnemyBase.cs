@@ -23,7 +23,7 @@ public abstract class EnemyBase : MonoBehaviour
 {
     public Vector3 targetPos = Vector3.zero; // 이거는 나중에 매직같은거 할 때
 
-    protected HealthSystem healthSystem;
+    [HideInInspector] public HealthSystem healthSystem;
 
     [SerializeField] protected EnemySO enemySO;
     [HideInInspector] public EnemyData enemyData = new EnemyData();
