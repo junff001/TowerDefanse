@@ -93,7 +93,7 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.rotation.z <= throwAngle)
             {
-                bullet.isShoot = true;
+                //bullet.isShoot = true;
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
                 bullet = null;
             }
