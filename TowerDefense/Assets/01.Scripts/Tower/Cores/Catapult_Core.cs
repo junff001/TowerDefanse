@@ -18,18 +18,13 @@ public class Catapult_Core : CoreBase
     [SerializeField] float chargingSpeed;
     [SerializeField] float releaseSpeed;
 
-    [Header("시간 변수")]
-    [SerializeField] float TransitionTime;
-    [SerializeField] float chargingTime;
-    [SerializeField] float releaseTime;
-
     Stone bullet = null;
 
     public override void OnEnable()
     {
         base.OnEnable();
 
-        head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
+        head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle);
     }
 
     void Update()
@@ -54,7 +49,7 @@ public class Catapult_Core : CoreBase
         if (bullet == null)
         {
             Ready(enemy);
-            StartCoroutine(Charging1());
+            StartCoroutine(Charging());
         }  
     }
 
@@ -66,7 +61,7 @@ public class Catapult_Core : CoreBase
         bullet.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    IEnumerator Charging1()
+    IEnumerator Charging()
     {
         while (true)
         {
@@ -76,8 +71,7 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.localRotation == charging)
             {
-                Debug.Log("던지기");
-                StartCoroutine(Throw1());
+                StartCoroutine(Throw());
                 break;    
             }
             else
@@ -87,7 +81,7 @@ public class Catapult_Core : CoreBase
         } 
     }
 
-    IEnumerator Throw1()
+    IEnumerator Throw()
     {
         while (true)
         {
@@ -95,7 +89,9 @@ public class Catapult_Core : CoreBase
             float t = releaseSpeed * Time.deltaTime;
             head.transform.localRotation = Quaternion.Slerp(head.transform.localRotation, followThrough, t);
 
-            if (head.transform.localRotation.z <= throwAngle)
+            Debug.Log(head.transform.eulerAngles.z);
+
+            if (head.transform.rotation.z <= throwAngle)
             {
                 bullet.isShoot = true;
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
