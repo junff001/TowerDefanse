@@ -12,7 +12,7 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        if(!healthSystem)
+        if (!healthSystem)
         {
             healthSystem = transform.parent.GetComponent<HealthSystem>();
         }

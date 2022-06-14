@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class Bomb : Bullet
 {
-    public Vector3 targetCatchPos = Vector3.zero;                  // 타겟 포착 위치
-    public Vector3 projectilePos = Vector3.zero;                   // 발사체 위치
-                                                                    
-    [SerializeField] private float explosionRadius = 0f;            // 폭발 반경
-    [SerializeField] private float timerMax = 10f;
+    // 조정 변수
+    [SerializeField] float curveHeight = 0f;               
+    [SerializeField] float explosionRadius = 0f;           
+    [SerializeField] float timerMax = 10f;
 
-    private float timerCurrent = 0f;
-    private Collider2D[] enemies = null;                            // 충돌 당한 적 리스트
+    // 위치 변수
+    Vector3 targetCatchPos = Vector3.zero;                
+    Vector3 projectilePos = Vector3.zero;
 
-    public LayerMask enemyMask = default;
+    // 뒷받침 변수
+    float timerCurrent = 0f;
+    Collider2D[] enemies = null;
+
+    // 외부 변수
+    public LayerMask enemyMask;
+
+    public override void Init(TowerData towerData, Transform enemyTrm)
+    {
+        base.Init(towerData, enemyTrm);
+        timerCurrent = 0;
+        targetCatchPos = Target.position;
+        projectilePos = transform.position;
+    }
 
     public override void Update()
     {
-        if (target != null)
+        if (Target != null)
         {
             if (timerCurrent > timerMax)
             {
@@ -36,12 +49,13 @@ public class Bomb : Bullet
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i].GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType);
+                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage,PropertyType);
+
                     }
                 }
             }
         }
-        else if (target == null)
+        else if (Target == null)
         {
             gameObject.SetActive(false);
         }
@@ -50,7 +64,6 @@ public class Bomb : Bullet
     public override void Shoot()
     {
         float x = (targetCatchPos.x + projectilePos.x) / 2;
-
         float y = targetCatchPos.y > projectilePos.y ? targetCatchPos.y : projectilePos.y;
         y += 1;
 
@@ -78,20 +91,12 @@ public class Bomb : Bullet
         ps.transform.position = targetCatchPos;
         ps.Play();
 
-        target = null;
+        Target = null;
         gameObject.SetActive(false);
     }
 
-    public override void Init(TowerData towerData, Transform enemyTrm)
-    {
-        base.Init(towerData, enemyTrm);
-        timerCurrent = 0;
-        targetCatchPos = target.position;
-        projectilePos = transform.position;
-    }
-
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         if (UnityEditor.Selection.activeObject == gameObject)
         {

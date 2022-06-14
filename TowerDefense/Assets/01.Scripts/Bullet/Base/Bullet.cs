@@ -8,23 +8,23 @@ public abstract class Bullet : MonoBehaviour
     [SerializeField] protected float speed = 0f;                             // 이동 속도
     [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
 
-    public Transform target = null;                                          // 목표물
-    public int bulletDamage { get; set; } = 0;                               // 데미지
-    public bool isShoot { get; set; } = false;
-    public Define.PropertyType propertyType = Define.PropertyType.NONE;
+    public Transform Target = null;                                          // 목표물
+    public int BulletDamage { get; set; } = 0;                               // 데미지
+    public bool IsShoot { get; set; } = false;
+    public Define.PropertyType PropertyType = Define.PropertyType.NONE;
 
     public virtual void Init(TowerData towerData, Transform enemyTrm)
     {
-        target = enemyTrm;
-        propertyType = towerData.Property;
-        bulletDamage = towerData.OffensePower;
+        Target = enemyTrm;
+        PropertyType = towerData.Property;
+        BulletDamage = towerData.OffensePower;
     }
 
     public virtual void Update()
     {
-        if (target != null) 
+        if (Target != null) 
         {
-            if (isShoot)
+            if (IsShoot)
             {
                 if (IsCollision())
                 {
@@ -42,25 +42,26 @@ public abstract class Bullet : MonoBehaviour
     // 기본 유도탄
     public virtual void Shoot()
     {
-        transform.position += (target.position - transform.position).normalized * speed * Time.deltaTime;
+        transform.position += (Target.position - transform.position).normalized * speed * Time.deltaTime;
     }
 
     // 거리 충돌 체크
     public virtual bool IsCollision()
     {
-        return Vector2.Distance(transform.position, target.position) <= 0.1f ? true : false;
+        return Vector2.Distance(transform.position, Target.position) <= 0.1f ? true : false;
     }
 
     // 충돌 시 발생 로직
     public virtual void CollisionEvent()
     {
-        if (target != null)
+        if (Target != null)
         {
-            target.GetComponent<HealthSystem>().TakeDamage(bulletDamage, propertyType);
+            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType);
+
             var ps = Instantiate(hitEffect);
-            ps.transform.position = target.position;
+            ps.transform.position = Target.position;
             ps.Play();
-            isShoot = false;    
+            IsShoot = false;    
 
             gameObject.SetActive(false);
         }
