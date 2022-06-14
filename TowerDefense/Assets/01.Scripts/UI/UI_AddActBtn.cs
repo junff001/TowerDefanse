@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointerUpHandler, IBeginDragHandler
 {
+    [SerializeField] Text costText;
+
     public ActData actData = null;
     public Image monsterImg; // 버튼 대신에 움직여줄 이미지 
     public int cost = 1;
@@ -37,6 +39,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         EnemySO enemySO = Managers.Game.GetActBtnSprite(monsterType);
         monsterImg.sprite = enemySO.Sprite;
         cost = enemySO.Cost;
+        costText.text = cost.ToString();
     }
 
     public void OnPointerUp(PointerEventData eventData)
