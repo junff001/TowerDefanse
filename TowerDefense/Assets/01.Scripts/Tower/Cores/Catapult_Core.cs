@@ -20,6 +20,8 @@ public class Catapult_Core : CoreBase
 
     Stone bullet = null;
 
+
+    bool isThrowing = false;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -46,7 +48,7 @@ public class Catapult_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        if (bullet == null)
+        if (bullet == null && false == isThrowing)
         {
             Ready(enemy);
             StartCoroutine(Charging());
@@ -59,6 +61,7 @@ public class Catapult_Core : CoreBase
         bullet.Init(towerData, enemy.transform);
         bullet.transform.SetParent(basket);
         bullet.transform.localPosition = new Vector3(0, 0, 0);
+        isThrowing = true;
     }
 
     IEnumerator Charging()
@@ -91,9 +94,9 @@ public class Catapult_Core : CoreBase
 
             Debug.Log(head.transform.eulerAngles.z);
 
-            if (head.transform.rotation.z <= throwAngle)
+            if (head.transform.eulerAngles.z <= throwAngle && bullet != null)
             {
-                //bullet.isShoot = true;
+                bullet.IsShoot = true;
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
                 bullet = null;
             }
@@ -101,7 +104,8 @@ public class Catapult_Core : CoreBase
             if (head.transform.localRotation == followThrough)
             {
                 head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
-                bullet = null;
+
+                isThrowing = false;
                 break;
             }
             else
