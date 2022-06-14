@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         text.maxSize = 35;
         text.duration = 1;
 
-        Managers.UI.SummonText(hpPopupTrans.transform.position, text);
+        Managers.UI.SummonPosText(hpPopupTrans.transform.position, text);
 
         if (Hp <= 0)
         {

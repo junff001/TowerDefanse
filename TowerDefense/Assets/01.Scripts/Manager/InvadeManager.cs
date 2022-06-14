@@ -231,7 +231,7 @@ public class InvadeManager : MonoBehaviour
                 PopupText text = new PopupText($"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}");
                 text.maxSize = 60;
 
-                Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+                Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
             }
         }
         else
@@ -239,7 +239,7 @@ public class InvadeManager : MonoBehaviour
             PopupText text = new PopupText($"웨이브 진행중입니다!");
             text.maxSize = 60;
 
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
     }
 

@@ -119,13 +119,13 @@ public class WaveManager : MonoBehaviour
         {
             Managers.Gold.GoldPlus(rewardGold);
             text.text = $"{rewardGold} 지급!";
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
         else
         {
             Managers.Invade.MaxMonsterCount += rewardWave;
             text.text = $"웨이브 편성 수 {rewardWave} 증가!";
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
         Managers.Invade.UpdateTexts();
     }
