@@ -33,14 +33,6 @@ public class WaveManager : MonoBehaviour
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
-    [Header("속성 이펙트")]
-    public GameObject lightAura;
-    public GameObject lightningAura;
-    public GameObject fireAura;
-    public GameObject darknessAura;
-    public GameObject waterAura;
-    public GameObject absorbEffect;
-
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
     public RectTransform defenseStatus;
@@ -226,7 +218,6 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
             enemyObj.enemyData.PropertyResistance = enemyInfo.propertyType;
-            enemyObj.MakeEffectObj();
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
             aliveEnemies.Add(enemyObj);

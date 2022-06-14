@@ -67,24 +67,6 @@ public abstract class EnemyBase : MonoBehaviour
         };
     }
 
-    public void MakeEffectObj()
-    {
-        GameObject makeObj = null;
-        switch (enemySO.PropertyResistance)
-        {
-            case Define.PropertyType.DARKNESS: makeObj   = Managers.Wave.darknessAura;  break;
-            case Define.PropertyType.LIGHT: makeObj      = Managers.Wave.lightAura;     break;
-            case Define.PropertyType.LIGHTNING: makeObj  = Managers.Wave.lightningAura; break;
-            case Define.PropertyType.WATER: makeObj      = Managers.Wave.waterAura;     break;
-            case Define.PropertyType.FIRE: makeObj       = Managers.Wave.fireAura;      break;
-        }
-
-        if (makeObj != null)
-        {
-            Instantiate(makeObj, this.transform);
-        }
-    }
-
     public void Die()
     {
         Destroy(this.gameObject);

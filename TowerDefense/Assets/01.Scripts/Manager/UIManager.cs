@@ -109,8 +109,8 @@ public class UIManager
         textObj.resizeTextMaxSize = info.maxSize;
         textObj.color = info.textColor;
 
-        textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative();
-        textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).OnComplete(() =>
+        textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative().SetUpdate(true);
+        textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).SetUpdate(true).OnComplete(() =>
         {
             if (callback != null)
                 callback.Invoke();

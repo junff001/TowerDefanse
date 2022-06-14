@@ -144,7 +144,7 @@ public class InvadeManager : MonoBehaviour
 
         EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
-        enemyObj.MakeEffectObj();
+        enemyObj.wayPointListIndex = curSpawnIdx;
 
         Managers.Wave.aliveEnemies.Add(enemyObj);
         curSpawnCount++;
@@ -223,6 +223,10 @@ public class InvadeManager : MonoBehaviour
             {
                 isWaveProgress = true;
                 canAddWave = false;
+
+                curSpawnCount = 0;
+                curSpawnIdx = 0;
+
                 TryAct();
                 Managers.Sound.Play("System/StartWave");
             }
