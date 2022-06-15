@@ -1,55 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bomb : Bullet
 {
-    // 조정 변수
     [SerializeField] float explosionRadius = 0f;           
-    [SerializeField] float timerMax = 10f;
-
-    // 위치 변수
-    Vector3 targetCatchPos = Vector3.zero;                
-    Vector3 projectilePos = Vector3.zero;
-
-    // 뒷받침 변수
-    float timerCurrent = 0f;
     Collider2D[] enemies = null;
-
-    // 외부 변수
     public LayerMask enemyMask;
+    Vector2 curvePoint = Vector2.zero;
 
     public override void Init(TowerData towerData, Transform enemyTrm)
     {
         base.Init(towerData, enemyTrm);
-        timerCurrent = 0;
-        targetCatchPos = Target.position;
-        projectilePos = transform.position;
+        IsShoot = true;
+        float x = (targetPos.x + startPos.x) / 2;
+        float y = targetPos.y > startPos.y ? targetPos.y : startPos.y;
+        y += 1;
+
+        curvePoint = new Vector2(x, y);
     }
 
     public override void Update()
     {
         if (Target != null)
         {
-            if (timerCurrent > timerMax)
-            {
-                return;
-            }
-
-            timerCurrent += Time.deltaTime * speed;
+            curTime += Time.deltaTime * speed;
             Shoot();
 
             if (IsCollision())
             {
                 CollisionEvent();
 
-                enemies = Physics2D.OverlapCircleAll(targetCatchPos, explosionRadius, enemyMask);
+                enemies = Physics2D.OverlapCircleAll(targetPos, explosionRadius, enemyMask);
                 if (enemies.Length > 0)
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
                         enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage,PropertyType);
-
                     }
                 }
             }
@@ -62,32 +47,13 @@ public class Bomb : Bullet
 
     public override void Shoot()
     {
-        float x = (targetCatchPos.x + projectilePos.x) / 2;
-        float y = targetCatchPos.y > projectilePos.y ? targetCatchPos.y : projectilePos.y;
-        y += 1;
-
-        Vector3 result = new Vector3(x, y, 0);
-        
-        transform.position = BezierCurves(projectilePos, result, targetCatchPos, timerCurrent / timerMax);
-    }
-    
-    Vector2 BezierCurves(Vector2 startPos, Vector2 curve, Vector2 endPos, float t)
-    {
-        Vector2 lerp1 = Vector2.Lerp(startPos, curve, t);
-        Vector2 lerp2 = Vector2.Lerp(curve, endPos, t);
-
-        return Vector2.Lerp(lerp1, lerp2, t);
-    }
-
-    public override bool IsCollision()
-    {
-        return Vector2.Distance(transform.position, targetCatchPos) <= 0.1f ? true : false;
+        transform.position = BezierCurves(startPos, curvePoint, targetPos, curTime / maxTime);
     }
 
     public override void CollisionEvent()
     { 
         var ps = Instantiate(hitEffect);
-        ps.transform.position = targetCatchPos;
+        ps.transform.position = targetPos;
         ps.Play();
 
         Target = null;
@@ -100,7 +66,7 @@ public class Bomb : Bullet
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(targetCatchPos, explosionRadius);
+            Gizmos.DrawWireSphere(targetPos, explosionRadius);
             Gizmos.color = Color.white;
         }
     }

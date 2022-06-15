@@ -69,7 +69,6 @@ public class Penetration_Core : CoreBase
     void Ready()
     {
         bullet = Managers.Pool.GetItem<Arrow>();
-        bullet.Init(towerData, target.transform);
         bullet.transform.position = bowLauncher.position;
         bullet.transform.SetParent(bowLauncher);
         bullet.transform.localPosition = new Vector2(0.3f, 0.3f);
@@ -83,8 +82,9 @@ public class Penetration_Core : CoreBase
 
     void Shoot()
     {
-        bullet.transform.SetParent(null);
         bowLauncher.localPosition = new Vector2(0, 0);
+
+        bullet.Init(towerData, target.transform);
         bullet.IsShoot = true;
         spriteRenderer.sprite = bow;
     }
