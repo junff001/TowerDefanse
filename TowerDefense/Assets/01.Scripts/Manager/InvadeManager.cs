@@ -144,7 +144,7 @@ public class InvadeManager : MonoBehaviour
 
         EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
-        enemyObj.MakeEffectObj();
+        enemyObj.wayPointListIndex = curSpawnIdx;
 
         Managers.Wave.aliveEnemies.Add(enemyObj);
         curSpawnCount++;
@@ -223,6 +223,10 @@ public class InvadeManager : MonoBehaviour
             {
                 isWaveProgress = true;
                 canAddWave = false;
+
+                curSpawnCount = 0;
+                curSpawnIdx = 0;
+
                 TryAct();
                 Managers.Sound.Play("System/StartWave");
             }
@@ -231,7 +235,7 @@ public class InvadeManager : MonoBehaviour
                 PopupText text = new PopupText($"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}");
                 text.maxSize = 60;
 
-                Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+                Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
             }
         }
         else
@@ -239,7 +243,7 @@ public class InvadeManager : MonoBehaviour
             PopupText text = new PopupText($"웨이브 진행중입니다!");
             text.maxSize = 60;
 
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
     }
 

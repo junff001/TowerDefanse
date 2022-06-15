@@ -33,14 +33,6 @@ public class WaveManager : MonoBehaviour
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
-    [Header("속성 이펙트")]
-    public GameObject lightAura;
-    public GameObject lightningAura;
-    public GameObject fireAura;
-    public GameObject darknessAura;
-    public GameObject waterAura;
-    public GameObject absorbEffect;
-
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
     public RectTransform defenseStatus;
@@ -119,13 +111,13 @@ public class WaveManager : MonoBehaviour
         {
             Managers.Gold.GoldPlus(rewardGold);
             text.text = $"{rewardGold} 지급!";
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
         else
         {
             Managers.Invade.MaxMonsterCount += rewardWave;
             text.text = $"웨이브 편성 수 {rewardWave} 증가!";
-            Managers.UI.SummonText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
         Managers.Invade.UpdateTexts();
     }
@@ -226,7 +218,6 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
             enemyObj.enemyData.PropertyResistance = enemyInfo.propertyType;
-            enemyObj.MakeEffectObj();
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
             aliveEnemies.Add(enemyObj);

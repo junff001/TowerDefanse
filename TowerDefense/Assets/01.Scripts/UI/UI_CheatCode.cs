@@ -77,7 +77,7 @@ public class UI_CheatCode : MonoBehaviour
                         Managers.Gold.GoldSet(result);
                         PopupText text = new PopupText($"gold 값을 {result}로 설정했습니다");
                         text.maxSize = 40;
-                        Managers.UI.SummonText(new Vector2(960, 300), text);
+                        Managers.UI.SummonRectText(new Vector2(960, 300), text);
                     }
                     break;
                 case "health":
@@ -86,7 +86,7 @@ public class UI_CheatCode : MonoBehaviour
                         Managers.Game.SetHP(result2);
                         PopupText text = new PopupText($"health 값을 {result2}로 설정했습니다");
                         text.maxSize = 40;
-                        Managers.UI.SummonText(new Vector2(960, 300), text);
+                        Managers.UI.SummonRectText(new Vector2(960, 300), text);
                     }
                     break;
             }
@@ -104,13 +104,13 @@ public class UI_CheatCode : MonoBehaviour
                     Time.timeScale = result;
                     PopupText text = new PopupText($"timeScale 값을 {result}로 설정했습니다");
                     text.maxSize = 40;
-                    Managers.UI.SummonText(new Vector2(960, 300), text);
+                    Managers.UI.SummonRectText(new Vector2(960, 300), text);
                 }
                 else
                 {
                     PopupText text = new PopupText($"잘못된 값입니다 : (0 ~ 16)");
                     text.maxSize = 40;
-                    Managers.UI.SummonText(new Vector2(960, 300), text);
+                    Managers.UI.SummonRectText(new Vector2(960, 300), text);
                 }
             }
         }
@@ -143,7 +143,7 @@ public class UI_CheatCode : MonoBehaviour
 
             PopupText text = new PopupText($"UI 보이기 여부를 {value}로 설정했습니다");
             text.maxSize = 40;
-            Managers.UI.SummonText(new Vector2(960, 300), text);
+            Managers.UI.SummonRectText(new Vector2(960, 300), text);
         }
     }
 

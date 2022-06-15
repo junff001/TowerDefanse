@@ -53,7 +53,7 @@ public class GoldManager : MonoBehaviour
             text.maxSize = 35;
             text.duration = 1;
 
-            Managers.UI.SummonText(moneyPopupTrans.transform.position, text);
+            Managers.UI.SummonPosText(moneyPopupTrans.transform.position, text);
 
             UpdateGoldText();
             return true;
@@ -81,7 +81,7 @@ public class GoldManager : MonoBehaviour
             text.maxSize = 35;
             text.duration = 1;
 
-            Managers.UI.SummonText(moneyPopupTrans.transform.position, text);
+            Managers.UI.SummonPosText(moneyPopupTrans.transform.position, text);
 
             UpdateGoldText();
             return true;
