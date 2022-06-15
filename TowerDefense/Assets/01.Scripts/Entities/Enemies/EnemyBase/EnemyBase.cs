@@ -33,6 +33,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
+    public int CurrentWayPointIndex { get => currentWayPointIndex; private set { } }
     private int realWayPointIndex = 0;
 
     public float aliveTime = 0f;

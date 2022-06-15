@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bomb : Bullet
 {
     // 조정 변수
-    [SerializeField] float curveHeight = 0f;               
     [SerializeField] float explosionRadius = 0f;           
     [SerializeField] float timerMax = 10f;
 

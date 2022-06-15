@@ -19,21 +19,19 @@ public class Catapult_Core : CoreBase
     [SerializeField] float releaseSpeed;
 
     Stone bullet = null;
-
+    Vector3 dir = Vector3.zero;
 
     bool isThrowing = false;
     public override void OnEnable()
     {
         base.OnEnable();
-
         head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle);
     }
-
     void Update()
     {
         if(target != null)
         {
-            Vector3 dir = target.transform.position - transform.position;
+            dir = (target.transform.position - transform.position).normalized;
 
             if(dir.x > 0)
             {
@@ -50,21 +48,20 @@ public class Catapult_Core : CoreBase
     {
         if (bullet == null && false == isThrowing)
         {
-            Ready(enemy);
-            StartCoroutine(Charging());
+            Ready();
+            StartCoroutine(Charging(enemy.transform));
         }  
     }
 
-    void Ready(HealthSystem enemy)
+    void Ready()
     {
         bullet = Managers.Pool.GetItem<Stone>();
-        bullet.Init(towerData, enemy.transform);
         bullet.transform.SetParent(basket);
         bullet.transform.localPosition = new Vector3(0, 0, 0);
         isThrowing = true;
     }
 
-    IEnumerator Charging()
+    IEnumerator Charging(Transform enemyTrm)
     {
         while (true)
         {
@@ -74,7 +71,7 @@ public class Catapult_Core : CoreBase
 
             if (head.transform.localRotation == charging)
             {
-                StartCoroutine(Throw());
+                StartCoroutine(Throw(enemyTrm));
                 break;    
             }
             else
@@ -84,7 +81,7 @@ public class Catapult_Core : CoreBase
         } 
     }
 
-    IEnumerator Throw()
+    IEnumerator Throw(Transform enemyTrm)
     {
         while (true)
         {
@@ -92,12 +89,12 @@ public class Catapult_Core : CoreBase
             float t = releaseSpeed * Time.deltaTime;
             head.transform.localRotation = Quaternion.Slerp(head.transform.localRotation, followThrough, t);
 
-            Debug.Log(head.transform.eulerAngles.z);
-
-            if (head.transform.eulerAngles.z <= throwAngle && bullet != null)
+            if (Mathf.Abs(head.transform.eulerAngles.z) <= throwAngle && bullet != null)
             {
-                bullet.IsShoot = true;
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
+                bullet.transform.position = basket.transform.position + new Vector3(dir.x / 2,0, 0);
+                bullet.Init(towerData, enemyTrm);
+                
                 bullet = null;
             }
 
