@@ -151,21 +151,12 @@ public class HealthSystem : MonoBehaviour
     {
         Define.PropertyType myProperty = enemyBase.enemyData.PropertyResistance;
 
-        if (myProperty != Define.PropertyType.NONE && myProperty == propertyType)
-        {
-            Debug.Log("동일 속성, 데미지 무시");
-            GameObject makeObj = Managers.Wave.absorbEffect;
-            Instantiate(makeObj, transform.position, makeObj.transform.rotation);
-        }
-        else
-        {
-            Damage(damageAmount, penetration);
-            OnDamaged?.Invoke();
+        Damage(damageAmount, penetration);
+        OnDamaged?.Invoke();
 
-            if (IsDead())
-            {
-                OnDied?.Invoke();
-            }
+        if (IsDead())
+        {
+            OnDied?.Invoke();
         }
     }
 }

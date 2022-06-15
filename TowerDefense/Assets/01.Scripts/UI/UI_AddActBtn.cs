@@ -53,7 +53,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
             else
             {
                 PopupText text = new PopupText("웨이브를 추가할 수 없습니다.");
-                Managers.UI.SummonText(transform.position, text);
+                Managers.UI.SummonPosText(transform.position, text);
             }
         }
         bDraged = false;
@@ -92,7 +92,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         else
         {
             PopupText text = new PopupText("웨이브를 추가할 수 없습니다.");
-            Managers.UI.SummonText(transform.position, text);
+            Managers.UI.SummonPosText(transform.position, text);
         }
 
     }

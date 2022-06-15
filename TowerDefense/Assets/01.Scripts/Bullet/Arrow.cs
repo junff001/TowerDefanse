@@ -39,7 +39,8 @@ public class Arrow : Bullet
     {
         if (Target != null)
         {
-            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType, true);
+            Target.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType, true);
+
             var ps = Instantiate(hitEffect);
             ps.transform.position = Target.position;
             ps.Play();

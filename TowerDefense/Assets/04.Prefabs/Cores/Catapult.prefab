@@ -106,12 +106,9 @@ MonoBehaviour:
   defaultAngle: -20
   chargingAngle: 5
   followThroughAngle: -100
-  throwAngle: -50
+  throwAngle: 300
   chargingSpeed: 5
   releaseSpeed: 5
-  TransitionTime: 0.1
-  chargingTime: 2
-  releaseTime: 1
 --- !u!1 &4893648351645591149
 GameObject:
   m_ObjectHideFlags: 0

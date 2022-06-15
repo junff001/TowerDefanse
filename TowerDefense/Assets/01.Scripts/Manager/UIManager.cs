@@ -84,10 +84,27 @@ public class UIManager
         group.interactable = fade;
     }
 
-    public void SummonText(Vector2 pos, PopupText info, UnityAction callback = null)
+    public void SummonRectText(Vector2 pos, PopupText info, UnityAction callback = null)
     {
         Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
         textObj.rectTransform.anchoredPosition = pos;
+        textObj.text = info.text;
+        textObj.resizeTextMaxSize = info.maxSize;
+        textObj.color = info.textColor;
+
+        textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative().SetUpdate(true);
+        textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).SetUpdate(true).OnComplete(() =>
+        {
+            if (callback != null)
+                callback.Invoke();
+            Object.Destroy(textObj);
+        });
+    }
+
+    public void SummonPosText(Vector2 pos, PopupText info, UnityAction callback = null)
+    {
+        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
+        textObj.transform.position = pos;
         textObj.text = info.text;
         textObj.resizeTextMaxSize = info.maxSize;
         textObj.color = info.textColor;
