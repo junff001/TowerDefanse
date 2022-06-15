@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffBase
+public class BuffBase 
 {
     public float duration;
     public float amplification;
@@ -12,15 +12,16 @@ public class BuffBase
 
     public Define.BuffType buffType;
     [SerializeField] protected Define.PropertyType propertyType;
-    public BuffBase(GameObject _affecter, float _duration, float _amplification)
+
+    public BuffBase(GameObject affecter, float duration, float amplification)
     {
-        affecter = _affecter;
-        duration = _duration;
-        amplification = _amplification;
-        Init();
+        this.affecter = affecter;
+        this.duration = duration;
+        this.amplification = amplification;
+        Initialization();
     }
 
-    public virtual void Init()
+    public virtual void Initialization()
     {
         
     }

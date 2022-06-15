@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffSlow : BuffBase
+public class Slow : BuffBase
 {
     public float changedValue;
 
-    public BuffSlow(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
+    public Slow(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
     {
         buffType = Define.BuffType.DEBUFF;
     }
 
-    public override void Init()
+    public override void Initialization()
     {
         EnemyBase enemy = affecter.GetComponent<EnemyBase>();
 
@@ -29,9 +29,9 @@ public class BuffSlow : BuffBase
 
     public override void Destroy()
     {
-        base.Destroy();
-
         EnemyBase enemy = affecter.GetComponent<EnemyBase>();
         enemy.enemyData.MoveSpeed += changedValue;
+
+        base.Destroy();
     }
 }

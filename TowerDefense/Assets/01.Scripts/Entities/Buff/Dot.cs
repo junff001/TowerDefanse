@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffDOT : BuffBase
+public class Dot : BuffBase
 {
     EnemyBase enemy;
     private float damageTime;
     private static readonly float dotTime = 1;
 
-    public BuffDOT(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
+    public Dot(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
     {
         buffType = Define.BuffType.DEBUFF;
     }
 
-    public override void Init()
+    public override void Initialization()
     {
         enemy = affecter.GetComponent<EnemyBase>();
     }

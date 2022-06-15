@@ -136,13 +136,13 @@ public class DeBuff_Core : CoreBase
 
     void Slow(GameObject target)
     {
-        BuffSlow slow = new BuffSlow(target, buffData.duration, buffData.slow_percentage);
+        Slow slow = new Slow(target, buffData.duration, buffData.slow_percentage);
         target.GetComponent<EnemyBase>().AddBuff(slow);
     }
 
     void Dot(GameObject target)
     {
-        BuffDOT dot = new BuffDOT(target, buffData.duration, buffData.addDotDamage);
+        Dot dot = new Dot(target, buffData.duration, buffData.addDotDamage);
         target.GetComponent<EnemyBase>().AddBuff(dot);
     }
 }
