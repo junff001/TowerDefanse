@@ -95,7 +95,7 @@ public class HealthSystem : MonoBehaviour
 
     public bool IsDead()
     {
-        return curHealthAmount == 0;
+        return curHealthAmount <= 0;
     }
 
     public bool IsFullValue(eHealthType type)

@@ -15,7 +15,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     private void Start()
     {
         Init();
-        rt = this.GetComponent<RectTransform>();
+        rt = GetComponent<RectTransform>();
         rangeObj = Managers.Build.rangeObj;
     }
 
@@ -81,6 +81,9 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if (IsLeftBtn(eventData) && CanDrag())
         {
+            Vector3 pos =  Input.mousePosition;
+            pos.z = 10;
+            rangeObj.transform.position = Camera.main.ScreenToWorldPoint(pos);
             towerImage.transform.position = Input.mousePosition;
             Managers.Build.SetTilesColor(towerSO.placeTileType);
         }

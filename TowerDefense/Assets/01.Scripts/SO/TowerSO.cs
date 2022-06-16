@@ -9,7 +9,14 @@ public enum eCoreName
     Catapult,
     Spike,
     WoodenBarrel,
-    Jewel
+    Jewel,
+    GravityField,
+    Sensor,
+    AtkBuff,
+    AtkSpeedBuff,
+    AtkRangeBuff,
+    SlowDeBuff,
+
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]

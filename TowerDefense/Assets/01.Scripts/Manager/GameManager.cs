@@ -22,14 +22,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
-    public Sprite waitSprite;
-
     public Dictionary<Define.MonsterType, EnemySO> enemySoDic = new Dictionary<Define.MonsterType, EnemySO>();
     public EnemySO[] enemySOs;
 
     public GameObject clearUI;
     public GameObject gameOverUI;
-    public UI_TowerInfo towerInfoUI;
+    public UI_TowerInfo towerInfoUI = null;
 
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;

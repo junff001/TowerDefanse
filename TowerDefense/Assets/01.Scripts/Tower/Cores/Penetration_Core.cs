@@ -22,7 +22,15 @@ public class Penetration_Core : CoreBase
     public override void OnEnable()
     {
         base.OnEnable();
+
         StartCoroutine(LookAtTarget());
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+
+        StopCoroutine(LookAtTarget());
     }
 
     IEnumerator LookAtTarget()
@@ -57,13 +65,20 @@ public class Penetration_Core : CoreBase
 
     IEnumerator PullAndShoot(float TransitionTime, HealthSystem enemy)
     {
-        yield return new WaitForSeconds(TransitionTime);
-        Pull();
-        yield return new WaitForSeconds(TransitionTime);
-        Shoot();
-        yield return new WaitForSeconds(TransitionTime);
-
-        OnAttack();
+        if(target != null && enemy.IsDead() == false)
+        {
+            yield return new WaitForSeconds(TransitionTime);
+            Pull();
+            yield return new WaitForSeconds(TransitionTime);
+            Shoot();
+            yield return new WaitForSeconds(TransitionTime);
+            OnAttack();
+        }
+        else
+        {
+            yield return null;
+        }
+        
     }
 
     void Ready()
@@ -83,9 +98,15 @@ public class Penetration_Core : CoreBase
     void Shoot()
     {
         bowLauncher.localPosition = new Vector2(0, 0);
-
-        bullet.Init(TowerData, target.transform);
-        bullet.IsShoot = true;
+        if (target != null && target.GetComponent<EnemyBase>().IsDead == false)
+        {
+            bullet.Init(towerData, target.transform);
+            bullet.IsShoot = true;
+        }
+        else
+        {
+            bullet.gameObject.SetActive(false);
+        }
         spriteRenderer.sprite = bow;
     }
 }

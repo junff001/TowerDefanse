@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
-  m_Name: Catapult
+  m_Name: GravityField
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 1000
-  attackSpeed: 1.5
-  attackRange: 5
-  placeCost: 150
-  attackTargetCount: 1
-  towerSprite: {fileID: -3043711648414944898, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  offensePower: 0
+  attackSpeed: 10
+  attackRange: 1.5
+  placeCost: 50
+  attackTargetCount: 20
+  towerSprite: {fileID: -8999784540011629473, guid: 6d878ababb928894985e64936c103eff, type: 3}
   placeTileType: 0
-  coreType: 2
+  coreType: 6
   propertyType: 0
   hasTower: 1

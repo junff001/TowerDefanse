@@ -13,7 +13,7 @@ public abstract class CoreBase : MonoBehaviour
     protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
     protected EnemyBase target { get; set; } = null;                // 현재 타겟
 
-    public TowerData TowerData { get; set; } = default;
+    public TowerData towerData { get; set; } = default;
     public eCoreName coreType;
     public IBuff Buff { get; set; } 
 
@@ -28,15 +28,15 @@ public abstract class CoreBase : MonoBehaviour
     public bool IsTargetOutOfRange() // 때리던 애가 내 범위에서 벗어나면.
     {
         if (target == null) return false; // 그냥 넘어가요~
-        return Vector2.Distance(target.transform.position, transform.position) > TowerData.AttackRange + 1;
+
+        return Vector2.Distance(target.transform.position, transform.position) >= towerData.AttackRange;
     }
 
     public void SetTarget(LayerMask priorityMask = default) // 우선순위나 이동 거리에 따라서 타겟 설정
     {
-        if (enemies.Count <= 0)
-        {
-            return;
-        }
+        if (target != null && target.IsDead) target = null;
+        if (enemies.Count <= 0) return;
+
         enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); // 맨 앞 놈 패야 하니까.
 
         if (false == priorityMask.Equals(default)) // 우선 타겟팅할 적이 있다면
@@ -101,9 +101,9 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => target != null);
-            Attack(TowerData.OffensePower, target.healthSystem);
-            yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
+            yield return new WaitUntil(() => target != null && target.IsDead == false);
+            Attack(towerData.OffensePower, target.healthSystem);
+            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }
 

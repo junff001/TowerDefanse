@@ -22,11 +22,6 @@ public abstract class Bullet : MonoBehaviour
         _maxTime = maxTime;
     }
 
-    public virtual void OnEnable()
-    {
-        transform.SetParent(Managers.Pool.poolInitPos);
-    }
-
     public virtual void Init(TowerData towerData, Transform enemyTrm)
     {
         Target = enemyTrm;
@@ -67,8 +62,10 @@ public abstract class Bullet : MonoBehaviour
     // 거리 충돌 체크
     public virtual bool IsCollision()
     {
-        return (Vector2.Distance(transform.position, targetPos) <= 0.1f ||
-            Vector2.Distance(transform.position, Target.transform.position) <= 0.2f) && IsShoot;
+        return curTime >= maxTime;
+        // 유도탄은 
+        // return (Vector2.Distance(transform.position, targetPos) <= 0.1f ||
+        //    Vector2.Distance(transform.position, Target.transform.position) <= 0.2f) && IsShoot;
     }
 
     // 충돌 시 발생 로직
@@ -83,6 +80,7 @@ public abstract class Bullet : MonoBehaviour
             ps.Play();
         }
         IsShoot = false;
+        transform.SetParent(Managers.Pool.poolInitPos);
         gameObject.SetActive(false);
     }
 
