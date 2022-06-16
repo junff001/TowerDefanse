@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class SpineController : MonoBehaviour
 {
+    const string normalRun = "Normal_run";
+    const string wingRun = "Wing_run";
+
     private string[] baseAttachments =
     {
         "Eye", "HeadParts", "Ear_L", "Ear_R", "Head", "Arm_L", "Arm_R", "Leg_Up_L", "Leg_Up_R", "Leg_Down_L", "Leg_Down_R",  "Body",
@@ -20,7 +23,8 @@ public class SpineController : MonoBehaviour
     [Header("애니메이션 이름")]
     [SpineAnimation] public string dieAnim;
 
-    SkeletonAnimation sa;
+    [HideInInspector] 
+    public SkeletonAnimation sa;
     private void Start()
     {
         sa = GetComponent<SkeletonAnimation>();
@@ -50,5 +54,10 @@ public class SpineController : MonoBehaviour
         sa.loop = false;
         sa.AnimationName = dieAnim;
         DOTween.To(() => sa.skeleton.A, value => sa.skeleton.A = value, 0, 0.75f).SetDelay(0.75f);
+    }
+
+    public void SetAnim(bool bPlayNormalAnim) 
+    {
+        sa.AnimationName = bPlayNormalAnim ? normalRun : wingRun;
     }
 }

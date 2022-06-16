@@ -62,8 +62,8 @@ public abstract class EnemyBase : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
 
             GetComponent<Collider2D>().enabled = false;
-            healthSystem.enabled = false;          // 스크립트는 종료, 나중에 풀링할거면 이거 켜는 함수 만들어줘
-            enabled = false;                       // ''
+            healthSystem.enabled = false;          
+            enabled = false;                       
             Invoke("Die", 3f); // 선한쌤이 핏자국 남기라고 하셨던 거 같음 시체나..
         };
     }
