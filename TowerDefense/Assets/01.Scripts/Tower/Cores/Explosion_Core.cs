@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Explosion_Core : CoreBase
 {
     public override void Attack(int power, HealthSystem enemy)

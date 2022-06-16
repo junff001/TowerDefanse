@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
-public class BuffBase 
+public class BuffBase : IBuff
 {
-    public float duration;
-    public float amplification;
-
-    public bool isEnd;
-    public GameObject affecter;
-
-    public Define.BuffType buffType;
-    [SerializeField] protected Define.PropertyType propertyType;
+    public float duration { get; set; }
+    public float amplification { get; set; }
+    public bool isEnd { get; set; } = false;
+    public GameObject affecter { get; set; }
+    public BuffType buffType { get; set; }
+    public PropertyType propertyType { get; set; }
 
     public BuffBase(GameObject affecter, float duration, float amplification)
     {
@@ -42,4 +41,8 @@ public class BuffBase
     {
         isEnd = true;
     }
+
+
+    
+
 }

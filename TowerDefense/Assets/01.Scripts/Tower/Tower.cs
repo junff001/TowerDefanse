@@ -54,7 +54,9 @@ public class Tower : MonoBehaviour
 
         switch (towerData.Property)
         {
-            case Define.PropertyType.FIRE: propertyEffectObject = Managers.Build.fireAura; break;
+            case Define.PropertyType.FIRE: 
+                propertyEffectObject = Managers.Build.fireAura; 
+                break;
             case Define.PropertyType.WATER: propertyEffectObject = Managers.Build.waterAura; break;
             case Define.PropertyType.LIGHTNING: propertyEffectObject = Managers.Build.lightningAura; break;
             case Define.PropertyType.LIGHT: propertyEffectObject = Managers.Build.lightAura; break;
