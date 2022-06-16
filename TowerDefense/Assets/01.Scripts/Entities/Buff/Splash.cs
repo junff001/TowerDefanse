@@ -2,59 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Splash : MonoBehaviour
+public class Splash : MonoBehaviour, IBuff
 {
-    // 초기화 변수
-    float radius;
-    float damage;
-    float duration;
-    ParticleSystem effect;
-    LayerMask enemyMask;
-    Define.PropertyType propertyType;
+    public float duration { get; set; }
+    public float amplification { get; set; }
+    public bool isEnd { get; set; }
+    public GameObject affecter { get; set; }
+    public Define.BuffType buffType { get; set; }
+    public Define.PropertyType propertyType { get; set; }
 
     // 내부 변수
+    float radius;
+    float damage;
     Collider2D[] enemies;
-
+    ParticleSystem effect;
+    LayerMask enemyMask;
+    
+   
     void OnEnable()
     {
-        StartCoroutine(OnSplash(duration));
+        enemies = InRangeEnemy(enemyMask);
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<HealthSystem>().TakeDamage(damage, propertyType);
+        }
+
+        effect.Play();
     }
 
-    void OnDisable()
+    void Update()
     {
-        StopCoroutine(OnSplash(duration));
+        if (effect.isStopped)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
-    public void Initialization(float radius, float damage, float duration, ParticleSystem effect, LayerMask enemyMask, Define.PropertyType propertyType)
+    public void Initialization(float radius, float damage, ParticleSystem effect, LayerMask enemyMask, Define.PropertyType propertyType)
     {
         this.radius = radius;
         this.damage = damage;
-        this.duration = duration;
         this.effect = effect;
         this.enemyMask = enemyMask;
         this.propertyType = propertyType;
     }
 
-    IEnumerator OnSplash(float duration)
+    Collider2D[] InRangeEnemy(LayerMask mask)
     {
-        while (true)
-        {
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                enemies[i].GetComponent<HealthSystem>().TakeDamage(damage, propertyType);
-            }
-
-            effect.Play();
-
-            yield return null;  
-        }
+        return Physics2D.OverlapCircleAll(transform.position, radius, mask);
     }
 
-    Collider2D[] InRangeEnemy()
+    public void Initialization()
     {
-        enemies = Physics2D.OverlapCircleAll(transform.position, radius, enemyMask);
-        return enemies;
+        
     }
 
+    void IBuff.Update()
+    {
+        
+    }
 
+    public void Destroy()
+    {
+       
+    }
 }

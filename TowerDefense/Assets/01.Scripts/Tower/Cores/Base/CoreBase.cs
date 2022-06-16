@@ -118,10 +118,10 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void PropertyCheck()
     {
-        // 애니메이션 이나 그런거 넣으셈
         switch (towerData.Property)
         {
             case Define.PropertyType.WATER:
+
                 break;
             case Define.PropertyType.FIRE:
                 break;
@@ -133,4 +133,6 @@ public abstract class CoreBase : MonoBehaviour
                 break;
         }
     }
+
+    
 }
