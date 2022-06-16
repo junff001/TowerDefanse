@@ -42,33 +42,6 @@ public class Tower : MonoBehaviour
         towerData.PlaceTileType = towerSO.placeTileType;
     }
 
-    public void ChangeProperty(Define.PropertyType propertyType)
-    {
-        towerData.Property = propertyType;
-
-        if (propertyEffectObject != null)
-        {
-            Destroy(propertyEffectObject);
-            propertyEffectObject = null;
-        }
-
-        switch (towerData.Property)
-        {
-            case Define.PropertyType.FIRE: 
-                propertyEffectObject = Managers.Build.fireAura; 
-                break;
-            case Define.PropertyType.WATER: propertyEffectObject = Managers.Build.waterAura; break;
-            case Define.PropertyType.LIGHTNING: propertyEffectObject = Managers.Build.lightningAura; break;
-            case Define.PropertyType.LIGHT: propertyEffectObject = Managers.Build.lightAura; break;
-            case Define.PropertyType.DARKNESS: propertyEffectObject = Managers.Build.darknessAura; break;
-        }
-
-        if (propertyEffectObject != null)
-        {
-            propertyEffectObject = Instantiate(propertyEffectObject, this.transform);
-        }
-    }
-
     private void OnMouseDown()
     {
         if(Managers.Wave.GameMode == Define.GameMode.DEFENSE && Time.timeScale > 0)
