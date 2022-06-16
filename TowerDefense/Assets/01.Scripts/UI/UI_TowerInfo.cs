@@ -52,6 +52,7 @@ public class UI_TowerInfo : MonoBehaviour
 
     public void CloseInfo()
     {
+        if (null == currentPage) return;
         Managers.UI.UIFade(canvasGroup, false);
         CanvasBtnsAnim(currentPage, false);
         beforePage = null;

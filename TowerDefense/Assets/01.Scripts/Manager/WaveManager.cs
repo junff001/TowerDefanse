@@ -112,6 +112,7 @@ public class WaveManager : MonoBehaviour
             Managers.Gold.GoldPlus(rewardGold);
             text.text = $"{rewardGold} 지급!";
             Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
+
         }
         else
         {
@@ -162,6 +163,7 @@ public class WaveManager : MonoBehaviour
                 {
                     // 오펜스 모드로 교체!
                     GameMode = Define.GameMode.OFFENSE;
+                    Managers.Game.towerInfoUI.CloseInfo();
                     SetMonsterAddBtns();
 
                 }
