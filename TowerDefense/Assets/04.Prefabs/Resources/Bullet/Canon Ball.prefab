@@ -97,4 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   hitEffect: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
-  target: {fileID: 0}
+  PropertyType: 0
+  curTime: 0
+  maxTime: 1
