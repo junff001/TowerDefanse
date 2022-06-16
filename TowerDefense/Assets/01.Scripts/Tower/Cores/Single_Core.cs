@@ -18,7 +18,7 @@ public class Single_Core : CoreBase
         }
 
         bullet.transform.position = transform.position;
-        bullet.Init(towerData,enemy.transform);
+        bullet.Init(TowerData,enemy.transform);
         OnAttack();
     }
 

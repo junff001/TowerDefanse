@@ -7,7 +7,7 @@ public class BuffBase : IBuff
 {
     public float duration { get; set; }
     public float amplification { get; set; }
-    public bool isEnd { get; set; } = false;
+    public bool isEnd = false;
     public GameObject affecter { get; set; }
     public BuffType buffType { get; set; }
     public PropertyType propertyType { get; set; }
@@ -41,8 +41,4 @@ public class BuffBase : IBuff
     {
         isEnd = true;
     }
-
-
-    
-
 }

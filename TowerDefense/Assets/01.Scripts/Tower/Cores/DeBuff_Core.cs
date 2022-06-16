@@ -53,7 +53,7 @@ public class DeBuff_Core : CoreBase
 
     public void TowerRader()
     {
-        towers = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange, towerMask);
+        towers = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), TowerData.AttackRange, towerMask);
     }
 
     public override IEnumerator OnRader()
@@ -93,12 +93,12 @@ public class DeBuff_Core : CoreBase
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                if (i >= towerData.attackTargetCount)
+                if (i >= TowerData.attackTargetCount)
                     break;
 
                 if (enemies[i] != null)
                 {
-                    Attack(towerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
+                    Attack(TowerData.OffensePower, enemies[i].GetComponent<HealthSystem>());
                     buffAction.Invoke(enemies[i].gameObject);
                 }
             }
@@ -109,40 +109,6 @@ public class DeBuff_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        enemy.TakeDamage(towerData.OffensePower, towerData.Property);
-    }
-
-    public override void PropertyCheck()
-    {
-        switch (towerData.Property)
-        {
-            case Define.PropertyType.WATER:
-                buffAction += Slow;
-                break;
-            case Define.PropertyType.FIRE:
-               
-                break;
-            case Define.PropertyType.LIGHTNING:
-                
-                break;
-            case Define.PropertyType.LIGHT:
-                
-                break;
-            case Define.PropertyType.DARKNESS:
-                buffAction += Dot;
-                break;
-        }
-    }
-
-    void Slow(GameObject target)
-    {
-        Slow slow = new Slow(target, buffData.duration, buffData.slow_percentage);
-        target.GetComponent<EnemyBase>().AddBuff(slow);
-    }
-
-    void Dot(GameObject target)
-    {
-        Dot dot = new Dot(target, buffData.duration, buffData.addDotDamage);
-        target.GetComponent<EnemyBase>().AddBuff(dot);
+        enemy.TakeDamage(TowerData.OffensePower, TowerData.Property);
     }
 }

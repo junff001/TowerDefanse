@@ -44,7 +44,7 @@ public class Tower : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(Managers.Wave.GameMode == Define.GameMode.DEFENSE && Time.timeScale > 0)
+        if (Managers.Wave.GameMode == Define.GameMode.DEFENSE && Time.timeScale > 0)
         {
             Managers.Game.towerInfoUI.OpenInfo(this);
         }

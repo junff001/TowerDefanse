@@ -54,8 +54,9 @@ public class Define
         FIRE,
         WATER,
         LIGHTNING,
-        LIGHT,
-        DARKNESS
+        SOIL,
+        WIND,
+        GRASS
     }
 
     public enum GameMode

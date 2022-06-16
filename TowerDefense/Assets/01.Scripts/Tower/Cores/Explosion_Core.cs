@@ -6,7 +6,7 @@ public class Explosion_Core : CoreBase
     {
         bullet = Managers.Pool.GetItem<Bomb>();
         bullet.transform.position = transform.position;
-        bullet.Init(towerData, enemy.transform);
+        bullet.Init(TowerData, enemy.transform);
         OnAttack();
     }
 }

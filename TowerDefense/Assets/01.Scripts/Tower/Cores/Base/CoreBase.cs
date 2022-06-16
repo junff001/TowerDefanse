@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public abstract class CoreBase : MonoBehaviour
 {
     [Header("레이더")]
     [SerializeField] protected float raderHeight = 0f;
 
-    public LayerMask enemyMask = default;                          // 적을 분별하는 마스크    
-    protected List<EnemyBase> enemies = new List<EnemyBase>();                         // 공격 범위 안에 있는 적들
-    protected EnemyBase target { get; set; } = null;       // 현재 타겟
+    public LayerMask enemyMask = default;                           // 적을 분별하는 마스크    
+    protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
+    protected EnemyBase target { get; set; } = null;                // 현재 타겟
 
     public TowerData towerData { get; set; } = default;
     public eCoreName coreType;
+    public IBuff Buff { get; set; } 
 
     protected Bullet bullet = null;
 
@@ -21,13 +23,12 @@ public abstract class CoreBase : MonoBehaviour
     {
         StartCoroutine(OnRader());
         StartCoroutine(CoAttack());
-
-        PropertyCheck();
     }
 
     public bool IsTargetOutOfRange() // 때리던 애가 내 범위에서 벗어나면.
     {
         if (target == null) return false; // 그냥 넘어가요~
+
         return Vector2.Distance(target.transform.position, transform.position) >= towerData.AttackRange;
     }
 
@@ -74,7 +75,7 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 범위 처리 함수
     public void EnemyRader(LayerMask targetMask)
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange, targetMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), TowerData.AttackRange, targetMask);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {
@@ -89,7 +90,7 @@ public abstract class CoreBase : MonoBehaviour
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position + new Vector3(0, raderHeight, 0), towerData.AttackRange);
+            Gizmos.DrawWireSphere(transform.position + new Vector3(0, raderHeight, 0), TowerData.AttackRange);
             Gizmos.color = Color.white;
         }
     }
@@ -114,23 +115,4 @@ public abstract class CoreBase : MonoBehaviour
 
     // 공격 로직 함수
     public abstract void Attack(int power, HealthSystem enemy);
-
-    public virtual void PropertyCheck()
-    {
-        switch (towerData.Property)
-        {
-            case Define.PropertyType.WATER:
-                break;
-            case Define.PropertyType.FIRE:
-                break;
-            case Define.PropertyType.LIGHTNING:
-                break;
-            case Define.PropertyType.LIGHT:
-                break;
-            case Define.PropertyType.DARKNESS:
-                break;
-        }
-    }
-
-    
 }

@@ -18,7 +18,7 @@ public class Spike_Core : CoreBase
 
     public override void Attack(int power, HealthSystem enemy)
     {
-        enemy.TakeDamage(towerData.OffensePower, towerData.Property);
+        enemy.TakeDamage(TowerData.OffensePower, TowerData.Property);
         hitEffect.transform.position = -enemy.transform.up;
     }
 
@@ -31,23 +31,23 @@ public class Spike_Core : CoreBase
             StartCoroutine(SpikeAnimation());
             for (int i = 0; i < enemies.Count; i++)
             {
-                if (i >= towerData.attackTargetCount) break;
+                if (i >= TowerData.attackTargetCount) break;
 
                 if (enemies[i] != null)
                 {
-                    Attack(towerData.OffensePower, enemies[i].healthSystem);
+                    Attack(TowerData.OffensePower, enemies[i].healthSystem);
                 }
             }
 
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
+            yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
         }
     }
 
     IEnumerator SpikeAnimation()
     {
         spriteObj.sprite = onSpike;
-        yield return new WaitForSeconds(1f / towerData.AttackSpeed / 2); 
+        yield return new WaitForSeconds(1f / TowerData.AttackSpeed / 2); 
         spriteObj.sprite = offSpike;
-        yield return new WaitForSeconds(1f / towerData.AttackSpeed / 2); 
+        yield return new WaitForSeconds(1f / TowerData.AttackSpeed / 2); 
     }
 }

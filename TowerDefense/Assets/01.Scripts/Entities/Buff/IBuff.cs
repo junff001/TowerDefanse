@@ -7,7 +7,6 @@ public interface IBuff
 {
     public float duration { get; set; }
     public float amplification { get; set; }
-    public bool isEnd { get; set; }
     public GameObject affecter { get; set; }
     public BuffType buffType { get; set; }
     public PropertyType propertyType { get; set; }
