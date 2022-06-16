@@ -1,6 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
+using static Define;
+
+
+public struct PropertyData
+{
+    public ParticleSystem AuraEffect;
+    public ParticleSystem BuffEffect;
+}
 
 public class BuildManager : MonoBehaviour
 {
@@ -21,8 +30,6 @@ public class BuildManager : MonoBehaviour
     #endregion
 
     private Camera mainCam = null;
-
-
     public Tile placeTile;
     public Tile roadTile;
     public Tile waterTile;
@@ -33,25 +40,52 @@ public class BuildManager : MonoBehaviour
     public Map map;
     [SerializeField] private Tower towerBase;
 
+    [SerializeField] PropertySO propertySO;
+
     public GameObject rangeObj;
     public GameObject movingImg = null;
 
-    private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
+    [Header("코어 관리")]
+    Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
-    public List<Tower> spawnedTowers = new List<Tower>();
 
-    private void Start()
+    [Header("버프 관리")]
+    public Dictionary<PropertyType, IBuff> buffDictionary = new Dictionary<PropertyType, IBuff>();
+    public List<PropertyType> propertyList = new List<PropertyType>();
+
+    public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
+   
+    PropertyData propertyData = new PropertyData();
+
+    void Start()
     {
-        mainCam = Camera.main;
-        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
+        foreach (var item in propertyList)
+        {
+            switch (item)
+            {
+                case PropertyType.NONE: buffDictionary.Add(item, null); break;
+                case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(item, dot); break;
+                case PropertyType.WATER: Slow slow = null; buffDictionary.Add(item, slow); break;
+                case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(item, chain); break;   
+                case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(item, knockBack); break;
+                case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(item, splash); break;
+                case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(item, restriction); break;          
+            }
+        }
 
         foreach (var item in coreList)
         {
             coreDic.Add(item.coreType, item);
         }
+
+        propertyData.AuraEffect = propertySO.AuraEffect;
+        propertyData.BuffEffect = propertySO.BuffEffect;
+
+        mainCam = Camera.main;
+        plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
     }
 
-    private void Update()
+    void Update()
     {
         SetTilePos();
         SetAroundTiles();
@@ -77,7 +111,7 @@ public class BuildManager : MonoBehaviour
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
 
-    public Define.PlaceTileType placingTileType = Define.PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
+    public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
 
     public void ResetCheckedTiles(bool clearTileColor = false) // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
@@ -96,7 +130,7 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    public void SetTilesColor(Define.PlaceTileType placeTileType)
+    public void SetTilesColor(PlaceTileType placeTileType)
     {
         ResetCheckedTiles(); // 얘는 그냥 자기 색깔 유지하게 해줘야 함
 
@@ -116,7 +150,7 @@ public class BuildManager : MonoBehaviour
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
     }
 
-    public bool CanPlace(Define.PlaceTileType placeTileType) // 2x2 타일 검사
+    public bool CanPlace(PlaceTileType placeTileType) // 2x2 타일 검사
     {
         bool canPlace = true;
 
@@ -145,18 +179,18 @@ public class BuildManager : MonoBehaviour
             return new Vector3Int[4] { curPos, right, downRight, down };
     }
 
-    public bool IsPlaceableTile(Vector3Int pos, Define.PlaceTileType placeTileType)
+    public bool IsPlaceableTile(Vector3Int pos, PlaceTileType placeTileType)
     {
         if (pos.x < 0 || pos.y < 0) return false;
         if (pos.x >= map.width || pos.y >= map.height) return false;
 
         switch(placeTileType)
         {
-            case Define.PlaceTileType.Place:
-                if (map.mapTileTypeArray[pos.x, pos.y] != Define.TileType.Place) return false;
+            case PlaceTileType.Place:
+                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Place) return false;
                 break;
-            case Define.PlaceTileType.Road:
-                if (map.mapTileTypeArray[pos.x, pos.y] != Define.TileType.Road) return false;
+            case PlaceTileType.Road:
+                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Road) return false;
                 break;
         }
 
@@ -183,7 +217,8 @@ public class BuildManager : MonoBehaviour
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
-        newCore.towerData = newTower.TowerData;
+        newCore.TowerData = newTower.TowerData;
+        newCore.Buff = buffDictionary[newCore.TowerData.Property];
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
@@ -196,7 +231,8 @@ public class BuildManager : MonoBehaviour
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
-        newCore.towerData = newTower.TowerData;
+        newCore.TowerData = newTower.TowerData;
+        newCore.Buff = buffDictionary[newCore.TowerData.Property];
     }
 
     // 타워를 스폰하는 함수
@@ -241,15 +277,15 @@ public class BuildManager : MonoBehaviour
     {
         foreach (var pos in checkPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
         {
-            Define.TileType placeTileType = Define.TileType.None;
+            TileType placeTileType = TileType.None;
 
             switch (tower.TowerData.PlaceTileType)
             {
-                case Define.PlaceTileType.Place:
-                    placeTileType = value ? Define.TileType.Place_Tower : Define.TileType.Place;
+                case PlaceTileType.Place:
+                    placeTileType = value ? TileType.Place_Tower : TileType.Place;
                     break;
-                case Define.PlaceTileType.Road:
-                    placeTileType = value ? Define.TileType.Road_Tower : Define.TileType.Road;
+                case PlaceTileType.Road:
+                    placeTileType = value ? TileType.Road_Tower : TileType.Road;
                     break;
             }
             Managers.Build.map.mapTileTypeArray[pos.x, pos.y] = placeTileType;

@@ -17,26 +17,26 @@ public class TowerSO : ScriptableObject
 {
     // 레벨
     [SerializeField] private int level = 0;
-    public int Level { get => level; set => value = level; }
+    public int Level { get => level; }
 
     // 공격력
     [SerializeField] private int offensePower  = 0;           
-    public int OffensePower { get => offensePower; set => value = offensePower; }
+    public int OffensePower { get => offensePower; }
 
     // 공격속도
     [SerializeField] private float attackSpeed = 0f;              
-    public float AttackSpeed { get => attackSpeed; set => value = attackSpeed; }
+    public float AttackSpeed { get => attackSpeed; }
 
     // 공격범위
     [SerializeField] private float attackRange = 0f;              
-    public float AttackRange { get => attackRange; set => value = attackRange; }
+    public float AttackRange { get => attackRange; }
 
     // 설치비용
     [SerializeField] private int placeCost = 100;
-    public int PlaceCost { get => placeCost; set => value = placeCost; }
+    public int PlaceCost { get => placeCost; }
 
     [SerializeField] private int attackTargetCount = 1;
-    public int AttackTargetCount { get => attackTargetCount; set => value = attackTargetCount; }
+    public int AttackTargetCount { get => attackTargetCount; }
 
     public Sprite towerSprite;
 
