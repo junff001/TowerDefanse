@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class CanonBall : Bullet
 {
-    public override void Init(TowerData towerData, Transform enemyTrm)
+    public override void OnEnable()
     {
-        base.Init(towerData,enemyTrm);
-        EnemyBase targetEnemy = enemyTrm.GetComponent<EnemyBase>();
-        targetPos = GetExpectPos(targetEnemy, maxTime);
+        base.OnEnable();
+        IsShoot = true;
     }
 
     public override void Shoot()
     {
-        
+        transform.position += (Target.transform.position - transform.position).normalized * speed * Time.deltaTime;
     }
 }

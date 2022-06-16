@@ -15,7 +15,7 @@ public class UI_TowerInfo : MonoBehaviour
     [SerializeField] private Button btnSale;
     [SerializeField] private Button btnCancel;
 
-    [SerializeField] private Button[] btnProperties; // ¼Ó¼º enum ¼øÀ¸·Î Á¤·ÄÇÒ°Í
+    [SerializeField] private Button[] btnProperties; // ì†ì„± enum ìˆœìœ¼ë¡œ ì •ë ¬í• ê²ƒ
 
     private Tower currentSelectedTower;
     private CanvasGroup beforePage = null;
@@ -46,7 +46,7 @@ public class UI_TowerInfo : MonoBehaviour
         OpenPage(pageDefault);
         BtnAnim(btnCancel, true);
 
-        transform.position = tower.transform.position + new Vector3(0, 1, 0); // ¿ÀÇÁ¼Â
+        transform.position = tower.transform.position + new Vector3(0, 1, 0); // ì˜¤í”„ì…‹
         currentSelectedTower = tower;
     }
 
@@ -87,12 +87,12 @@ public class UI_TowerInfo : MonoBehaviour
             RecordTowerSale recordSegment = new RecordTowerSale(index);
             Managers.Record.AddRecord(recordSegment);
 
-            float returnGold = currentSelectedTower.TowerData.PlaceCost * 0.6f; // TO DO : ³ªÁß¿¡ ³­ÀÌµµ µû¶ó ´Ş¶ó¾ßÇÔ
+            float returnGold = currentSelectedTower.TowerData.PlaceCost * 0.6f; // TO DO : ë‚˜ì¤‘ì— ë‚œì´ë„ ë”°ë¼ ë‹¬ë¼ì•¼í•¨
             Managers.Gold.GoldPlus(returnGold);
 
             Vector3 screenPos = Camera.main.WorldToScreenPoint(currentSelectedTower.transform.position);
 
-            PopupText text = new PopupText($"Å¸¿ö ÆÇ¸Å!\n{returnGold} Gold¸¦ È¹µæÇß½À´Ï´Ù.");
+            PopupText text = new PopupText($"íƒ€ì›Œ íŒë§¤!\n{returnGold} Goldë¥¼ íšë“í–ˆìŠµë‹ˆë‹¤.");
             Managers.UI.SummonRectText(screenPos, text);
 
             Destroy(currentSelectedTower.gameObject);
@@ -107,7 +107,7 @@ public class UI_TowerInfo : MonoBehaviour
         Debug.Log(type);
         if (currentSelectedTower != null)
         {
-            currentSelectedTower.ChangeProperty(type);
+            //currentSelectedTower.ChangeProperty(type);
             CloseInfo();
         }
     }

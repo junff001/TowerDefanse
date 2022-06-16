@@ -12,11 +12,11 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
 
-
     private void Start()
     {
         Init();
         rt = this.GetComponent<RectTransform>();
+        rangeObj = Managers.Build.rangeObj;
     }
 
     public void Init()
@@ -71,9 +71,12 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
         Managers.Build.ResetCheckedTiles(true);
         Managers.Build.movingImg = null;
+        rangeObj.SetActive(false);
+        rangeObj.transform.localScale /= towerSO.AttackRange;
         Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
     }
 
+    GameObject rangeObj;
     public void OnDrag(PointerEventData eventData)
     {
         if (IsLeftBtn(eventData) && CanDrag())
@@ -87,6 +90,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if(IsLeftBtn(eventData) && CanDrag())
         {
+            rangeObj.SetActive(true);
+            rangeObj.transform.localScale *= towerSO.AttackRange;
             Managers.Build.movingImg = towerImage.gameObject;
             Managers.Build.map.ShowPlaceableTiles(towerSO.placeTileType);
             Managers.Build.map.tilemap_view_renderer.sortingOrder = -4; // out Tilemap보다 1 높은 수.

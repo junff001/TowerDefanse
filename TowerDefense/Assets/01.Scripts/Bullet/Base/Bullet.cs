@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    [SerializeField] protected float speed = 0f;                             // 이동 속도
     [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
+    [SerializeField] protected float speed = 0f;  // 애는 유도탄에만 쓰자.
 
     public Transform Target { get; set; }                                  // 목표물
     public int BulletDamage { get; set; } = 0;                               // 데미지
@@ -22,14 +22,9 @@ public abstract class Bullet : MonoBehaviour
         _maxTime = maxTime;
     }
 
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         transform.SetParent(Managers.Pool.poolInitPos);
-    }
-
-    public void OnDisable()
-    {
-        IsShoot = false;
     }
 
     public virtual void Init(TowerData towerData, Transform enemyTrm)

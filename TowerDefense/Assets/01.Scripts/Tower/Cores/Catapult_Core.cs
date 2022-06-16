@@ -18,7 +18,7 @@ public class Catapult_Core : CoreBase
     [SerializeField] float chargingSpeed;
     [SerializeField] float releaseSpeed;
 
-    Stone bullet = null;
+    //Stone bullet = null;
     Vector3 dir = Vector3.zero;
 
     bool isThrowing = false;
@@ -94,8 +94,8 @@ public class Catapult_Core : CoreBase
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
                 bullet.transform.position = basket.transform.position + new Vector3(dir.x / 2,0, 0);
                 bullet.Init(towerData, enemyTrm);
-                
-                bullet = null;
+
+                OnAttack();
             }
 
             if (head.transform.localRotation == followThrough)

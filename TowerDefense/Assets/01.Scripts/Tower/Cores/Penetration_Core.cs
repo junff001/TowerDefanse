@@ -17,7 +17,7 @@ public class Penetration_Core : CoreBase
     [SerializeField] private float rotateSpeed = 0f;
     [SerializeField] private float TransitionTime = 0f;
 
-    private Arrow bullet = null;
+    //private Arrow bullet = null;
     
     public override void OnEnable()
     {
@@ -62,8 +62,8 @@ public class Penetration_Core : CoreBase
         yield return new WaitForSeconds(TransitionTime);
         Shoot();
         yield return new WaitForSeconds(TransitionTime);
-        bullet = null;
-        target = null;
+
+        OnAttack();
     }
 
     void Ready()

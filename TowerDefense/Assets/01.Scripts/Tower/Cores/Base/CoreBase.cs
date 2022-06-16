@@ -15,33 +15,50 @@ public abstract class CoreBase : MonoBehaviour
     public TowerData towerData { get; set; } = default;
     public eCoreName coreType;
 
+    protected Bullet bullet = null;
+
     public virtual void OnEnable()
     {
         StartCoroutine(OnRader());
-        StartCoroutine(OnAttack());
+        StartCoroutine(CoAttack());
 
         PropertyCheck();
     }
 
+    public bool IsTargetOutOfRange() // 때리던 애가 내 범위에서 벗어나면.
+    {
+        if (target == null) return false; // 그냥 넘어가요~
+        return Vector2.Distance(target.transform.position, transform.position) > towerData.AttackRange + 1;
+    }
+
     public void SetTarget(LayerMask priorityMask = default) // 우선순위나 이동 거리에 따라서 타겟 설정
     {
-        if (enemies.Count <= 0) return;
-
-        enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); 
-           
-        if(false == priorityMask.Equals(default)) // 우선 타겟팅할 적이 있다면
+        if (enemies.Count <= 0)
         {
-            target = enemies.Find(x => x.gameObject.layer == priorityMask);
+            return;
         }
+        enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); // 맨 앞 놈 패야 하니까.
 
+        if (false == priorityMask.Equals(default)) // 우선 타겟팅할 적이 있다면
+        {
+            EnemyBase priorityTarget = enemies.Find(x => x.gameObject.layer == priorityMask);
+            
+            if(priorityTarget != null)
+            {
+                target = priorityTarget;
+            }
+        }
+        
         if(target == null)
+        {
             target = enemies[0];
+        }
     }
 
     public virtual void OnDisable()
     {
         StopCoroutine(OnRader());
-        StopCoroutine(OnAttack());
+        StopCoroutine(CoAttack());
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
@@ -50,6 +67,7 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             EnemyRader(enemyMask);
+            SetTarget(enemyMask);
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -63,7 +81,6 @@ public abstract class CoreBase : MonoBehaviour
         {
             enemies.Add(cols[i].GetComponent<EnemyBase>());
         }
-        SetTarget();
     }
 
     // 공격 범위 기즈모 표시
@@ -80,17 +97,20 @@ public abstract class CoreBase : MonoBehaviour
 #endif
 
     // 공격 실행 함수
-    public virtual IEnumerator OnAttack()
+    public virtual IEnumerator CoAttack()
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies.Count > 0);
-            
-            if(target != null)
-                Attack(towerData.OffensePower, target.healthSystem);
-
+            yield return new WaitUntil(() => target != null);
+            Attack(towerData.OffensePower, target.healthSystem);
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
+    }
+
+    public virtual void OnAttack()
+    {
+        bullet = null;
+        if (IsTargetOutOfRange()) target = null;
     }
 
     // 공격 로직 함수

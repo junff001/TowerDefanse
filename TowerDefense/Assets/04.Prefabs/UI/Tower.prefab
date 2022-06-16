@@ -150,6 +150,7 @@ MonoBehaviour:
   towerImage: {fileID: 5635161855120090510}
   towerCostText: {fileID: 5635161854940683479}
   towerSO: {fileID: 11400000, guid: 8c458e42dcd56994294dcf0b554fd5fc, type: 2}
+  rangeObj: {fileID: 0}
 --- !u!1 &5635161854940683476
 GameObject:
   m_ObjectHideFlags: 0

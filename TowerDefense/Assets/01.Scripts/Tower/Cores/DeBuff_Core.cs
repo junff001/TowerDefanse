@@ -84,7 +84,7 @@ public class DeBuff_Core : CoreBase
         }
     }
 
-    public override IEnumerator OnAttack()
+    public override IEnumerator CoAttack()
     {
         while (true)
         {

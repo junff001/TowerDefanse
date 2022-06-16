@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class BuildManager : MonoBehaviour
 {
-    #region
+    #region 벡터들
     private Vector3Int tilePos = Vector3Int.zero;                  // 타일 위치
 
     private Vector3Int[] checkedPos = null;
@@ -20,30 +20,25 @@ public class BuildManager : MonoBehaviour
     private Vector3Int downRight = Vector3Int.zero;
     #endregion
 
+    private Camera mainCam = null;
+
+
     public Tile placeTile;
     public Tile roadTile;
     public Tile waterTile;
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
-    private Camera mainCam = null;
+    Vector3 plusPos = Vector2.zero;
 
     public Map map;
     [SerializeField] private Tower towerBase;
 
-    public GameObject fireAura;
-    public GameObject waterAura;
-    public GameObject lightningAura;
-    public GameObject lightAura;
-    public GameObject darknessAura;
+    public GameObject rangeObj;
+    public GameObject movingImg = null;
 
     private Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
-
     public List<Tower> spawnedTowers = new List<Tower>();
-
-    Vector3 plusPos = Vector2.zero;
-
-    public GameObject movingImg = null;
 
     private void Start()
     {

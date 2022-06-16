@@ -45,15 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d643b9c217f4d1f48a9fdcae31ef6f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoHeight: 0
+  raderHeight: 0
   enemyMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 15360
   coreType: 0
   head: {fileID: 8419561142240207063}
-  body_forward: {fileID: 0}
-  body_back: {fileID: 0}
-  angleSpeed: 100
+  body_forward: {fileID: 2402120562388466264}
+  body_back: {fileID: 2029049429051464423}
+  angleSpeed: 20
 --- !u!1 &5585128627176338665
 GameObject:
   m_ObjectHideFlags: 0

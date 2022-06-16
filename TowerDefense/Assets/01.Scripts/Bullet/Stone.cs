@@ -9,8 +9,7 @@ public class Stone : Bullet
         base.Init(towerData, enemyTrm);
         IsShoot = true;
 
-        EnemyBase targetEnemy = Target.GetComponent<EnemyBase>();
-        targetPos = GetExpectPos(targetEnemy, maxTime);
+        targetPos = GetExpectPos(Target.GetComponent<EnemyBase>(), maxTime);
 
         float x = (Target.transform.position.x + startPos.x) / 2;
         float y = targetPos.y > startPos.y ? targetPos.y : startPos.y;

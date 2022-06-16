@@ -13,7 +13,7 @@ public class Bomb : Bullet
         IsShoot = true;
         float x = (targetPos.x + startPos.x) / 2;
         float y = targetPos.y > startPos.y ? targetPos.y : startPos.y;
-        y += 1;
+        y += 2;
 
         curvePoint = new Vector2(x, y);
     }
@@ -22,7 +22,7 @@ public class Bomb : Bullet
     {
         if (Target != null)
         {
-            curTime += Time.deltaTime * speed;
+            curTime += Time.deltaTime;
             Shoot();
 
             if (IsCollision())

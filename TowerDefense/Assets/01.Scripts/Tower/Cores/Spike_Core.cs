@@ -13,7 +13,7 @@ public class Spike_Core : CoreBase
     public override void OnEnable()
     {
         StartCoroutine(OnRader());
-        StartCoroutine(OnAttack());
+        StartCoroutine(CoAttack());
     }
 
     public override void Attack(int power, HealthSystem enemy)
@@ -22,11 +22,11 @@ public class Spike_Core : CoreBase
         hitEffect.transform.position = -enemy.transform.up;
     }
 
-    public override IEnumerator OnAttack()
+    public override IEnumerator CoAttack()
     {
         while (true)
         {
-            yield return new WaitUntil(() => enemies.Count > 0);
+            yield return new WaitUntil(() => target != null);
 
             StartCoroutine(SpikeAnimation());
             for (int i = 0; i < enemies.Count; i++)
