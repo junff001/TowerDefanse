@@ -41,6 +41,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     SpineController animController;
 
+    public bool IsDead => healthSystem.IsDead();
+
     protected virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
@@ -62,8 +64,6 @@ public abstract class EnemyBase : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
 
             GetComponent<Collider2D>().enabled = false;
-            healthSystem.enabled = false;          
-            enabled = false;                       
             Invoke("Die", 3f); // 선한쌤이 핏자국 남기라고 하셨던 거 같음 시체나..
         };
     }
@@ -146,6 +146,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     void Move()
     {
+        if (IsDead) return;
+
         if (currentWayPointIndex == Managers.Game.GetWaypointCount(wayPointListIndex))
         {
             Managers.Game.OnEnemyArrivedLastWaypoint(this);

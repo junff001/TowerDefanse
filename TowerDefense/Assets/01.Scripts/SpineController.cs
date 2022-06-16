@@ -4,6 +4,7 @@ using UnityEngine;
 using Spine.Unity;
 using Spine;
 using DG.Tweening;
+using System.Text;
 
 public class SpineController : MonoBehaviour
 {
@@ -58,6 +59,10 @@ public class SpineController : MonoBehaviour
 
     public void SetAnim(bool bPlayNormalAnim) 
     {
-        sa.AnimationName = bPlayNormalAnim ? normalRun : wingRun;
+        string animStr = bPlayNormalAnim ? normalRun : wingRun;
+        if (false == sa.AnimationName.Equals(animStr))
+        {
+            sa.AnimationName = animStr;
+        }
     }
 }

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CanonBall : Bullet
 {
-    public override void OnEnable()
+    public  void OnEnable()
     {
-        base.OnEnable();
         IsShoot = true;
     }
 

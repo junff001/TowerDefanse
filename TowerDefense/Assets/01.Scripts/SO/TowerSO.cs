@@ -10,10 +10,13 @@ public enum eCoreName
     Spike,
     WoodenBarrel,
     Jewel,
+    GravityField,
+    Sensor,
     AtkBuff,
     AtkSpeedBuff,
     AtkRangeBuff,
     SlowDeBuff,
+
 }
 
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]

@@ -6,46 +6,77 @@ public class GravityField_Core : CoreBase
 {
     private List<GameObject> flyingEnemies = new List<GameObject>();
 
-
     LayerMask flyingEnemyLayer = default;
     LayerMask enemyLayer = default;
-    string walkAnimName = string.Empty;
-    string flyAnimName = string.Empty;
 
     private void Awake()
     {
-        flyingEnemyLayer = LayerMask.NameToLayer("FlyingEnemy");
+        flyingEnemyLayer = LayerMask.NameToLayer("FlyEnemy");
         enemyLayer = LayerMask.NameToLayer("Enemy");
     }
+
+    public override IEnumerator OnRader()
+    {
+        while (true)
+        {
+            CheckDistWithEnemies();
+            EnemyRader(enemyMask);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    public override IEnumerator CoAttack()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => enemies.Count > 0);
+            Attack(0, null);
+            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
+        }
+    }
+
+
     public override void Attack(int power, HealthSystem enemy)
     {
-        if(enemy.gameObject.layer == flyingEnemyLayer)
+        for (int i = 0; i < enemies.Count; ++i)
         {
-            flyingEnemies.Add(enemy.gameObject);
-            enemy.gameObject.layer = enemyLayer;
-            enemy.GetComponent<SpineController>().sa.AnimationName = walkAnimName;
+            if (enemies[i] != null)
+            {
+                enemies[i].AddBuff(new Slow(enemies[i].gameObject, 1 / towerData.AttackSpeed, enemies[i].enemyData.MoveSpeed * 0.3f));
+
+                if (enemies[i].gameObject.layer.Equals(flyingEnemyLayer))
+                {
+                    bool bAddEnemy = true;
+                    for(int j = 0; j < flyingEnemies.Count; j++)
+                    {
+                        if(flyingEnemies[j] == enemies[i])
+                        {
+                            bAddEnemy = false;
+                            break;
+                        }
+                    }
+
+                    if (bAddEnemy)
+                    {
+                        flyingEnemies.Add(enemies[i].gameObject);
+                        enemies[i].gameObject.layer = enemyLayer;
+                        enemies[i].GetComponent<SpineController>().SetAnim(true);
+                    }
+                }
+            }
         }
-
-
-        CheckDistWithEnemies();
     }
 
     private void CheckDistWithEnemies()
     {
-        for(int i = 0; i< flyingEnemies.Count; i++)
+        for (int i = 0; i < flyingEnemies.Count; i++)
         {
-            if(flyingEnemies[i] == null)
+            if (flyingEnemies[i] != null && Vector2.Distance(flyingEnemies[i].transform.position, transform.position) > towerData.AttackRange)
             {
-                flyingEnemies.Remove(flyingEnemies[i]);
-                continue;
-            }
-
-            if (Vector2.Distance(flyingEnemies[i].transform.position, transform.position) > towerData.AttackRange)
-            {
-                flyingEnemies.Remove(flyingEnemies[i]);
                 flyingEnemies[i].gameObject.layer = flyingEnemyLayer;
-                flyingEnemies[i].GetComponent<SpineController>().sa.AnimationName = flyAnimName;
-                --i; // 하나 지울거니까 하나 빼주장
+                flyingEnemies[i].GetComponent<SpineController>().SetAnim(false);
+                flyingEnemies.Remove(flyingEnemies[i]);
+                --i;
             }
         }
     }

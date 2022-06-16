@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
-    public Sprite waitSprite;
-
     public Dictionary<Define.MonsterType, EnemySO> enemySoDic = new Dictionary<Define.MonsterType, EnemySO>();
     public EnemySO[] enemySOs;
 
