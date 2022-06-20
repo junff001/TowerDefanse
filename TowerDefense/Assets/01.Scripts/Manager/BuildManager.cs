@@ -59,27 +59,27 @@ public class BuildManager : MonoBehaviour
 
     void Start()
     {
-        foreach (var item in propertyList)
-        {
-            switch (item)
-            {
-                case PropertyType.NONE: buffDictionary.Add(item, null); break;
-                case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(item, dot); break;
-                case PropertyType.WATER: Slow slow = null; buffDictionary.Add(item, slow); break;
-                case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(item, chain); break;   
-                case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(item, knockBack); break;
-                case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(item, splash); break;
-                case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(item, restriction); break;          
-            }
-        }
+        //foreach (var item in propertyList)
+        //{
+        //    switch (item)
+        //    {
+        //        case PropertyType.NONE: buffDictionary.Add(item, null); break;
+        //        case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(item, dot); break;
+        //        case PropertyType.WATER: Slow slow = null; buffDictionary.Add(item, slow); break;
+        //        case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(item, chain); break;   
+        //        case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(item, knockBack); break;
+        //        case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(item, splash); break;
+        //        case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(item, restriction); break;          
+        //    }
+        //}
 
         foreach (var item in coreList)
         {
             coreDic.Add(item.coreType, item);
         }
 
-        propertyData.AuraEffect = propertySO.AuraEffect;
-        propertyData.BuffEffect = propertySO.BuffEffect;
+        //propertyData.AuraEffect = propertySO.AuraEffect;
+        //propertyData.BuffEffect = propertySO.BuffEffect;
 
         mainCam = Camera.main;
         plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
@@ -218,7 +218,7 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.TowerData = newTower.TowerData;
-        newCore.Buff = buffDictionary[newCore.TowerData.Property];
+        //newCore.Buff = buffDictionary[newCore.TowerData.Property];
     }
     
     public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)

@@ -6,7 +6,7 @@ public class Arrow : Bullet
     {
         base.Init(towerData, enemyTrm);
         maxTime = Vector2.Distance(targetPos, startPos) / towerData.AttackRange * _maxTime;
-        GetExpectPos(enemyTrm.GetComponent<EnemyBase>(), maxTime);
+        targetPos = GetExpectPos(enemyTrm.GetComponent<EnemyBase>(), maxTime);
 
         if (Target.GetComponent<EnemyBase>().IsDead) Target = null;
     }

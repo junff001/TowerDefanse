@@ -109,6 +109,8 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnAttack()
     {
+        bullet.transform.SetParent(Managers.Pool.poolInitPos);
+
         bullet = null;
         if (IsTargetOutOfRange()) target = null;
     }

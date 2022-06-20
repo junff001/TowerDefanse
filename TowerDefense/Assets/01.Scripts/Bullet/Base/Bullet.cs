@@ -12,6 +12,7 @@ public abstract class Bullet : MonoBehaviour
 
     protected Vector2 startPos = Vector2.zero;
     protected Vector2 targetPos = Vector2.zero;
+    public Vector2 TargetPos => targetPos; 
 
     [SerializeField] protected float curTime;
     [SerializeField] protected float maxTime; // 얘는 거리에 따라 바뀌는 투사체 날아가는 시간
@@ -84,27 +85,28 @@ public abstract class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    protected void GetExpectPos(EnemyBase enemy, float maxTime)
+    protected Vector2 GetExpectPos(EnemyBase enemy, float maxTime)
     {
         Vector2 curPos = enemy.transform.position;
         float moveDistWhileMaxTime = enemy.enemyData.MoveSpeed * maxTime;
 
-        Vector2 expectPos = GetExpectPos(curPos, moveDistWhileMaxTime, enemy.CurrentWayPointIndex);
+        return GetExpectPos(curPos, moveDistWhileMaxTime, enemy.CurrentWayPointIndex);
     }
 
     public Vector2 GetExpectPos(Vector2 startPos, float moveDistWhileMaxTime, int index)
     {
-        Vector2 destPos = Managers.Game.wayPoints[index].position;
+        Vector2 destPos = Managers.Game.wayPoints[index].position; // 현재 이동중인 목적지 인덱스
 
-        float distToWaypoint = Vector2.Distance(startPos, destPos);
-        if(moveDistWhileMaxTime > distToWaypoint)
+        float distToWaypoint = Vector2.Distance(startPos, destPos); // enemy 위치를 이 위치로 옮기고.
+        if(moveDistWhileMaxTime > distToWaypoint) // n초간 목적지보다 더 멀리가면 
         {
-            return GetExpectPos(destPos, moveDistWhileMaxTime, ++index);
+            moveDistWhileMaxTime -= distToWaypoint; // 이동한 거리 빼주고 다음 인덱스도 넘어가는 체크하기.
+            return GetExpectPos(destPos, moveDistWhileMaxTime, ++index); // 한번 더 굴려!
         }
         else
         {
-            Vector2 moveDir = (destPos - startPos).normalized;
-            return startPos += moveDistWhileMaxTime * moveDir;
+            Vector2 moveDir = (destPos - startPos).normalized; // 안 넘어가니까 그냥 벡터 구하고
+            return startPos += moveDistWhileMaxTime * moveDir; // 현재 위치에 방향 * 거리 곱해서 더해주고 리턴.
         }
     }
 
