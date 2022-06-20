@@ -232,7 +232,7 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
         newCore.TowerData = newTower.TowerData;
-        newCore.Buff = buffDictionary[newCore.TowerData.Property];
+        //newCore.Buff = buffDictionary[newCore.TowerData.Property];
     }
 
     // 타워를 스폰하는 함수
