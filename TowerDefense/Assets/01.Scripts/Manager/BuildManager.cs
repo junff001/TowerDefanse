@@ -244,7 +244,7 @@ public class BuildManager : MonoBehaviour
         Tower newTower = Instantiate(towerBase, placePos, Quaternion.identity);
         newTower.InitTowerData(towerSO);
 
-        if(towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
+        if (towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {
             MakeNewCore(towerSO, newTower);
         }
@@ -257,10 +257,11 @@ public class BuildManager : MonoBehaviour
 
         if (towerSO.coreType != eCoreName.Spike)
         {
-            foreach (var item in newTower.GetComponentsInChildren<SpriteRenderer>())
-            {
-                item.sortingOrder = map.height - (int)newTower.transform.position.y;
-            }
+            newTower.InitSortOrder("Tower", map.height - (int)newTower.transform.position.y);
+        }
+        else
+        {
+            newTower.InitSortOrder("Default", -1);
         }
 
         SetTowerGrid(newTower, checkedPos, true);
