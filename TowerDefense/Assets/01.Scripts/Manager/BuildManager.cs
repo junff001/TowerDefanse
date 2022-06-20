@@ -36,13 +36,13 @@ public class BuildManager : MonoBehaviour
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     Vector3 plusPos = Vector2.zero;
 
-    public Map map;
+    [HideInInspector] public Map map;
     public Tower towerBase;
 
     [SerializeField] PropertySO propertySO;
 
     public GameObject rangeObj;
-    public GameObject movingObj = null;
+    [HideInInspector] public GameObject movingObj = null;
 
     [Header("코어 관리")]
     Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
@@ -55,6 +55,11 @@ public class BuildManager : MonoBehaviour
     public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
    
     PropertyData propertyData = new PropertyData();
+
+    public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
+
+    public Color canPlaceColor;
+    public Color cannotPlaceColor;
 
     public void Init()
     {
@@ -110,8 +115,6 @@ public class BuildManager : MonoBehaviour
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
 
-    public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
-
     public void ResetCheckedTiles(bool clearTileColor = false) // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
         if (checkedPos == null) return; // 처음에 널이라 오류
@@ -141,9 +144,9 @@ public class BuildManager : MonoBehaviour
             if (false == IsPlaceableTile(pos, placeTileType)) continue;
 
             if (canPlace)
-                map.gridTilemap.SetColor(pos, Color.blue);
+                map.gridTilemap.SetColor(pos, canPlaceColor);
             else
-                map.gridTilemap.SetColor(pos, Color.red);
+                map.gridTilemap.SetColor(pos, cannotPlaceColor);
         }
 
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야

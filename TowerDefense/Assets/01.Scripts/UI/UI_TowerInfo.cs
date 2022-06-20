@@ -7,6 +7,7 @@ using DG.Tweening;
 public class UI_TowerInfo : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
+    private Image image;
 
     [SerializeField] private CanvasGroup pageDefault;
     [SerializeField] private CanvasGroup pageProperty;
@@ -45,6 +46,7 @@ public class UI_TowerInfo : MonoBehaviour
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        image = GetComponent<Image>();
     }
 
     private void Start()
@@ -65,29 +67,20 @@ public class UI_TowerInfo : MonoBehaviour
     {
         if (tower == CurrentSelectedTower) return;
 
-        if(CurrentSelectedTower != null)
-        {
-            // 타워 선택되는 표시 함수
-
-        }
+        image.SetNativeSize();
 
         if (!isOpenedInfo)
         {
             isOpenedInfo = true;
             Managers.UI.UIFade(canvasGroup, true);
-            OpenPage(pageDefault);
-            BtnAnim(btnCancel, true);
+        }
 
-            transform.position = tower.transform.position + new Vector3(0, 1, 0); // 오프셋
-            CurrentSelectedTower = tower;
-        }
-        else
-        {
-            OpenPage(pageDefault);
-            BtnAnim(btnCancel, true);
-            transform.position = tower.transform.position + new Vector3(0, 1, 0); // 오프셋
-            CurrentSelectedTower = tower;
-        }
+        OpenPage(pageDefault);
+        BtnAnim(btnCancel, true);
+
+        image.rectTransform.sizeDelta *= tower.TowerData.AttackRange;
+        transform.position = tower.transform.position + new Vector3(0, 1, 0); // 오프셋
+        CurrentSelectedTower = tower;
     }
 
     public void CloseInfo()
