@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f105448e26c21194098e300fbdbb08a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raderHeight: 0
+  raderHeight: 2
   enemyMask:
     serializedVersion: 2
     m_Bits: 15360

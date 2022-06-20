@@ -13,7 +13,7 @@ public abstract class CoreBase : MonoBehaviour
     protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
     protected EnemyBase target { get; set; } = null;                // 현재 타겟
 
-    public TowerData towerData { get; set; } = default;
+    public TowerData TowerData { get; set; } = default;
     public eCoreName coreType;
     public IBuff Buff { get; set; } 
 
@@ -29,7 +29,7 @@ public abstract class CoreBase : MonoBehaviour
     {
         if (target == null) return false; // 그냥 넘어가요~
 
-        return Vector2.Distance(target.transform.position, transform.position) >= towerData.AttackRange;
+        return Vector2.Distance(target.transform.position, transform.position) >= TowerData.AttackRange;
     }
 
     public void SetTarget(LayerMask priorityMask = default) // 우선순위나 이동 거리에 따라서 타겟 설정
@@ -75,7 +75,7 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 범위 처리 함수
     public void EnemyRader(LayerMask targetMask)
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), TowerData.AttackRange, targetMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, targetMask);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {
@@ -102,13 +102,15 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => target != null && target.IsDead == false);
-            Attack(towerData.OffensePower, target.healthSystem);
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
+            Attack(TowerData.OffensePower, target.healthSystem);
+            yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
         }
     }
 
     public virtual void OnAttack()
     {
+        bullet.transform.SetParent(Managers.Pool.poolInitPos);
+
         bullet = null;
         if (IsTargetOutOfRange()) target = null;
     }

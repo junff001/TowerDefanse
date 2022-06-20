@@ -7807,6 +7807,7 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: 66adf1f7ec91d0e41bf77b72191c40fa, type: 2}
   map: {fileID: 0}
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
+  propertySO: {fileID: 0}
   rangeObj: {fileID: 1715895307}
   movingImg: {fileID: 0}
   coreList:
@@ -7817,7 +7818,7 @@ MonoBehaviour:
   - {fileID: -7119941075376176510, guid: 9346c870808e75e44990a056c29354bb, type: 3}
   - {fileID: 6099001705342116935, guid: 6ef95ae64b4a7e3418cbf6c28a63beb8, type: 3}
   - {fileID: 4526084948041475342, guid: 619f63e012d30e24bb12b8a4396988a6, type: 3}
-  spawnedTowers: []
+  propertyList: 
   placingTileType: 0
 --- !u!1 &1527007684
 GameObject:

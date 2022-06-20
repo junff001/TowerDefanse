@@ -93,7 +93,7 @@ public class DeBuff_Core : CoreBase
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                if (i >= TowerData.attackTargetCount)
+                if (i >=TowerData.attackTargetCount)
                     break;
 
                 if (enemies[i] != null)

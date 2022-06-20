@@ -31,7 +31,7 @@ public class GravityField_Core : CoreBase
         {
             yield return new WaitUntil(() => enemies.Count > 0);
             Attack(0, null);
-            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
+            yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
         }
     }
 
@@ -42,7 +42,7 @@ public class GravityField_Core : CoreBase
         {
             if (enemies[i] != null)
             {
-                enemies[i].AddBuff(new Slow(enemies[i].gameObject, 1 / towerData.AttackSpeed, enemies[i].enemyData.MoveSpeed * 0.3f));
+                enemies[i].AddBuff(new Slow(enemies[i].gameObject, 1 / TowerData.AttackSpeed, enemies[i].enemyData.MoveSpeed * 0.3f));
 
                 if (enemies[i].gameObject.layer.Equals(flyingEnemyLayer))
                 {
@@ -71,7 +71,7 @@ public class GravityField_Core : CoreBase
     {
         for (int i = 0; i < flyingEnemies.Count; i++)
         {
-            if (flyingEnemies[i] != null && Vector2.Distance(flyingEnemies[i].transform.position, transform.position) > towerData.AttackRange)
+            if (flyingEnemies[i] != null && Vector2.Distance(flyingEnemies[i].transform.position, transform.position) > TowerData.AttackRange)
             {
                 flyingEnemies[i].gameObject.layer = flyingEnemyLayer;
                 flyingEnemies[i].GetComponent<SpineController>().SetAnim(false);
