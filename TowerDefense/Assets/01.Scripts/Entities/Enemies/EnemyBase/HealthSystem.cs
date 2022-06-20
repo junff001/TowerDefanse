@@ -149,8 +149,6 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damageAmount, Define.PropertyType propertyType, bool penetration = false)
     {
-        Define.PropertyType myProperty = enemyBase.enemyData.PropertyResistance;
-
         Damage(damageAmount, penetration);
         OnDamaged?.Invoke();
 

@@ -69,7 +69,10 @@ public class GameManager : MonoBehaviour
     {
         foreach (var item in enemySOs)
         {
-            enemySoDic.Add(item.MonsterType, item);
+            if(false == enemySoDic.ContainsKey(item.MonsterType))
+            {
+                enemySoDic.Add(item.MonsterType, item);
+            }
         }
     }
 

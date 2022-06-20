@@ -15,7 +15,6 @@ public class EnemyData
     public bool IsGuardian;
     public bool IsFlying;
     public bool IsDebuffIimmune;
-    public Define.PropertyType PropertyResistance;
     public Define.MonsterType MonsterType;
 }
 
@@ -139,7 +138,6 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.IsHide = enemySO.IsHide;
         enemyData.IsGuardian = enemySO.IsGuardian;
         enemyData.IsFlying = enemySO.IsFlying;
-        enemyData.PropertyResistance = enemySO.PropertyResistance;
         enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
         enemyData.MonsterType = enemySO.MonsterType;
     }

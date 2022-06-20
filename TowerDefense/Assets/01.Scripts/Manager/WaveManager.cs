@@ -218,8 +218,8 @@ public class WaveManager : MonoBehaviour
 
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
-            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
-            enemyObj.enemyData.PropertyResistance = enemyInfo.propertyType;
+            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, 
+                enemyInfo.enemy.transform.rotation, this.transform);
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
             aliveEnemies.Add(enemyObj);

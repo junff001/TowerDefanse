@@ -41,11 +41,6 @@ public class Define
     {
         None,
         Goblin,
-        ShadowGoblin,
-        GuardianGoblin,
-        AlchemistGoblin,
-        ArmorGoblin,
-        FlyingGoblin,
     }
 
     public enum PropertyType

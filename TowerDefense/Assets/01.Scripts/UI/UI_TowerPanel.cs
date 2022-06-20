@@ -14,6 +14,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
 
+    GameObject rangeObj;
+
     private void Start()
     {
         towerImage.sprite = towerSO.towerSprite;
@@ -91,7 +93,6 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
     }
 
-    GameObject rangeObj;
     public void OnDrag(PointerEventData eventData)
     {
         if (IsLeftBtn(eventData) && CanDrag())

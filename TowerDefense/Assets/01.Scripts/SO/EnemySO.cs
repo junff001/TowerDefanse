@@ -37,10 +37,6 @@ public class EnemySO : ScriptableObject
     [SerializeField] private bool isFlying = false;
     public bool IsFlying { get => isFlying; set => value = isFlying; }
 
-    // 속성 저항
-    [SerializeField] private Define.PropertyType propertyResistance = Define.PropertyType.NONE;
-    public Define.PropertyType PropertyResistance { get => propertyResistance; set => value = propertyResistance; }
-
     // 디버프 면역 여부
     [SerializeField] private bool isDebuffIimmune = false;
     public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }

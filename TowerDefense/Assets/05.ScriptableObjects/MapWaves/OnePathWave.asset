@@ -13,70 +13,40 @@ MonoBehaviour:
   m_Name: OnePathWave
   m_EditorClassIdentifier: 
   waveEnemyInfos:
-  - infoName: "\uC6E8\uC774\uBE0C 1"
+  - infoName: 
     monsterBox:
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      propertyType: 0
-      enemyCount: 1
-      wayPointListIndex: 0
-  - infoName: "\uC6E8\uC774\uBE0C 1"
-    monsterBox:
-    - enemy: {fileID: -2869406021732995179, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
-      propertyType: 0
-      enemyCount: 1
-      wayPointListIndex: 0
-    - enemy: {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
+    - enemy: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       propertyType: 0
       enemyCount: 2
       wayPointListIndex: 0
-  - infoName: "\uC6E8\uC774\uBE0C 1"
+  - infoName: 
     monsterBox:
-    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
-      propertyType: 0
-      enemyCount: 1
-      wayPointListIndex: 0
-    - enemy: {fileID: 5565083786286373815, guid: 5a5ade20a50c67844957786fc4ad696d, type: 3}
-      propertyType: 0
-      enemyCount: 1
-      wayPointListIndex: 0
-    - enemy: {fileID: -4615959411394944946, guid: b9529a263503a704697ed46d3b424d28, type: 3}
-      propertyType: 0
-      enemyCount: 2
-      wayPointListIndex: 0
-  - infoName: "\uC6E8\uC774\uBE0C 1"
-    monsterBox:
-    - enemy: {fileID: -413208574110735355, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
+    - enemy: {fileID: 6594405218442720369, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
       propertyType: 0
       enemyCount: 3
       wayPointListIndex: 0
-    - enemy: {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
-      propertyType: 0
-      enemyCount: 3
-      wayPointListIndex: 0
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      propertyType: 0
-      enemyCount: 3
-      wayPointListIndex: 0
-  - infoName: "\uC6E8\uC774\uBE0C 1"
+  - infoName: 
     monsterBox:
-    - enemy: {fileID: 5565083786286373815, guid: 5a5ade20a50c67844957786fc4ad696d, type: 3}
+    - enemy: {fileID: 3433410568414230376, guid: b9529a263503a704697ed46d3b424d28, type: 3}
       propertyType: 0
-      enemyCount: 2
+      enemyCount: 4
       wayPointListIndex: 0
-    - enemy: {fileID: -2869406021732995179, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
+  - infoName: 
+    monsterBox:
+    - enemy: {fileID: 234134572849153636, guid: 5a5ade20a50c67844957786fc4ad696d, type: 3}
       propertyType: 0
-      enemyCount: 2
+      enemyCount: 5
       wayPointListIndex: 0
-    - enemy: {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
+  - infoName: 
+    monsterBox:
+    - enemy: {fileID: 2938513961600680923, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
       propertyType: 0
-      enemyCount: 2
+      enemyCount: 5
       wayPointListIndex: 0
-    - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+  - infoName: 
+    monsterBox:
+    - enemy: {fileID: 2866369327718411504, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
       propertyType: 0
-      enemyCount: 2
-      wayPointListIndex: 0
-    - enemy: {fileID: 7823439246868585909, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
-      propertyType: 0
-      enemyCount: 2
+      enemyCount: 5
       wayPointListIndex: 0
   offenseHeadCount: 5
