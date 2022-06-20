@@ -13,6 +13,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
 
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
+    private GameObject rangeObj;
 
     private void Start()
     {
@@ -87,11 +88,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         Managers.Build.ResetCheckedTiles(true);
         Managers.Build.movingObj = null;
         rangeObj.SetActive(false);
-        rangeObj.transform.localScale /= towerSO.AttackRange;
+        rangeObj.transform.localScale = Vector3.one;
         Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
     }
 
-    GameObject rangeObj;
     public void OnDrag(PointerEventData eventData)
     {
         if (IsLeftBtn(eventData) && CanDrag())
