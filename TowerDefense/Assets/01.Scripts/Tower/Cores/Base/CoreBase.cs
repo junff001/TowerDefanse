@@ -75,7 +75,7 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 범위 처리 함수
     public void EnemyRader(LayerMask targetMask)
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, raderHeight, 0), TowerData.AttackRange, targetMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, targetMask);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {
