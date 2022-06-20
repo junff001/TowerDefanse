@@ -52,6 +52,7 @@ MonoBehaviour:
   coreType: 1
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
+  bulletLanchTrm: {fileID: 5407253576581797903}
   spriteRenderer: {fileID: 192154975692651868}
   bow: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
   pullBow: {fileID: 584974529283380949, guid: 6d878ababb928894985e64936c103eff, type: 3}
@@ -222,6 +223,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5720169227901633728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5407253576581797903}
+  m_Layer: 0
+  m_Name: Bullet_Trm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5407253576581797903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720169227901633728}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.451, y: 0.458, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2180965308138597486}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8403715557994448574
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +280,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5407253576581797903}
   m_Father: {fileID: 2089885967581898313}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

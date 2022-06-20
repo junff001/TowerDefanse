@@ -7,6 +7,7 @@ public class Penetration_Core : CoreBase
     [Header("파츠")]
     [SerializeField] private Transform bowBody = null;         
     [SerializeField] private Transform bowLauncher = null;
+    [SerializeField] private Transform bulletLanchTrm = null;
     [SerializeField] private SpriteRenderer spriteRenderer = null;
 
     [Header("스프라이트")]
@@ -84,8 +85,8 @@ public class Penetration_Core : CoreBase
     void Ready()
     {
         bullet = Managers.Pool.GetItem<Arrow>();
-        bullet.transform.position = bowLauncher.position;
-        bullet.transform.SetParent(bowLauncher);
+        bullet.transform.position = bulletLanchTrm.position;
+        bullet.transform.SetParent(bulletLanchTrm);
         bullet.transform.localPosition = new Vector2(0.3f, 0.3f);
     }
 
