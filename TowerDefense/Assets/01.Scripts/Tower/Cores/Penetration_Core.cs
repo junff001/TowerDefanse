@@ -100,7 +100,7 @@ public class Penetration_Core : CoreBase
         bowLauncher.localPosition = new Vector2(0, 0);
         if (target != null && target.GetComponent<EnemyBase>().IsDead == false)
         {
-            bullet.Init(towerData, target.transform);
+            bullet.Init(TowerData, target.transform);
             bullet.IsShoot = true;
         }
         else

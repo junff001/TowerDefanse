@@ -89,7 +89,7 @@ public abstract class Bullet : MonoBehaviour
         Vector2 curPos = enemy.transform.position;
         float moveDistWhileMaxTime = enemy.enemyData.MoveSpeed * maxTime;
 
-        int wayPointIdx = GetExpectPos(curPos, moveDistWhileMaxTime, enemy.CurrentWayPointIndex);
+        Vector2 expectPos = GetExpectPos(curPos, moveDistWhileMaxTime, enemy.CurrentWayPointIndex);
     }
 
     public Vector2 GetExpectPos(Vector2 startPos, float moveDistWhileMaxTime, int index)
