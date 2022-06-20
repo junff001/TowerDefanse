@@ -38,7 +38,7 @@ public class StageManager
         Managers.Game.pointLists = obj.pointLists;
         Managers.Wave.waveSO = obj.waveSO;
         Managers.Build.map = obj.map;
-
+        Debug.Log("1");
     }
 
 

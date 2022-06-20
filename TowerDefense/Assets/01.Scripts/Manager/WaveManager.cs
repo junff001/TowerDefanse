@@ -261,11 +261,11 @@ public class WaveManager : MonoBehaviour
                 break;
             case Define.GameMode.OFFENSE:
                 {
-                    if (Managers.Build.movingImg != null)
+                    if (Managers.Build.movingObj != null)
                     {
-                        Managers.Build.movingImg.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
+                        Managers.Build.movingObj.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
                         Managers.Build.ResetCheckedTiles(true);
-                        Managers.Build.movingImg = null;
+                        Managers.Build.movingObj = null;
                     }
 
                     Wave = 1;
