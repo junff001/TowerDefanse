@@ -119,7 +119,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         GameObject movingObj = Managers.Build.movingObj;
 
-        return movingObj == towerImage.gameObject || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
+        return movingObj == fakeTower || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
     }
 
     bool IsLeftBtn(PointerEventData e) => e.button == PointerEventData.InputButton.Left;

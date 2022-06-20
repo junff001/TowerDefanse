@@ -37,12 +37,12 @@ public class BuildManager : MonoBehaviour
     Vector3 plusPos = Vector2.zero;
 
     public Map map;
-    [SerializeField] private Tower towerBase;
+    public Tower towerBase;
 
     [SerializeField] PropertySO propertySO;
 
     public GameObject rangeObj;
-    public GameObject movingImg = null;
+    public GameObject movingObj = null;
 
     [Header("코어 관리")]
     Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
@@ -56,7 +56,7 @@ public class BuildManager : MonoBehaviour
    
     PropertyData propertyData = new PropertyData();
 
-    void Start()
+    public void Init()
     {
         //foreach (var item in propertyList)
         //{
@@ -211,16 +211,18 @@ public class BuildManager : MonoBehaviour
         return center;
     }
 
-    public void MakeNewCore(TowerSO towerSO, Tower newTower)
+    public CoreBase MakeNewCore(TowerSO towerSO, Tower newTower)
     {
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.TowerData = newTower.TowerData;
         //newCore.Buff = buffDictionary[newCore.TowerData.Property];
+
+        return newCore;
     }
     
-    public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
+    public CoreBase MakeNoTowerCore(TowerSO towerSO, Tower newTower)
     {
         foreach(var item in newTower.GetComponentsInChildren<SpriteRenderer>())
         {
@@ -232,6 +234,8 @@ public class BuildManager : MonoBehaviour
         newCore.transform.position = newTower.transform.position;
         newCore.TowerData = newTower.TowerData;
         //newCore.Buff = buffDictionary[newCore.TowerData.Property];
+
+        return newCore;
     }
 
     // 타워를 스폰하는 함수
