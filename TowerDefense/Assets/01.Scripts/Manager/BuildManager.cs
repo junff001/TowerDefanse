@@ -4,7 +4,6 @@ using UnityEngine.Tilemaps;
 using System;
 using static Define;
 
-
 public struct PropertyData
 {
     public ParticleSystem AuraEffect;
