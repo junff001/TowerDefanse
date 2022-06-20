@@ -32,8 +32,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
             Managers.Build.MakeNoTowerCore(towerSO, newTower);
 
         core.enabled = false;
-
+        
         fakeTower = newTower.gameObject;
+
+        fakeTower.GetComponent<Tower>().SetSortOrder("UI", 10);
     }
 
     public void OnEndDrag(PointerEventData eventData)
