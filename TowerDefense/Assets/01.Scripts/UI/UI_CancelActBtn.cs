@@ -40,7 +40,7 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
     public void Init(ActData actData, Transform parentTrm)
     {
         this.actData = actData;
-        EnemySO enemySO = Managers.Game.GetActBtnSprite(actData.monsterType);
+        EnemySO enemySO = null;// = Managers.Game.GetActBtnSprite(actData.monsterType);
         this.monsterImg.sprite = enemySO.Sprite;
         cost = enemySO.Cost;
         this.name = actData.monsterType.ToString();

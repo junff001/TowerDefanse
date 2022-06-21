@@ -22,9 +22,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
-    public Dictionary<Define.MonsterType, EnemySO> enemySoDic = new Dictionary<Define.MonsterType, EnemySO>();
-    public EnemySO[] enemySOs;
-
     public GameObject clearUI;
     public GameObject gameOverUI;
     public UI_TowerInfo towerInfoUI = null;
@@ -34,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SetEnemySoDic();
+        //SetEnemySoDic();
     }
 
     private void Start()
@@ -64,19 +61,6 @@ public class GameManager : MonoBehaviour
         Managers.LoadScene.LoadScene("TitleScene");
         Time.timeScale = 1;
     }
-
-    public void SetEnemySoDic() 
-    {
-        foreach (var item in enemySOs)
-        {
-            if(false == enemySoDic.ContainsKey(item.MonsterType))
-            {
-                enemySoDic.Add(item.MonsterType, item);
-            }
-        }
-    }
-
-    public EnemySO GetActBtnSprite(Define.MonsterType monsterType) => enemySoDic[monsterType];
 
     public void UpdateHPText()
     {

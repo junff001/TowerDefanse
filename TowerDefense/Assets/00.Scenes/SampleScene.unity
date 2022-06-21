@@ -276,6 +276,7 @@ MonoBehaviour:
   addedAct:
     actType: 0
     monsterType: 0
+    speciesType: 0
   addedBtn: {fileID: 0}
   cancleBtnPrefab: {fileID: 6760498008738100699, guid: 166430bc14206274da5e3438a41a82ab, type: 3}
   waitingActContentTrm: {fileID: 1288744117}
@@ -1365,14 +1366,6 @@ MonoBehaviour:
   isAnyActing: 0
   wayPoints: []
   pointLists: []
-  enemySOs:
-  - {fileID: 11400000, guid: 6424420886170b743bad94ad7f57538a, type: 2}
-  - {fileID: 11400000, guid: 22568520586d11c4f886d6307fd40a69, type: 2}
-  - {fileID: 11400000, guid: 40403886f1bd73f49bfee95778736a81, type: 2}
-  - {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}
-  - {fileID: 11400000, guid: bf5144d2853d630428b9fcc5bcda7317, type: 2}
-  - {fileID: 11400000, guid: d1100a2814b3718428d73035c5dc8083, type: 2}
-  - {fileID: 11400000, guid: a35531479f1f10e4bbd087ffcea4a08a, type: 2}
   clearUI: {fileID: 288854527}
   gameOverUI: {fileID: 1042167671}
   towerInfoUI: {fileID: 509229809}
@@ -2751,13 +2744,8 @@ MonoBehaviour:
   waveRoundCount: {fileID: 1592914806}
   waveRect: {fileID: 70679536}
   waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
-  enemyList:
+  basePrefabList:
   - {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-  - {fileID: 2866369327718411504, guid: 733bdddcbf10a19408ee9577058127e6, type: 3}
-  - {fileID: 3433410568414230376, guid: b9529a263503a704697ed46d3b424d28, type: 3}
-  - {fileID: 2938513961600680923, guid: fc89b5e57f0653144a135e9e38709e58, type: 3}
-  - {fileID: 6594405218442720369, guid: f56f19c395f49da4f8ac657cd5384310, type: 3}
-  - {fileID: 234134572849153636, guid: 5a5ade20a50c67844957786fc4ad696d, type: 3}
   aliveEnemies: []
   defenseTowerGroup: {fileID: 145244611}
   defenseStatus: {fileID: 1074376516}
@@ -8584,7 +8572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1715895308
 RectTransform:
   m_ObjectHideFlags: 0

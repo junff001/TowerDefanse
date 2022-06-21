@@ -84,9 +84,15 @@ public class WaveManager : MonoBehaviour
            
             for (int j = 0; j < enemySO.Count; j++) 
             {
+                Debug.Log("ㅎㅇ");
                 enemyDic.Add(enemySO[j].MonsterType, enemySO[j]);
             }
             speciesDic.Add((Define.SpeciesType)i, enemyDic); // 아 ㅋㅋ 되겠지 뭐
+
+            foreach(var item in speciesDic)
+            {
+                Debug.Log(item.Key);
+            }
         }
 
         DefenseSetNextWave();
@@ -227,10 +233,13 @@ public class WaveManager : MonoBehaviour
 
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
+            EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
+            enemyInfo.enemy.InitEnemyData(enemySO);
+
             EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, 
                 enemyInfo.enemy.transform.rotation, this.transform);
-            enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
 
+            enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);
 
             yield return new WaitForSeconds(0.2f);

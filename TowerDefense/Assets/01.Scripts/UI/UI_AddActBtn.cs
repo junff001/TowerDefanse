@@ -36,7 +36,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
         StartCoroutine(CheckDrag());
 
-        EnemySO enemySO = Managers.Game.GetActBtnSprite(monsterType);
+        EnemySO enemySO = null;// Managers.Game.GetActBtnSprite(monsterType);
         monsterImg.sprite = enemySO.Sprite;
         cost = enemySO.Cost;
         costText.text = cost.ToString();
