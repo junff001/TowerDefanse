@@ -17,7 +17,7 @@ MonoBehaviour:
     monsterBox:
     - enemy: {fileID: 8834654348100417045, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
       propertyType: 0
-      enemyCount: 1
+      enemyCount: 100
       wayPointListIndex: 0
   - infoName: "\uC6E8\uC774\uBE0C 1"
     monsterBox:

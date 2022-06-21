@@ -304,9 +304,6 @@ public class BuildManager : MonoBehaviour
         newTower.myCheckedPos = checkedPos; // 저장
 
         spawnedTowers.Add(newTower);
-        // 레코드
-        RecordTowerPlace recordSegment = new RecordTowerPlace(placePos, towerSO);
-        Managers.Record.AddRecord(recordSegment);
 
         // 설치 이펙트
         Effect_StoneFrag effectStone = Managers.Pool.GetItem<Effect_StoneFrag>();

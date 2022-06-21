@@ -97,9 +97,7 @@ public class InvadeManager : MonoBehaviour
         switch(recordSegment.recordType)
         {
             case eRecordType.TOWER_PLACE:
-                RecordTowerPlace segment = recordSegment as RecordTowerPlace;
-                Managers.Build.SpawnTower(segment.towerSO, segment.towerPos);
-
+                
                 break;
             case eRecordType.TOWER_UPGRADE:
 
