@@ -7,6 +7,7 @@ using DG.Tweening;
 public class UI_TowerInfo : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
+    private Image image;
 
     [SerializeField] private CanvasGroup pageDefault;
     [SerializeField] private CanvasGroup pageProperty;
@@ -18,12 +19,34 @@ public class UI_TowerInfo : MonoBehaviour
     [SerializeField] private Button[] btnProperties; // 속성 enum 순으로 정렬할것
 
     private Tower currentSelectedTower;
+    private Tower CurrentSelectedTower
+    {
+        get
+        {
+            return currentSelectedTower;
+        }
+
+        set
+        {
+            if (currentSelectedTower != null)
+            {
+                currentSelectedTower.ResetSortOrder();
+            }
+
+            value?.SetSortOrder("UI", 10);
+
+            currentSelectedTower = value;
+        }
+    }
     private CanvasGroup beforePage = null;
     private CanvasGroup currentPage = null;
+
+    private bool isOpenedInfo = false;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        image = GetComponent<Image>();
     }
 
     private void Start()
@@ -42,12 +65,22 @@ public class UI_TowerInfo : MonoBehaviour
 
     public void OpenInfo(Tower tower)
     {
-        Managers.UI.UIFade(canvasGroup, true);
+        if (tower == CurrentSelectedTower) return;
+
+        image.SetNativeSize();
+
+        if (!isOpenedInfo)
+        {
+            isOpenedInfo = true;
+            Managers.UI.UIFade(canvasGroup, true);
+        }
+
         OpenPage(pageDefault);
         BtnAnim(btnCancel, true);
 
+        image.rectTransform.sizeDelta *= tower.TowerData.AttackRange;
         transform.position = tower.transform.position + new Vector3(0, 1, 0); // 오프셋
-        currentSelectedTower = tower;
+        CurrentSelectedTower = tower;
     }
 
     public void CloseInfo()
@@ -55,8 +88,10 @@ public class UI_TowerInfo : MonoBehaviour
         if (null == currentPage) return;
         Managers.UI.UIFade(canvasGroup, false);
         CanvasBtnsAnim(currentPage, false);
+        isOpenedInfo = false;
         beforePage = null;
         currentPage = null;
+        CurrentSelectedTower = null;
     }
 
     private void OpenPage(CanvasGroup page)
@@ -64,11 +99,13 @@ public class UI_TowerInfo : MonoBehaviour
         beforePage = currentPage;
         currentPage = page;
 
-        CanvasBtnsAnim(page, true);
-
-        if (beforePage != null)
+        CanvasBtnsAnim(currentPage, true);
+        if (beforePage != currentPage)
         {
-            CanvasBtnsAnim(beforePage, false);
+            if (beforePage != null)
+            {
+                CanvasBtnsAnim(beforePage, false);
+            }
         }
     }
 
@@ -79,34 +116,33 @@ public class UI_TowerInfo : MonoBehaviour
 
     private void CallSaleBtnOnClicked()
     {
-        if(currentSelectedTower != null)
+        if(CurrentSelectedTower != null)
         {
-            int index = Managers.Build.spawnedTowers.FindIndex(x => x == currentSelectedTower);
+            int index = Managers.Build.spawnedTowers.FindIndex(x => x == CurrentSelectedTower);
 
-            Managers.Build.SetTowerGrid(currentSelectedTower, currentSelectedTower.myCheckedPos, false);
+            Managers.Build.SetTowerGrid(CurrentSelectedTower, CurrentSelectedTower.myCheckedPos, false);
 
             RecordTowerSale recordSegment = new RecordTowerSale(index);
             Managers.Record.AddRecord(recordSegment);
 
-            float returnGold = currentSelectedTower.TowerData.PlaceCost * 0.6f; // TO DO : 나중에 난이도 따라 달라야함
+            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * 0.6f; // TO DO : 나중에 난이도 따라 달라야함
             Managers.Gold.GoldPlus(returnGold);
 
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(currentSelectedTower.transform.position);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(CurrentSelectedTower.transform.position);
 
             PopupText text = new PopupText($"타워 판매!\n{returnGold} Gold를 획득했습니다.");
             Managers.UI.SummonRectText(screenPos, text);
 
-            Destroy(currentSelectedTower.gameObject);
+            Destroy(CurrentSelectedTower.gameObject);
             Managers.Build.spawnedTowers.RemoveAt(index);
 
-            Managers.UI.UIFade(canvasGroup, false);
+            CloseInfo();
         }
     }
 
     private void CallPropertyBtnOnClicked(Define.PropertyType type)
     {
-        Debug.Log(type);
-        if (currentSelectedTower != null)
+        if (CurrentSelectedTower != null)
         {
             //currentSelectedTower.ChangeProperty(type);
             CloseInfo();

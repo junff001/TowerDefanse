@@ -9,20 +9,40 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     [SerializeField] private Image towerImage = null;
     [SerializeField] private Text towerCostText = null;
 
+    [SerializeField] private GameObject fakeTower; // 가설치용
+
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
+    private GameObject rangeObj;
 
     private void Start()
     {
-        Init();
-        rt = GetComponent<RectTransform>();
-        rangeObj = Managers.Build.rangeObj;
-    }
-
-    public void Init()
-    {
         towerImage.sprite = towerSO.towerSprite;
         towerCostText.text = towerSO.PlaceCost.ToString();
+        rt = GetComponent<RectTransform>();
+        rangeObj = Managers.Build.rangeObj;
+        SetFakeTower();
+    }
+
+    public void SetFakeTower()
+    {
+        Tower newTower = Instantiate(Managers.Build.towerBase, this.transform);
+        newTower.GetComponent<Tower>().enabled = false;
+
+        CoreBase core = towerSO.hasTower ? Managers.Build.MakeNewCore(towerSO, newTower) : 
+            Managers.Build.MakeNoTowerCore(towerSO, newTower);
+
+        core.enabled = false;
+
+        SpriteRenderer[] renderers = newTower.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer item in renderers)
+        {
+            item.color = new Color(133 / 255f, 215 / 255f, 255 / 255f, 149 / 255f);
+        }
+
+        fakeTower = newTower.gameObject;
+
+        fakeTower.GetComponent<Tower>().SetSortOrder("UI", 10);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -68,15 +88,16 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
 
     public void OnDragEnd()
     {
-        towerImage.rectTransform.anchoredPosition = Vector3.zero; // 돌려보내기
+        fakeTower.SetActive(false);
+
+        fakeTower.transform.position = Vector3.zero; // 돌려보내기
         Managers.Build.ResetCheckedTiles(true);
-        Managers.Build.movingImg = null;
+        Managers.Build.movingObj = null;
         rangeObj.SetActive(false);
-        rangeObj.transform.localScale /= towerSO.AttackRange;
+        rangeObj.transform.localScale = Vector3.one;
         Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
     }
 
-    GameObject rangeObj;
     public void OnDrag(PointerEventData eventData)
     {
         if (IsLeftBtn(eventData) && CanDrag())
@@ -84,7 +105,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
             Vector3 pos =  Input.mousePosition;
             pos.z = 10;
             rangeObj.transform.position = Camera.main.ScreenToWorldPoint(pos);
-            towerImage.transform.position = Input.mousePosition;
+            fakeTower.transform.position = Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles());
             Managers.Build.SetTilesColor(towerSO.placeTileType);
         }
     }
@@ -93,9 +114,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if(IsLeftBtn(eventData) && CanDrag())
         {
+            fakeTower.SetActive(true);
             rangeObj.SetActive(true);
             rangeObj.transform.localScale *= towerSO.AttackRange;
-            Managers.Build.movingImg = towerImage.gameObject;
+            Managers.Build.movingObj = fakeTower;
             Managers.Build.map.ShowPlaceableTiles(towerSO.placeTileType);
             Managers.Build.map.tilemap_view_renderer.sortingOrder = -4; // out Tilemap보다 1 높은 수.
         }
@@ -103,9 +125,9 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
 
     public bool CanDrag()
     {
-        GameObject movingObj = Managers.Build.movingImg;
+        GameObject movingObj = Managers.Build.movingObj;
 
-        return movingObj == towerImage.gameObject || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
+        return movingObj == fakeTower || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
     }
 
     bool IsLeftBtn(PointerEventData e) => e.button == PointerEventData.InputButton.Left;

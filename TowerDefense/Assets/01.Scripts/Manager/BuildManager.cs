@@ -32,13 +32,13 @@ public class BuildManager : MonoBehaviour
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     Vector3 plusPos = Vector2.zero;
 
-    public Map map;
-    [SerializeField] private Tower towerBase;
+    [HideInInspector] public Map map;
+    public Tower towerBase;
 
     [SerializeField] PropertySO propertySO;
 
     public GameObject rangeObj;
-    public GameObject movingImg = null;
+    [HideInInspector] public GameObject movingObj = null;
 
     [Header("코어 관리")]
     Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
@@ -76,7 +76,12 @@ public class BuildManager : MonoBehaviour
     BuffData knockBackData = new BuffData();
     BuffData restrictionData = new BuffData();
 
-    void Start()
+    public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
+
+    public Color canPlaceColor;
+    public Color cannotPlaceColor;
+
+    public void Init()
     {
         BuffInit(dotData, dotAuraEffect, dotBuffEffect);
         BuffInit(slowData, slowAuraEffect, slowBuffEffect);
@@ -141,8 +146,6 @@ public class BuildManager : MonoBehaviour
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
 
-    public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
-
     public void ResetCheckedTiles(bool clearTileColor = false) // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
         if (checkedPos == null) return; // 처음에 널이라 오류
@@ -172,9 +175,9 @@ public class BuildManager : MonoBehaviour
             if (false == IsPlaceableTile(pos, placeTileType)) continue;
 
             if (canPlace)
-                map.gridTilemap.SetColor(pos, Color.blue);
+                map.gridTilemap.SetColor(pos, canPlaceColor);
             else
-                map.gridTilemap.SetColor(pos, Color.red);
+                map.gridTilemap.SetColor(pos, cannotPlaceColor);
         }
 
         checkedPos = checkPos; // 내가 체크할 포지션들을 나중에 지워주야
@@ -242,7 +245,7 @@ public class BuildManager : MonoBehaviour
         return center;
     }
 
-    public void MakeNewCore(TowerSO towerSO, Tower newTower)
+    public CoreBase MakeNewCore(TowerSO towerSO, Tower newTower)
     {
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
@@ -250,9 +253,11 @@ public class BuildManager : MonoBehaviour
         newCore.TowerData = newTower.TowerData;
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff.propertyType = newCore.TowerData.Property;
+
+        return newCore;
     }
     
-    public void MakeNoTowerCore(TowerSO towerSO, Tower newTower)
+    public CoreBase MakeNoTowerCore(TowerSO towerSO, Tower newTower)
     {
         foreach(var item in newTower.GetComponentsInChildren<SpriteRenderer>())
         {
@@ -265,6 +270,8 @@ public class BuildManager : MonoBehaviour
         newCore.TowerData = newTower.TowerData;
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff.propertyType = newCore.TowerData.Property;
+
+        return newCore;
     }
 
     // 타워를 스폰하는 함수
@@ -273,7 +280,7 @@ public class BuildManager : MonoBehaviour
         Tower newTower = Instantiate(towerBase, placePos, Quaternion.identity);
         newTower.InitTowerData(towerSO);
 
-        if(towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
+        if (towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {
             MakeNewCore(towerSO, newTower);
         }
@@ -286,10 +293,11 @@ public class BuildManager : MonoBehaviour
 
         if (towerSO.coreType != eCoreName.Spike)
         {
-            foreach (var item in newTower.GetComponentsInChildren<SpriteRenderer>())
-            {
-                item.sortingOrder = map.height - (int)newTower.transform.position.y;
-            }
+            newTower.InitSortOrder("Tower", map.height - (int)newTower.transform.position.y);
+        }
+        else
+        {
+            newTower.InitSortOrder("Default", -1);
         }
 
         SetTowerGrid(newTower, checkedPos, true);
