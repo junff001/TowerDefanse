@@ -8,14 +8,11 @@ public class Dot : BuffBase
     private float damageTime;
     private static readonly float dotTime = 1;
 
-    public Dot(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
+    public Dot(GameObject affecter, float duration, float amplification)
     {
-        buffType = Define.BuffType.DEBUFF;
-    }
-
-    public override void Initialization()
-    {
-        enemy = affecter.GetComponent<EnemyBase>();
+        base.amplification = amplification;
+        base.duration = duration;
+        base.affecter = affecter;
     }
 
     public override void Update()

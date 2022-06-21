@@ -6,13 +6,13 @@ public class Slow : BuffBase
 {
     public float changedValue;
 
-    public Slow(GameObject _affecter, float _duration, float _amplification) : base(_affecter, _duration, _amplification)
+    public Slow(GameObject affecter, float duration, float amplification)
     {
         buffType = Define.BuffType.DEBUFF;
-    }
+        base.affecter = affecter;
+        base.duration = duration;
+        base.amplification = amplification;
 
-    public override void Initialization()
-    {
         EnemyBase enemy = affecter.GetComponent<EnemyBase>();
 
         if (enemy != null)

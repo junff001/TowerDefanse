@@ -5,9 +5,6 @@ using UnityEngine;
 using static Define;
 
 [Serializable]
-public class SerializeBuffDictionary : SerializeDictionary<PropertyType, IBuff> { }
-
-[Serializable]
 public class SerializeDictionary<Key, Value> : Dictionary<Key, Value>, ISerializationCallbackReceiver
 {
     [SerializeField] List<Key> keys = new List<Key>();

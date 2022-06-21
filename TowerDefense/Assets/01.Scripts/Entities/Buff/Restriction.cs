@@ -7,13 +7,11 @@ public class Restriction : BuffBase
     EnemyBase enemy;
     float natureMoveSpeed;
 
-    public Restriction(GameObject affecter, float duration, float amplification) : base(affecter, duration, amplification)
+    public Restriction(GameObject affecter, float duration)
     {
         buffType = Define.BuffType.DEBUFF;
-    }
-
-    public override void Initialization()
-    {
+        base.duration = duration;
+        base.affecter = affecter;
         enemy = affecter.GetComponent<EnemyBase>();
 
         if (enemy != null)
