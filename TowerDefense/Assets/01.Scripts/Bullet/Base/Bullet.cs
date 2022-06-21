@@ -8,6 +8,7 @@ public abstract class Bullet : MonoBehaviour
     public Transform Target { get; set; }                                  // 목표물
     public int BulletDamage { get; set; } = 0;                               // 데미지
     public bool IsShoot { get; set; } = false;
+    public BuffBase Buff { get; set; }  
     public Define.PropertyType PropertyType = Define.PropertyType.NONE;
 
     protected Vector2 startPos = Vector2.zero;
@@ -23,13 +24,14 @@ public abstract class Bullet : MonoBehaviour
         _maxTime = maxTime;
     }
 
-    public virtual void Init(TowerData towerData, Transform enemyTrm)
+    public virtual void Init(TowerData towerData, Transform enemyTrm, BuffBase buff)
     {
         Target = enemyTrm;
         startPos = transform.position;
         targetPos = enemyTrm.position;
         PropertyType = towerData.Property;
         BulletDamage = towerData.OffensePower;
+        Buff = buff;
         curTime = 0;
     }
 
@@ -74,6 +76,8 @@ public abstract class Bullet : MonoBehaviour
     {
         if (Target != null)
         {
+            Debug.Log("버프");
+            Target.GetComponent<EnemyBase>().AddBuff(Buff);
             Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType);
 
             var ps = Instantiate(hitEffect);

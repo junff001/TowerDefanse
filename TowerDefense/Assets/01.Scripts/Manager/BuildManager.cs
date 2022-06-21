@@ -4,13 +4,6 @@ using UnityEngine.Tilemaps;
 using System;
 using static Define;
 
-public struct PropertyData
-{
-    public ParticleSystem AuraEffect;
-    public ParticleSystem BuffEffect;
-}
-
-
 public class BuildManager : MonoBehaviour
 {
     #region 벡터들
@@ -48,13 +41,7 @@ public class BuildManager : MonoBehaviour
     Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
 
-    [Header("버프 관리")]
-    public Dictionary<PropertyType, BuffBase> buffDictionary = new Dictionary<PropertyType, BuffBase>();
-    public List<PropertyType> propertyList = new List<PropertyType>();
-
     public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
-   
-    PropertyData propertyData = new PropertyData();
 
     public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
 
@@ -63,20 +50,6 @@ public class BuildManager : MonoBehaviour
 
     public void Init()
     {
-        for (int i = 0; i < propertyList.Count; i++)
-        {
-             switch (propertyList[i])
-            {
-                case PropertyType.NONE: buffDictionary.Add(propertyList[i], null); break;
-                case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(propertyList[i], dot); break;
-                case PropertyType.WATER: Slow slow = null; buffDictionary.Add(propertyList[i], slow); break;
-                case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(propertyList[i], chain); break;  
-                case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(propertyList[i], knockBack); break;
-                case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(propertyList[i], splash); break;
-                case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(propertyList[i], restriction); break;          
-            }
-        }
-        
         coreDic.Clear();
         foreach (var item in coreList)
         {
@@ -218,7 +191,6 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.TowerData = newTower.TowerData;
-        newCore.Buff = buffDictionary[newCore.TowerData.Property];
 
         return newCore;
     }
@@ -234,7 +206,6 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
         newCore.TowerData = newTower.TowerData;
-        newCore.Buff = buffDictionary[newTower.TowerData.Property];
 
         return newCore;
     }

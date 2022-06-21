@@ -11,6 +11,10 @@ public class EnemyData
     public int OffensePower;
     public float MoveSpeed;
     public int RewardGold;
+    public bool IsHide;
+    public bool IsGuardian;
+    public bool IsFlying;
+    public bool IsDebuffIimmune;
     public Define.MonsterType MonsterType;
     public Define.SpeciesType SpeciesType;
 }
@@ -92,7 +96,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void AddBuff(BuffBase buff)
     {
-        if (buff.buffType == Define.BuffType.DEBUFF && Define.HasType(enemyData.MonsterType, Define.MonsterType.Alchemist)) return;
+        //if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
+        if (buff == null) return;
 
         for (int i = 0; i < buffList.Count; i++)
         {
@@ -131,6 +136,10 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.OffensePower = enemySO.OffensePower;
         enemyData.MoveSpeed = enemySO.MoveSpeed;
         enemyData.RewardGold = enemySO.RewardGold;
+        enemyData.IsHide = enemySO.IsHide;
+        enemyData.IsGuardian = enemySO.IsGuardian;
+        enemyData.IsFlying = enemySO.IsFlying;
+        enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
         enemyData.MonsterType = enemySO.MonsterType;
         enemyData.SpeciesType = enemySO.SpeciesType;
     }

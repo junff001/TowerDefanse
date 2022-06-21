@@ -19,7 +19,7 @@ public class Spike_Core : CoreBase
     public override void Attack(int power, HealthSystem enemy)
     {
         enemy.TakeDamage(TowerData.OffensePower, TowerData.Property);
-        hitEffect.transform.position = -enemy.transform.up;
+        hitEffect.transform.position = - enemy.transform.up;
     }
 
     public override IEnumerator CoAttack()

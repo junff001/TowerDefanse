@@ -13,6 +13,7 @@ public class Splash : BuffBase
       
     public Splash(float radius, float damage, ParticleSystem effect, LayerMask enemyMask, Define.PropertyType propertyType)
     {
+        buffType = Define.BuffType.DEBUFF;
         this.radius = radius;
         this.damage = damage;
         this.effect = effect;
