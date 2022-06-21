@@ -33,7 +33,13 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
             Managers.Build.MakeNoTowerCore(towerSO, newTower);
 
         core.enabled = false;
-        
+
+        SpriteRenderer[] renderers = newTower.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer item in renderers)
+        {
+            item.color = new Color(133 / 255f, 215 / 255f, 255 / 255f, 149 / 255f);
+        }
+
         fakeTower = newTower.gameObject;
 
         fakeTower.GetComponent<Tower>().SetSortOrder("UI", 10);
