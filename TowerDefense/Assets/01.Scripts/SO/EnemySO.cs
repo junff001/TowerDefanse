@@ -25,22 +25,6 @@ public class EnemySO : ScriptableObject
     [SerializeField] private int rewardGold = 0;
     public int RewardGold { get => rewardGold; set => value = rewardGold; }
 
-    // 은신 여부
-    [SerializeField] private bool isHide = false;
-    public bool IsHide { get => isHide; set => value = isHide; }
-
-    // 수호자 여부
-    [SerializeField] private bool isGuardian = false;
-    public bool IsGuardian { get => isGuardian; set => value = isGuardian; }
-
-    // 비행 여부
-    [SerializeField] private bool isFlying = false;
-    public bool IsFlying { get => isFlying; set => value = isFlying; }
-
-    // 디버프 면역 여부
-    [SerializeField] private bool isDebuffIimmune = false;
-    public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }
-
     //몬스터의 특성
     [SerializeField] private Define.MonsterType monsterType;
     public Define.MonsterType MonsterType { get => monsterType; set => value = monsterType; }
@@ -53,7 +37,7 @@ public class EnemySO : ScriptableObject
     [SerializeField] private Sprite sprite = null;
     public Sprite Sprite { get => sprite; set => value = sprite; }
 
-    // 스폰 비용
-    [SerializeField] private int cost = 0;
-    public int Cost { get => cost; set => value = cost; }
+    // 충전 시간
+    [SerializeField] private int chargeTime = 0;
+    public int ChargeTime { get => chargeTime; set => value = chargeTime; }
 }

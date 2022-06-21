@@ -11,12 +11,6 @@ public class Define
         MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
     }
 
-    public enum ActType
-    {
-        Enemy,
-        Wait
-    }
-
     public enum PlaceTileType
     {
         Place,
@@ -36,6 +30,9 @@ public class Define
         Road_Tower,
         Place_Tower,
     }
+
+    
+    public static bool HasType(MonsterType monsterType, MonsterType compareType) => (monsterType & compareType) != 0;
 
     [System.Flags]
     public enum MonsterType // 몹 추가될 때마다 추가해줘

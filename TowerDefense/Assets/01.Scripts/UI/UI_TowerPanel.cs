@@ -15,6 +15,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     private RectTransform rt;
     private RectTransform rangeObj;
     Vector3 plusPos = Vector3.zero;
+    Vector3 rangeObjPlusPos = new Vector3(0, 0.5f, 0);
 
     private void Start()
     {
@@ -25,8 +26,6 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         SetFakeTower();
 
         plusPos = new Vector3(Managers.Build.map.width, Managers.Build.map.height, 0) / 2f;
-        Debug.Log(plusPos);
-
     }
 
     public void SetFakeTower()
@@ -109,7 +108,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         {
             Vector3 pos = Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles());
             
-            rangeObj.transform.position = Camera.main.WorldToScreenPoint(pos);
+            rangeObj.transform.position = Camera.main.WorldToScreenPoint(pos + rangeObjPlusPos);
             fakeTower.transform.position = pos;
             Managers.Build.SetTilesColor(towerSO.placeTileType);
         }

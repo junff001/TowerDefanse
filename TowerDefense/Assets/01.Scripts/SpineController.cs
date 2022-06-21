@@ -44,10 +44,10 @@ public class SpineController : MonoBehaviour
        }
 
 
-       if(this.GetComponent<EnemyBase>().enemyData.IsHide == true)
-        {
-            skeleton.A = 0.5f;
-        }
+       if(Define.HasType(this.GetComponent<EnemyBase>().enemyData.MonsterType, Define.MonsterType.Shadow)) // 
+       {
+           skeleton.A = 0.5f;
+       }
     }
 
     public void Die()
