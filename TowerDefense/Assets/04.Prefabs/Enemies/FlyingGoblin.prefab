@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2544191130546073993}
   - component: {fileID: 2370735874463284289}
   - component: {fileID: 8386346479705798}
-  - component: {fileID: 7823439246868585909}
+  - component: {fileID: 2938513961600680923}
   m_Layer: 9
   m_Name: FlyingGoblin
   m_TagString: Untagged
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b95d8bcfb2fe0a440aa0cd6f5161846d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   - Wing_L
   - Wing_R
   dieAnim: Wing_Die
+  sa: {fileID: 0}
 --- !u!114 &2370735874463284289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +183,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0964608, y: 2.0300353}
   m_EdgeRadius: 0
---- !u!114 &7823439246868585909
+--- !u!114 &2938513961600680923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,23 +192,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2544191130546074038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627a5d03cc738cc478705c0a972d4865, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ae55e241a68df1428a32bdfb04841b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {x: 0, y: 0, z: 0}
+  healthSystem: {fileID: 0}
   enemySO: {fileID: 11400000, guid: 40403886f1bd73f49bfee95778736a81, type: 2}
   enemyData:
-    HP: 300
+    HP: 0
     Shield: 0
-    OffensePower: 1
-    MoveSpeed: 1.2
-    RewardGold: 10
+    OffensePower: 0
+    MoveSpeed: 0
+    RewardGold: 0
     IsHide: 0
     IsGuardian: 0
-    IsFlying: 1
+    IsFlying: 0
     IsDebuffIimmune: 0
     PropertyResistance: 0
-    MonsterType: 6
+    MonsterType: 0
   aliveTime: 0
   movedDistance: 0
 --- !u!1001 &3017237535370287817

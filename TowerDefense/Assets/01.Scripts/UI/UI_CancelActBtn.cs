@@ -37,16 +37,27 @@ public class UI_CancelActBtn : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
         Managers.Invade.RefreshRemoveIdxes();
     }
 
-    public void Init(ActData actData, Transform parentTrm)
+    public void Init(ActData actData, Transform parentTrm) // 원래 추가하던 버튼으로 이미지 받아오기
     {
         this.actData = actData;
-        EnemySO enemySO = Managers.Game.GetActBtnSprite(actData.monsterType);
-        this.monsterImg.sprite = enemySO.Sprite;
-        cost = enemySO.Cost;
-        this.name = actData.monsterType.ToString();
-        this.parent = parentTrm;
+
+        if (actData.actType == Define.ActType.Enemy)
+        {
+            EnemySO enemySO = Managers.Wave.speciesDic[actData.speciesType][actData.monsterType];
+            monsterImg.sprite = enemySO.Sprite;
+            cost = enemySO.Cost;
+            name = actData.monsterType.ToString();
+        }
+        else
+        {
+            monsterImg.sprite = Managers.Game.waitSprite;
+            cost = 0;
+            name = "Wait";
+        }
+
+        parent = parentTrm;
     }
-        
+
     public void DestroyCheck() // todo 풀매니저
     {
         if (actStackCount == 0)

@@ -37,15 +37,23 @@ public class Define
         Place_Tower,
     }
 
+    [System.Flags]
     public enum MonsterType // 몹 추가될 때마다 추가해줘
+    {
+        None        = 0,
+        Normal      = 1 << 0,
+        Shadow      = 1 << 1,
+        Alchemist   = 1 << 2,
+        Armor       = 1 << 3,
+        Guardian    = 1 << 4,
+        Witch       = 1 << 5,
+        Fly         = 1 << 6,
+    }
+
+    public enum SpeciesType // 종족
     {
         None,
         Goblin,
-        ShadowGoblin,
-        GuardianGoblin,
-        AlchemistGoblin,
-        ArmorGoblin,
-        FlyingGoblin,
     }
 
     public enum PropertyType

@@ -4,6 +4,11 @@ using UnityEngine.Tilemaps;
 using System;
 using static Define;
 
+public struct PropertyData
+{
+    public ParticleSystem AuraEffect;
+    public ParticleSystem BuffEffect;
+}
 
 
 public class BuildManager : MonoBehaviour
@@ -30,11 +35,13 @@ public class BuildManager : MonoBehaviour
     public Tile waterTile;
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
-    Vector3 plusPos = Vector2.zero;
+    [HideInInspector] public Vector3 plusPos = Vector2.zero;
 
     [HideInInspector] public Map map;
     public Tower towerBase;
-    public GameObject rangeObj;
+
+    public RectTransform rangeObj;
+
     [HideInInspector] public GameObject movingObj = null;
 
     [Header("코어 관리")]
@@ -42,10 +49,13 @@ public class BuildManager : MonoBehaviour
     public List<CoreBase> coreList = new List<CoreBase>();
 
     [Header("버프 관리")]
+    public Dictionary<PropertyType, IBuff> buffDictionary = new Dictionary<PropertyType, IBuff>();
     public Dictionary<PropertyType, BuffBase> buffDictionary = new Dictionary<PropertyType, BuffBase>();
     public List<PropertyType> propertyList = new List<PropertyType>();
 
     public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
+   
+    PropertyData propertyData = new PropertyData();
 
     public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
 
@@ -68,12 +78,11 @@ public class BuildManager : MonoBehaviour
             }
         }
 
+        coreDic.Clear();
         foreach (var item in coreList)
         {
             coreDic.Add(item.coreType, item);
         }
-
-
         mainCam = Camera.main;
         plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
     }
@@ -209,6 +218,7 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.TowerData = newTower.TowerData;
+        //newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff.propertyType = newCore.TowerData.Property;
 
@@ -226,6 +236,7 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
         newCore.TowerData = newTower.TowerData;
+        //newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff.propertyType = newCore.TowerData.Property;
 

@@ -5,10 +5,23 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField]
+    private int _healthAmountPerSeparator = 2; //체력 2당 바 한개
+    [SerializeField]
+    private float _barSize = 1.88f;
+    [SerializeField]
+    private Vector3 _sepSize = new Vector3(0.02f, 0.5f);
+
     private HealthSystem healthSystem;
 
     [SerializeField] private Transform healthBarTrm;
     [SerializeField] private Transform shieldBarTrm;
+
+    private Transform _separator;
+
+    private MeshFilter _sepMeshFilter;
+    private Mesh _sepMesh;
+    private MeshRenderer _sepMeshRenderer;
 
     private void Start()
     {
@@ -16,10 +29,15 @@ public class HealthBar : MonoBehaviour
         {
             healthSystem = transform.parent.GetComponent<HealthSystem>();
         }
+        _separator = transform.Find("SeparatorContainer/Separator");
+        _sepMeshFilter = _separator.GetComponent<MeshFilter>();
+        _sepMeshRenderer = _separator.GetComponent<MeshRenderer>();
+
+        healthSystem.OnMaxHealed += (x) => CalcSeparator((int)x);
 
         healthSystem.OnDamaged += CallHealthSystemOnDamaged;
 
-        UpdateBar();
+        UpdateBar();    
         UpdateHealthBarVisible();
     }
 
@@ -62,5 +80,47 @@ public class HealthBar : MonoBehaviour
         {
             gameObject.SetActive(true);
         }
+    }
+
+    private void CalcSeparator(int value)
+    {
+        _sepMesh = new Mesh();
+
+        int gridCnt = Mathf.FloorToInt(value / _healthAmountPerSeparator);
+
+        Vector3[] vertices = new Vector3[(gridCnt - 1) * 4];
+        Vector2[] uv = new Vector2[(gridCnt - 1) * 4];
+        int[] triangles = new int[(gridCnt - 1) * 6];
+
+        float barOneSize = _barSize / gridCnt;
+
+        for (int i = 0; i < gridCnt - 1; i++)
+        {
+            Vector3 pos = new Vector3(barOneSize * (i + 1), 0, 0);
+
+            int vIndex = i * 4;
+            vertices[vIndex + 0] = pos + new Vector3(-_sepSize.x, -_sepSize.y);
+            vertices[vIndex + 1] = pos + new Vector3(-_sepSize.x, +_sepSize.y);
+            vertices[vIndex + 2] = pos + new Vector3(+_sepSize.x, +_sepSize.y);
+            vertices[vIndex + 3] = pos + new Vector3(+_sepSize.x, -_sepSize.y);
+
+            uv[vIndex + 0] = Vector2.zero;
+            uv[vIndex + 1] = Vector2.up;
+            uv[vIndex + 2] = Vector2.one;
+            uv[vIndex + 3] = Vector2.right;
+
+            int tIndex = i * 6;
+            triangles[tIndex + 0] = vIndex + 0;
+            triangles[tIndex + 1] = vIndex + 1;
+            triangles[tIndex + 2] = vIndex + 2;
+            triangles[tIndex + 3] = vIndex + 0;
+            triangles[tIndex + 4] = vIndex + 2;
+            triangles[tIndex + 5] = vIndex + 3;
+        }
+        _sepMesh.vertices = vertices;
+        _sepMesh.uv = uv;
+        _sepMesh.triangles = triangles;
+
+        _sepMeshFilter.mesh = _sepMesh;
     }
 }

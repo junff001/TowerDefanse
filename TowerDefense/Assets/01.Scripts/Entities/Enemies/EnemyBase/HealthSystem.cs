@@ -11,6 +11,7 @@ public enum eHealthType
 
 public class HealthSystem : MonoBehaviour
 {
+    public Action<float> OnMaxHealed;
     public Action OnDamaged;
     public Action OnDied;
     public bool canDamaged { get; set; } = true;
@@ -132,6 +133,7 @@ public class HealthSystem : MonoBehaviour
         if (type == eHealthType.HEALTH)
         {
             healthAmountMax = amountMax;
+            OnMaxHealed(healthAmountMax);
             if (updateAmount)
             {
                 curHealthAmount = amountMax;
@@ -147,10 +149,8 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount, Define.PropertyType propertyType, bool penetration = false)
+    public void TakeDamage(float damageAmount, Define.PropertyType property, bool penetration = false)
     {
-        Define.PropertyType myProperty = enemyBase.enemyData.PropertyResistance;
-
         Damage(damageAmount, penetration);
         OnDamaged?.Invoke();
 

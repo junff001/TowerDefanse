@@ -22,20 +22,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 
-    public Dictionary<Define.MonsterType, EnemySO> enemySoDic = new Dictionary<Define.MonsterType, EnemySO>();
-    public EnemySO[] enemySOs;
-
     public GameObject clearUI;
     public GameObject gameOverUI;
     public UI_TowerInfo towerInfoUI = null;
 
+    public Sprite waitSprite;
+
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;
-
-    private void Awake()
-    {
-        SetEnemySoDic();
-    }
 
     private void Start()
     {
@@ -64,16 +58,6 @@ public class GameManager : MonoBehaviour
         Managers.LoadScene.LoadScene("TitleScene");
         Time.timeScale = 1;
     }
-
-    public void SetEnemySoDic() 
-    {
-        foreach (var item in enemySOs)
-        {
-            enemySoDic.Add(item.MonsterType, item);
-        }
-    }
-
-    public EnemySO GetActBtnSprite(Define.MonsterType monsterType) => enemySoDic[monsterType];
 
     public void UpdateHPText()
     {

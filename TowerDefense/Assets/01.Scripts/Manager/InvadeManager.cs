@@ -97,9 +97,7 @@ public class InvadeManager : MonoBehaviour
         switch(recordSegment.recordType)
         {
             case eRecordType.TOWER_PLACE:
-                RecordTowerPlace segment = recordSegment as RecordTowerPlace;
-                Managers.Build.SpawnTower(segment.towerSO, segment.towerPos);
-
+                
                 break;
             case eRecordType.TOWER_UPGRADE:
 
@@ -134,15 +132,17 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnEnemy(Define.MonsterType monsterType)
+    public IEnumerator SpawnEnemy(Define.SpeciesType speciesType, Define.MonsterType monsterType)
     {
         waitingActs[0].Cancel();
 
         int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
-
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
+        EnemySO enemySo = Managers.Wave.speciesDic[speciesType][monsterType];
+        EnemyBase enemy = Managers.Wave.basePrefabDict[speciesType];
+        enemy.InitEnemyData(enemySo);
+
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
         enemyObj.wayPointListIndex = curSpawnIdx;
 
@@ -157,10 +157,14 @@ public class InvadeManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f); // 스폰 텀
 
+        CheckLastAct();
+        TryAct();
+    }
 
+    private void CheckLastAct() //남은 행동이 전부 휴식이면 그냥 전부 해제하장
+    {
         if (waitingActs.Count == 1 && waitingActs[0].actData.actType == Define.ActType.Wait)
         {
-            //남은 행동이 전부 휴식이면 그냥 전부 해제하장
             int count = waitingActs[0].actStackCount;
 
             for (int i = 0; i < count; i++)
@@ -168,8 +172,6 @@ public class InvadeManager : MonoBehaviour
                 waitingActs[0].Cancel();
             }
         }
-        TryAct();
-
     }
 
     public void OnAddAct(ActData actData, int cost)
@@ -210,7 +212,7 @@ public class InvadeManager : MonoBehaviour
                 break;
 
             case Define.ActType.Enemy:
-                StartCoroutine(SpawnEnemy(actData.monsterType));
+                StartCoroutine(SpawnEnemy(actData.speciesType, actData.monsterType));
                 break;
         }
     }
@@ -271,7 +273,7 @@ public class InvadeManager : MonoBehaviour
 
     public void AddAct(ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType);
+        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.speciesType);
         OnAddAct(newAct, cost);
         if (IsSameAct(addedAct, newAct))
         {
@@ -285,7 +287,7 @@ public class InvadeManager : MonoBehaviour
 
     public void InsertAct(Vector3 dragEndPos, ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType);
+        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.speciesType);
 
         OnAddAct(newAct, cost);
         int insertIdx = GetInsertIndex(dragEndPos);
