@@ -10,6 +10,7 @@ public class Dot : BuffBase
 
     public Dot(GameObject affecter, float duration, float amplification)
     {
+        buffType = Define.BuffType.DEBUFF;
         base.amplification = amplification;
         base.duration = duration;
         base.affecter = affecter;

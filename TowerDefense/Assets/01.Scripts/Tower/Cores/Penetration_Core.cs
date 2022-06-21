@@ -101,7 +101,7 @@ public class Penetration_Core : CoreBase
         bowLauncher.localPosition = new Vector2(0, 0);
         if (target != null && target.GetComponent<EnemyBase>().IsDead == false)
         {
-            bullet.Init(TowerData, target.transform); // targetPos 세팅 됐을거라 믿고?
+            bullet.Init(TowerData, target.transform, Buff); // targetPos 세팅 됐을거라 믿고?
 
             Vector2 direction = bullet.TargetPos - (Vector2)bowBody.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

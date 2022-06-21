@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Define;
 using System;
 
 public abstract class CoreBase : MonoBehaviour
@@ -21,7 +22,7 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnEnable()
     {
-        PropertyCheck();
+        BuffAaccordingToProperty();
         StartCoroutine(OnRader());
         StartCoroutine(CoAttack());
     }
@@ -104,13 +105,13 @@ public abstract class CoreBase : MonoBehaviour
         {
             yield return new WaitUntil(() => target != null && target.IsDead == false);
             Attack(TowerData.OffensePower, target.healthSystem);
+           
             yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
         }
     }
 
     public virtual void OnAttack()
     {
-        target.AddBuff(Buff);
         bullet.transform.SetParent(Managers.Pool.poolInitPos);
         bullet = null;
         if (IsTargetOutOfRange()) target = null;
@@ -119,33 +120,16 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 로직 함수
     public abstract void Attack(int power, HealthSystem enemy);
 
-    void PropertyCheck()
+    void BuffAaccordingToProperty()
     {
-        Buff = new BuffBase();
-
-        if (Buff is Dot)
+        switch (TowerData.Property)
         {
-            Buff = new Dot(target.gameObject, 3f, 10f);
-        }
-        else if (Buff is Slow)
-        {
-            Buff = new Slow(target.gameObject, 3f, 50f);
-        }
-        else if (Buff is KnockBack)
-        {
-            Buff = new KnockBack(target.gameObject, 1f, 10f, gameObject.transform);
-        }
-        else if (Buff is Chain)
-        {
-            Buff = new Chain(target.gameObject, 30f);
-        }
-        else if (Buff is Splash)
-        {
-            Buff = new Splash(2f, 10f, Resources.Load<ParticleSystem>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C White"), enemyMask, TowerData.Property);
-        }
-        else if (Buff is Restriction)
-        {
-            Buff = new Restriction(target.gameObject, 2f);
+            case PropertyType.NONE: Buff = null; break;
+            case PropertyType.FIRE: Buff = new Dot(target.gameObject, 3f, 20f); break;
+            case PropertyType.WATER: Buff = new Slow(target.gameObject, 3f, 50f); break;
+            case PropertyType.SOIL: Buff = new Splash(3f, 10f, Resources.Load<ParticleSystem>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_A Red+RandomText"), enemyMask, TowerData.Property); break;
+            case PropertyType.LIGHTNING: Buff = new Chain(target.gameObject, 30f); break;
+            case PropertyType.GRASS: Buff = new Restriction(target.gameObject, 3f); break;
         }
     }
 }

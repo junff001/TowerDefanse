@@ -96,8 +96,12 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void AddBuff(BuffBase buff)
     {
-        if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
-
+        //if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
+        if (buff == null)
+        {
+            return;
+        }
+        Debug.Log("버프 적용 중");
         for (int i = 0; i < buffList.Count; i++)
         {
             if (buffList[i].GetType() == buff.GetType())
