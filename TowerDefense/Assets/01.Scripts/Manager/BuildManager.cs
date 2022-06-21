@@ -34,9 +34,6 @@ public class BuildManager : MonoBehaviour
 
     [HideInInspector] public Map map;
     public Tower towerBase;
-
-    [SerializeField] PropertySO propertySO;
-
     public GameObject rangeObj;
     [HideInInspector] public GameObject movingObj = null;
 
@@ -50,32 +47,6 @@ public class BuildManager : MonoBehaviour
 
     public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
 
-    [Header("버프 이펙트")]
-    public ParticleSystem dotAuraEffect;
-    public ParticleSystem dotBuffEffect;
-
-    public ParticleSystem slowAuraEffect;
-    public ParticleSystem slowBuffEffect;
-
-    public ParticleSystem splashAuraEffect;
-    public ParticleSystem splashBuffEffect;
-
-    public ParticleSystem chainAuraEffect;
-    public ParticleSystem chainBuffEffect;
-
-    public ParticleSystem knockBackAuraEffect;
-    public ParticleSystem knockBackBuffEffect;
-
-    public ParticleSystem restrictionAuraEffect;
-    public ParticleSystem restrictionBuffEffect;
-
-    BuffData dotData = new BuffData();
-    BuffData slowData = new BuffData();
-    BuffData splashData = new BuffData();
-    BuffData chainData = new BuffData();
-    BuffData knockBackData = new BuffData();
-    BuffData restrictionData = new BuffData();
-
     public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
 
     public Color canPlaceColor;
@@ -83,13 +54,6 @@ public class BuildManager : MonoBehaviour
 
     public void Init()
     {
-        BuffInit(dotData, dotAuraEffect, dotBuffEffect);
-        BuffInit(slowData, slowAuraEffect, slowBuffEffect);
-        BuffInit(splashData, splashAuraEffect, splashBuffEffect);
-        BuffInit(chainData, chainAuraEffect, chainBuffEffect);
-        BuffInit(knockBackData, knockBackAuraEffect, knockBackBuffEffect);
-        BuffInit(restrictionData, restrictionAuraEffect, restrictionBuffEffect);
-
         foreach (var item in propertyList)
         {
             switch (item)
@@ -118,12 +82,6 @@ public class BuildManager : MonoBehaviour
     {
         SetTilePos();
         SetAroundTiles();
-    }
-
-    void BuffInit(BuffData buffData, ParticleSystem aura, ParticleSystem hit)
-    {
-        buffData.AuraEffect = aura;
-        buffData.BuffEffect = hit;
     }
 
     public void SetTilePos()
