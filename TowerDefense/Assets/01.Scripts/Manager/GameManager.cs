@@ -26,13 +26,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public UI_TowerInfo towerInfoUI = null;
 
+    public Sprite waitSprite;
+
     //1: 쉬움      2: 보통     3: 어려움
     public static int stageLevel = 0;
-
-    private void Awake()
-    {
-        //SetEnemySoDic();
-    }
 
     private void Start()
     {

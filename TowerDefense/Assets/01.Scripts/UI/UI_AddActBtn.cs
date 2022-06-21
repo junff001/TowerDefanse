@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointerUpHandler, IBeginDragHandler
 {
-    [SerializeField] Text costText;
+    [SerializeField] Text costText = null;
 
     public ActData actData = null;
     public Image monsterImg; // 버튼 대신에 움직여줄 이미지 
@@ -20,26 +20,26 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     private Mask mask;
 
-    public void Init(Define.MonsterType monsterType = Define.MonsterType.None, Define.SpeciesType speciesType = Define.SpeciesType.None)
+    public void Init(Define.MonsterType monsterType, Define.SpeciesType speciesType)
     {
         if (monsterType == Define.MonsterType.None)
         {
-            actData = new ActData(Define.ActType.Wait , monsterType);
+            actData = new ActData(Define.ActType.Wait, default, default);
         }
         else
         {
             actData = new ActData(Define.ActType.Enemy, monsterType, speciesType);
+
+            EnemySO enemySO = Managers.Wave.speciesDic[actData.speciesType][actData.monsterType];
+            monsterImg.sprite = enemySO.Sprite;
+            cost = enemySO.Cost;
+            costText.text = cost.ToString();
         }
         
         mask = transform.GetComponentInChildren<Mask>();
         gr = transform.root.GetComponent<GraphicRaycaster>();
 
         StartCoroutine(CheckDrag());
-
-        EnemySO enemySO = null;// Managers.Game.GetActBtnSprite(monsterType);
-        monsterImg.sprite = enemySO.Sprite;
-        cost = enemySO.Cost;
-        costText.text = cost.ToString();
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -49,6 +49,7 @@ public class WaveManager : MonoBehaviour
     public Transform monsterContent;
     public Text offenseHpText;
     public UI_AddActBtn addBtnPrefab;
+    public UI_AddActBtn addWaitBtnPrefab;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -157,17 +158,15 @@ public class WaveManager : MonoBehaviour
         }
 
         monsterTypeList = monsterTypeList.Distinct().ToList();
-        //은신 
-        // 고블린이 고블린이 들어와 고블린이니까 지워버려
-
         for (int i = 0; i < monsterTypeList.Count; i++)
         {
             UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
-            addBtn.Init(monsterTypeList[i].enemy.enemyData.MonsterType, monsterTypeList[i].enemy.enemyData.SpeciesType);
+            Debug.Log($"{monsterTypeList[i].monsterType}  {monsterTypeList[i].speciesType}");
+            addBtn.Init(monsterTypeList[i].monsterType, monsterTypeList[i].speciesType);
         }
 
-        UI_AddActBtn addWaitBtn = Instantiate(addBtnPrefab, monsterContent);
-        addWaitBtn.Init();
+        UI_AddActBtn addWaitBtn = Instantiate(addWaitBtnPrefab, monsterContent);
+        addWaitBtn.Init(default, default);
     }
 
     public void CheckWaveEnd()

@@ -1369,6 +1369,7 @@ MonoBehaviour:
   clearUI: {fileID: 288854527}
   gameOverUI: {fileID: 1042167671}
   towerInfoUI: {fileID: 509229809}
+  waitSprite: {fileID: 21300000, guid: 4bf87f6a826e6414bb2d3ffcf94fb965, type: 3}
 --- !u!1 &360634333
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,6 +2756,7 @@ MonoBehaviour:
   monsterContent: {fileID: 1192052100}
   offenseHpText: {fileID: 1384065279}
   addBtnPrefab: {fileID: 6749774290861803340, guid: dcffe36f8fedb9245a304c101217156d, type: 3}
+  addWaitBtnPrefab: {fileID: 6749774290861803340, guid: bf7ad9fb7d7ff5a4794424d2de389622, type: 3}
 --- !u!1 &639262533
 GameObject:
   m_ObjectHideFlags: 0

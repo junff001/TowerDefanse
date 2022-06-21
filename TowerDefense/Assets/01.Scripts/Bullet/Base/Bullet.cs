@@ -101,13 +101,14 @@ public abstract class Bullet : MonoBehaviour
         if(moveDistWhileMaxTime > distToWaypoint) // n초간 목적지보다 더 멀리가면 
         {
             moveDistWhileMaxTime -= distToWaypoint; // 이동한 거리 빼주고 다음 인덱스도 넘어가는 체크하기.
-            return GetExpectPos(destPos, moveDistWhileMaxTime, ++index); // 한번 더 굴려!
+
+            if(index + 1 < Managers.Game.wayPoints.Count)
+            {
+                return GetExpectPos(destPos, moveDistWhileMaxTime, ++index); // 한번 더 굴려!
+            }
         }
-        else
-        {
-            Vector2 moveDir = (destPos - startPos).normalized; // 안 넘어가니까 그냥 벡터 구하고
-            return startPos += moveDistWhileMaxTime * moveDir; // 현재 위치에 방향 * 거리 곱해서 더해주고 리턴.
-        }
+        Vector2 moveDir = (destPos - startPos).normalized; // 안 넘어가니까 그냥 벡터 구하고
+        return startPos += moveDistWhileMaxTime * moveDir; // 현재 위치에 방향 * 거리 곱해서 더해주고 리턴.
     }
 
     protected Vector2 BezierCurves(Vector2 startPos, Vector2 curve, Vector2 endPos, float t)

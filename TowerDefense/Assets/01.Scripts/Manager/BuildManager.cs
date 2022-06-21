@@ -77,11 +77,12 @@ public class BuildManager : MonoBehaviour
         //    }
         //}
 
+        coreDic.Clear();
         foreach (var item in coreList)
         {
             coreDic.Add(item.coreType, item);
         }
-
+            
         //propertyData.AuraEffect = propertySO.AuraEffect;
         //propertyData.BuffEffect = propertySO.BuffEffect;
 

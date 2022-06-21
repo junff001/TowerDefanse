@@ -289,7 +289,7 @@ public class InvadeManager : MonoBehaviour
 
     public void InsertAct(Vector3 dragEndPos, ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType);
+        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.speciesType);
 
         OnAddAct(newAct, cost);
         int insertIdx = GetInsertIndex(dragEndPos);
