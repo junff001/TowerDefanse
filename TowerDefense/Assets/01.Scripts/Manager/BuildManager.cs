@@ -34,14 +34,14 @@ public class BuildManager : MonoBehaviour
     public Tile waterTile;
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
-    Vector3 plusPos = Vector2.zero;
+    [HideInInspector] public Vector3 plusPos = Vector2.zero;
 
     [HideInInspector] public Map map;
     public Tower towerBase;
 
     [SerializeField] PropertySO propertySO;
 
-    public GameObject rangeObj;
+    public RectTransform rangeObj;
     [HideInInspector] public GameObject movingObj = null;
 
     [Header("코어 관리")]

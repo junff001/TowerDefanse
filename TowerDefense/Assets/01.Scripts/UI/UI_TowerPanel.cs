@@ -13,9 +13,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
 
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
-    private GameObject rangeObj;
-
-    GameObject rangeObj;
+    private RectTransform rangeObj;
+    Vector3 plusPos = Vector3.zero;
 
     private void Start()
     {
@@ -24,6 +23,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         rt = GetComponent<RectTransform>();
         rangeObj = Managers.Build.rangeObj;
         SetFakeTower();
+
+        plusPos = new Vector3(Managers.Build.map.width, Managers.Build.map.height, 0) / 2f;
+        Debug.Log(plusPos);
+
     }
 
     public void SetFakeTower()
@@ -89,7 +92,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         fakeTower.transform.position = Vector3.zero; // 돌려보내기
         Managers.Build.ResetCheckedTiles(true);
         Managers.Build.movingObj = null;
-        rangeObj.SetActive(false);
+        rangeObj.gameObject.SetActive(false);
         rangeObj.transform.localScale = Vector3.one;
         Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
     }
@@ -98,10 +101,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if (IsLeftBtn(eventData) && CanDrag())
         {
-            Vector3 pos =  Input.mousePosition;
-            pos.z = 10;
-            rangeObj.transform.position = Camera.main.ScreenToWorldPoint(pos);
-            fakeTower.transform.position = Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles());
+            Vector3 pos = Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles());
+            
+            rangeObj.transform.position = Camera.main.WorldToScreenPoint(pos);
+            fakeTower.transform.position = pos;
             Managers.Build.SetTilesColor(towerSO.placeTileType);
         }
     }
@@ -111,7 +114,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         if(IsLeftBtn(eventData) && CanDrag())
         {
             fakeTower.SetActive(true);
-            rangeObj.SetActive(true);
+            rangeObj.gameObject.SetActive(true);
             rangeObj.transform.localScale *= towerSO.AttackRange;
             Managers.Build.movingObj = fakeTower;
             Managers.Build.map.ShowPlaceableTiles(towerSO.placeTileType);

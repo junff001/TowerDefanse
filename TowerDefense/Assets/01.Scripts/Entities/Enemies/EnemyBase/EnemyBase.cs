@@ -16,6 +16,7 @@ public class EnemyData
     public bool IsFlying;
     public bool IsDebuffIimmune;
     public Define.MonsterType MonsterType;
+    public Define.SpeciesType SpeciesType;
 }
 
 public abstract class EnemyBase : MonoBehaviour
@@ -140,6 +141,7 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.IsFlying = enemySO.IsFlying;
         enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
         enemyData.MonsterType = enemySO.MonsterType;
+        enemyData.SpeciesType = enemySO.SpeciesType;
     }
 
     void Move()

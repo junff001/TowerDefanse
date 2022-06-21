@@ -41,9 +41,13 @@ public class EnemySO : ScriptableObject
     [SerializeField] private bool isDebuffIimmune = false;
     public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }
 
-    //어떤 몬스터인지
+    //몬스터의 특성
     [SerializeField] private Define.MonsterType monsterType;
     public Define.MonsterType MonsterType { get => monsterType; set => value = monsterType; }
+
+    //몬스터의 종족
+    [SerializeField] private Define.SpeciesType speciesType;
+    public Define.SpeciesType SpeciesType { get => speciesType; set => value = speciesType; }
 
     // 버튼에 사용할 스프라이트
     [SerializeField] private Sprite sprite = null;

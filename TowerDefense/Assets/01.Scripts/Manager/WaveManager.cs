@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
 
+struct Tset
+{
+    EnemyBase a;
+    Define.MonsterType t;
+}
+
 public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
@@ -27,7 +33,9 @@ public class WaveManager : MonoBehaviour
     public RectTransform waveRect;
     public WaveSO waveSO;
 
-    public Dictionary<Define.MonsterType, EnemyBase> enemyDic = new Dictionary<Define.MonsterType, EnemyBase>();
+
+    public Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>> speciesDic = new Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>>();
+
     public List<EnemyBase> enemyList = new List<EnemyBase>();
 
     public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
@@ -70,11 +78,21 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i< enemyList.Count; i++) // 에너미 딕셔너리 세팅
+        int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length - 1; // None이 있으니까..?
+
+        Debug.Log("speciesCount : " + speciesCount);
+        for (int i = 0; i < 3; i++)
         {
-            enemyList[i].InitEnemyData();
-            enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
+            Dictionary<Define.MonsterType, EnemySO> enemyDic = new Dictionary<Define.MonsterType, EnemySO>();
+            for (int j = 0; j < enemyList.Count; j++) // 에너미 딕셔너리 세팅
+            {
+                enemyList[j].InitEnemyData();
+                
+            }
+            speciesDic.Add(enemyList[0].enemyData.SpeciesType, enemyDic);
         }
+        //리소스 로드해서..
+       
 
         DefenseSetNextWave();
     }   

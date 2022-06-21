@@ -134,7 +134,7 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnEnemy(Define.MonsterType monsterType)
+    public IEnumerator SpawnEnemy(Define.SpeciesType speciesType, Define.MonsterType monsterType)
     {
         waitingActs[0].Cancel();
 
@@ -142,7 +142,7 @@ public class InvadeManager : MonoBehaviour
 
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        EnemyBase enemy = Managers.Wave.enemyDic[monsterType];
+        EnemyBase enemy = Managers.Wave.basePrefabDic[speciesType][monsterType];
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
         enemyObj.wayPointListIndex = curSpawnIdx;
 
@@ -210,7 +210,7 @@ public class InvadeManager : MonoBehaviour
                 break;
 
             case Define.ActType.Enemy:
-                StartCoroutine(SpawnEnemy(actData.monsterType));
+                StartCoroutine(SpawnEnemy(actData.speciesType, actData.monsterType));
                 break;
         }
     }
@@ -271,7 +271,7 @@ public class InvadeManager : MonoBehaviour
 
     public void AddAct(ActData actData, int cost)
     {
-        ActData newAct = new ActData(actData.actType, actData.monsterType);
+        ActData newAct = new ActData(actData.actType, actData.monsterType, actData.speciesType);
         OnAddAct(newAct, cost);
         if (IsSameAct(addedAct, newAct))
         {
