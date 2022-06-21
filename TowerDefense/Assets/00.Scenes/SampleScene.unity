@@ -272,17 +272,12 @@ MonoBehaviour:
   overlapColor: {r: 0.9433962, g: 0.752047, b: 0.752047, a: 0}
   monsterText: {fileID: 518620674}
   isWaveProgress: 0
-  waitingActs: []
   addedAct:
-    actType: 0
     monsterType: 0
     speciesType: 0
-  addedBtn: {fileID: 0}
-  cancleBtnPrefab: {fileID: 6760498008738100699, guid: 166430bc14206274da5e3438a41a82ab, type: 3}
   waitingActContentTrm: {fileID: 1288744117}
   invisibleObj: {fileID: 1509550723}
   draggingBtn: {fileID: 0}
-  canAddWave: 1
 --- !u!4 &55926468
 Transform:
   m_ObjectHideFlags: 0
@@ -2755,7 +2750,7 @@ MonoBehaviour:
   offenseStatus: {fileID: 1595377301}
   monsterContent: {fileID: 1192052100}
   offenseHpText: {fileID: 1384065279}
-  addBtnPrefab: {fileID: 6749774290861803340, guid: dcffe36f8fedb9245a304c101217156d, type: 3}
+  addBtnPrefab: {fileID: 1170405681582693954, guid: 557f71ee62d14fc449c476b2035ac849, type: 3}
   addWaitBtnPrefab: {fileID: 6749774290861803340, guid: bf7ad9fb7d7ff5a4794424d2de389622, type: 3}
 --- !u!1 &639262533
 GameObject:

@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         SetWaypoints(waypointsParent);
 
         hpText = Managers.Wave.defenseHpText;
-        Managers.Invade.UpdateTexts();
         UpdateHPText();
     }
 

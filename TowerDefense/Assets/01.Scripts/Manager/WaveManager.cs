@@ -48,8 +48,8 @@ public class WaveManager : MonoBehaviour
     public RectTransform offenseStatus;
     public Transform monsterContent;
     public Text offenseHpText;
-    public UI_AddActBtn addBtnPrefab;
-    public UI_AddActBtn addWaitBtnPrefab;
+    public UI_SpawnMonster addBtnPrefab;
+    public UI_SpawnMonster addWaitBtnPrefab;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -78,6 +78,11 @@ public class WaveManager : MonoBehaviour
     {
         int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
 
+        for(int i = 0; i< basePrefabList.Count; i++)
+        {
+            basePrefabDict.Add((Define.SpeciesType)System.Enum.Parse(typeof(Define.SpeciesType), basePrefabList[i].name), basePrefabList[i]);
+        }
+
         for (int i = 1; i < speciesCount; i++) // 0번은 None 나와용
         {
             Dictionary<Define.MonsterType, EnemySO> enemyDic = new Dictionary<Define.MonsterType, EnemySO>();
@@ -85,15 +90,9 @@ public class WaveManager : MonoBehaviour
            
             for (int j = 0; j < enemySO.Count; j++) 
             {
-                Debug.Log("ㅎㅇ");
                 enemyDic.Add(enemySO[j].MonsterType, enemySO[j]);
             }
-            speciesDic.Add((Define.SpeciesType)i, enemyDic); // 아 ㅋㅋ 되겠지 뭐
-
-            foreach(var item in speciesDic)
-            {
-                Debug.Log(item.Key);
-            }
+            speciesDic.Add((Define.SpeciesType)i, enemyDic);
         }
 
         DefenseSetNextWave();
@@ -140,7 +139,6 @@ public class WaveManager : MonoBehaviour
             text.text = $"웨이브 편성 수 {rewardWave} 증가!";
             Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
-        Managers.Invade.UpdateTexts();
     }
 
     public void SetMonsterAddBtns() // 오펜스 모드 웨이브 편성 가능 몬스터 세팅
@@ -160,12 +158,12 @@ public class WaveManager : MonoBehaviour
         monsterTypeList = monsterTypeList.Distinct().ToList();
         for (int i = 0; i < monsterTypeList.Count; i++)
         {
-            UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
+            UI_SpawnMonster addBtn = Instantiate(addBtnPrefab, monsterContent);
             Debug.Log($"{monsterTypeList[i].monsterType}  {monsterTypeList[i].speciesType}");
             addBtn.Init(monsterTypeList[i].monsterType, monsterTypeList[i].speciesType);
         }
 
-        UI_AddActBtn addWaitBtn = Instantiate(addWaitBtnPrefab, monsterContent);
+        UI_SpawnMonster addWaitBtn = Instantiate(addWaitBtnPrefab, monsterContent);
         addWaitBtn.Init(default, default);
     }
 
@@ -232,11 +230,12 @@ public class WaveManager : MonoBehaviour
 
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
+            EnemyBase enemyBase = enemyInfo.enemy;
             EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
-            enemyInfo.enemy.InitEnemyData(enemySO);
 
-            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, 
-                enemyInfo.enemy.transform.rotation, this.transform);
+            EnemyBase enemyObj = Instantiate(enemyBase, Managers.Game.wayPoints[index].transform.position,
+                enemyBase.transform.rotation, this.transform);
+            enemyObj.InitEnemyData(enemySO);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);
@@ -251,12 +250,6 @@ public class WaveManager : MonoBehaviour
         {
             case Define.GameMode.DEFENSE:
                 {
-                    if (Managers.Invade.draggingBtn != null)
-                    {
-                        Managers.Invade.draggingBtn.OnDragEnd();
-                    }
-
-                    
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
