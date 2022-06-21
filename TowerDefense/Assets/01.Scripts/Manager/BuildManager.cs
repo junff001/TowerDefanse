@@ -220,7 +220,9 @@ public class BuildManager : MonoBehaviour
         newCore.TowerData = newTower.TowerData;
         //newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
-        newCore.Buff.propertyType = newCore.TowerData.Property;
+
+        if(newCore.Buff != null)
+            newCore.Buff.propertyType = newCore.TowerData.Property;
 
         return newCore;
     }
@@ -238,7 +240,9 @@ public class BuildManager : MonoBehaviour
         newCore.TowerData = newTower.TowerData;
         //newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
-        newCore.Buff.propertyType = newCore.TowerData.Property;
+
+        if (newCore.Buff != null)
+            newCore.Buff.propertyType = newCore.TowerData.Property;
 
         return newCore;
     }
