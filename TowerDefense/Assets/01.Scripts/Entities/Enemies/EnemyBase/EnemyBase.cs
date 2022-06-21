@@ -96,7 +96,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void AddBuff(BuffBase buff)
     {
-        if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
+        //if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
+        if (buff == null) return;
 
         for (int i = 0; i < buffList.Count; i++)
         {

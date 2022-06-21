@@ -41,7 +41,7 @@ public class HealthBar : MonoBehaviour
     {
 
         _sepMeshRenderer.sortingLayerName = "Default";
-        _sepMeshRenderer.sortingOrder = 25;
+        _sepMeshRenderer.sortingOrder = 20;
 
         UpdateBar();    
         UpdateHealthBarVisible();
@@ -96,6 +96,7 @@ public class HealthBar : MonoBehaviour
 
         Vector3[] vertices = new Vector3[(gridCnt - 1) * 4];
         Vector2[] uv = new Vector2[(gridCnt - 1) * 4];
+        Color[] colors = new Color[vertices.Length];
         int[] triangles = new int[(gridCnt - 1) * 6];
 
         float barOneSize = _barSize / gridCnt;
@@ -122,10 +123,17 @@ public class HealthBar : MonoBehaviour
             triangles[tIndex + 3] = vIndex + 0;
             triangles[tIndex + 4] = vIndex + 2;
             triangles[tIndex + 5] = vIndex + 3;
+
         }
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = Color.black;
+        }
+
         _sepMesh.vertices = vertices;
         _sepMesh.uv = uv;
         _sepMesh.triangles = triangles;
+        _sepMesh.colors = colors;
 
         _sepMeshFilter.mesh = _sepMesh;
     }
