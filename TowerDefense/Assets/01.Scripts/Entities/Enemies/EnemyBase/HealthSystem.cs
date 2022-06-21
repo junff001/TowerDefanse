@@ -133,7 +133,7 @@ public class HealthSystem : MonoBehaviour
         if (type == eHealthType.HEALTH)
         {
             healthAmountMax = amountMax;
-            OnMaxHealed(healthAmountMax);
+            OnMaxHealed?.Invoke(healthAmountMax);
             if (updateAmount)
             {
                 curHealthAmount = amountMax;

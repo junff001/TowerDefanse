@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
     private Mesh _sepMesh;
     private MeshRenderer _sepMeshRenderer;
 
-    private void Start()
+    private void Awake()
     {
         if (!healthSystem)
         {
@@ -34,8 +34,14 @@ public class HealthBar : MonoBehaviour
         _sepMeshRenderer = _separator.GetComponent<MeshRenderer>();
 
         healthSystem.OnMaxHealed += (x) => CalcSeparator((int)x);
-
         healthSystem.OnDamaged += CallHealthSystemOnDamaged;
+    }
+
+    private void Start()
+    {
+
+        _sepMeshRenderer.sortingLayerName = "TOP";
+        _sepMeshRenderer.sortingOrder = 25;
 
         UpdateBar();
         UpdateHealthBarVisible();
