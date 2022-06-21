@@ -5,12 +5,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
 
-struct Tset
-{
-    EnemyBase a;
-    Define.MonsterType t;
-}
-
 public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
@@ -33,12 +27,15 @@ public class WaveManager : MonoBehaviour
     public RectTransform waveRect;
     public WaveSO waveSO;
 
+    public Dictionary<Define.SpeciesType, EnemyBase> basePrefabDict = new Dictionary<Define.SpeciesType, EnemyBase>();
 
-    public Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>> speciesDic = new Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>>();
+    [Header("종족별로 베이스 되는 친구 하나씩만 넣어줘")]
+    public List<EnemyBase> basePrefabList = new List<EnemyBase>();
 
-    public List<EnemyBase> enemyList = new List<EnemyBase>();
+    public Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>> speciesDic = 
+        new Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>>();
 
-    public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
+    [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
@@ -78,21 +75,19 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length - 1; // None이 있으니까..?
+        int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
 
-        Debug.Log("speciesCount : " + speciesCount);
-        for (int i = 0; i < 3; i++)
+        for (int i = 1; i < speciesCount; i++) // 0번은 None 나와용
         {
             Dictionary<Define.MonsterType, EnemySO> enemyDic = new Dictionary<Define.MonsterType, EnemySO>();
-            for (int j = 0; j < enemyList.Count; j++) // 에너미 딕셔너리 세팅
+            List<EnemySO> enemySO = Resources.LoadAll<EnemySO>("EnemySOs/" + ((Define.SpeciesType)i).ToString()).ToList(); 
+           
+            for (int j = 0; j < enemySO.Count; j++) 
             {
-                enemyList[j].InitEnemyData();
-                
+                enemyDic.Add(enemySO[j].MonsterType, enemySO[j]);
             }
-            speciesDic.Add(enemyList[0].enemyData.SpeciesType, enemyDic);
+            speciesDic.Add((Define.SpeciesType)i, enemyDic); // 아 ㅋㅋ 되겠지 뭐
         }
-        //리소스 로드해서..
-       
 
         DefenseSetNextWave();
     }   
@@ -141,9 +136,9 @@ public class WaveManager : MonoBehaviour
         Managers.Invade.UpdateTexts();
     }
 
-    public void SetMonsterAddBtns() // 이거 테스트하기
+    public void SetMonsterAddBtns() // 오펜스 모드 웨이브 편성 가능 몬스터 세팅
     {
-        List<Define.MonsterType> monsterTypeArray = new List<Define.MonsterType>();
+        List<SpawnerMonsterCount> monsterTypeList = new List<SpawnerMonsterCount>();
 
         for (int i = 0; i < waveSO.waveEnemyInfos.Length; i++)
         {
@@ -151,15 +146,18 @@ public class WaveManager : MonoBehaviour
 
             for(int j = 0; j < enemyBox.Length; j++)
             {
-                monsterTypeArray.Add(enemyBox[j].enemy.enemyData.MonsterType); // 처음 데이터 체크 X, 추가
+                monsterTypeList.Add(enemyBox[j]);
             }
         }
-        monsterTypeArray = monsterTypeArray.Distinct().ToList();
 
-        for (int i = 0; i < monsterTypeArray.Count; i++)
+        monsterTypeList = monsterTypeList.Distinct().ToList();
+        //은신 
+        // 고블린이 고블린이 들어와 고블린이니까 지워버려
+
+        for (int i = 0; i < monsterTypeList.Count; i++)
         {
             UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
-            addBtn.Init(monsterTypeArray[i]);
+            addBtn.Init(monsterTypeList[i].enemy.enemyData.MonsterType, monsterTypeList[i].enemy.enemyData.SpeciesType);
         }
 
         UI_AddActBtn addWaitBtn = Instantiate(addBtnPrefab, monsterContent);

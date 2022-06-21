@@ -25,7 +25,6 @@ public abstract class EnemyBase : MonoBehaviour
 
     [HideInInspector] public HealthSystem healthSystem;
 
-    [SerializeField] protected EnemySO enemySO;
     [HideInInspector] public EnemyData enemyData = new EnemyData();
 
     private List<BuffBase> buffList = new List<BuffBase>();
@@ -129,7 +128,7 @@ public abstract class EnemyBase : MonoBehaviour
         buffList.Add(buff);
     }
 
-    public void InitEnemyData()
+    public void InitEnemyData(EnemySO enemySO)
     {
         enemyData.HP = enemySO.HP;
         enemyData.Shield = enemySO.Shield;

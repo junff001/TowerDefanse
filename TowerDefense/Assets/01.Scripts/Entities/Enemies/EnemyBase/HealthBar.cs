@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
 
         healthSystem.OnDamaged += CallHealthSystemOnDamaged;
 
-        UpdateBar();
+        UpdateBar();    
         UpdateHealthBarVisible();
     }
 

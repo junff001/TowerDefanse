@@ -54,7 +54,6 @@ public class Define
     {
         None,
         Goblin,
-        Golem
     }
 
     public enum PropertyType

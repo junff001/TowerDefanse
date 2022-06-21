@@ -20,7 +20,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
 
     private Mask mask;
 
-    public void Init(Define.MonsterType monsterType = Define.MonsterType.None)
+    public void Init(Define.MonsterType monsterType = Define.MonsterType.None, Define.SpeciesType speciesType = Define.SpeciesType.None)
     {
         if (monsterType == Define.MonsterType.None)
         {
@@ -28,7 +28,7 @@ public class UI_AddActBtn : MonoBehaviour, IEndDragHandler,IDragHandler, IPointe
         }
         else
         {
-            actData = new ActData(Define.ActType.Enemy, monsterType);
+            actData = new ActData(Define.ActType.Enemy, monsterType, speciesType);
         }
         
         mask = transform.GetComponentInChildren<Mask>();
