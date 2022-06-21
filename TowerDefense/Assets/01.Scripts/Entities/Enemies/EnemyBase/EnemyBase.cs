@@ -15,8 +15,8 @@ public class EnemyData
     public bool IsGuardian;
     public bool IsFlying;
     public bool IsDebuffIimmune;
-    public Define.PropertyType PropertyResistance;
     public Define.MonsterType MonsterType;
+    public Define.SpeciesType SpeciesType;
 }
 
 public abstract class EnemyBase : MonoBehaviour
@@ -25,7 +25,6 @@ public abstract class EnemyBase : MonoBehaviour
 
     [HideInInspector] public HealthSystem healthSystem;
 
-    [SerializeField] protected EnemySO enemySO;
     [HideInInspector] public EnemyData enemyData = new EnemyData();
 
     private List<BuffBase> buffList = new List<BuffBase>();
@@ -129,7 +128,7 @@ public abstract class EnemyBase : MonoBehaviour
         buffList.Add(buff);
     }
 
-    public void InitEnemyData()
+    public void InitEnemyData(EnemySO enemySO)
     {
         enemyData.HP = enemySO.HP;
         enemyData.Shield = enemySO.Shield;
@@ -139,9 +138,9 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.IsHide = enemySO.IsHide;
         enemyData.IsGuardian = enemySO.IsGuardian;
         enemyData.IsFlying = enemySO.IsFlying;
-        enemyData.PropertyResistance = enemySO.PropertyResistance;
         enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
         enemyData.MonsterType = enemySO.MonsterType;
+        enemyData.SpeciesType = enemySO.SpeciesType;
     }
 
     void Move()

@@ -43,7 +43,7 @@ public class HealthBar : MonoBehaviour
         _sepMeshRenderer.sortingLayerName = "TOP";
         _sepMeshRenderer.sortingOrder = 25;
 
-        UpdateBar();
+        UpdateBar();    
         UpdateHealthBarVisible();
     }
 

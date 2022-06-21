@@ -20,8 +20,8 @@ MonoBehaviour:
   isHide: 0
   isGuardian: 0
   isFlying: 1
-  propertyResistance: 0
   isDebuffIimmune: 0
-  monsterType: 6
+  monsterType: 64
+  speciesType: 1
   sprite: {fileID: 21300000, guid: a14c81517717b0a4a86d58777c83176c, type: 3}
   cost: 4

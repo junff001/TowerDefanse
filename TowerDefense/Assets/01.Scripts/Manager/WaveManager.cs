@@ -27,10 +27,15 @@ public class WaveManager : MonoBehaviour
     public RectTransform waveRect;
     public WaveSO waveSO;
 
-    public Dictionary<Define.MonsterType, EnemyBase> enemyDic = new Dictionary<Define.MonsterType, EnemyBase>();
-    public List<EnemyBase> enemyList = new List<EnemyBase>();
+    public Dictionary<Define.SpeciesType, EnemyBase> basePrefabDict = new Dictionary<Define.SpeciesType, EnemyBase>();
 
-    public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
+    [Header("종족별로 베이스 되는 친구 하나씩만 넣어줘")]
+    public List<EnemyBase> basePrefabList = new List<EnemyBase>();
+
+    public Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>> speciesDic = 
+        new Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>>();
+
+    [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
@@ -44,6 +49,7 @@ public class WaveManager : MonoBehaviour
     public Transform monsterContent;
     public Text offenseHpText;
     public UI_AddActBtn addBtnPrefab;
+    public UI_AddActBtn addWaitBtnPrefab;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -70,10 +76,24 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i< enemyList.Count; i++) // 에너미 딕셔너리 세팅
+        int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
+
+        for (int i = 1; i < speciesCount; i++) // 0번은 None 나와용
         {
-            enemyList[i].InitEnemyData();
-            enemyDic.Add(enemyList[i].enemyData.MonsterType, enemyList[i]);
+            Dictionary<Define.MonsterType, EnemySO> enemyDic = new Dictionary<Define.MonsterType, EnemySO>();
+            List<EnemySO> enemySO = Resources.LoadAll<EnemySO>("EnemySOs/" + ((Define.SpeciesType)i).ToString()).ToList(); 
+           
+            for (int j = 0; j < enemySO.Count; j++) 
+            {
+                Debug.Log("ㅎㅇ");
+                enemyDic.Add(enemySO[j].MonsterType, enemySO[j]);
+            }
+            speciesDic.Add((Define.SpeciesType)i, enemyDic); // 아 ㅋㅋ 되겠지 뭐
+
+            foreach(var item in speciesDic)
+            {
+                Debug.Log(item.Key);
+            }
         }
 
         DefenseSetNextWave();
@@ -123,9 +143,9 @@ public class WaveManager : MonoBehaviour
         Managers.Invade.UpdateTexts();
     }
 
-    public void SetMonsterAddBtns() // 이거 테스트하기
+    public void SetMonsterAddBtns() // 오펜스 모드 웨이브 편성 가능 몬스터 세팅
     {
-        List<Define.MonsterType> monsterTypeArray = new List<Define.MonsterType>();
+        List<SpawnerMonsterCount> monsterTypeList = new List<SpawnerMonsterCount>();
 
         for (int i = 0; i < waveSO.waveEnemyInfos.Length; i++)
         {
@@ -133,19 +153,20 @@ public class WaveManager : MonoBehaviour
 
             for(int j = 0; j < enemyBox.Length; j++)
             {
-                monsterTypeArray.Add(enemyBox[j].enemy.enemyData.MonsterType); // 처음 데이터 체크 X, 추가
+                monsterTypeList.Add(enemyBox[j]);
             }
         }
-        monsterTypeArray = monsterTypeArray.Distinct().ToList();
 
-        for (int i = 0; i < monsterTypeArray.Count; i++)
+        monsterTypeList = monsterTypeList.Distinct().ToList();
+        for (int i = 0; i < monsterTypeList.Count; i++)
         {
             UI_AddActBtn addBtn = Instantiate(addBtnPrefab, monsterContent);
-            addBtn.Init(monsterTypeArray[i]);
+            Debug.Log($"{monsterTypeList[i].monsterType}  {monsterTypeList[i].speciesType}");
+            addBtn.Init(monsterTypeList[i].monsterType, monsterTypeList[i].speciesType);
         }
 
-        UI_AddActBtn addWaitBtn = Instantiate(addBtnPrefab, monsterContent);
-        addWaitBtn.Init();
+        UI_AddActBtn addWaitBtn = Instantiate(addWaitBtnPrefab, monsterContent);
+        addWaitBtn.Init(default, default);
     }
 
     public void CheckWaveEnd()
@@ -211,10 +232,13 @@ public class WaveManager : MonoBehaviour
 
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
-            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, enemyInfo.enemy.transform.rotation, this.transform);
-            enemyObj.enemyData.PropertyResistance = enemyInfo.propertyType;
-            enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
+            EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
+            enemyInfo.enemy.InitEnemyData(enemySO);
 
+            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position, 
+                enemyInfo.enemy.transform.rotation, this.transform);
+
+            enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);
 
             yield return new WaitForSeconds(0.2f);

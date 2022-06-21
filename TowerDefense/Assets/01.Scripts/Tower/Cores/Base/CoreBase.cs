@@ -68,7 +68,7 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             EnemyRader(enemyMask);
-            SetTarget(enemyMask);
+            SetTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }

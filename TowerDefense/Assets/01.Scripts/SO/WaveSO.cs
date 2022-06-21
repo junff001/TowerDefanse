@@ -23,10 +23,12 @@ public class SpawnerMonsterCount
 {
     [Header("적들")]
     public EnemyBase enemy;
-    [Header("속성")]
-    public Define.PropertyType propertyType;
     [Header("적 수")]
     public int enemyCount;
+    [Header("적 특성")]
+    public Define.MonsterType monsterType;
+    [Header("적 종족")]
+    public Define.SpeciesType speciesType;
     [Header("웨이 포인트 인덱스")]
     public int wayPointListIndex;
 }

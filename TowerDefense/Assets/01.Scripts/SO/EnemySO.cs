@@ -37,17 +37,17 @@ public class EnemySO : ScriptableObject
     [SerializeField] private bool isFlying = false;
     public bool IsFlying { get => isFlying; set => value = isFlying; }
 
-    // 속성 저항
-    [SerializeField] private Define.PropertyType propertyResistance = Define.PropertyType.NONE;
-    public Define.PropertyType PropertyResistance { get => propertyResistance; set => value = propertyResistance; }
-
     // 디버프 면역 여부
     [SerializeField] private bool isDebuffIimmune = false;
     public bool IsDebuffIimmune { get => isDebuffIimmune; set => value = isDebuffIimmune; }
 
-    //어떤 몬스터인지
+    //몬스터의 특성
     [SerializeField] private Define.MonsterType monsterType;
     public Define.MonsterType MonsterType { get => monsterType; set => value = monsterType; }
+
+    //몬스터의 종족
+    [SerializeField] private Define.SpeciesType speciesType;
+    public Define.SpeciesType SpeciesType { get => speciesType; set => value = speciesType; }
 
     // 버튼에 사용할 스프라이트
     [SerializeField] private Sprite sprite = null;
