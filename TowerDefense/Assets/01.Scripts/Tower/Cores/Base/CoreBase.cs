@@ -15,12 +15,13 @@ public abstract class CoreBase : MonoBehaviour
 
     public TowerData TowerData { get; set; } = default;
     public eCoreName coreType;
-    public IBuff Buff { get; set; } 
+    public BuffBase Buff { get; set; } 
 
     protected Bullet bullet = null;
 
     public virtual void OnEnable()
     {
+        PropertyCheck();
         StartCoroutine(OnRader());
         StartCoroutine(CoAttack());
     }
@@ -109,12 +110,42 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnAttack()
     {
+        target.AddBuff(Buff);
         bullet.transform.SetParent(Managers.Pool.poolInitPos);
-
         bullet = null;
         if (IsTargetOutOfRange()) target = null;
     }
 
     // 공격 로직 함수
     public abstract void Attack(int power, HealthSystem enemy);
+
+    void PropertyCheck()
+    {
+        Buff = new BuffBase();
+
+        if (Buff is Dot)
+        {
+            Buff = new Dot(target.gameObject, 3f, 10f);
+        }
+        else if (Buff is Slow)
+        {
+            Buff = new Slow(target.gameObject, 3f, 50f);
+        }
+        else if (Buff is KnockBack)
+        {
+            Buff = new KnockBack(target.gameObject, 1f, 10f, gameObject.transform);
+        }
+        else if (Buff is Chain)
+        {
+            Buff = new Chain(target.gameObject, 30f);
+        }
+        else if (Buff is Splash)
+        {
+            Buff = new Splash(2f, 10f, Managers.Build.dotBuffEffect, enemyMask, Buff.propertyType);
+        }
+        else if (Buff is Restriction)
+        {
+            Buff = new Restriction(target.gameObject, 2f);
+        }
+    }
 }

@@ -10,6 +10,7 @@ public struct PropertyData
     public ParticleSystem BuffEffect;
 }
 
+
 public class BuildManager : MonoBehaviour
 {
     #region 벡터들
@@ -50,11 +51,38 @@ public class BuildManager : MonoBehaviour
 
     [Header("버프 관리")]
     public Dictionary<PropertyType, IBuff> buffDictionary = new Dictionary<PropertyType, IBuff>();
+    public Dictionary<PropertyType, BuffBase> buffDictionary = new Dictionary<PropertyType, BuffBase>();
     public List<PropertyType> propertyList = new List<PropertyType>();
 
     public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
    
     PropertyData propertyData = new PropertyData();
+
+    [Header("버프 이펙트")]
+    public ParticleSystem dotAuraEffect;
+    public ParticleSystem dotBuffEffect;
+
+    public ParticleSystem slowAuraEffect;
+    public ParticleSystem slowBuffEffect;
+
+    public ParticleSystem splashAuraEffect;
+    public ParticleSystem splashBuffEffect;
+
+    public ParticleSystem chainAuraEffect;
+    public ParticleSystem chainBuffEffect;
+
+    public ParticleSystem knockBackAuraEffect;
+    public ParticleSystem knockBackBuffEffect;
+
+    public ParticleSystem restrictionAuraEffect;
+    public ParticleSystem restrictionBuffEffect;
+
+    BuffData dotData = new BuffData();
+    BuffData slowData = new BuffData();
+    BuffData splashData = new BuffData();
+    BuffData chainData = new BuffData();
+    BuffData knockBackData = new BuffData();
+    BuffData restrictionData = new BuffData();
 
     public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
 
@@ -77,14 +105,32 @@ public class BuildManager : MonoBehaviour
         //    }
         //}
 
+        foreach (var item in propertyList)
+        {
+            switch (item)
+            {
+                case PropertyType.NONE: buffDictionary.Add(item, null); break;
+                case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(item, dot); break;
+                case PropertyType.WATER: Slow slow = null; buffDictionary.Add(item, slow); break;
+                case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(item, chain); break;  
+                case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(item, knockBack); break;
+                case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(item, splash); break;
+                case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(item, restriction); break;          
+            }
+        }
+
         coreDic.Clear();
         foreach (var item in coreList)
         {
             coreDic.Add(item.coreType, item);
         }
+<<<<<<< HEAD
             
         //propertyData.AuraEffect = propertySO.AuraEffect;
         //propertyData.BuffEffect = propertySO.BuffEffect;
+=======
+
+>>>>>>> e8d05b44609f3b2d0ac3fefac1a3441212174c2d
 
         mainCam = Camera.main;
         plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
@@ -94,6 +140,12 @@ public class BuildManager : MonoBehaviour
     {
         SetTilePos();
         SetAroundTiles();
+    }
+
+    void BuffInit(BuffData buffData, ParticleSystem aura, ParticleSystem hit)
+    {
+        buffData.AuraEffect = aura;
+        buffData.BuffEffect = hit;
     }
 
     public void SetTilePos()
@@ -222,6 +274,8 @@ public class BuildManager : MonoBehaviour
         newCore.transform.position = newTower.coreTrm.position;
         newCore.TowerData = newTower.TowerData;
         //newCore.Buff = buffDictionary[newCore.TowerData.Property];
+        newCore.Buff = buffDictionary[newCore.TowerData.Property];
+        newCore.Buff.propertyType = newCore.TowerData.Property;
 
         return newCore;
     }
@@ -238,6 +292,8 @@ public class BuildManager : MonoBehaviour
         newCore.transform.position = newTower.transform.position;
         newCore.TowerData = newTower.TowerData;
         //newCore.Buff = buffDictionary[newCore.TowerData.Property];
+        newCore.Buff = buffDictionary[newCore.TowerData.Property];
+        newCore.Buff.propertyType = newCore.TowerData.Property;
 
         return newCore;
     }

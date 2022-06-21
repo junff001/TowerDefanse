@@ -1,11 +1,11 @@
-using System;
+ using System;
 
 public enum eRecordType
 {
     TOWER_PLACE,
     TOWER_UPGRADE,
     TOWER_SALE,
-    // ³ìÈ­ÇÒ Çàµ¿À» Ãß°¡.
+    // ë…¹í™”í•  í–‰ë™ì„ ì¶”ê°€.
 }
 
 [Serializable]

@@ -122,9 +122,6 @@ public class UI_TowerInfo : MonoBehaviour
 
             Managers.Build.SetTowerGrid(CurrentSelectedTower, CurrentSelectedTower.myCheckedPos, false);
 
-            RecordTowerSale recordSegment = new RecordTowerSale(index);
-            Managers.Record.AddRecord(recordSegment);
-
             float returnGold = CurrentSelectedTower.TowerData.PlaceCost * 0.6f; // TO DO : 나중에 난이도 따라 달라야함
             Managers.Gold.GoldPlus(returnGold);
 

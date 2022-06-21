@@ -29,7 +29,7 @@ public class Catapult_Core : CoreBase
     }
     void Update()
     {
-        if(target != null)
+        if (target != null)
         {
             dir = (target.transform.position - transform.position).normalized;
 

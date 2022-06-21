@@ -6,12 +6,15 @@ public class KnockBack : BuffBase
 {
     Transform attacker;
 
-    public KnockBack(GameObject affecter, float duration, float amplification, Transform attacker) : base(affecter, duration, amplification)    
+    public KnockBack(GameObject affecter, float duration, float amplification, Transform attacker)
     {
-        this.attacker = attacker;
         buffType = Define.BuffType.DEBUFF;
+        this.attacker = attacker;
+        base.amplification = amplification;
+        base.duration = duration;
+        base.affecter = affecter;
     }
-
+   
     public override void Update()
     {
         base.Update();
