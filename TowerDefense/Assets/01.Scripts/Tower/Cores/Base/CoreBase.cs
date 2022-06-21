@@ -141,7 +141,7 @@ public abstract class CoreBase : MonoBehaviour
         }
         else if (Buff is Splash)
         {
-            Buff = new Splash(2f, 10f, Resources.Load<ParticleSystem>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C White"), enemyMask, Buff.propertyType);
+            Buff = new Splash(2f, 10f, Resources.Load<ParticleSystem>("JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C White"), enemyMask, TowerData.Property);
         }
         else if (Buff is Restriction)
         {

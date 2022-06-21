@@ -63,20 +63,20 @@ public class BuildManager : MonoBehaviour
 
     public void Init()
     {
-        foreach (var item in propertyList)
+        for (int i = 0; i < propertyList.Count; i++)
         {
-            switch (item)
+             switch (propertyList[i])
             {
-                case PropertyType.NONE: buffDictionary.Add(item, null); break;
-                case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(item, dot); break;
-                case PropertyType.WATER: Slow slow = null; buffDictionary.Add(item, slow); break;
-                case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(item, chain); break;  
-                case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(item, knockBack); break;
-                case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(item, splash); break;
-                case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(item, restriction); break;          
+                case PropertyType.NONE: buffDictionary.Add(propertyList[i], null); break;
+                case PropertyType.FIRE: Dot dot = null; buffDictionary.Add(propertyList[i], dot); break;
+                case PropertyType.WATER: Slow slow = null; buffDictionary.Add(propertyList[i], slow); break;
+                case PropertyType.LIGHTNING: Chain chain = null; buffDictionary.Add(propertyList[i], chain); break;  
+                case PropertyType.WIND: KnockBack knockBack = null; buffDictionary.Add(propertyList[i], knockBack); break;
+                case PropertyType.SOIL: Splash splash = null; buffDictionary.Add(propertyList[i], splash); break;
+                case PropertyType.GRASS: Restriction restriction = null; buffDictionary.Add(propertyList[i], restriction); break;          
             }
         }
-
+        
         coreDic.Clear();
         foreach (var item in coreList)
         {
@@ -218,9 +218,7 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.TowerData = newTower.TowerData;
-        //newCore.Buff = buffDictionary[newCore.TowerData.Property];
         newCore.Buff = buffDictionary[newCore.TowerData.Property];
-        newCore.Buff.propertyType = newCore.TowerData.Property;
 
         return newCore;
     }
@@ -236,9 +234,7 @@ public class BuildManager : MonoBehaviour
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
         newCore.TowerData = newTower.TowerData;
-        //newCore.Buff = buffDictionary[newCore.TowerData.Property];
-        newCore.Buff = buffDictionary[newCore.TowerData.Property];
-        newCore.Buff.propertyType = newCore.TowerData.Property;
+        newCore.Buff = buffDictionary[newTower.TowerData.Property];
 
         return newCore;
     }
