@@ -49,7 +49,6 @@ public class BuildManager : MonoBehaviour
     public List<CoreBase> coreList = new List<CoreBase>();
 
     [Header("버프 관리")]
-    public Dictionary<PropertyType, IBuff> buffDictionary = new Dictionary<PropertyType, IBuff>();
     public Dictionary<PropertyType, BuffBase> buffDictionary = new Dictionary<PropertyType, BuffBase>();
     public List<PropertyType> propertyList = new List<PropertyType>();
 
@@ -83,6 +82,7 @@ public class BuildManager : MonoBehaviour
         {
             coreDic.Add(item.coreType, item);
         }
+
         mainCam = Camera.main;
         plusPos = new Vector3(map.tilemap.cellSize.x, map.tilemap.cellSize.y, 0) / 2;
     }
@@ -273,9 +273,6 @@ public class BuildManager : MonoBehaviour
         newTower.myCheckedPos = checkedPos; // 저장
 
         spawnedTowers.Add(newTower);
-        // 레코드
-        RecordTowerPlace recordSegment = new RecordTowerPlace(placePos, towerSO);
-        Managers.Record.AddRecord(recordSegment);
 
         // 설치 이펙트
         Effect_StoneFrag effectStone = Managers.Pool.GetItem<Effect_StoneFrag>();
