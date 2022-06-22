@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static Define;
-using System;
 
 public abstract class CoreBase : MonoBehaviour
 {
     [Header("레이더")]
     [SerializeField] protected float raderHeight = 0f;
 
-    public LayerMask enemyMask = default;                           // 적을 분별하는 마스크    
+    private LayerMask enemyMask = default;                           // 적을 분별하는 마스크    
     protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
     protected EnemyBase target { get; set; } = null;                // 현재 타겟
 
@@ -20,11 +18,19 @@ public abstract class CoreBase : MonoBehaviour
 
     protected Bullet bullet = null;
 
+    //[SerializeField] private MonsterType priorityTargetType;
+    [SerializeField] private MonsterType attackableTargetType;
+
     public virtual void OnEnable()
     {
         BuffAaccordingToProperty();
         StartCoroutine(OnRader());
         StartCoroutine(CoAttack());
+    }
+
+    private void Start()
+    {
+        enemyMask = LayerMask.NameToLayer("Enemy");
     }
 
     public bool IsTargetOutOfRange() // 때리던 애가 내 범위에서 벗어나면.
@@ -34,27 +40,37 @@ public abstract class CoreBase : MonoBehaviour
         return Vector2.Distance(target.transform.position, transform.position) >= TowerData.AttackRange;
     }
 
-    public void SetTarget(LayerMask priorityMask = default) // 우선순위나 이동 거리에 따라서 타겟 설정
+    public void SetTarget() // 우선순위나 이동 거리에 따라서 타겟 설정
     {
         if (target != null && target.IsDead) target = null;
         if (enemies.Count <= 0) return;
 
-        enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); // 맨 앞 놈 패야 하니까.
-
-        if (false == priorityMask.Equals(default)) // 우선 타겟팅할 적이 있다면
+        for(int i = 0; i< enemies.Count; i++)
         {
-            EnemyBase priorityTarget = enemies.Find(x => x.gameObject.layer == priorityMask);
-            
-            if(priorityTarget != null)
+            if((enemies[i].enemyData.MonsterType & attackableTargetType) == 0)
             {
-                target = priorityTarget;
+                enemies.RemoveAt(i);
+                i--;
             }
+        }
+
+        enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); // 맨 앞 놈 패야 하니까.
+        target = enemies[0];
+
+        /*
+        우선 타게팅이 나중에 필요할지도 모르자나
+        EnemyBase priorityTarget = enemies.Find(x => (x.enemyData.MonsterType & priorityTargetType) != 0);
+        
+        if(priorityTarget != null)
+        {
+            target = priorityTarget;
         }
         
         if(target == null)
         {
             target = enemies[0];
         }
+        */
     }
 
     public virtual void OnDisable()
@@ -68,16 +84,16 @@ public abstract class CoreBase : MonoBehaviour
     {
         while (true)
         {
-            EnemyRader(enemyMask);
+            EnemyRader();
             SetTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }
 
     // 공격 범위 처리 함수
-    public void EnemyRader(LayerMask targetMask)
+    public void EnemyRader()
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, targetMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, enemyMask);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {

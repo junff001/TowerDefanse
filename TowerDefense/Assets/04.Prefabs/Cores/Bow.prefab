@@ -46,10 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raderHeight: 2
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 15360
   coreType: 1
+  priorityTargetType: 8
+  attackableTargetType: 61
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
   bulletLanchTrm: {fileID: 5407253576581797903}
@@ -128,7 +127,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -56251617
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -210,7 +209,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -56251617
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 1869447301242064072, guid: 6d878ababb928894985e64936c103eff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -323,7 +322,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -56251617
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 8002155935406639250, guid: 6d878ababb928894985e64936c103eff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

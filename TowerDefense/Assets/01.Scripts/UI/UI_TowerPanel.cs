@@ -14,7 +14,6 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
     private RectTransform rangeObj;
-    Vector3 plusPos = Vector3.zero;
     Vector3 rangeObjPlusPos = new Vector3(0, 0.5f, 0);
 
     private void Start()
@@ -25,7 +24,6 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         rangeObj = Managers.Build.rangeObj;
         SetFakeTower();
 
-        plusPos = new Vector3(Managers.Build.map.width, Managers.Build.map.height, 0) / 2f;
     }
 
     public void SetFakeTower()

@@ -96,7 +96,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raderHeight: 2
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 15360
   coreType: 4
+  attackableTargetType: 61

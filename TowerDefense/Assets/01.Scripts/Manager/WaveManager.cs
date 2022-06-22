@@ -227,14 +227,11 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < queueCount; i++)
         {
             SpawnerMonsterCount enemyInfo = enemySpawnQueue.Dequeue();
-
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
-            EnemyBase enemyBase = enemyInfo.enemy;
             EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
-
-            EnemyBase enemyObj = Instantiate(enemyBase, Managers.Game.wayPoints[index].transform.position,
-                enemyBase.transform.rotation, this.transform);
+            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position,
+                enemyInfo.enemy.transform.rotation, this.transform);
             enemyObj.InitEnemyData(enemySO);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;

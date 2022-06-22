@@ -11,21 +11,23 @@ public class EnemyData
     public int OffensePower;
     public float MoveSpeed;
     public int RewardGold;
-    public bool IsHide;
-    public bool IsGuardian;
-    public bool IsFlying;
-    public bool IsDebuffIimmune;
     public Define.MonsterType MonsterType;
     public Define.SpeciesType SpeciesType;
+
+    public bool IsShadow     = false;
+    public bool IsGuardian   = false;
+    public bool IsArmor      = false;
+    public bool IsWitch      = false;
+    public bool IsAlchemist  = false;
+    public bool IsFly        = false;
 }
 
 public abstract class EnemyBase : MonoBehaviour
 {
     public Vector3 targetPos = Vector3.zero; // 이거는 나중에 매직같은거 할 때
-
     [HideInInspector] public HealthSystem healthSystem;
-
     [HideInInspector] public EnemyData enemyData = new EnemyData();
+    [HideInInspector] public SpineController sc;
 
     private List<BuffBase> buffList = new List<BuffBase>();
     private MeshRenderer mesh = null;
@@ -38,15 +40,13 @@ public abstract class EnemyBase : MonoBehaviour
     public float aliveTime = 0f;
     public float movedDistance = 0f;
 
-    SpineController animController;
-
     public bool IsDead => healthSystem.IsDead();
 
     protected virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
-        animController = GetComponent<SpineController>();
+        sc = GetComponent<SpineController>();
     }
 
     protected virtual void Start()
@@ -57,7 +57,7 @@ public abstract class EnemyBase : MonoBehaviour
         healthSystem.OnDied += () =>
         {
             Managers.Gold.GoldPlus(enemyData.RewardGold);
-            animController.Die();
+            sc.Die();
             Managers.Wave.aliveEnemies.Remove(this);
             Managers.Wave.CheckWaveEnd();
             transform.GetChild(0).gameObject.SetActive(false);
@@ -77,7 +77,12 @@ public abstract class EnemyBase : MonoBehaviour
         aliveTime += Time.deltaTime;
         movedDistance = aliveTime * enemyData.MoveSpeed;
         Move();
+        CheckBuffs();
 
+    }
+
+    public void CheckBuffs()
+    {
         if (buffList.Count > 0)
         {
             for (int i = buffList.Count - 1; i >= 0; i--)
@@ -131,17 +136,28 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void InitEnemyData(EnemySO enemySO)
     {
-        enemyData.HP = enemySO.HP;
-        enemyData.Shield = enemySO.Shield;
-        enemyData.OffensePower = enemySO.OffensePower;
-        enemyData.MoveSpeed = enemySO.MoveSpeed;
-        enemyData.RewardGold = enemySO.RewardGold;
-        enemyData.IsHide = enemySO.IsHide;
-        enemyData.IsGuardian = enemySO.IsGuardian;
-        enemyData.IsFlying = enemySO.IsFlying;
-        enemyData.IsDebuffIimmune = enemySO.IsDebuffIimmune;
-        enemyData.MonsterType = enemySO.MonsterType;
-        enemyData.SpeciesType = enemySO.SpeciesType;
+        enemyData.HP            = enemySO.HP;
+        enemyData.Shield        = enemySO.Shield;
+        enemyData.OffensePower  = enemySO.OffensePower;
+        enemyData.MoveSpeed     = enemySO.MoveSpeed;
+        enemyData.RewardGold    = enemySO.RewardGold;
+        enemyData.MonsterType   = enemySO.MonsterType;
+        enemyData.SpeciesType   = enemySO.SpeciesType;
+        enemyData.IsShadow      = Define.HasType(enemyData.MonsterType, Define.MonsterType.Shadow);
+        enemyData.IsGuardian    = Define.HasType(enemyData.MonsterType, Define.MonsterType.Guardian);
+        enemyData.IsArmor       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Armor);
+        enemyData.IsWitch       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Witch);
+        enemyData.IsAlchemist   = Define.HasType(enemyData.MonsterType, Define.MonsterType.Alchemist);
+        enemyData.IsFly         = Define.HasType(enemyData.MonsterType, Define.MonsterType.Fly);
+    }
+
+    public void InitAnimController()
+    {
+        this.gameObject.layer = LayerMask.NameToLayer(enemyData.MonsterType.ToString() + "Enemy");
+        if (enemyData.IsShadow) // 은신 체크
+        {
+            sc.Skeleton.A = 0.5f;
+        }
     }
 
     void Move()
@@ -159,8 +175,6 @@ public abstract class EnemyBase : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, Managers.Game.wayPoints[realWayPointIndex].transform.position,
             Time.deltaTime * enemyData.MoveSpeed);
 
-
-
         Vector3 dir = Managers.Game.wayPoints[realWayPointIndex].transform.position - transform.position;
 
         float absXScale = Mathf.Abs(transform.localScale.x);
@@ -172,13 +186,6 @@ public abstract class EnemyBase : MonoBehaviour
         {
             NextPoint();
         }
-    }
-
-    public void SetStartWaypoint() // 고블린 통 같은 것으로 고블린을 소환했을 때, 웨이포인트를 어떻게 설정해줄지
-    {
-        //List<Transform> wayPoints = Managers.Game.wayPoints.ToList();
-        //
-        //wayPoints.Sort((x,y) => x.position.x > );
     }
 
     bool WayPointDistance()

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2370735874463284289}
   - component: {fileID: 8386346479705798}
   - component: {fileID: 1948831253435109427}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,9 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb66769672c93ad4db05c0294d50955c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSlots: []
-  attachmentKeys: []
-  dieAnim: Normal_Die
   sa: {fileID: 0}
 --- !u!114 &2370735874463284289
 MonoBehaviour:
@@ -199,12 +196,15 @@ MonoBehaviour:
     OffensePower: 0
     MoveSpeed: 0
     RewardGold: 0
-    IsHide: 0
-    IsGuardian: 0
-    IsFlying: 0
-    IsDebuffIimmune: 0
     MonsterType: 0
     SpeciesType: 0
+    IsShadow: 0
+    IsGuardian: 0
+    IsArmor: 0
+    IsWitch: 0
+    IsAlchemist: 0
+    IsFly: 0
+  sc: {fileID: 0}
   aliveTime: 0
   movedDistance: 0
 --- !u!1001 &5096107632689154240
