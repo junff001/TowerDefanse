@@ -5,10 +5,11 @@ using UnityEngine.UI;
 public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] Text stackText = null; // 스택 텍스트
-    public ActData actData = null;
-    public Image monsterImg; // 버튼 대신에 움직여줄 이미지 
+    [SerializeField] Text typeText = null; // 타입 텍스트
+    public Image monsterImg;
     public Image cooltimeImg; // 스택이 0일 때, 충전률 보여주기
 
+    public EnemySO so = null;
     public int stackCount;
     public int maxStackCount = 10;
 
@@ -48,13 +49,13 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public void Init(Define.MonsterType monsterType, Define.SpeciesType speciesType)
+    public void Init(EnemySO so)
     {
-        actData = new ActData(monsterType, speciesType);
+        this.so = so;
 
-        EnemySO enemySO = Managers.Wave.speciesDic[actData.speciesType][actData.monsterType];
-        monsterImg.sprite = enemySO.Sprite;
-        coolTime = enemySO.ChargeTime;
+        monsterImg.sprite = so.Sprite;
+        coolTime = so.ChargeTime;
+        typeText.text = so.MyType;
         stackText.text = stackCount.ToString();
     }
 
@@ -62,7 +63,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler
     {
         if(stackCount > 0)
         {
-            Managers.Invade.SpawnEnemy(actData.speciesType, actData.monsterType);
+            Managers.Invade.SpawnEnemy(so.SpeciesType, so.MonsterType);
             stackCount--;
             CheckStack();
         }

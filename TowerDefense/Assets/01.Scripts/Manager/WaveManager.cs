@@ -46,10 +46,7 @@ public class WaveManager : MonoBehaviour
     [Header("오펜스UI")]
     public CanvasGroup offenseMonsterGroup;
     public RectTransform offenseStatus;
-    public Transform monsterContent;
     public Text offenseHpText;
-    public UI_SpawnMonster addBtnPrefab;
-    public UI_SpawnMonster addWaitBtnPrefab;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -141,32 +138,6 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    public void SetMonsterAddBtns() // 오펜스 모드 웨이브 편성 가능 몬스터 세팅
-    {
-        List<SpawnerMonsterCount> monsterTypeList = new List<SpawnerMonsterCount>();
-
-        for (int i = 0; i < waveSO.waveEnemyInfos.Length; i++)
-        {
-            SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[i].monsterBox;
-
-            for(int j = 0; j < enemyBox.Length; j++)
-            {
-                monsterTypeList.Add(enemyBox[j]);
-            }
-        }
-
-        monsterTypeList = monsterTypeList.Distinct().ToList();
-        for (int i = 0; i < monsterTypeList.Count; i++)
-        {
-            UI_SpawnMonster addBtn = Instantiate(addBtnPrefab, monsterContent);
-            Debug.Log($"{monsterTypeList[i].monsterType}  {monsterTypeList[i].speciesType}");
-            addBtn.Init(monsterTypeList[i].monsterType, monsterTypeList[i].speciesType);
-        }
-
-        UI_SpawnMonster addWaitBtn = Instantiate(addWaitBtnPrefab, monsterContent);
-        addWaitBtn.Init(default, default);
-    }
-
     public void CheckWaveEnd()
     {
         if (gameMode == Define.GameMode.DEFENSE)
@@ -183,7 +154,6 @@ public class WaveManager : MonoBehaviour
                     // 오펜스 모드로 교체!
                     GameMode = Define.GameMode.OFFENSE;
                     Managers.Game.towerInfoUI.CloseInfo();
-                    SetMonsterAddBtns();
 
                 }
                 else

@@ -27,32 +27,4 @@ MonoBehaviour:
       monsterType: 8
       speciesType: 1
       wayPointListIndex: 0
-  - infoName: 
-    monsterBox:
-    - enemy: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 4
-      monsterType: 16
-      speciesType: 1
-      wayPointListIndex: 0
-  - infoName: 
-    monsterBox:
-    - enemy: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 5
-      monsterType: 4
-      speciesType: 1
-      wayPointListIndex: 0
-  - infoName: 
-    monsterBox:
-    - enemy: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 5
-      monsterType: 64
-      speciesType: 1
-      wayPointListIndex: 0
-  - infoName: 
-    monsterBox:
-    - enemy: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
-      enemyCount: 5
-      monsterType: 2
-      speciesType: 1
-      wayPointListIndex: 0
   offenseHeadCount: 5

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6118f182dcdf5499b7ca555a84b34f, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
-  targetSlots: []
+  targetSlots:
+  - NiceHat
   dieAnim: Normal_Die
   runAnim: Normal_run
