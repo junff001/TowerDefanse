@@ -14,8 +14,8 @@ public class EnemyData
     public Define.MonsterType MonsterType;
     public Define.SpeciesType SpeciesType;
 
-    public bool IsShadow     = false;
-    public bool IsGuardian   = false;
+    public bool IsHide     = false;
+    public bool IsShilde   = false;
     public bool IsArmor      = false;
     public bool IsWitch      = false;
     public bool IsAlchemist  = false;
@@ -143,18 +143,16 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.RewardGold    = enemySO.RewardGold;
         enemyData.MonsterType   = enemySO.MonsterType;
         enemyData.SpeciesType   = enemySO.SpeciesType;
-        enemyData.IsShadow      = Define.HasType(enemyData.MonsterType, Define.MonsterType.Shadow);
-        enemyData.IsGuardian    = Define.HasType(enemyData.MonsterType, Define.MonsterType.Guardian);
+        enemyData.IsHide        = Define.HasType(enemyData.MonsterType, Define.MonsterType.Hide);
+        enemyData.IsShilde      = Define.HasType(enemyData.MonsterType, Define.MonsterType.Shield);
         enemyData.IsArmor       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Armor);
-        enemyData.IsWitch       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Witch);
-        enemyData.IsAlchemist   = Define.HasType(enemyData.MonsterType, Define.MonsterType.Alchemist);
         enemyData.IsFly         = Define.HasType(enemyData.MonsterType, Define.MonsterType.Fly);
     }
 
     public void InitAnimController()
     {
         this.gameObject.layer = LayerMask.NameToLayer(enemyData.MonsterType.ToString() + "Enemy");
-        if (enemyData.IsShadow) // 은신 체크
+        if (enemyData.IsHide) // 은신 체크
         {
             sc.Skeleton.A = 0.5f;
         }

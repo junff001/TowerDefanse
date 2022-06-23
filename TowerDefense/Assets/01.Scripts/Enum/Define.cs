@@ -39,12 +39,10 @@ public class Define
     {
         None        = 0,
         Normal      = 1 << 0,
-        Shadow      = 1 << 1,
-        Alchemist   = 1 << 2,
-        Armor       = 1 << 3,
-        Guardian    = 1 << 4,
-        Witch       = 1 << 5,
-        Fly         = 1 << 6,
+        Hide        = 1 << 1,
+        Armor       = 1 << 2,
+        Shield      = 1 << 3,
+        Fly         = 1 << 4,
     }
 
     public enum SpeciesType // 종족

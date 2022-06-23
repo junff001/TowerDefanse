@@ -40,4 +40,7 @@ public class EnemySO : ScriptableObject
     // 충전 시간
     [SerializeField] private int chargeTime = 0;
     public int ChargeTime { get => chargeTime; set => value = chargeTime; }
+
+    [SerializeField] private SpineDataSO spineData;
+    public SpineDataSO SpineData { get => spineData; set => value = spineData; }
 }

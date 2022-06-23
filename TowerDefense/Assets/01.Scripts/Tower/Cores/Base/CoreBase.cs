@@ -30,7 +30,7 @@ public abstract class CoreBase : MonoBehaviour
 
     private void Start()
     {
-        enemyMask = LayerMask.NameToLayer("Enemy");
+        enemyMask = LayerMask.GetMask("Enemy");
     }
 
     public bool IsTargetOutOfRange() // 때리던 애가 내 범위에서 벗어나면.
