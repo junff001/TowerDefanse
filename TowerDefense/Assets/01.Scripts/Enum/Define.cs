@@ -32,8 +32,6 @@ public class Define
     }
 
     
-    public static bool HasType(MonsterType monsterType, MonsterType compareType) => (monsterType & compareType) != 0;
-
     [System.Flags]
     public enum MonsterType // 몹 추가될 때마다 추가해줘
     {

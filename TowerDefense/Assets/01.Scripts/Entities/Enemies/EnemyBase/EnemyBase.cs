@@ -143,10 +143,10 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.RewardGold    = enemySO.RewardGold;
         enemyData.MonsterType   = enemySO.MonsterType;
         enemyData.SpeciesType   = enemySO.SpeciesType;
-        enemyData.IsHide        = Define.HasType(enemyData.MonsterType, Define.MonsterType.Hide);
-        enemyData.IsShilde      = Define.HasType(enemyData.MonsterType, Define.MonsterType.Shield);
-        enemyData.IsArmor       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Armor);
-        enemyData.IsFly         = Define.HasType(enemyData.MonsterType, Define.MonsterType.Fly);
+        enemyData.IsHide        = enemyData.MonsterType.HasFlag(Define.MonsterType.Hide);
+        enemyData.IsShilde      = enemyData.MonsterType.HasFlag(Define.MonsterType.Shield);
+        enemyData.IsArmor       = enemyData.MonsterType.HasFlag(Define.MonsterType.Armor);
+        enemyData.IsFly         = enemyData.MonsterType.HasFlag(Define.MonsterType.Fly);
     }
 
     public void InitAnimController()

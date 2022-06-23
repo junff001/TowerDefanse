@@ -27,6 +27,8 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     public Button hideBtn;
     public Button shieldBtn;
 
+    public Button viewAllBtn;
+
     private void Start()
     {
         speciesBtn1.onClick.AddListener(() => SetSpeciesType());
@@ -36,6 +38,13 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
         flyBtn.onClick.AddListener(() => SetMonsterType(Define.MonsterType.Fly));
         hideBtn.onClick.AddListener(() => SetMonsterType(Define.MonsterType.Hide));
         shieldBtn.onClick.AddListener(() => SetMonsterType(Define.MonsterType.Shield));
+
+        viewAllBtn.onClick.AddListener(() =>
+        {
+            targetSpeciesType = Define.SpeciesType.None;
+            targetMonsterType = Define.MonsterType.None;
+            ViewBtns();
+        });
 
         MakeAllBtns();
         ViewBtns();
@@ -58,6 +67,11 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
             targetMonsterType = Define.MonsterType.None;
         }
         ViewBtns();
+    }
+
+    public void ViewAllBtns()
+    {
+
     }
 
 
@@ -105,7 +119,7 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     {
         if (targetMonsterType != Define.MonsterType.None) // 정한 몹 타입 있음.
         {
-            List<UI_SpawnMonster> sameMTypeBtns = targetList.FindAll(x => Define.HasType(x.so.MonsterType, targetMonsterType));
+            List<UI_SpawnMonster> sameMTypeBtns = targetList.FindAll(x => x.so.MonsterType.HasFlag(targetMonsterType));
             TurnOnBtns(sameMTypeBtns);
         }
         else // 없음
