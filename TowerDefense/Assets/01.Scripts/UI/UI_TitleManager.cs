@@ -12,7 +12,6 @@ public class UI_TitleManager : MonoBehaviour
     public GameObject selectPanel;
     public GameObject lobyPanel;
     public GameObject topPanel;
-    public GameObject difficultyPanel;
 
     public int num = 0;
     public TextMeshProUGUI diffcultyTex;
@@ -26,12 +25,8 @@ public class UI_TitleManager : MonoBehaviour
 
     void Start()
     {
-        difficultyPanel.SetActive(true);
-
         Diffculty();
 
-        // UI 이동
-        difficultyPanel.transform.localScale = new Vector3(0, 0, 0);
         selectPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * -2);
         topPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * 2);
 
@@ -109,7 +104,7 @@ public class UI_TitleManager : MonoBehaviour
     {
         switch (num)
         {
-            case 0 :
+            case 0:
                 diffcultyTex.text = "Easy";
                 diffcultyTex.color = new Color(0, 255, 0);
                 break;
@@ -139,7 +134,6 @@ public class UI_TitleManager : MonoBehaviour
     public void ChooseStage(int stage)
     {
         Debug.Log($"Target Stage : {stage}");
-        difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
         Managers.Stage.SetTargetStage(stage - 1);
     }
 }
