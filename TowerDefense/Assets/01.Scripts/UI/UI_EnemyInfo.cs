@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_EnemyInfo : MonoBehaviour
 {
     [SerializeField] private Image monsterImg;
-    [SerializeField] private Text costText; // 공격력
-    [SerializeField] private Text hpText    ;   // 체력
-    [SerializeField] private Text speedText ;   // 이동속도
-    [SerializeField] private Text manualText;
+    [SerializeField] private TextMeshProUGUI costText; // 공격력
+    [SerializeField] private TextMeshProUGUI hpText    ;   // 체력
+    [SerializeField] private TextMeshProUGUI speedText ;   // 이동속도
+    [SerializeField] private TextMeshProUGUI manualText;
 
     public void Init(EnemySO so)
     {

@@ -92,14 +92,13 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(Define.SpeciesType speciesType, Define.MonsterType monsterType)
+    public void SpawnEnemy(EnemySO so)
     {
         int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        EnemySO enemySo = Managers.Wave.speciesDic[speciesType][monsterType];
-        EnemyBase enemy = Managers.Wave.basePrefabDict[speciesType];
-        enemy.InitEnemyData(enemySo, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+        EnemyBase enemy = so.BasePrefab;
+        enemy.InitEnemyData(so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
 
         EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
         enemyObj.wayPointListIndex = curSpawnIdx;

@@ -1,4 +1,4 @@
-using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,10 +11,10 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField] private UI_EnemyInfo infoUI;
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform iconParentTrm;
-    [SerializeField] private Text nameText;
-    [SerializeField] private Text costText;
-
-    float pressedTime = 0;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI costText;
+                             
+    float pressedTime = 0;   
     private const float checkPressTime = 1f;
 
     bool isSpawnCooltime = false;
@@ -75,7 +75,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         {
             if(so.SpawnCost < Managers.Gold.Gold)
             {
-                Managers.Invade.SpawnEnemy(so.SpeciesType, so.MonsterType);
+                Managers.Invade.SpawnEnemy(so);
             }
             else
             {

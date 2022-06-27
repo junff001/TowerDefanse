@@ -22,7 +22,7 @@ public class SpawnerInfo
 public class SpawnerMonsterCount
 {
     [Header("적들")]
-    public EnemyBase enemy;
+    public EnemySO so;
     [Header("적 수")]
     public int enemyCount;
     [Header("적 특성")]
