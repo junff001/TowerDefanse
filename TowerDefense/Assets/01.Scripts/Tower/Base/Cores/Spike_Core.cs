@@ -19,7 +19,7 @@ public class Spike_Core : CoreBase
     public override void Attack(int power, HealthSystem enemy)
     {
         enemy.GetComponent<EnemyBase>().AddBuff(Buff);
-        enemy.TakeDamage(TowerData.OffensePower, TowerData.Property);
+        enemy.TakeDamage(TowerData.AttackPower, TowerData.Property);
         hitEffect.transform.position = - enemy.transform.up;
     }
 
@@ -36,7 +36,7 @@ public class Spike_Core : CoreBase
 
                 if (enemies[i] != null)
                 {
-                    Attack(TowerData.OffensePower, enemies[i].healthSystem);
+                    Attack(TowerData.AttackPower, enemies[i].healthSystem);
                 }
             }
 

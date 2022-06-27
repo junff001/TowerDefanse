@@ -71,4 +71,11 @@ public class Define
         BUFF,
         DEBUFF
     }
+
+    public enum GameLevel
+    {
+        Easy = 1,
+        Normal = 2,
+        Hard = 3
+    }
 }

@@ -4,9 +4,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static Define;
+
+public class PercentByLevel
+{
+    public float PercentByEnemyHP;
+    public int PercentByTowerAttackPower;
+    public int PercentByTowerPrice;
+}
+public class DefenseLevel : PercentByLevel
+{
+    [Serializable] public class EasyLevel : DefenseLevel { }
+    [Serializable] public class NormalLevel : DefenseLevel { }
+    [Serializable] public class HardLevel : DefenseLevel { }
+}
+public class OffenseLevel : PercentByLevel
+{
+    [Serializable] public class EasyLevel : DefenseLevel { }
+    [Serializable] public class NormalLevel : DefenseLevel { }
+    [Serializable] public class HardLevel : DefenseLevel { }
+}
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Multiplied Value by StageLevel")]
+    public DefenseLevel.EasyLevel easyLevel_DEF = new DefenseLevel.EasyLevel();
+    public DefenseLevel.NormalLevel normalLevel_DEF = new DefenseLevel.NormalLevel();
+    public DefenseLevel.HardLevel hardLevel_DEF = new DefenseLevel.HardLevel();
+    [Space(10)]
+    public OffenseLevel.EasyLevel easyLevel_OFF = new OffenseLevel.EasyLevel();
+    public OffenseLevel.NormalLevel normalLevel_OFF = new OffenseLevel.NormalLevel();
+    public OffenseLevel.HardLevel hardLevel__OFF = new OffenseLevel.HardLevel();
+   
+    public Dictionary<GameLevel, float> pctByEnemyHP_Dict_DEF = new Dictionary<GameLevel, float>();
+    public Dictionary<GameLevel, int> pctByTowerAttackPower_Dict_DEF = new Dictionary<GameLevel, int>();
+    public Dictionary<GameLevel, int> pctByTowerPrice_Dict_DEF = new Dictionary<GameLevel, int>();
+    public Dictionary<GameLevel, float> pctByEnemyHP_Dict_OFF = new Dictionary<GameLevel, float>();
+    public Dictionary<GameLevel, int> pctByTowerAttackPower_Dict_OFF = new Dictionary<GameLevel, int>();
+    public Dictionary<GameLevel, int> pctByTowerPrice_Dict_OFF = new Dictionary<GameLevel, int>();
+
     public int Hp { get; set; } = 10;
     public int maxHp { get; set; } = 10;
 
@@ -29,10 +65,24 @@ public class GameManager : MonoBehaviour
     public Sprite waitSprite;
 
     //1: 쉬움      2: 보통     3: 어려움
-    public static int stageLevel = 0;
+    public static GameLevel StageLevel { get; set; } = 0;
 
     private void Start()
     {
+        #region Add Percent Value
+        pctByEnemyHP_Dict_DEF.Add(GameLevel.Easy, easyLevel_DEF.PercentByEnemyHP);
+        pctByEnemyHP_Dict_DEF.Add(GameLevel.Normal, normalLevel_DEF.PercentByEnemyHP);
+        pctByEnemyHP_Dict_DEF.Add(GameLevel.Hard, hardLevel_DEF.PercentByEnemyHP);
+
+        pctByTowerAttackPower_Dict_DEF.Add(GameLevel.Easy, easyLevel_DEF.PercentByTowerAttackPower);
+        pctByTowerAttackPower_Dict_DEF.Add(GameLevel.Normal, normalLevel_DEF.PercentByTowerAttackPower);
+        pctByTowerAttackPower_Dict_DEF.Add(GameLevel.Hard, hardLevel_DEF.PercentByTowerAttackPower);
+
+        pctByTowerPrice_Dict_DEF.Add(GameLevel.Easy, easyLevel_DEF.PercentByTowerPrice);
+        pctByTowerPrice_Dict_DEF.Add(GameLevel.Normal, normalLevel_DEF.PercentByTowerPrice);
+        pctByTowerPrice_Dict_DEF.Add(GameLevel.Hard, hardLevel_DEF.PercentByTowerPrice);
+        #endregion
+
         SetWaypoints(waypointsParent);
 
         hpText = Managers.Wave.defenseHpText;

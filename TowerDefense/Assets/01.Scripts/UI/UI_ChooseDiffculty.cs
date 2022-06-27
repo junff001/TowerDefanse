@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using static Define;
 
 public class UI_ChooseDiffculty : MonoBehaviour
 {
@@ -20,21 +21,21 @@ public class UI_ChooseDiffculty : MonoBehaviour
 
         easyBtn.onClick.AddListener(() =>
         {
-            GoInGame(1);
+            GoInGame(GameLevel.Easy);
         });
         normalBtn.onClick.AddListener(() =>
         {
-            GoInGame(2);
+            GoInGame(GameLevel.Normal);
         });
         hardBtn.onClick.AddListener(() =>
         {
-            GoInGame(3);
+            GoInGame(GameLevel.Hard);
         });
     }
 
-    public void GoInGame(int Level)
+    public void GoInGame(GameLevel level)
     {
-        GameManager.stageLevel = 3;
+        GameManager.StageLevel = level;
         Managers.LoadScene.LoadScene("SampleScene");
     }
 }

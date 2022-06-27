@@ -120,7 +120,7 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => target != null && target.IsDead == false);
-            Attack(TowerData.OffensePower, target.healthSystem);
+            Attack(TowerData.AttackPower, target.healthSystem);
            
             yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
         }

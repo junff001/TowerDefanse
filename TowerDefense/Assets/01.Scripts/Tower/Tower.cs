@@ -7,7 +7,7 @@ using UnityEngine;
 public struct TowerData
 {
     public int Level;
-    public int OffensePower;
+    public int AttackPower;
     public float AttackSpeed;
     public float AttackRange;
     public int PlaceCost;
@@ -33,16 +33,18 @@ public class Tower : MonoBehaviour
     private string initSortingLayerName;
     private int initOrderInLayer;
 
-    public void InitTowerData(TowerSO towerSO)
+    public void InitTowerData(TowerSO towerSO, int addPctTowerAtkPower)
     {
         towerData.Level = towerSO.Level;
-        towerData.OffensePower = towerSO.OffensePower;
+        towerData.AttackPower = towerSO.AttackPower;
         towerData.AttackSpeed = towerSO.AttackSpeed;
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
         towerData.attackTargetCount = towerSO.AttackTargetCount;
         towerData.Property = towerSO.propertyType;
         towerData.PlaceTileType = towerSO.placeTileType;
+
+        towerData.AttackPower += towerData.AttackPower * addPctTowerAtkPower;
     }
 
     private void OnMouseDown()

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using System;
+using static Define;
 
 public class WaveManager : MonoBehaviour
 {
@@ -71,7 +73,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
         int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
 
@@ -202,7 +204,7 @@ public class WaveManager : MonoBehaviour
             EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
             EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.enemy.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemySO);
+            enemyObj.InitEnemyData(enemySO, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);
@@ -211,11 +213,11 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void ChangeMode(Define.GameMode gameMode)
+    private void ChangeMode(GameMode gameMode)
     {
         switch (gameMode)
         {
-            case Define.GameMode.DEFENSE:
+            case GameMode.DEFENSE:
                 {
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
@@ -232,7 +234,7 @@ public class WaveManager : MonoBehaviour
                     monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
                 }
                 break;
-            case Define.GameMode.OFFENSE:
+            case GameMode.OFFENSE:
                 {
                     GameObject obj = Managers.Build.movingObj;
 

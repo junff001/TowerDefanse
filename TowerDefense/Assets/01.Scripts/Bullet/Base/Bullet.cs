@@ -30,7 +30,7 @@ public abstract class Bullet : MonoBehaviour
         startPos = transform.position;
         targetPos = enemyTrm.position;
         PropertyType = towerData.Property;
-        BulletDamage = towerData.OffensePower;
+        BulletDamage = towerData.AttackPower;
         Buff = buff;
         curTime = 0;
     }

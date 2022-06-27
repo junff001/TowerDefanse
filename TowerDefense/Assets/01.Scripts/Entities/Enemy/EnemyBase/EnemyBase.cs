@@ -134,7 +134,7 @@ public abstract class EnemyBase : MonoBehaviour
         buffList.Add(buff);
     }
 
-    public void InitEnemyData(EnemySO enemySO)
+    public void InitEnemyData(EnemySO enemySO, float addPercentEnemyHP)
     {
         enemyData.HP            = enemySO.HP;
         enemyData.Shield        = enemySO.Shield;
