@@ -143,21 +143,10 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.RewardGold    = enemySO.RewardGold;
         enemyData.MonsterType   = enemySO.MonsterType;
         enemyData.SpeciesType   = enemySO.SpeciesType;
-<<<<<<< HEAD
-        enemyData.IsShadow      = Define.HasType(enemyData.MonsterType, Define.MonsterType.Shadow);
-        enemyData.IsGuardian    = Define.HasType(enemyData.MonsterType, Define.MonsterType.Guardian);
-        enemyData.IsArmor       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Armor);
-        enemyData.IsWitch       = Define.HasType(enemyData.MonsterType, Define.MonsterType.Witch);
-        enemyData.IsAlchemist   = Define.HasType(enemyData.MonsterType, Define.MonsterType.Alchemist);
-        enemyData.IsFly         = Define.HasType(enemyData.MonsterType, Define.MonsterType.Fly);
-
-        enemyData.HP += enemyData.HP * addPercentEnemyHP;
-=======
         enemyData.IsHide        = enemyData.MonsterType.HasFlag(Define.MonsterType.Hide);
         enemyData.IsShilde      = enemyData.MonsterType.HasFlag(Define.MonsterType.Shield);
         enemyData.IsArmor       = enemyData.MonsterType.HasFlag(Define.MonsterType.Armor);
         enemyData.IsFly         = enemyData.MonsterType.HasFlag(Define.MonsterType.Fly);
->>>>>>> 1bd9b3b781a0ac1c848ec8f2351b22cd4d860498
     }
 
     public void InitAnimController()
