@@ -27,8 +27,8 @@ public class TowerSO : ScriptableObject
     public int Level { get => level; }
 
     // 공격력
-    [SerializeField] private int offensePower  = 0;           
-    public int OffensePower { get => offensePower; }
+    [SerializeField] private int attackPower  = 0;           
+    public int AttackPower { get => attackPower; }
 
     // 공격속도
     [SerializeField] private float attackSpeed = 0f;              

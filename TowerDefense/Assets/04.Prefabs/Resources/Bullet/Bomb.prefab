@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3188361967190122603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -33704209
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -7310884378538523348, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,10 +96,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  speed: 0
   PropertyType: 0
   curTime: 0
   maxTime: 1
   explosionRadius: 3
   enemyMask:
     serializedVersion: 2
-    m_Bits: 32256
+    m_Bits: 1024

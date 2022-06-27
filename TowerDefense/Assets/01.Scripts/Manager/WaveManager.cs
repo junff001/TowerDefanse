@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using System;
+using static Define;
 
 public class WaveManager : MonoBehaviour
 {
@@ -46,10 +48,7 @@ public class WaveManager : MonoBehaviour
     [Header("오펜스UI")]
     public CanvasGroup offenseMonsterGroup;
     public RectTransform offenseStatus;
-    public Transform monsterContent;
     public Text offenseHpText;
-    public UI_SpawnMonster addBtnPrefab;
-    public UI_SpawnMonster addWaitBtnPrefab;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -74,7 +73,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
         int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
 
@@ -141,32 +140,6 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    public void SetMonsterAddBtns() // 오펜스 모드 웨이브 편성 가능 몬스터 세팅
-    {
-        List<SpawnerMonsterCount> monsterTypeList = new List<SpawnerMonsterCount>();
-
-        for (int i = 0; i < waveSO.waveEnemyInfos.Length; i++)
-        {
-            SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[i].monsterBox;
-
-            for(int j = 0; j < enemyBox.Length; j++)
-            {
-                monsterTypeList.Add(enemyBox[j]);
-            }
-        }
-
-        monsterTypeList = monsterTypeList.Distinct().ToList();
-        for (int i = 0; i < monsterTypeList.Count; i++)
-        {
-            UI_SpawnMonster addBtn = Instantiate(addBtnPrefab, monsterContent);
-            Debug.Log($"{monsterTypeList[i].monsterType}  {monsterTypeList[i].speciesType}");
-            addBtn.Init(monsterTypeList[i].monsterType, monsterTypeList[i].speciesType);
-        }
-
-        UI_SpawnMonster addWaitBtn = Instantiate(addWaitBtnPrefab, monsterContent);
-        addWaitBtn.Init(default, default);
-    }
-
     public void CheckWaveEnd()
     {
         if (gameMode == Define.GameMode.DEFENSE)
@@ -183,7 +156,6 @@ public class WaveManager : MonoBehaviour
                     // 오펜스 모드로 교체!
                     GameMode = Define.GameMode.OFFENSE;
                     Managers.Game.towerInfoUI.CloseInfo();
-                    SetMonsterAddBtns();
 
                 }
                 else
@@ -232,7 +204,7 @@ public class WaveManager : MonoBehaviour
             EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
             EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.enemy.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemySO);
+            enemyObj.InitEnemyData(enemySO, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);
@@ -241,11 +213,11 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void ChangeMode(Define.GameMode gameMode)
+    private void ChangeMode(GameMode gameMode)
     {
         switch (gameMode)
         {
-            case Define.GameMode.DEFENSE:
+            case GameMode.DEFENSE:
                 {
                     GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
@@ -262,13 +234,18 @@ public class WaveManager : MonoBehaviour
                     monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
                 }
                 break;
-            case Define.GameMode.OFFENSE:
+            case GameMode.OFFENSE:
                 {
+                    GameObject obj = Managers.Build.movingObj;
+
                     if (Managers.Build.movingObj != null)
                     {
-                        Managers.Build.movingObj.GetComponent<RectTransform>().anchoredPosition = Vector3.zero; // 돌려보내기
-                        Managers.Build.ResetCheckedTiles(true);
+                        obj.transform.position = Vector3.zero; // 돌려보내기
+                        obj.SetActive(false);
+
+                        Managers.Build.rangeObj.gameObject.SetActive(false);
                         Managers.Build.movingObj = null;
+                        Managers.Build.ResetCheckedTiles(true);
                     }
 
                     Wave = 1;

@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/EnemyData")]
 public class EnemySO : ScriptableObject
 {
+    // 특성
+    [SerializeField] private string myType;
+    public string MyType { get => myType; set => value = myType; }
+
     // 체력
     [SerializeField] private float hp = 0;                          
     public float HP { get => hp; set => value = hp; }
@@ -40,4 +44,7 @@ public class EnemySO : ScriptableObject
     // 충전 시간
     [SerializeField] private int chargeTime = 0;
     public int ChargeTime { get => chargeTime; set => value = chargeTime; }
+
+    [SerializeField] private SpineDataSO spineData;
+    public SpineDataSO SpineData { get => spineData; set => value = spineData; }
 }

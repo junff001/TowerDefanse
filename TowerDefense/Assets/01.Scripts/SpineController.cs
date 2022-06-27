@@ -7,10 +7,7 @@ using DG.Tweening;
 
 public class SpineController : MonoBehaviour
 {
-    private string dieAnim = string.Empty;
-    private string runAnim = string.Empty;
-    private string flyAnim = string.Empty;
-
+    private string dieAnim = string.Empty; // 사망 애니메이션 이름
 
     //팔 다리 머리같은 기본적으로 장착하는 부분.
     private string[] baseAttachments = 
@@ -37,12 +34,18 @@ public class SpineController : MonoBehaviour
         
     }
 
+    public void Init(SpineDataSO spineData)
+    {
+        SetParts(spineData.targetSlots);
+        dieAnim = spineData.dieAnim;
+        sa.AnimationName = spineData.runAnim;
+    }
 
-    public void SetParts(string[] targetSlots, string[] attachmentKeys)
+    public void SetParts(string[] targetSlots)
     {
         for (int i = 0; i < targetSlots.Length; i++)
         {
-            skeleton.SetAttachment(targetSlots[i], attachmentKeys[i]);
+            skeleton.SetAttachment(targetSlots[i], targetSlots[i]);
         }
     }
 
@@ -53,6 +56,4 @@ public class SpineController : MonoBehaviour
         DOTween.To(() => sa.skeleton.A, value => sa.skeleton.A = value, 0, 0.75f).SetDelay(0.75f);
     }
 
-    // 비행몹 떨어지게 하기
-    public void FallDown() => sa.AnimationName = runAnim;
 }

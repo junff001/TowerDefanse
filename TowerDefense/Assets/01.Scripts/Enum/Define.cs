@@ -32,19 +32,15 @@ public class Define
     }
 
     
-    public static bool HasType(MonsterType monsterType, MonsterType compareType) => (monsterType & compareType) != 0;
-
     [System.Flags]
     public enum MonsterType // 몹 추가될 때마다 추가해줘
     {
         None        = 0,
         Normal      = 1 << 0,
-        Shadow      = 1 << 1,
-        Alchemist   = 1 << 2,
-        Armor       = 1 << 3,
-        Guardian    = 1 << 4,
-        Witch       = 1 << 5,
-        Fly         = 1 << 6,
+        Hide        = 1 << 1,
+        Armor       = 1 << 2,
+        Shield      = 1 << 3,
+        Fly         = 1 << 4,
     }
 
     public enum SpeciesType // 종족
@@ -74,5 +70,12 @@ public class Define
     {
         BUFF,
         DEBUFF
+    }
+
+    public enum GameLevel
+    {
+        Easy = 1,
+        Normal = 2,
+        Hard = 3
     }
 }

@@ -125,11 +125,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         }
     }
 
+    // 내거랑 다르거나 옮기고 있는 오브젝트가 없고, 
     public bool CanDrag()
     {
-        GameObject movingObj = Managers.Build.movingObj;
-
-        return movingObj == fakeTower || movingObj == null; // 내거랑 다르거나 옮기고 있는 오브젝트가 없으면
+        return (Managers.Build.movingObj == fakeTower || Managers.Build.movingObj == null) && Managers.Wave.GameMode == Define.GameMode.DEFENSE; 
     }
 
     bool IsLeftBtn(PointerEventData e) => e.button == PointerEventData.InputButton.Left;

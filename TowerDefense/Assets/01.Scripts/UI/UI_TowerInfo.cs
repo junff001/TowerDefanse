@@ -122,7 +122,8 @@ public class UI_TowerInfo : MonoBehaviour
 
             Managers.Build.SetTowerGrid(CurrentSelectedTower, CurrentSelectedTower.myCheckedPos, false);
 
-            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * 0.6f; // TO DO : 나중에 난이도 따라 달라야함
+            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * (Managers.Game.pctByTowerPrice_Dict_DEF[GameManager.StageLevel] / 100);
+
             Managers.Gold.GoldPlus(returnGold);
 
             Vector3 screenPos = Camera.main.WorldToScreenPoint(CurrentSelectedTower.transform.position);

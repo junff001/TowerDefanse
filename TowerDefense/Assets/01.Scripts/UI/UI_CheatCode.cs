@@ -50,10 +50,10 @@ public class UI_CheatCode : MonoBehaviour
         {
             switch (split_command[0])
             {
-                case "/setvalue":
+                case "/sv":
                     SetValueCommand(split_command);
                     break;
-                case "/timescale":
+                case "/ts":
                     TimeScaleCommand(split_command);
                     break;
                 case "/showui":
@@ -75,7 +75,7 @@ public class UI_CheatCode : MonoBehaviour
                     if(int.TryParse(command[2], out int result))
                     {
                         Managers.Gold.GoldSet(result);
-                        PopupText text = new PopupText($"gold °ªÀ» {result}·Î ¼³Á¤Çß½À´Ï´Ù");
+                        PopupText text = new PopupText($"gold ê°’ì„ {result}ë¡œ ì„¤ì •í–ˆìŠµë‹ˆë‹¤");
                         text.maxSize = 40;
                         Managers.UI.SummonRectText(new Vector2(960, 300), text);
                     }
@@ -84,7 +84,7 @@ public class UI_CheatCode : MonoBehaviour
                     if (int.TryParse(command[2], out int result2))
                     {
                         Managers.Game.SetHP(result2);
-                        PopupText text = new PopupText($"health °ªÀ» {result2}·Î ¼³Á¤Çß½À´Ï´Ù");
+                        PopupText text = new PopupText($"health ê°’ì„ {result2}ë¡œ ì„¤ì •í–ˆìŠµë‹ˆë‹¤");
                         text.maxSize = 40;
                         Managers.UI.SummonRectText(new Vector2(960, 300), text);
                     }
@@ -102,13 +102,13 @@ public class UI_CheatCode : MonoBehaviour
                 if (result >= 0 && result <= 16)
                 {
                     Time.timeScale = result;
-                    PopupText text = new PopupText($"timeScale °ªÀ» {result}·Î ¼³Á¤Çß½À´Ï´Ù");
+                    PopupText text = new PopupText($"timeScale ê°’ì„ {result}ë¡œ ì„¤ì •í–ˆìŠµë‹ˆë‹¤");
                     text.maxSize = 40;
                     Managers.UI.SummonRectText(new Vector2(960, 300), text);
                 }
                 else
                 {
-                    PopupText text = new PopupText($"Àß¸øµÈ °ªÀÔ´Ï´Ù : (0 ~ 16)");
+                    PopupText text = new PopupText($"ì˜ëª»ëœ ê°’ì…ë‹ˆë‹¤ : (0 ~ 16)");
                     text.maxSize = 40;
                     Managers.UI.SummonRectText(new Vector2(960, 300), text);
                 }
@@ -141,7 +141,7 @@ public class UI_CheatCode : MonoBehaviour
             showui_inGameCanvas.SetActive(value);
             showui_enabled = value;
 
-            PopupText text = new PopupText($"UI º¸ÀÌ±â ¿©ºÎ¸¦ {value}·Î ¼³Á¤Çß½À´Ï´Ù");
+            PopupText text = new PopupText($"UI ë³´ì´ê¸° ì—¬ë¶€ë¥¼ {value}ë¡œ ì„¤ì •í–ˆìŠµë‹ˆë‹¤");
             text.maxSize = 40;
             Managers.UI.SummonRectText(new Vector2(960, 300), text);
         }
