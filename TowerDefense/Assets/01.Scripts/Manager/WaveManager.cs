@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using TMPro;
 using static Define;
 
 public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
-    public Text waveRoundCount;
+    public TextMeshProUGUI waveRoundCount;
 
     [Header("웨이브")]
     private int _wave = 1;
@@ -35,12 +36,12 @@ public class WaveManager : MonoBehaviour
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
     public RectTransform defenseStatus;
-    public Text defenseHpText;
+    public TextMeshProUGUI defenseHpText;
 
     [Header("오펜스UI")]
     public CanvasGroup offenseMonsterGroup;
     public RectTransform offenseStatus;
-    public Text offenseHpText;
+    public TextMeshProUGUI offenseHpText;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -125,7 +126,6 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            Managers.Invade.MaxMonsterCount += rewardWave;
             text.text = $"웨이브 편성 수 {rewardWave} 증가!";
             Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }

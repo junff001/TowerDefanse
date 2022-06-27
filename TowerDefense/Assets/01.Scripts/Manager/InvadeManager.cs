@@ -1,9 +1,6 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class InvadeManager : MonoBehaviour
 {
     public int MaxMonsterCount = 3;
@@ -14,21 +11,27 @@ public class InvadeManager : MonoBehaviour
     private int curSpawnCount = 0;
 
     public Color overlapColor;
-    public Text monsterText;
-
     public bool isWaveProgress = false;
     public float currentTime { get; set; } = 0f;
 
-    public ActData addedAct = null;
+    // ____________ 여기까지는 기존 인베이드 매니저에 필요한 데이터
 
-    public RectTransform waitingActContentTrm;
-    public RectTransform invisibleObj;
-
-    public UI_SpawnMonster draggingBtn = null;
-
+    public float time = 0f;
+    public float maxTime = 180f;
+    public bool bStartedOffense = false;
 
     private void Update()
     {
+        if(bStartedOffense)
+        {
+            time += Time.deltaTime;
+
+            if(time > maxTime)
+            {
+                Debug.Log("오펜스 실패!");
+            }
+        }
+
         if(isWaveProgress)
         {
             currentTime += Time.deltaTime;
@@ -91,6 +94,20 @@ public class InvadeManager : MonoBehaviour
                 break;
         }
     }
+    
+    public void WaveStart() // 오펜스 시작, 타이머 시작, 시작 소리 플레이
+    {
+        if(bStartedOffense == false)
+        {
+            bStartedOffense = true;
+            curSpawnIdx = 0;
+            Managers.Sound.Play("System/StartWave");
+        }
+        else
+        {
+            Debug.Log("이미 오펜스를 시작했습니다");
+        }
+    }
 
     public void SpawnEnemy(EnemySO so)
     {
@@ -110,36 +127,6 @@ public class InvadeManager : MonoBehaviour
         {
             curSpawnCount = 0;
             curSpawnIdx = (curSpawnIdx + 1) % wayCount;
-        }
-    }
-
-    public void WaveStart() //TryAct라는 말이 웨이브 시작할 때 실행할 함수명으로 적절치 않아서 그냥 WaveStart라고 따로 만들어뒀어여
-    {
-        if(!isWaveProgress)
-        {
-            if (curAddedMonsterCount <= MaxMonsterCount && curAddedMonsterCount > 0) // 아예 안소환하는건 이상하니까.. 0은 체크했습니당
-            {
-                isWaveProgress = true;
-
-                curSpawnCount = 0;
-                curSpawnIdx = 0;
-
-                Managers.Sound.Play("System/StartWave");
-            }
-            else
-            {
-                PopupText text = new PopupText($"현재 웨이브 수{curAddedMonsterCount}/{MaxMonsterCount}");
-                text.maxSize = 60;
-
-                Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
-            }
-        }
-        else
-        {
-            PopupText text = new PopupText($"웨이브 진행중입니다!");
-            text.maxSize = 60;
-
-            Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
     }
 
