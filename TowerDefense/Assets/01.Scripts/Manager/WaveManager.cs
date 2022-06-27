@@ -26,7 +26,7 @@ public class WaveManager : MonoBehaviour
         }
     }
     public RectTransform waveRect;
-    public WaveSO waveSO;
+    public MapInfoSO waveSO;
 
     public List<EnemySO> enemySOList = new List<EnemySO>();
     [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();

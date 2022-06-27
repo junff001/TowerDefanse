@@ -7,31 +7,33 @@ using TMPro;
 
 public class UI_TitleManager : MonoBehaviour
 {
-    public List<RectTransform>  statgePanel = new List<RectTransform>();
+    public UI_WorldMap[] worldMaps;
+    public RectTransform stageMapRect;
+    private int scrollIndex = 0;
 
     public GameObject selectPanel;
     public GameObject lobyPanel;
     public GameObject topPanel;
 
-    public int num = 0;
     public RectTransform mid;
     
     public Button nextBtn;
     public Button backBtn;
     public Button selectBtn;
     public Button exitBtn;
-    bool isClick = false;
 
     void Start()
     {
         nextBtn.onClick.AddListener(() =>
         {
-            NextSlide();
+            SetIndexMap(scrollIndex + 1);
         });
+
         backBtn.onClick.AddListener(() =>
         {
-            BackSlide();
+            SetIndexMap(scrollIndex - 1);
         });
+
         selectBtn.onClick.AddListener(() =>
         {
             lobyPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * -2, 0.5f);
@@ -47,56 +49,20 @@ public class UI_TitleManager : MonoBehaviour
         });
     }
 
+    private void SetIndexMap(int index)
+    {
+        scrollIndex = index;
+
+        backBtn.gameObject.SetActive(scrollIndex > 0);
+        nextBtn.gameObject.SetActive(scrollIndex < worldMaps.Length - 1);
+
+        Slide(scrollIndex);
+    }
+
     //앞으로 넘어가는 화면
-    private void NextSlide()
+    private void Slide(int index)
     {
-        if (!isClick)
-        {
-            statgePanel[num].DOMoveX(Screen.width * -2, 0.5f);
-            if (num >= 3)
-            {
-                statgePanel[0].anchoredPosition = new Vector3(Screen.width * 2, 0);
-                statgePanel[0].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num = 0;
-            }
-            else
-            {
-                statgePanel[num + 1].anchoredPosition = new Vector3(Screen.width * 2, 0);
-                statgePanel[num + 1].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num++;
-            }
-            StartCoroutine("ClickDelay");
-        }
-    }
-
-    //뒤으로 넘어가는 화면
-    private void BackSlide()
-    {
-        if (!isClick)
-        {
-            statgePanel[num].DOMoveX(Screen.width * 2, 0.5f);
-            if (num <= 0)
-            {
-                statgePanel[3].anchoredPosition = new Vector3(Screen.width * -2, 0);
-                statgePanel[3].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num = 3;
-            }
-            else
-            {
-                statgePanel[num - 1].anchoredPosition = new Vector3(Screen.width * -2, 0);
-                statgePanel[num - 1].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num--;
-            }
-
-            StartCoroutine(ClickDelay());
-        }
-    }
-
-    IEnumerator ClickDelay()
-    {
-        isClick = true;
-        yield return new WaitForSeconds(0.3f);
-        isClick = false;
+        stageMapRect.DOAnchorPosX(-Screen.width * index, 0.5f);
     }
 
     public void ChooseStage(int stage)
