@@ -14,7 +14,6 @@ public class UI_TitleManager : MonoBehaviour
     public GameObject topPanel;
 
     public int num = 0;
-    public TextMeshProUGUI diffcultyTex;
     public RectTransform mid;
     
     public Button nextBtn;
@@ -25,19 +24,12 @@ public class UI_TitleManager : MonoBehaviour
 
     void Start()
     {
-        Diffculty();
-
-        selectPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * -2);
-        topPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * 2);
-
         nextBtn.onClick.AddListener(() =>
         {
-            Diffculty();
             NextSlide();
         });
         backBtn.onClick.AddListener(() =>
         {
-            Diffculty();
             BackSlide();
         });
         selectBtn.onClick.AddListener(() =>
@@ -100,32 +92,8 @@ public class UI_TitleManager : MonoBehaviour
         }
     }
 
-    public void Diffculty()
-    {
-        switch (num)
-        {
-            case 0:
-                diffcultyTex.text = "Easy";
-                diffcultyTex.color = new Color(0, 255, 0);
-                break;
-            case 1:
-                diffcultyTex.text = "Normal";
-                diffcultyTex.color = new Color(255, 250, 0);
-                break;
-            case 2:
-                diffcultyTex.text = "Hard";
-                diffcultyTex.color = new Color(255, 0, 0);
-                break;
-            case 3:
-                diffcultyTex.text = "Tutorial";
-                diffcultyTex.color = new Color(150, 255, 255);
-                break;
-        }
-    }
-
     IEnumerator ClickDelay()
     {
-        Diffculty();
         isClick = true;
         yield return new WaitForSeconds(0.3f);
         isClick = false;
