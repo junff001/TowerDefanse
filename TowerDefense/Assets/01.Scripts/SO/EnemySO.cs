@@ -9,6 +9,10 @@ public class EnemySO : ScriptableObject
     [SerializeField] private string myName;
     public string MyName { get => myName; set => value = myName; }
 
+    //몬스터 설명
+    [TextArea][SerializeField] private string manual;
+    public string Manual { get => manual; set => value = manual; }
+
     // 체력
     [SerializeField] private float hp = 0;                          
     public float HP { get => hp; set => value = hp; }
@@ -48,10 +52,6 @@ public class EnemySO : ScriptableObject
     // 특성 아이콘들
     [SerializeField] private Sprite[] typeIcons= null;
     public Sprite[] TypeIcons { get => typeIcons; set => value = typeIcons; }
-
-    // 충전 시간
-    [SerializeField] private int chargeTime = 0;
-    public int ChargeTime { get => chargeTime; set => value = chargeTime; }
 
     // 스파인 데이터
     [SerializeField] private SpineDataSO spineData;

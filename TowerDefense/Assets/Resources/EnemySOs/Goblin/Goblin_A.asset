@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
   m_Name: Goblin_A
   m_EditorClassIdentifier: 
-  myType: A
+  myName: "\uC544 \u314B\u314B \uACE0\uBE14\uB9B0\uC774\uB77C\uACE0"
+  manual: "\uC885\uC871 \uD2B9\uC131(\uACE0\uBE14\uB9B0) : \uC5C6\uC74C\n\uC740\uC2E0"
   hp: 600
   shield: 600
   offensePower: 1
   moveSpeed: 1.7
   rewardGold: 10
+  spawnCost: 10
   monsterType: 4
   speciesType: 1
   sprite: {fileID: 21300000, guid: 7083818d45937d54dbd73d7936d46d2a, type: 3}
-  chargeTime: 0
+  typeIcons:
+  - {fileID: 3027523047140068486, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
   spineData: {fileID: 11400000, guid: 41d71041a517c2c41950a2444a3f3a0c, type: 2}
