@@ -1,51 +1,65 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler
+public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] Text stackText = null; // 스택 텍스트
-    [SerializeField] Text typeText = null; // 타입 텍스트
     public Image monsterImg;
     public Image cooltimeImg; // 스택이 0일 때, 충전률 보여주기
 
-    public EnemySO so = null;
-    public int stackCount;
-    public int maxStackCount = 10;
+    [HideInInspector] public EnemySO so = null;
+    [SerializeField] private GameObject iconPrefab;
+
+    [SerializeField] Transform iconParentTrm;
+    [SerializeField] Text nameText;
+    [SerializeField] Text costText;
+
+    [SerializeField] private GameObject infoUI;
 
     float timer = 0f;
     public float coolTime = 1f;
 
+    bool isSpawnCooltime = false;
+    bool isPressing = false;
+    float pressedTime = 0;
+    float checkPressTime = 0.5f;
+    
     private void Update()
     {
-        if (stackCount >= maxStackCount) return; // 더 쌓아두면 안돼!
+        if(isPressing)
+        {
+            pressedTime += Time.deltaTime;
+
+            if(pressedTime > checkPressTime)
+            {
+                ShowInfoUI(true);
+                isPressing = false;
+            }
+        }
 
         ShowCoolTime();
     }
 
-    private void ShowCoolTime()
+    private void ShowInfoUI(bool active)
     {
-        float fillAmount = timer / coolTime;
-        cooltimeImg.fillAmount = Mathf.Clamp(fillAmount, 0, 1);
-        timer += Time.deltaTime;
-
-        if (timer >= coolTime)
-        {
-            timer = 0f;
-            stackCount++;
-            stackText.text = stackCount.ToString();
-
-            CheckStack();
-        }
+        infoUI.SetActive(active);
     }
 
-    private void CheckStack()
+    private void ShowCoolTime()
     {
-        // 스택이 0일때만 쿨타임 보여주기. 그게 아니면 텍스트로 초만 띄워주죠?
-        if(stackCount == 0)
+        if (isSpawnCooltime)
         {
-            Color targetColor = new Color(cooltimeImg.color.r, cooltimeImg.color.g, cooltimeImg.color.b, 0.8f);
-            cooltimeImg.color = targetColor;
+            timer += Time.deltaTime;
+            float fillAmount = timer / coolTime;
+            cooltimeImg.fillAmount = Mathf.Clamp(fillAmount, 0, 1);
+
+            if (timer > coolTime)
+            {
+                timer = 0f;
+                isSpawnCooltime = false;
+                cooltimeImg.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -55,21 +69,35 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler
 
         monsterImg.sprite = so.Sprite;
         coolTime = so.ChargeTime;
-        typeText.text = so.MyType;
-        stackText.text = stackCount.ToString();
+        nameText.text = so.MyName;
+        costText.text = so.SpawnCost.ToString();
+
+        for(int i = 0;i < so.TypeIcons.Length; i++)
+        {
+            GameObject go = Instantiate(iconPrefab, iconParentTrm);
+            go.GetComponent<Image>().sprite = so.TypeIcons[i];
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(stackCount > 0)
+        isPressing = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (false == isSpawnCooltime && pressedTime < checkPressTime) // 스폰 가능
         {
             Managers.Invade.SpawnEnemy(so.SpeciesType, so.MonsterType);
-            stackCount--;
-            CheckStack();
         }
-        else
+        else // 스폰 불가능
         {
             Managers.UI.SummonPosText(transform.position, new PopupText($"{(int)(coolTime - timer)}초 뒤 충전됩니다."));
         }
+        
+        isPressing = false;
+        pressedTime = 0f;
+
+        ShowInfoUI(false);
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/EnemyData")]
 public class EnemySO : ScriptableObject
 {
-    // 특성
-    [SerializeField] private string myType;
-    public string MyType { get => myType; set => value = myType; }
+    //고블린 이름 : 단단하고 견고한.. 등등
+    [SerializeField] private string myName;
+    public string MyName { get => myName; set => value = myName; }
 
     // 체력
     [SerializeField] private float hp = 0;                          
@@ -29,6 +29,10 @@ public class EnemySO : ScriptableObject
     [SerializeField] private int rewardGold = 0;
     public int RewardGold { get => rewardGold; set => value = rewardGold; }
 
+    // 소환 코스트
+    [SerializeField] private int spawnCost = 0;
+    public int SpawnCost { get => spawnCost; set => value = spawnCost; }
+
     //몬스터의 특성
     [SerializeField] private Define.MonsterType monsterType;
     public Define.MonsterType MonsterType { get => monsterType; set => value = monsterType; }
@@ -41,10 +45,15 @@ public class EnemySO : ScriptableObject
     [SerializeField] private Sprite sprite = null;
     public Sprite Sprite { get => sprite; set => value = sprite; }
 
+    // 특성 아이콘들
+    [SerializeField] private Sprite[] typeIcons= null;
+    public Sprite[] TypeIcons { get => typeIcons; set => value = typeIcons; }
+
     // 충전 시간
     [SerializeField] private int chargeTime = 0;
     public int ChargeTime { get => chargeTime; set => value = chargeTime; }
 
+    // 스파인 데이터
     [SerializeField] private SpineDataSO spineData;
     public SpineDataSO SpineData { get => spineData; set => value = spineData; }
 }
