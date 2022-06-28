@@ -39,6 +39,8 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
 
         viewAllBtn.onClick.AddListener(() =>
         {
+            spawnBtnList.Sort((x, y) => x.name.CompareTo(y.name));
+
             targetSpeciesType = Define.SpeciesType.None;
             targetMonsterType = Define.MonsterType.None;
             ViewBtns();
@@ -99,7 +101,6 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     public void ViewBtns() // 조건에 맞게 보여주기
     {
         ClearBtns();
-
         if (targetSpeciesType != Define.SpeciesType.None)
         {
             List<UI_SpawnMonster> sameSTypeBtns = spawnBtnList.FindAll((x) => x.so.SpeciesType == targetSpeciesType);
@@ -126,9 +127,16 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
 
     void TurnOnBtns(List<UI_SpawnMonster> list)
     {
+        int idx = 0;
+
         for (int i = 0; i < list.Count; i++)
         {
             list[i].gameObject.SetActive(true);
+            if(list[i].isMarked)
+            {
+                list[i].transform.SetSiblingIndex(idx);
+                idx++;
+            }
             activedBtns.Add(list[i]);
         }
     }

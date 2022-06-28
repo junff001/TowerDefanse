@@ -17,7 +17,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField] private Sprite markedSprite;
     [SerializeField] private Sprite notMarkedSprite;
     [SerializeField] private Button bookmarkBtn;
-    private bool isMarked = false;
+    [HideInInspector] public bool isMarked = false;
 
     float pressedTime = 0;   
     private const float checkPressTime = 0.25f;

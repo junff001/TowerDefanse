@@ -18,6 +18,7 @@ public class InvadeManager : MonoBehaviour
     #endregion 
 
     private float maxTime = 30f;
+    private float time = 0f;
     public bool isOffenseProgress = false;
 
     [HideInInspector] public List<UI_SpawnMonster> bookmarkedMonsters = new List<UI_SpawnMonster>();
@@ -37,6 +38,7 @@ public class InvadeManager : MonoBehaviour
     private void Start()
     {
         maxTime = Managers.Wave.mapInfoSO.limitTime;
+        time = maxTime;
         timerText = Managers.Wave.roundCountText;
 
         changeBtn.onClick.AddListener(() =>
@@ -68,18 +70,20 @@ public class InvadeManager : MonoBehaviour
     {
         if(isOffenseProgress) // 오펜스 시작 버튼 누르면 시작함.
         {
-            maxTime -= Time.deltaTime;
-            timerText.text = Mathf.Clamp(Mathf.CeilToInt(maxTime), 0, maxTime).ToString();
+            time -= Time.deltaTime;
+            time = Mathf.Clamp(time, 0, maxTime);
+            timerText.text = time.ToString("0.00");
 
-            if (maxTime == 0) // clamp 걸어놨엉
+
+            if (time <= 0) // clamp 걸어놨엉
             {
                 isOffenseProgress = false;
                 PopupText text = new PopupText("게임오버!");
                 text.maxSize = 60;
                 text.textColor = Color.red;
                 text.moveTime = 1.5f;
-                Managers.UI.SummonPosText(Vector2.zero, text, true);
-                Debug.Log("오펜스 실패!");
+                Managers.UI.SummonPosText(Vector2.zero, text, true, () => Managers.Game.gameOverUI.gameObject.SetActive(true));
+                
             }
         }
 

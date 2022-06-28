@@ -148,7 +148,6 @@ public class WaveManager : MonoBehaviour
                 {
                     Managers.Sound.Play("System/Win");
                     Managers.Game.clearUI.gameObject.SetActive(true);
-                    //Time.timeScale = 0;
                 }
                 else
                 {
@@ -203,8 +202,6 @@ public class WaveManager : MonoBehaviour
 
                     CanvasGroupInit(offenseMonsterGroup, false);
                     monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
-
-                    roundCountText.text = "오펜스 대기 시간!";
                 }
                 break;
             case GameMode.OFFENSE:
@@ -237,11 +234,6 @@ public class WaveManager : MonoBehaviour
                     CanvasGroupInit(defenseTowerGroup, false);
                     towerRect.DOAnchorPosY(-towerRect.sizeDelta.y, 0.5f);
 
-                    //타워 지우기
-                    foreach (Tower tower in Managers.Build.spawnedTowers)
-                    {
-                        Destroy(tower.gameObject);
-                    }
                     Managers.Build.spawnedTowers.Clear();
 
                     //공격 전부 꺼주기(Bullet 상속 받은 친구들)
@@ -281,7 +273,15 @@ public class WaveManager : MonoBehaviour
         waveRect.DOKill();
         waveRect.DOAnchorPosY(100, 0.75f).SetEase(Ease.InOutBack).OnComplete(() =>
         {
-            roundCountText.text = $"Wave {_wave}";
+            if(gameMode == GameMode.DEFENSE)
+            {
+                roundCountText.text = $"Wave {_wave}";
+            }
+            else // 오펜스 모드면
+            {
+                roundCountText.text = "오펜스 대기 시간!";
+            }
+
             waveRect.DOAnchorPosY(-6, 0.75f).SetEase(Ease.InOutBack);
         });
     }
