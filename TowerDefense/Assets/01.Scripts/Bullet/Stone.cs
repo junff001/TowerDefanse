@@ -4,9 +4,9 @@ public class Stone : Bullet
 {
     Vector2 curvePoint = Vector2.zero;
 
-    public override void Init(TowerData towerData, Transform enemyTrm, BuffBase buff)
+    public override void InitProjectileData(float damage, Transform enemyTrm, BuffBase buff)
     {
-        base.Init(towerData, enemyTrm, buff);
+        base.InitProjectileData(damage, enemyTrm, buff);
         IsShoot = true;
 
         targetPos = GetExpectPos(Target.GetComponent<EnemyBase>(), maxTime);

@@ -93,7 +93,7 @@ public class Catapult_Core : CoreBase
             {
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
                 bullet.transform.position = basket.transform.position + new Vector3(dir.x / 2,0, 0);
-                bullet.Init(TowerData, enemyTrm, Buff);
+                bullet.InitProjectileData(TowerData.AttackPower, enemyTrm, Buff);
 
                 OnAttack();
             }

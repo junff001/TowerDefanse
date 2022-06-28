@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Define;
 
 public abstract class Bullet : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public abstract class Bullet : MonoBehaviour
 
     public Transform Target { get; set; }                                  // 목표물
     public int BulletDamage { get; set; } = 0;                               // 데미지
+    public float BulletDamage { get; set; } = 0;                               // 데미지
     public bool IsShoot { get; set; } = false;
     public BuffBase Buff { get; set; }  
 
@@ -24,11 +26,18 @@ public abstract class Bullet : MonoBehaviour
     }
 
     public virtual void Init(TowerData towerData, Transform enemyTrm, BuffBase buff)
+    public virtual void InitProjectileData(float damage, Transform target, BuffBase buff)
     {
         Target = enemyTrm;
+        Target = target;
         startPos = transform.position;
+<<<<<<< HEAD
         targetPos = enemyTrm.position;
         BulletDamage = towerData.AttackPower;
+=======
+        targetPos = target.position;
+        BulletDamage = damage;
+>>>>>>> f9494d29382a2353ada0493cdf6232dda63344c8
         Buff = buff;
         curTime = 0;
     }

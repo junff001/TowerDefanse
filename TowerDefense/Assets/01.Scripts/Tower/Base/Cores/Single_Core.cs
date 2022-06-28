@@ -18,7 +18,7 @@ public class Single_Core : CoreBase
         }
 
         bullet.transform.position = transform.position;
-        bullet.Init(TowerData,enemy.transform, Buff);
+        bullet.InitProjectileData(power, enemy.transform, Buff);
         OnAttack();
     }
 
