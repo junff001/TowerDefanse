@@ -194,7 +194,8 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.so.BasePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.BasePrefab.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+            //enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+            enemyObj.sc.Init(enemyInfo.so.SpineData);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);

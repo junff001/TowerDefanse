@@ -5,42 +5,29 @@ using UnityEngine.SceneManagement;
 using static Define;
 using TMPro;
 
-public class PercentByLevel
+public class CoefByDifficulty // Coefficient = 계수 = coef
 {
-    public float PercentByEnemyHP;
-    public int PercentByTowerAttackPower;
-    public int PercentByTowerPrice;
+    public int coefEnemyHP;
+    public int coefTowerAttackPower;
+    public int coefTowerPrice;
+    public int 
+
 }
-public class DefenseLevel : PercentByLevel
+
+public class GameDifficulty : CoefByDifficulty
 {
-    [Serializable] public class EasyLevel : DefenseLevel { }
-    [Serializable] public class NormalLevel : DefenseLevel { }
-    [Serializable] public class HardLevel : DefenseLevel { }
-}
-public class OffenseLevel : PercentByLevel
-{
-    [Serializable] public class EasyLevel : DefenseLevel { }
-    [Serializable] public class NormalLevel : DefenseLevel { }
-    [Serializable] public class HardLevel : DefenseLevel { }
+    [Serializable] public class EasyLevel : GameDifficulty { }
+    [Serializable] public class NormalLevel : GameDifficulty { }
+    [Serializable] public class HardLevel : GameDifficulty { }
 }
 
 public class GameManager : MonoBehaviour
 {
     [Header("Multiplied Value by StageLevel")]
-    public DefenseLevel.EasyLevel easyLevel_DEF = new DefenseLevel.EasyLevel();
-    public DefenseLevel.NormalLevel normalLevel_DEF = new DefenseLevel.NormalLevel();
-    public DefenseLevel.HardLevel hardLevel_DEF = new DefenseLevel.HardLevel();
-    [Space(10)]
-    public OffenseLevel.EasyLevel easyLevel_OFF = new OffenseLevel.EasyLevel();
-    public OffenseLevel.NormalLevel normalLevel_OFF = new OffenseLevel.NormalLevel();
-    public OffenseLevel.HardLevel hardLevel__OFF = new OffenseLevel.HardLevel();
+    public GameDifficulty.EasyLevel easyLevel_DEF = new GameDifficulty.EasyLevel();
+    public GameDifficulty.NormalLevel normalLevel_DEF = new GameDifficulty.NormalLevel();
+    public GameDifficulty.HardLevel hardLevel_DEF = new GameDifficulty.HardLevel();
    
-    public Dictionary<GameLevel, float> pctByEnemyHP_Dict_DEF = new Dictionary<GameLevel, float>();
-    public Dictionary<GameLevel, int> pctByTowerAttackPower_Dict_DEF = new Dictionary<GameLevel, int>();
-    public Dictionary<GameLevel, int> pctByTowerPrice_Dict_DEF = new Dictionary<GameLevel, int>();
-    public Dictionary<GameLevel, float> pctByEnemyHP_Dict_OFF = new Dictionary<GameLevel, float>();
-    public Dictionary<GameLevel, int> pctByTowerAttackPower_Dict_OFF = new Dictionary<GameLevel, int>();
-    public Dictionary<GameLevel, int> pctByTowerPrice_Dict_OFF = new Dictionary<GameLevel, int>();
 
     public int Hp { get; set; } = 10;
     public int maxHp { get; set; } = 10;
@@ -68,19 +55,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        #region Add Percent Value
-        pctByEnemyHP_Dict_DEF.Add(GameLevel.Easy, easyLevel_DEF.PercentByEnemyHP);
-        pctByEnemyHP_Dict_DEF.Add(GameLevel.Normal, normalLevel_DEF.PercentByEnemyHP);
-        pctByEnemyHP_Dict_DEF.Add(GameLevel.Hard, hardLevel_DEF.PercentByEnemyHP);
-
-        pctByTowerAttackPower_Dict_DEF.Add(GameLevel.Easy, easyLevel_DEF.PercentByTowerAttackPower);
-        pctByTowerAttackPower_Dict_DEF.Add(GameLevel.Normal, normalLevel_DEF.PercentByTowerAttackPower);
-        pctByTowerAttackPower_Dict_DEF.Add(GameLevel.Hard, hardLevel_DEF.PercentByTowerAttackPower);
-
-        pctByTowerPrice_Dict_DEF.Add(GameLevel.Easy, easyLevel_DEF.PercentByTowerPrice);
-        pctByTowerPrice_Dict_DEF.Add(GameLevel.Normal, normalLevel_DEF.PercentByTowerPrice);
-        pctByTowerPrice_Dict_DEF.Add(GameLevel.Hard, hardLevel_DEF.PercentByTowerPrice);
-        #endregion
 
         SetWaypoints(waypointsParent);
 
