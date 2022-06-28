@@ -19,7 +19,7 @@ public class Spike_Core : CoreBase
     public override void Attack(int power, HealthSystem enemy)
     {
         enemy.GetComponent<EnemyBase>().AddBuff(Buff);
-        enemy.TakeDamage(TowerData.AttackPower, TowerData.Property);
+        enemy.TakeDamage(TowerData.AttackPower);
         hitEffect.transform.position = - enemy.transform.up;
     }
 

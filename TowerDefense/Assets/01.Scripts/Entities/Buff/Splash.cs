@@ -27,7 +27,7 @@ public class Splash : BuffBase
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i].GetComponent<HealthSystem>().TakeDamage(damage, propertyType);
+            enemies[i].GetComponent<HealthSystem>().TakeDamage(damage);
         }
 
         effect.Play();

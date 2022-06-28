@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Define;
 
 public abstract class Bullet : MonoBehaviour
 {
@@ -6,10 +7,9 @@ public abstract class Bullet : MonoBehaviour
     [SerializeField] protected float speed = 0f;  // 애는 유도탄에만 쓰자.
 
     public Transform Target { get; set; }                                  // 목표물
-    public int BulletDamage { get; set; } = 0;                               // 데미지
+    public float BulletDamage { get; set; } = 0;                               // 데미지
     public bool IsShoot { get; set; } = false;
     public BuffBase Buff { get; set; }  
-    public Define.PropertyType PropertyType = Define.PropertyType.NONE;
 
     protected Vector2 startPos = Vector2.zero;
     protected Vector2 targetPos = Vector2.zero;
@@ -24,13 +24,12 @@ public abstract class Bullet : MonoBehaviour
         _maxTime = maxTime;
     }
 
-    public virtual void Init(TowerData towerData, Transform enemyTrm, BuffBase buff)
+    public virtual void InitProjectileData(float damage, Transform target, BuffBase buff)
     {
-        Target = enemyTrm;
+        Target = target;
         startPos = transform.position;
-        targetPos = enemyTrm.position;
-        PropertyType = towerData.Property;
-        BulletDamage = towerData.AttackPower;
+        targetPos = target.position;
+        BulletDamage = damage;
         Buff = buff;
         curTime = 0;
     }
@@ -78,7 +77,7 @@ public abstract class Bullet : MonoBehaviour
         {
             Debug.Log("버프");
             Target.GetComponent<EnemyBase>().AddBuff(Buff);
-            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType);
+            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage);
 
             var ps = Instantiate(hitEffect);
             ps.transform.position = Target.position;

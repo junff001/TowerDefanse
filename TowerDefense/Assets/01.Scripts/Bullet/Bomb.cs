@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Define;
 
 public class Bomb : Bullet
 {
@@ -7,9 +8,9 @@ public class Bomb : Bullet
     public LayerMask enemyMask;
     Vector2 curvePoint = Vector2.zero;
 
-    public override void Init(TowerData towerData, Transform enemyTrm, BuffBase buff)
+    public override void InitProjectileData(float damage, Transform target, BuffBase buff)
     {
-        base.Init(towerData, enemyTrm, buff);
+        base.InitProjectileData(damage, target, buff);
         IsShoot = true;
         float x = (targetPos.x + startPos.x) / 2;
         float y = targetPos.y > startPos.y ? targetPos.y : startPos.y;
@@ -34,7 +35,7 @@ public class Bomb : Bullet
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage,PropertyType);
+                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage);
                     }
                 }
             }

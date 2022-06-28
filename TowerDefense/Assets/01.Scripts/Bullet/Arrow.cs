@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Arrow : Bullet
 {
-    public override void Init(TowerData towerData, Transform enemyTrm, BuffBase buff)
+    public override void InitProjectileData(float damage, Transform enemyTrm, BuffBase buff)
     {
-        base.Init(towerData, enemyTrm, buff);
-        maxTime = Vector2.Distance(targetPos, startPos) / towerData.AttackRange * _maxTime;
+        base.InitProjectileData(damage, enemyTrm, buff);
+        maxTime = Vector2.Distance(targetPos, startPos) / 10 * _maxTime; // 수정필요
         targetPos = GetExpectPos(enemyTrm.GetComponent<EnemyBase>(), maxTime);
 
         if (Target.GetComponent<EnemyBase>().IsDead) Target = null;
@@ -17,7 +17,7 @@ public class Arrow : Bullet
         {
             Debug.Log("버프");
             Target.GetComponent<EnemyBase>().AddBuff(Buff);
-            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType,true);
+            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, true);
 
             var ps = Instantiate(hitEffect);
             ps.transform.position = Target.position;

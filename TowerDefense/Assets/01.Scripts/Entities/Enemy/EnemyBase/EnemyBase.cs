@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Define;
 
 [System.Serializable]
 public class EnemyData
 {
+    public int OffensePower;
+    public int RewardGold;
     public float HP;
     public float Shield;
-    public int OffensePower;
     public float MoveSpeed;
-    public int RewardGold;
-    public Define.MonsterType MonsterType;
-    public Define.SpeciesType SpeciesType;
+    public MonsterType MonsterType;
+    public SpeciesType SpeciesType;
 
     public bool IsHide     = false;
     public bool IsShilde   = false;
@@ -24,7 +25,6 @@ public class EnemyData
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    public Vector3 targetPos = Vector3.zero; // 이거는 나중에 매직같은거 할 때
     [HideInInspector] public HealthSystem healthSystem;
     [HideInInspector] public EnemyData enemyData = new EnemyData();
     [HideInInspector] public SpineController sc;
@@ -37,8 +37,8 @@ public abstract class EnemyBase : MonoBehaviour
     public int CurrentWayPointIndex { get => currentWayPointIndex; private set { } }
     private int realWayPointIndex = 0;
 
-    public float aliveTime = 0f;
-    public float movedDistance = 0f;
+    public float aliveTime { get; set; }
+    public float movedDistance { get; set; }
 
     public bool IsDead => healthSystem.IsDead();
 
@@ -78,7 +78,6 @@ public abstract class EnemyBase : MonoBehaviour
         movedDistance = aliveTime * enemyData.MoveSpeed;
         Move();
         CheckBuffs();
-
     }
 
     public void CheckBuffs()
@@ -147,6 +146,8 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.IsShilde      = enemyData.MonsterType.HasFlag(Define.MonsterType.Shield);
         enemyData.IsArmor       = enemyData.MonsterType.HasFlag(Define.MonsterType.Armor);
         enemyData.IsFly         = enemyData.MonsterType.HasFlag(Define.MonsterType.Fly);
+
+        enemyData.HP += enemyData.HP * addPercentEnemyHP;
     }
 
     public void InitAnimController()
