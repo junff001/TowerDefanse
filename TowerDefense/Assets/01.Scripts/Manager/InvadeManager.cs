@@ -40,7 +40,7 @@ public class InvadeManager : MonoBehaviour
                 text.maxSize = 60;
                 text.textColor = Color.red;
                 text.moveTime = 1.5f;
-                Managers.UI.SummonPosText(Vector2.zero, text);
+                Managers.UI.SummonPosText(Vector2.zero, text, true);
                 Debug.Log("오펜스 실패!");
             }
         }
