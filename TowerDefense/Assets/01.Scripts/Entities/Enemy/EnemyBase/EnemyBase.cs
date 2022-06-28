@@ -23,7 +23,7 @@ public class EnemyData
     public bool IsFly        = false;
 }
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IInitializable
 {
     [HideInInspector] public HealthSystem healthSystem;
     [HideInInspector] public EnemyData enemyData = new EnemyData();
@@ -142,10 +142,10 @@ public abstract class EnemyBase : MonoBehaviour
         enemyData.RewardGold    = enemySO.RewardGold;
         enemyData.MonsterType   = enemySO.MonsterType;
         enemyData.SpeciesType   = enemySO.SpeciesType;
-        enemyData.IsHide        = enemyData.MonsterType.HasFlag(Define.MonsterType.Hide);
-        enemyData.IsShilde      = enemyData.MonsterType.HasFlag(Define.MonsterType.Shield);
-        enemyData.IsArmor       = enemyData.MonsterType.HasFlag(Define.MonsterType.Armor);
-        enemyData.IsFly         = enemyData.MonsterType.HasFlag(Define.MonsterType.Fly);
+        enemyData.IsHide        = enemyData.MonsterType.HasFlag(MonsterType.Hide);
+        enemyData.IsShilde      = enemyData.MonsterType.HasFlag(MonsterType.Shield);
+        enemyData.IsArmor       = enemyData.MonsterType.HasFlag(MonsterType.Armor);
+        enemyData.IsFly         = enemyData.MonsterType.HasFlag(MonsterType.Fly);
 
         enemyData.HP += enemyData.HP * addPercentEnemyHP;
     }
