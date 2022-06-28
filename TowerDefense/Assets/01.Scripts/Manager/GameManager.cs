@@ -10,7 +10,7 @@ public class CoefByDifficulty // Coefficient = 계수 = coef
     public int coefEnemyHP;
     public int coefTowerAttackPower;
     public int coefTowerPrice;
-    public int 
+    //public int 
 
 }
 
