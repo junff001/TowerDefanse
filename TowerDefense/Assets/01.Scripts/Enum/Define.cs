@@ -61,7 +61,7 @@ public class Define
         DEBUFF
     }
 
-    public enum GameLevel
+    public enum GameDifficulty
     {
         Easy = 1,
         Normal = 2,

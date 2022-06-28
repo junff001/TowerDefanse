@@ -1586,30 +1586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7f913e5dc35e44ab2c5bc3ab255253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easyLevel_DEF:
-    PercentByEnemyHP: 0
-    PercentByTowerAttackPower: 0
-    PercentByTowerPrice: 0
-  normalLevel_DEF:
-    PercentByEnemyHP: 0
-    PercentByTowerAttackPower: 0
-    PercentByTowerPrice: 0
-  hardLevel_DEF:
-    PercentByEnemyHP: 0
-    PercentByTowerAttackPower: 0
-    PercentByTowerPrice: 0
-  easyLevel_OFF:
-    PercentByEnemyHP: 0
-    PercentByTowerAttackPower: 0
-    PercentByTowerPrice: 0
-  normalLevel_OFF:
-    PercentByEnemyHP: 0
-    PercentByTowerAttackPower: 0
-    PercentByTowerPrice: 0
-  hardLevel__OFF:
-    PercentByEnemyHP: 0
-    PercentByTowerAttackPower: 0
-    PercentByTowerPrice: 0
   hpPopupTrans: {fileID: 1235712178}
   isAnyActing: 0
   wayPoints: []
@@ -3658,10 +3634,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f249b0d10943184bb24a696f25fa586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundCountText: {fileID: 0}
+  roundCountText: {fileID: 407649913}
   waveRect: {fileID: 70679536}
   waveSO: {fileID: 11400000, guid: bf42cded381ed484ab78abb903b93328, type: 2}
-  enemySOList: []
+  enemySOList:
+  - {fileID: 11400000, guid: bf5144d2853d630428b9fcc5bcda7317, type: 2}
+  - {fileID: 11400000, guid: 734b0daab9a468549bfa4b1e27cfa28b, type: 2}
+  - {fileID: 11400000, guid: 073fc9d3a0e2c2748b93ef6cbc93c9c2, type: 2}
+  - {fileID: 11400000, guid: 55e7bd1f5f5d3824aa4e88fd08815218, type: 2}
+  - {fileID: 11400000, guid: 9173594b6d1b357459244fd2e6ea5d06, type: 2}
+  - {fileID: 11400000, guid: e5316eadac0f1b641866cc0c8209b8da, type: 2}
+  - {fileID: 11400000, guid: db89cd7eafa19cd40868773f3bc7836f, type: 2}
+  - {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}
+  - {fileID: 11400000, guid: 22568520586d11c4f886d6307fd40a69, type: 2}
+  - {fileID: 11400000, guid: 40403886f1bd73f49bfee95778736a81, type: 2}
+  - {fileID: 11400000, guid: d1100a2814b3718428d73035c5dc8083, type: 2}
   aliveEnemies: []
   defenseTowerGroup: {fileID: 145244611}
   defenseStatus: {fileID: 1074376516}
@@ -8096,7 +8083,7 @@ MonoBehaviour:
   m_Content: {fileID: 626739108}
   m_Horizontal: 1
   m_Vertical: 0
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135

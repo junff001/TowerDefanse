@@ -19,23 +19,27 @@ public class SpineController : MonoBehaviour
     [HideInInspector] 
     public SkeletonAnimation sa;
 
-    private Skeleton skeleton;
-    public Skeleton Skeleton => skeleton;
+    public Skeleton skeleton;
 
-    private void Awake()
+    public void Init(SpineDataSO spineData)
     {
         sa = GetComponent<SkeletonAnimation>();
         skeleton = sa.skeleton; // 스켈레톤 클래스;
 
-        // 파츠들 전부 해제. 이 친구는 포문 못 돌림.
-        foreach (Slot slot in skeleton.Slots) slot.Attachment = null; 
-        // 팔, 다리같은 기본적인 파츠들은 다시 장착하고
-        for (int i = 0; i < baseAttachments.Length; i++) skeleton.SetAttachment(baseAttachments[i], baseAttachments[i]);
-        
-    }
+        Debug.Log(skeleton == null);
 
-    public void Init(SpineDataSO spineData)
-    {
+        // 파츠들 전부 해제. 이 친구는 포문 못 돌림.
+        foreach (Slot slot in skeleton.Slots)
+        {
+            slot.Attachment = null;
+        }
+
+        // 팔, 다리같은 기본적인 파츠들은 다시 장착하고
+        for (int i = 0; i < baseAttachments.Length; i++)
+        {
+            skeleton.SetAttachment(baseAttachments[i], baseAttachments[i]);
+        }
+
         SetParts(spineData.targetSlots);
         dieAnim = spineData.dieAnim;
         sa.AnimationName = spineData.runAnim;
@@ -43,10 +47,20 @@ public class SpineController : MonoBehaviour
 
     public void SetParts(string[] targetSlots)
     {
-        for (int i = 0; i < targetSlots.Length; i++)
+        if (targetSlots?.Length <= 0) return;
+
+        try
         {
-            skeleton.SetAttachment(targetSlots[i], targetSlots[i]);
+            for (int i = 0; i < targetSlots.Length; i++)
+            {
+                skeleton.SetAttachment(targetSlots[i], targetSlots[i]);
+            }
         }
+        catch
+        {
+            Debug.Log("스파인 파츠 세팅 오류"); 
+        }
+        
     }
 
     public void Die()

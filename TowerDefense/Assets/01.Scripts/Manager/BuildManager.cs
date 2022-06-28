@@ -214,7 +214,7 @@ public class BuildManager : MonoBehaviour
     public void SpawnTower(TowerSO towerSO, Vector3 placePos)
     {
         Tower newTower = Instantiate(towerBase, placePos, Quaternion.identity);
-        //newTower.InitTowerData(towerSO, Managers.Game.pctByTowerAttackPower_Dict_DEF[GameManager.StageLevel] / 100);
+        newTower.InitTowerData(towerSO, Managers.Game.GetCoefs().coefTowerOffensePower / 100);
 
         if (towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {

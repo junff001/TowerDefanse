@@ -188,25 +188,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae55e241a68df1428a32bdfb04841b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 0, y: 0, z: 0}
   healthSystem: {fileID: 0}
   enemyData:
+    OffensePower: 0
+    RewardGold: 0
     HP: 0
     Shield: 0
-    OffensePower: 0
     MoveSpeed: 0
-    RewardGold: 0
     MonsterType: 0
     SpeciesType: 0
-    IsShadow: 0
-    IsGuardian: 0
+    IsHide: 0
+    IsShilde: 0
     IsArmor: 0
     IsWitch: 0
     IsAlchemist: 0
     IsFly: 0
-  sc: {fileID: 0}
-  aliveTime: 0
-  movedDistance: 0
+  sc: {fileID: 2544191130546073993}
 --- !u!1001 &5096107632689154240
 PrefabInstance:
   m_ObjectHideFlags: 0

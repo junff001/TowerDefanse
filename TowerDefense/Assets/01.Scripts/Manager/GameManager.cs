@@ -8,26 +8,25 @@ using TMPro;
 public class CoefByDifficulty // Coefficient = 계수 = coef
 {
     public int coefEnemyHP;
-    public int coefTowerAttackPower;
+    public int coefTowerOffensePower;
     public int coefTowerPrice;
-    //public int 
+    public int coefEnemyOffensePower;
+    public int coefTowerHP;
 
-}
-
-public class GameDifficulty : CoefByDifficulty
-{
-    [Serializable] public class EasyLevel : GameDifficulty { }
-    [Serializable] public class NormalLevel : GameDifficulty { }
-    [Serializable] public class HardLevel : GameDifficulty { }
+    public CoefByDifficulty(int coefEnemyHP, int coefTowerOffensePower, int coefTowerPrice, int coefEnemyOffensePower, int coefTowerHP)
+    {
+        this.coefEnemyHP            = coefEnemyHP;
+        this.coefTowerOffensePower  = coefTowerOffensePower;
+        this.coefTowerPrice         = coefTowerPrice;
+        this.coefEnemyOffensePower  = coefEnemyOffensePower;
+        this.coefTowerHP            = coefTowerHP;
+    }
 }
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Multiplied Value by StageLevel")]
-    public GameDifficulty.EasyLevel easyLevel_DEF = new GameDifficulty.EasyLevel();
-    public GameDifficulty.NormalLevel normalLevel_DEF = new GameDifficulty.NormalLevel();
-    public GameDifficulty.HardLevel hardLevel_DEF = new GameDifficulty.HardLevel();
-   
+    [Header("Dict by GameDifficulty")]
+    public Dictionary<GameDifficulty, CoefByDifficulty> coefDict;
 
     public int Hp { get; set; } = 10;
     public int maxHp { get; set; } = 10;
@@ -51,16 +50,23 @@ public class GameManager : MonoBehaviour
     public Sprite waitSprite;
 
     //1: 쉬움      2: 보통     3: 어려움
-    public static GameLevel StageLevel { get; set; } = 0;
+    public static GameDifficulty GameDifficulty { get; set; } = GameDifficulty.Easy;
 
     private void Start()
     {
-
+        coefDict = new Dictionary<GameDifficulty, CoefByDifficulty>()
+        {
+            { GameDifficulty.Easy, new CoefByDifficulty  (100,100,100,100,100) },
+            { GameDifficulty.Normal, new CoefByDifficulty(100,100,100,100,100) },
+            { GameDifficulty.Hard, new CoefByDifficulty  (100,100,100,100,100) },
+        };
         SetWaypoints(waypointsParent);
 
         hpText = Managers.Wave.defenseHpText;
         UpdateHPText();
     }
+
+    public CoefByDifficulty GetCoefs() => coefDict[GameDifficulty];
 
     public void LoadScene()
     {

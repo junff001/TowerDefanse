@@ -80,11 +80,11 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     public void MakeAllBtns() // 다 만들어놓고.
     {
         List<EnemySO> list = Managers.Wave.enemySOList;
-        for (int i = 0; i< list.Count; i++)
+
+        foreach(var item in list)
         {
             UI_SpawnMonster newBtn = Instantiate(spawnBtnPrefab, contentTrm);
-            newBtn.Init(list[i]);
-            newBtn.gameObject.SetActive(false);
+            newBtn.Init(item);
             spawnBtnList.Add(newBtn);
         }
     }
