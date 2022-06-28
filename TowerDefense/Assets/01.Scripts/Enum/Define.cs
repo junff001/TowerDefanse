@@ -49,17 +49,6 @@ public class Define
         Goblin,
     }
 
-    public enum PropertyType
-    {
-        NONE,
-        FIRE,
-        WATER,
-        LIGHTNING,
-        SOIL,
-        WIND,
-        GRASS
-    }
-
     public enum GameMode
     {
         DEFENSE,

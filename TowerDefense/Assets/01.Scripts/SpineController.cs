@@ -55,5 +55,4 @@ public class SpineController : MonoBehaviour
         sa.AnimationName = dieAnim;
         DOTween.To(() => sa.skeleton.A, value => sa.skeleton.A = value, 0, 0.75f).SetDelay(0.75f);
     }
-
 }

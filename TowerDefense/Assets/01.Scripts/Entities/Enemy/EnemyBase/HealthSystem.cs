@@ -149,7 +149,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount, bool penetration = false)
+    public void TakeDamage(float damageAmount,  bool penetration = false)
     {
         Damage(damageAmount, penetration);
         OnDamaged?.Invoke();

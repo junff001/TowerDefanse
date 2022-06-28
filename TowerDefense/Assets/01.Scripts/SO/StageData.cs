@@ -5,7 +5,7 @@ public class StageData : MonoBehaviour
 {
     public Transform waypointsParent;
     public Map map;
-    public MapInfoSO waveSO;
+    public MapInfoSO mapInfoSO;
 
     public List<IndexWayPointList> pointLists = new List<IndexWayPointList>();
 }

@@ -58,8 +58,7 @@ public class UI_TowerInfo : MonoBehaviour
 
         for (int i = 0; i < btnProperties.Length; i++)
         {
-            Define.PropertyType type = (Define.PropertyType)(i + 1);
-            btnProperties[i].onClick.AddListener(() => CallPropertyBtnOnClicked(type));
+            btnProperties[i].onClick.AddListener(() => CallPropertyBtnOnClicked());
         }
     }
 
@@ -122,7 +121,7 @@ public class UI_TowerInfo : MonoBehaviour
 
             Managers.Build.SetTowerGrid(CurrentSelectedTower, CurrentSelectedTower.myCheckedPos, false);
 
-            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * (Managers.Game.pctByTowerPrice_Dict_DEF[GameManager.StageLevel] / 100);
+            float returnGold = 0f;// = CurrentSelectedTower.TowerData.PlaceCost * (Managers.Game.pctByTowerPrice_Dict_DEF[GameManager.StageLevel] / 100);
 
             Managers.Gold.GoldPlus(returnGold);
 
@@ -138,11 +137,10 @@ public class UI_TowerInfo : MonoBehaviour
         }
     }
 
-    private void CallPropertyBtnOnClicked(Define.PropertyType type)
+    private void CallPropertyBtnOnClicked()
     {
         if (CurrentSelectedTower != null)
         {
-            //currentSelectedTower.ChangeProperty(type);
             CloseInfo();
         }
     }

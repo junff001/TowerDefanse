@@ -45,11 +45,8 @@ public class TowerSO : ScriptableObject
     [SerializeField] private int attackTargetCount = 1;
     public int AttackTargetCount { get => attackTargetCount; }
 
-    public Sprite towerSprite;
-
     public Define.PlaceTileType placeTileType = Define.PlaceTileType.Place;
     public eCoreName coreType = eCoreName.Bow; // 위 머리 판단기준
-    public Define.PropertyType propertyType = Define.PropertyType.NONE;
 
     public bool hasTower = true;
 }

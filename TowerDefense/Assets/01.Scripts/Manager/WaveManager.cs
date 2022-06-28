@@ -10,7 +10,7 @@ using static Define;
 public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
-    public TextMeshProUGUI waveRoundCount;
+    public TextMeshProUGUI roundCountText;
 
     [Header("웨이브")]
     private int _wave = 1;
@@ -194,7 +194,8 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.so.BasePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.BasePrefab.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+            //enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+            enemyObj.sc.Init(enemyInfo.so.SpineData);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);
@@ -298,7 +299,7 @@ public class WaveManager : MonoBehaviour
         waveRect.DOKill();
         waveRect.DOAnchorPosY(100, 0.75f).SetEase(Ease.InOutBack).OnComplete(() =>
         {
-            waveRoundCount.text = $"Wave {_wave}";
+            roundCountText.text = $"Wave {_wave}";
             waveRect.DOAnchorPosY(-6, 0.75f).SetEase(Ease.InOutBack);
         });
     }

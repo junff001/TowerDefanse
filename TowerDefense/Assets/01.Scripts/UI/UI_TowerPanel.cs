@@ -5,10 +5,8 @@ using TMPro;
 
 public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDragHandler
 {
-    [SerializeField] private Image towerImage = null;
     [SerializeField] private TextMeshProUGUI towerCostText = null;
-
-    [SerializeField] private GameObject fakeTower; // 가설치용
+    private GameObject fakeTower; // 가설치용
 
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
@@ -17,12 +15,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
 
     private void Start()
     {
-        towerImage.sprite = towerSO.towerSprite;
         towerCostText.text = towerSO.PlaceCost.ToString();
         rt = GetComponent<RectTransform>();
         rangeObj = Managers.Build.rangeObj;
         SetFakeTower();
-
     }
 
     public void SetFakeTower()
@@ -42,7 +38,6 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         }
 
         fakeTower = newTower.gameObject;
-
         fakeTower.GetComponent<Tower>().SetSortOrder("UI", 10);
     }
 
@@ -62,25 +57,25 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
                         Managers.Build.SpawnTower(towerSO, Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles()));
 
                         text.text = "설치 완료!";
-                        Managers.UI.SummonPosText(towerImage.transform.position, text);
+                        Managers.UI.SummonPosText(fakeTower.transform.position, text, true);
                     }
                     else
                     {
                         text.text = "타워 설치 비용이 부족합니다.";
-                        Managers.UI.SummonPosText(towerImage.transform.position, text);
+                        Managers.UI.SummonPosText(fakeTower.transform.position, text, true);
                     }
                 }
                 else
                 {
                     text.text = "설치 불가능한 위치입니다.";
-                    Managers.UI.SummonPosText(towerImage.transform.position, text);
+                    Managers.UI.SummonPosText(fakeTower.transform.position, text, true);
                 }
             }
             else
             {
                 text.text = "설치 취소";
                 text.maxSize = 20;
-                Managers.UI.SummonPosText(towerImage.transform.position, text);
+                Managers.UI.SummonPosText(fakeTower.transform.position, text, true);
             }
         }
 
@@ -124,10 +119,10 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         }
     }
 
-    // 내거랑 다르거나 옮기고 있는 오브젝트가 없고, 
     public bool CanDrag()
     {
-        return (Managers.Build.movingObj == fakeTower || Managers.Build.movingObj == null) && Managers.Wave.GameMode == Define.GameMode.DEFENSE; 
+        return (Managers.Build.movingObj == fakeTower || Managers.Build.movingObj == null) 
+            && Managers.Wave.GameMode == Define.GameMode.DEFENSE; 
     }
 
     bool IsLeftBtn(PointerEventData e) => e.button == PointerEventData.InputButton.Left;
