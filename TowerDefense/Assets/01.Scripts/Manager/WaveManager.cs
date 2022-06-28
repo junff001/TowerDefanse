@@ -25,7 +25,7 @@ public class WaveManager : MonoBehaviour
         }
     }
     public RectTransform waveRect;
-    public MapInfoSO waveSO;
+    public MapInfoSO mapInfoSO;
 
     public List<EnemySO> enemySOList = new List<EnemySO>();
     [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
@@ -72,7 +72,7 @@ public class WaveManager : MonoBehaviour
     public void DefenseSetNextWave()
     {
         Managers.Record.recordBox.Add(new RecordWaveBox());
-        SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
+        SpawnerMonsterCount[] enemyBox = mapInfoSO.waveEnemyInfos[Wave - 1].monsterBox;
         foreach (SpawnerMonsterCount item in enemyBox)
         {
             for (int i = 0; i < item.enemyCount; i++)
@@ -122,7 +122,7 @@ public class WaveManager : MonoBehaviour
                 Managers.Record.EndRecord();
 
                 // 디펜스 클리어 체크
-                if (Wave >= waveSO.waveEnemyInfos.Length)
+                if (Wave >= mapInfoSO.waveEnemyInfos.Length)
                 {
                     // 오펜스 모드로 교체!
                     GameMode = Define.GameMode.OFFENSE;
@@ -144,7 +144,7 @@ public class WaveManager : MonoBehaviour
             if (IsWaveProgressing == false && Managers.Invade.isWaveProgress)
             {
                 // 오펜스 클리어 체크
-                if (Wave >= waveSO.waveEnemyInfos.Length)
+                if (Wave >= mapInfoSO.waveEnemyInfos.Length)
                 {
                     Managers.Sound.Play("System/Win");
                     Managers.Game.clearUI.gameObject.SetActive(true);

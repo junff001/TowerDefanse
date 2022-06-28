@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField]
-    private int _healthAmountPerSeparator = 2; //Ã¼·Â 2´ç ¹Ù ÇÑ°³
+    private int _healthAmountPerSeparator = 2; //ì²´ë ¥ 2ë‹¹ ë°” í•œê°œ
     [SerializeField]
     private float _barSize = 1.88f;
     [SerializeField]
@@ -81,10 +81,12 @@ public class HealthBar : MonoBehaviour
         if (healthSystem.IsFullValue(eHealthType.SHIELD) && healthSystem.IsFullValue(eHealthType.HEALTH))
         {
             gameObject.SetActive(false);
+            Debug.Log("true");
         }
         else
         {
             gameObject.SetActive(true);
+            Debug.Log("false");
         }
     }
 

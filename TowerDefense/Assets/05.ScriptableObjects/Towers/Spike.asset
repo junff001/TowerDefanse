@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: Spike
   m_EditorClassIdentifier: 
   level: 0
-  offensePower: 100
+  attackPower: 100
   attackSpeed: 0.5
   attackRange: 0.6
   placeCost: 70
   attackTargetCount: 100
-  towerSprite: {fileID: 21300000, guid: b5ec12e8c75efb844bac801b1ea6e762, type: 3}
   placeTileType: 1
   coreType: 3
-  propertyType: 3
   hasTower: 0

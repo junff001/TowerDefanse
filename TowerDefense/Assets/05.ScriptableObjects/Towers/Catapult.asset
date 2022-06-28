@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: Catapult
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 1000
+  attackPower: 10000
   attackSpeed: 3
   attackRange: 5
   placeCost: 150
   attackTargetCount: 1
-  towerSprite: {fileID: -3043711648414944898, guid: 6d878ababb928894985e64936c103eff, type: 3}
   placeTileType: 0
   coreType: 2
-  propertyType: 1
   hasTower: 1

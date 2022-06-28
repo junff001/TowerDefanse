@@ -14,23 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageName: 0-2
   stageSprite: {fileID: 21300000, guid: 1317698bb025fde458fa4fb3ee56870d, type: 3}
+  limitTime: 60
   waveEnemyInfos:
   - monsterBox:
     - so: {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}
       enemyCount: 1
-      monsterType: 0
-      speciesType: 0
       wayPointListIndex: 0
   - monsterBox:
     - so: {fileID: 11400000, guid: e5316eadac0f1b641866cc0c8209b8da, type: 2}
       enemyCount: 1
-      monsterType: 0
-      speciesType: 0
       wayPointListIndex: 0
   - monsterBox:
     - so: {fileID: 11400000, guid: 073fc9d3a0e2c2748b93ef6cbc93c9c2, type: 2}
       enemyCount: 1
-      monsterType: 0
-      speciesType: 0
       wayPointListIndex: 0
   offenseHeadCount: 5

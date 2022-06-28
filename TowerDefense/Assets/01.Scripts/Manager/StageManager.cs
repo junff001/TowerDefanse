@@ -37,7 +37,7 @@ public class StageManager
 
         Managers.Game.waypointsParent = obj.waypointsParent;
         Managers.Game.pointLists = obj.pointLists;
-        Managers.Wave.waveSO = obj.mapInfoSO;
+        Managers.Wave.mapInfoSO = obj.mapInfoSO;
         Managers.Build.map = obj.map;
         Managers.Build.Init();
     }

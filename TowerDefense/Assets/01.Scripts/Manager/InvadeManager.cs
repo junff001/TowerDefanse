@@ -23,6 +23,7 @@ public class InvadeManager : MonoBehaviour
 
     private void Start()
     {
+        maxTime = Managers.Wave.mapInfoSO.limitTime;
         timerText = Managers.Wave.roundCountText;
     }
 
@@ -136,7 +137,7 @@ public class InvadeManager : MonoBehaviour
         Managers.Wave.aliveEnemies.Add(enemyObj);
         curSpawnCount++;
 
-        if (curSpawnCount > Managers.Wave.waveSO.offenseHeadCount)
+        if (curSpawnCount > Managers.Wave.mapInfoSO.offenseHeadCount)
         {
             curSpawnCount = 0;
             curSpawnIdx = (curSpawnIdx + 1) % wayCount;
