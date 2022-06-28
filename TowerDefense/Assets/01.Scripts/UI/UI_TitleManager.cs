@@ -64,10 +64,4 @@ public class UI_TitleManager : MonoBehaviour
     {
         stageMapRect.DOAnchorPosX(-Screen.width * index, 0.5f);
     }
-
-    public void ChooseStage(int stage)
-    {
-        Debug.Log($"Target Stage : {stage}");
-        Managers.Stage.SetTargetStage(stage - 1);
-    }
 }

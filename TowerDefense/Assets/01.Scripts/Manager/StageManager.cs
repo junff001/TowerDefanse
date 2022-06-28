@@ -24,10 +24,11 @@ public class StageManager
         SetStageDatas(selectedStage);
     }
 
-    public void SetTargetStage(int stageNum)
+    public void SetTargetStage(MapInfoSO mapInfo)
     {
-        selectedStage = stageDatas[stageNum];
+        selectedStage = stageDatas.Find(x => x.mapInfoSO == mapInfo);
     }
+
     public void SetStageDatas(StageData stageData)
     {
         StageData obj = MonoBehaviour.Instantiate(stageData);
@@ -36,7 +37,7 @@ public class StageManager
 
         Managers.Game.waypointsParent = obj.waypointsParent;
         Managers.Game.pointLists = obj.pointLists;
-        Managers.Wave.waveSO = obj.waveSO;
+        Managers.Wave.waveSO = obj.mapInfoSO;
         Managers.Build.map = obj.map;
         Managers.Build.Init();
     }
