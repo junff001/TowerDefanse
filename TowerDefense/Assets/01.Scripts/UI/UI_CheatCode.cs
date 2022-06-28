@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,13 +52,19 @@ public class UI_CheatCode : MonoBehaviour
             switch (split_command[0])
             {
                 case "/sv":
+                case "/setvalue":
                     SetValueCommand(split_command);
                     break;
                 case "/ts":
+                case "/timescale":
                     TimeScaleCommand(split_command);
                     break;
                 case "/showui":
                     ShowUICommand(split_command);
+                    break;
+                case "/sc":
+                case "/screenshot":
+                    ScreenshotCommand(split_command);
                     break;
             }
         }
@@ -144,6 +151,25 @@ public class UI_CheatCode : MonoBehaviour
             PopupText text = new PopupText($"UI 보이기 여부를 {value}로 설정했습니다");
             text.maxSize = 40;
             Managers.UI.SummonRectText(new Vector2(960, 300), text);
+        }
+    }
+
+    private void ScreenshotCommand(string[] command)
+    {
+        if (CheckNullIndex(command, 0))
+        {
+            string path = Application.dataPath;
+            string filePath = Path.Combine(path, $"../../sc/{Managers.Stage.selectedStage.mapInfoSO.stageName}.png");
+            ScreenCapture.CaptureScreenshot(filePath);
+
+            PopupText text = new PopupText($"스크린샷을 저장헀습니다. 경로 : {filePath}");
+            text.maxSize = 30;
+            Managers.UI.SummonRectText(new Vector2(960, 300), text);
+        }
+
+        void TakeScreenshot(string name)
+        {
+
         }
     }
 

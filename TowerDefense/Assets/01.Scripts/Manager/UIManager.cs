@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class UIManager
 {
@@ -86,10 +87,10 @@ public class UIManager
 
     public void SummonRectText(Vector2 pos, PopupText info, UnityAction callback = null)
     {
-        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
+        TextMeshProUGUI textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<TextMeshProUGUI>();
         textObj.rectTransform.anchoredPosition = pos;
         textObj.text = info.text;
-        textObj.resizeTextMaxSize = info.maxSize;
+        textObj.fontSize = info.maxSize;
         textObj.color = info.textColor;
 
         textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative().SetUpdate(true);
@@ -101,12 +102,21 @@ public class UIManager
         });
     }
 
-    public void SummonPosText(Vector2 pos, PopupText info, UnityAction callback = null)
+    public void SummonPosText(Vector2 pos, PopupText info, bool worldToScreen, UnityAction callback = null)
     {
-        Text textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<Text>();
-        textObj.transform.position = pos;
+        TextMeshProUGUI textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<TextMeshProUGUI>();
+
+        if (worldToScreen)
+        {
+            textObj.rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(pos);
+        }
+        else
+        {
+            textObj.transform.position = pos;
+        }
+
         textObj.text = info.text;
-        textObj.resizeTextMaxSize = info.maxSize;
+        textObj.fontSize = info.maxSize;
         textObj.color = info.textColor;
 
         textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative().SetUpdate(true);
