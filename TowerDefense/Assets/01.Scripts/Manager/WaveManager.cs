@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
-using System;
+using TMPro;
 using static Define;
 
 public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
-    public Text waveRoundCount;
+    public TextMeshProUGUI waveRoundCount;
 
     [Header("웨이브")]
     private int _wave = 1;
@@ -27,28 +27,21 @@ public class WaveManager : MonoBehaviour
         }
     }
     public RectTransform waveRect;
-    public WaveSO waveSO;
+    public MapInfoSO waveSO;
 
-    public Dictionary<Define.SpeciesType, EnemyBase> basePrefabDict = new Dictionary<Define.SpeciesType, EnemyBase>();
-
-    [Header("종족별로 베이스 되는 친구 하나씩만 넣어줘")]
-    public List<EnemyBase> basePrefabList = new List<EnemyBase>();
-
-    public Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>> speciesDic = 
-        new Dictionary<Define.SpeciesType, Dictionary<Define.MonsterType, EnemySO>>();
-
+    public List<EnemySO> enemySOList = new List<EnemySO>();
     [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
     public CanvasGroup defenseTowerGroup;
     public RectTransform defenseStatus;
-    public Text defenseHpText;
+    public TextMeshProUGUI defenseHpText;
 
     [Header("오펜스UI")]
     public CanvasGroup offenseMonsterGroup;
     public RectTransform offenseStatus;
-    public Text offenseHpText;
+    public TextMeshProUGUI offenseHpText;
 
     private Define.GameMode gameMode;
     [HideInInspector]
@@ -73,29 +66,28 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+
     void Start()
+    {
+        SetEnemySOList();
+        DefenseSetNextWave();
+    }
+
+    private void SetEnemySOList()
     {
         int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
 
-        for(int i = 0; i< basePrefabList.Count; i++)
-        {
-            basePrefabDict.Add((Define.SpeciesType)System.Enum.Parse(typeof(Define.SpeciesType), basePrefabList[i].name), basePrefabList[i]);
-        }
-
+        enemySOList.Clear(); // 혹시 모르니까 초기화 
         for (int i = 1; i < speciesCount; i++) // 0번은 None 나와용
         {
-            Dictionary<Define.MonsterType, EnemySO> enemyDic = new Dictionary<Define.MonsterType, EnemySO>();
-            List<EnemySO> enemySO = Resources.LoadAll<EnemySO>("EnemySOs/" + ((Define.SpeciesType)i).ToString()).ToList(); 
-           
-            for (int j = 0; j < enemySO.Count; j++) 
-            {
-                enemyDic.Add(enemySO[j].MonsterType, enemySO[j]);
-            }
-            speciesDic.Add((Define.SpeciesType)i, enemyDic);
-        }
+            List<EnemySO> loadedEnemySOList = Resources.LoadAll<EnemySO>("EnemySOs/" + ((Define.SpeciesType)i).ToString()).ToList();
 
-        DefenseSetNextWave();
-    }   
+            for (int j = 0; j < loadedEnemySOList.Count; j++)
+            {
+                enemySOList.Add(loadedEnemySOList[i]);
+            }
+        }
+    }
 
     public void DefenseSetNextWave()
     {
@@ -134,7 +126,6 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            Managers.Invade.MaxMonsterCount += rewardWave;
             text.text = $"웨이브 편성 수 {rewardWave} 증가!";
             Managers.UI.SummonRectText(new Vector2(Screen.width / 2, Screen.height / 2), text);
         }
@@ -201,10 +192,9 @@ public class WaveManager : MonoBehaviour
             SpawnerMonsterCount enemyInfo = enemySpawnQueue.Dequeue();
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
-            EnemySO enemySO = speciesDic[enemyInfo.speciesType][enemyInfo.monsterType];
-            EnemyBase enemyObj = Instantiate(enemyInfo.enemy, Managers.Game.wayPoints[index].transform.position,
-                enemyInfo.enemy.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemySO, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+            EnemyBase enemyObj = Instantiate(enemyInfo.so.BasePrefab, Managers.Game.wayPoints[index].transform.position,
+                enemyInfo.so.BasePrefab.transform.rotation, this.transform);
+            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
             aliveEnemies.Add(enemyObj);

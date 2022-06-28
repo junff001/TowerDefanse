@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
   m_Name: Goblin_F
   m_EditorClassIdentifier: 
-  myType: F
+  myName: "\uC544 \u314B\u314B \uACE0\uBE14\uB9B0\uC774\uB77C\uACE0"
+  manual: "\uC885\uC871 \uD2B9\uC131(\uACE0\uBE14\uB9B0) : \uC5C6\uC74C\n\uBE44\uD589"
   hp: 300
   shield: 0
   offensePower: 1
   moveSpeed: 2.4
   rewardGold: 10
+  spawnCost: 10
   monsterType: 16
   speciesType: 1
   sprite: {fileID: 21300000, guid: a14c81517717b0a4a86d58777c83176c, type: 3}
-  chargeTime: 0
-  spineData: {fileID: 11400000, guid: 41d71041a517c2c41950a2444a3f3a0c, type: 2}
+  typeIcons:
+  - {fileID: 4164137571980865127, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
+  spineData: {fileID: 11400000, guid: 1ca88e267058cd94fbfe3b85f42b007e, type: 2}
+  basePrefab: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}

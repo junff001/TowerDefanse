@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-
+using TMPro;
 public class GoldManager : MonoBehaviour
 {
-    public Text moneyText;
+    public TextMeshProUGUI moneyText;
     public RectTransform moneyPopupTrans;
 
     public int Gold { get; set; } = 250;

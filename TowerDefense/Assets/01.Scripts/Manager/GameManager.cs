@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static Define;
+using TMPro;
 
 public class PercentByLevel
 {
@@ -46,7 +45,7 @@ public class GameManager : MonoBehaviour
     public int Hp { get; set; } = 10;
     public int maxHp { get; set; } = 10;
 
-    public static Text hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
+    public static TextMeshProUGUI hpText; // 오펜스 / 디펜스 상태에 따라서 참조값이 다르다.
     public RectTransform hpPopupTrans;
 
     public bool isAnyActing = false;

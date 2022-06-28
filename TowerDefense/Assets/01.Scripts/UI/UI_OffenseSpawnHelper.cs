@@ -8,11 +8,10 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     public UI_SpawnMonster spawnBtnPrefab;
 
     // 고른 탭에 따라 달라질 값입니당.
-    public Define.SpeciesType targetSpeciesType = Define.SpeciesType.None;
-    public Define.MonsterType targetMonsterType = Define.MonsterType.None;
-
-    public Define.SpeciesType curSpeciesType = Define.SpeciesType.Goblin;
-    public Define.MonsterType curMonsterType = Define.MonsterType.Normal;
+    private Define.SpeciesType targetSpeciesType = Define.SpeciesType.None;
+    private Define.MonsterType targetMonsterType = Define.MonsterType.None;
+    private Define.SpeciesType curSpeciesType = Define.SpeciesType.Goblin;
+    private Define.MonsterType curMonsterType = Define.MonsterType.Normal;
 
     public Transform contentTrm;
 
@@ -69,12 +68,6 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
         ViewBtns();
     }
 
-    public void ViewAllBtns()
-    {
-
-    }
-
-
     public void ClearBtns()
     {
         for (int i = 0; i < activedBtns.Count; i++)
@@ -86,15 +79,13 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
 
     public void MakeAllBtns() // 다 만들어놓고.
     {
-        foreach (Dictionary<Define.MonsterType, EnemySO> dic in Managers.Wave.speciesDic.Values)
+        List<EnemySO> list = Managers.Wave.enemySOList;
+        for (int i = 0; i< list.Count; i++)
         {
-            foreach (EnemySO so in dic.Values)
-            {
-                UI_SpawnMonster newBtn = Instantiate(spawnBtnPrefab, contentTrm);
-                newBtn.Init(so);
-                newBtn.gameObject.SetActive(false);
-                spawnBtnList.Add(newBtn);
-            }
+            UI_SpawnMonster newBtn = Instantiate(spawnBtnPrefab, contentTrm);
+            newBtn.Init(list[i]);
+            newBtn.gameObject.SetActive(false);
+            spawnBtnList.Add(newBtn);
         }
     }
 
@@ -111,8 +102,6 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
         {
             CheckMonsterType(spawnBtnList);
         }
-
-
     }
 
     void CheckMonsterType(List<UI_SpawnMonster> targetList) // 몹 타입이 None인지 체크 후,

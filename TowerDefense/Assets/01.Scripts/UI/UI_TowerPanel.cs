@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDragHandler
 {
     [SerializeField] private Image towerImage = null;
-    [SerializeField] private Text towerCostText = null;
+    [SerializeField] private TextMeshProUGUI towerCostText = null;
 
     [SerializeField] private GameObject fakeTower; // 가설치용
 

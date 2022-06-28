@@ -7,46 +7,33 @@ using TMPro;
 
 public class UI_TitleManager : MonoBehaviour
 {
-    public List<RectTransform>  statgePanel = new List<RectTransform>();
+    public UI_WorldMap[] worldMaps;
+    public RectTransform stageMapRect;
+    private int scrollIndex = 0;
 
     public GameObject selectPanel;
     public GameObject lobyPanel;
     public GameObject topPanel;
-    public GameObject difficultyPanel;
-    public GameObject selectTowerPanel;
 
-    public int num = 0;
-    public TextMeshProUGUI diffcultyTex;
     public RectTransform mid;
     
     public Button nextBtn;
     public Button backBtn;
     public Button selectBtn;
     public Button exitBtn;
-    public Button tsBtn;
-    bool isClick = false;
 
     void Start()
     {
-        difficultyPanel.SetActive(true);
-
-        Diffculty();
-
-        // UI 이동
-        difficultyPanel.transform.localScale = new Vector3(0, 0, 0);
-        selectPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * -2);
-        topPanel.transform.position = new Vector3(mid.anchoredPosition.x, Screen.height * 2);
-
         nextBtn.onClick.AddListener(() =>
         {
-            Diffculty();
-            NextSlide();
+            SetIndexMap(scrollIndex + 1);
         });
+
         backBtn.onClick.AddListener(() =>
         {
-            Diffculty();
-            BackSlide();
+            SetIndexMap(scrollIndex - 1);
         });
+
         selectBtn.onClick.AddListener(() =>
         {
             lobyPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * -2, 0.5f);
@@ -60,95 +47,27 @@ public class UI_TitleManager : MonoBehaviour
             topPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * 2, 0.4f);
             selectPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * -2, 0.5f);
         });
+    }
 
-        tsBtn.onClick.AddListener(() =>
-        {
-            //타워 패널 띄움
-            selectTowerPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.5f).SetEase(Ease.OutBack);
+    private void SetIndexMap(int index)
+    {
+        scrollIndex = index;
 
-        });
+        backBtn.gameObject.SetActive(scrollIndex > 0);
+        nextBtn.gameObject.SetActive(scrollIndex < worldMaps.Length - 1);
+
+        Slide(scrollIndex);
     }
 
     //앞으로 넘어가는 화면
-    private void NextSlide()
+    private void Slide(int index)
     {
-        if (!isClick)
-        {
-            statgePanel[num].DOMoveX(Screen.width * -2, 0.5f);
-            if (num >= 3)
-            {
-                statgePanel[0].anchoredPosition = new Vector3(Screen.width * 2, 0);
-                statgePanel[0].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num = 0;
-            }
-            else
-            {
-                statgePanel[num + 1].anchoredPosition = new Vector3(Screen.width * 2, 0);
-                statgePanel[num + 1].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num++;
-            }
-            StartCoroutine("ClickDelay");
-        }
-    }
-
-    //뒤으로 넘어가는 화면
-    private void BackSlide()
-    {
-        if (!isClick)
-        {
-            statgePanel[num].DOMoveX(Screen.width * 2, 0.5f);
-            if (num <= 0)
-            {
-                statgePanel[3].anchoredPosition = new Vector3(Screen.width * -2, 0);
-                statgePanel[3].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num = 3;
-            }
-            else
-            {
-                statgePanel[num - 1].anchoredPosition = new Vector3(Screen.width * -2, 0);
-                statgePanel[num - 1].DOMoveX(mid.anchoredPosition.x, 0.5f);
-                num--;
-            }
-
-            StartCoroutine(ClickDelay());
-        }
-    }
-
-    public void Diffculty()
-    {
-        switch (num)
-        {
-            case 0 :
-                diffcultyTex.text = "Easy";
-                diffcultyTex.color = new Color(0, 255, 0);
-                break;
-            case 1:
-                diffcultyTex.text = "Normal";
-                diffcultyTex.color = new Color(255, 250, 0);
-                break;
-            case 2:
-                diffcultyTex.text = "Hard";
-                diffcultyTex.color = new Color(255, 0, 0);
-                break;
-            case 3:
-                diffcultyTex.text = "Tutorial";
-                diffcultyTex.color = new Color(150, 255, 255);
-                break;
-        }
-    }
-
-    IEnumerator ClickDelay()
-    {
-        Diffculty();
-        isClick = true;
-        yield return new WaitForSeconds(0.3f);
-        isClick = false;
+        stageMapRect.DOAnchorPosX(-Screen.width * index, 0.5f);
     }
 
     public void ChooseStage(int stage)
     {
         Debug.Log($"Target Stage : {stage}");
-        difficultyPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
         Managers.Stage.SetTargetStage(stage - 1);
     }
 }

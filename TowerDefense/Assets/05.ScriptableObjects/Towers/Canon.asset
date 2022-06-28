@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Canon
   m_EditorClassIdentifier: 
   level: 0
-  offensePower: 25
+  attackPower: 0
   attackSpeed: 4
   attackRange: 5
   placeCost: 100
   attackTargetCount: 5
-  towerSprite: {fileID: -2464605850734696506, guid: 8ab626048391ead47b545aa750213a01, type: 3}
+  towerSprite: {fileID: -8999784540011629473, guid: 6d878ababb928894985e64936c103eff, type: 3}
   placeTileType: 0
   coreType: 0
   propertyType: 1
