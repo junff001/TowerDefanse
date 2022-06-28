@@ -162,14 +162,7 @@ public class UI_CheatCode : MonoBehaviour
             string filePath = Path.Combine(path, $"../../sc/{Managers.Stage.selectedStage.mapInfoSO.stageName}.png");
             ScreenCapture.CaptureScreenshot(filePath);
 
-            PopupText text = new PopupText($"스크린샷을 저장헀습니다. 경로 : {filePath}");
-            text.maxSize = 30;
-            Managers.UI.SummonRectText(new Vector2(960, 300), text);
-        }
-
-        void TakeScreenshot(string name)
-        {
-
+            Debug.Log($"스크린샷을 저장헀습니다. 경로 : {filePath}");
         }
     }
 
