@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
-using System.Linq;
 using TMPro;
 using static Define;
 
@@ -66,27 +64,9 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-
     void Start()
     {
-        SetEnemySOList();
         DefenseSetNextWave();
-    }
-
-    private void SetEnemySOList()
-    {
-        int speciesCount = System.Enum.GetValues(typeof(Define.SpeciesType)).Length;
-
-        enemySOList.Clear(); // 혹시 모르니까 초기화 
-        for (int i = 1; i < speciesCount; i++) // 0번은 None 나와용
-        {
-            List<EnemySO> loadedEnemySOList = Resources.LoadAll<EnemySO>("EnemySOs/" + ((Define.SpeciesType)i).ToString()).ToList();
-
-            for (int j = 0; j < loadedEnemySOList.Count; j++)
-            {
-                enemySOList.Add(loadedEnemySOList[i]);
-            }
-        }
     }
 
     public void DefenseSetNextWave()
@@ -194,7 +174,7 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.so.BasePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.BasePrefab.transform.rotation, this.transform);
-            //enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
+            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefs().coefEnemyHP / 100);
             enemyObj.sc.Init(enemyInfo.so.SpineData);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
@@ -223,6 +203,8 @@ public class WaveManager : MonoBehaviour
 
                     CanvasGroupInit(offenseMonsterGroup, false);
                     monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
+
+                    roundCountText.text = "오펜스 대기 시간!";
                 }
                 break;
             case GameMode.OFFENSE:

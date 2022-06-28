@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [HideInInspector] public EnemySO so = null;
+    public EnemySO so = null;
 
     [SerializeField] private Image monsterImg;
     [SerializeField] private UI_EnemyInfo infoUI;
@@ -22,7 +22,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private void Update()
     {
-        CheckPress();
+        //CheckPress();
     }
 
     private void CheckPress()
@@ -64,32 +64,34 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        isPressing = true;
+        Managers.Invade.SpawnEnemy(so);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log($"time : {pressedTime}, checkTime : {checkPressTime}");
+       //if (false == isSpawnCooltime && pressedTime < checkPressTime) // 스폰 가능
+       //{
+       //    Managers.Invade.SpawnEnemy(so);
+       //    Debug.Log("스폰");
+       //}
+       //else // 스폰 불가능
+       //{
+       //    Debug.Log("불가");
+       //}
+       //
+       //isPressing = false;
+       //pressedTime = 0f;
+       //
+       //ShowInfoUI(false);
+    }
 
-        if (false == isSpawnCooltime && pressedTime < checkPressTime) // 스폰 가능
-        {
-            if(so.SpawnCost < Managers.Gold.Gold)
-            {
-                Managers.Invade.SpawnEnemy(so);
-            }
-            else
-            {
-                Managers.UI.SummonRectText(Input.mousePosition, new PopupText("돈이 부족합니다"));
-            }
-        }
-        else // 스폰 불가능
-        {
-            Managers.UI.SummonRectText(Input.mousePosition, new PopupText("지금은 소환 불가능합니다!"));
-        }
-        
-        isPressing = false;
-        pressedTime = 0f;
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        ShowInfoUI(true) ;
+    }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
         ShowInfoUI(false);
     }
 }

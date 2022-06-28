@@ -25,9 +25,9 @@ public class EnemyData
 
 public abstract class EnemyBase : MonoBehaviour, IInitializable
 {
-    [HideInInspector] public HealthSystem healthSystem;
-    [HideInInspector] public EnemyData enemyData = new EnemyData();
-    [HideInInspector] public SpineController sc;
+    public HealthSystem healthSystem;
+    public EnemyData enemyData = new EnemyData();
+    public SpineController sc;
 
     private List<BuffBase> buffList = new List<BuffBase>();
     private MeshRenderer mesh = null;
@@ -155,7 +155,7 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
         this.gameObject.layer = LayerMask.NameToLayer(enemyData.MonsterType.ToString() + "Enemy");
         if (enemyData.IsHide) // 은신 체크
         {
-            sc.Skeleton.A = 0.5f;
+            sc.skeleton.A = 0.5f;
         }
     }
 

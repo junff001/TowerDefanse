@@ -16,8 +16,7 @@ public class InvadeManager : MonoBehaviour
 
     // ____________ 여기까지는 기존 인베이드 매니저에 필요한 데이터
 
-    public float time = 0f;
-    public float maxTime = 180f;
+    private float maxTime = 30f;
     public bool isOffenseProgress = false;
 
     [SerializeField] private TextMeshProUGUI timerText;
@@ -31,13 +30,16 @@ public class InvadeManager : MonoBehaviour
     {
         if(isOffenseProgress) // 오펜스 시작 버튼 누르면 시작함.
         {
-            time += Time.deltaTime;
-            timerText.text = Mathf.Clamp(Mathf.FloorToInt(time), 0, maxTime).ToString();
+            maxTime -= Time.deltaTime;
+            timerText.text = Mathf.Clamp(Mathf.CeilToInt(maxTime), 0, maxTime).ToString();
 
-            if (time > maxTime)
+            if (maxTime == 0) // clamp 걸어놨엉
             {
                 isOffenseProgress = false;
                 PopupText text = new PopupText("게임오버!");
+                text.maxSize = 60;
+                text.textColor = Color.red;
+                text.moveTime = 1.5f;
                 Managers.UI.SummonPosText(Vector2.zero, text, true);
                 Debug.Log("오펜스 실패!");
             }
@@ -125,11 +127,10 @@ public class InvadeManager : MonoBehaviour
         int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        EnemyBase enemy = so.BasePrefab;
-        //enemy.InitEnemyData(so, Managers.Game.pctByEnemyHP_Dict_DEF[GameManager.StageLevel] / 100);
-        enemy.sc.Init(so.SpineData);
+        EnemyBase enemyObj = Instantiate(so.BasePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.BasePrefab.transform.rotation, this.transform);
+        enemyObj.InitEnemyData(so, Managers.Game.GetCoefs().coefEnemyHP / 100);
+        enemyObj.sc.Init(so.SpineData);
 
-        EnemyBase enemyObj = Instantiate(enemy, Managers.Game.wayPoints[firstIdx].transform.position, enemy.transform.rotation, this.transform);
         enemyObj.wayPointListIndex = curSpawnIdx;
 
         Managers.Wave.aliveEnemies.Add(enemyObj);

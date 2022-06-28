@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
   m_Name: Armor_Fly Goblin
   m_EditorClassIdentifier: 
-  myName: "\uC544 \u314B\u314B \uACE0\uBE14\uB9B0\uC774\uB77C\uACE0"
+  myName: "\uACE0\uBE14\uB9B0"
   manual: "\uC885\uC871 \uD2B9\uC131(\uACE0\uBE14\uB9B0) : \uC5C6\uC74C\n\uBE44\uD589\n\uAC11\uC637\n"
-  hp: 600
+  hp: 300
   shield: 0
   offensePower: 1
   moveSpeed: 2

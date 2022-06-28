@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class UI_EnemyInfo : MonoBehaviour
 {
@@ -14,10 +15,11 @@ public class UI_EnemyInfo : MonoBehaviour
     {
         monsterImg.sprite = so.Sprite;
 
-        hpText.text = so.HP.ToString();
+        hpText.SetText(so.HP.ToString());
         speedText.text = so.MoveSpeed.ToString();
         costText.text = so.SpawnCost.ToString();
         manualText.text = so.Manual;
-    }
 
+        gameObject.SetActive(false);
+    }
 }
