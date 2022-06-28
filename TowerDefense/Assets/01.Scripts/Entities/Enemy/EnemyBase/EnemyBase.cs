@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static Define;
 
@@ -16,11 +15,9 @@ public class EnemyData
     public SpeciesType SpeciesType;
 
     public bool IsHide     = false;
-    public bool IsShilde   = false;
-    public bool IsArmor      = false;
-    public bool IsWitch      = false;
-    public bool IsAlchemist  = false;
-    public bool IsFly        = false;
+    public bool isShield   = false;
+    public bool IsArmor    = false;
+    public bool IsFly      = false;
 }
 
 public abstract class EnemyBase : MonoBehaviour, IInitializable
@@ -143,7 +140,7 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
         enemyData.MonsterType   = enemySO.MonsterType;
         enemyData.SpeciesType   = enemySO.SpeciesType;
         enemyData.IsHide        = enemyData.MonsterType.HasFlag(MonsterType.Hide);
-        enemyData.IsShilde      = enemyData.MonsterType.HasFlag(MonsterType.Shield);
+        enemyData.isShield      = enemyData.MonsterType.HasFlag(MonsterType.Shield);
         enemyData.IsArmor       = enemyData.MonsterType.HasFlag(MonsterType.Armor);
         enemyData.IsFly         = enemyData.MonsterType.HasFlag(MonsterType.Fly);
 
@@ -202,5 +199,10 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
     void NextPoint()
     {
         currentWayPointIndex += 1;
+    }
+
+    public void InitObjectData()
+    {
+        throw new System.NotImplementedException();
     }
 }
