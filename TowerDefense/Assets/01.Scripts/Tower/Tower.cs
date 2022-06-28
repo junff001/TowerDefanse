@@ -12,7 +12,6 @@ public struct TowerData
     public float AttackRange;
     public int PlaceCost;
     public int attackTargetCount;
-    public Define.PropertyType Property;
     public Define.PlaceTileType PlaceTileType;
 }
 
@@ -41,7 +40,6 @@ public class Tower : MonoBehaviour
         towerData.AttackRange = towerSO.AttackRange;
         towerData.PlaceCost = towerSO.PlaceCost;
         towerData.attackTargetCount = towerSO.AttackTargetCount;
-        towerData.Property = towerSO.propertyType;
         towerData.PlaceTileType = towerSO.placeTileType;
 
         towerData.AttackPower += towerData.AttackPower * addPctTowerAtkPower;

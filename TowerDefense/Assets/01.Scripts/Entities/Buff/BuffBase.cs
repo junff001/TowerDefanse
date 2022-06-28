@@ -10,7 +10,6 @@ public class BuffBase
     public bool isEnd = false;
     public GameObject affecter { get; set; }
     public BuffType buffType { get; set; }
-    public PropertyType propertyType { get; set; }
   
     public virtual void Update()
     {

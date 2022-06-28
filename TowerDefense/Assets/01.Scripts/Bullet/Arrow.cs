@@ -17,7 +17,7 @@ public class Arrow : Bullet
         {
             Debug.Log("버프");
             Target.GetComponent<EnemyBase>().AddBuff(Buff);
-            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType,true);
+            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, true);
 
             var ps = Instantiate(hitEffect);
             ps.transform.position = Target.position;

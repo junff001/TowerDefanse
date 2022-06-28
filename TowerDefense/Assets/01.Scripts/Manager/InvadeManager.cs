@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class InvadeManager : MonoBehaviour
 {
@@ -18,16 +18,27 @@ public class InvadeManager : MonoBehaviour
 
     public float time = 0f;
     public float maxTime = 180f;
-    public bool bStartedOffense = false;
+    public bool isOffenseProgress = false;
+
+    [SerializeField] private TextMeshProUGUI timerText;
+
+    private void Start()
+    {
+        timerText = Managers.Wave.roundCountText;
+    }
 
     private void Update()
     {
-        if(bStartedOffense)
+        if(isOffenseProgress) // 오펜스 시작 버튼 누르면 시작함.
         {
             time += Time.deltaTime;
+            timerText.text = Mathf.Clamp(Mathf.FloorToInt(time), 0, maxTime).ToString();
 
-            if(time > maxTime)
+            if (time > maxTime)
             {
+                isOffenseProgress = false;
+                PopupText text = new PopupText("게임오버!");
+                Managers.UI.SummonPosText(Vector2.zero, text);
                 Debug.Log("오펜스 실패!");
             }
         }
@@ -97,9 +108,9 @@ public class InvadeManager : MonoBehaviour
     
     public void WaveStart() // 오펜스 시작, 타이머 시작, 시작 소리 플레이
     {
-        if(bStartedOffense == false)
+        if(isOffenseProgress == false)
         {
-            bStartedOffense = true;
+            isOffenseProgress = true;
             curSpawnIdx = 0;
             Managers.Sound.Play("System/StartWave");
         }

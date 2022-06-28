@@ -10,7 +10,7 @@ using static Define;
 public class WaveManager : MonoBehaviour
 {
     [Header("Object Field")]
-    public TextMeshProUGUI waveRoundCount;
+    public TextMeshProUGUI roundCountText;
 
     [Header("웨이브")]
     private int _wave = 1;
@@ -298,7 +298,7 @@ public class WaveManager : MonoBehaviour
         waveRect.DOKill();
         waveRect.DOAnchorPosY(100, 0.75f).SetEase(Ease.InOutBack).OnComplete(() =>
         {
-            waveRoundCount.text = $"Wave {_wave}";
+            roundCountText.text = $"Wave {_wave}";
             waveRect.DOAnchorPosY(-6, 0.75f).SetEase(Ease.InOutBack);
         });
     }

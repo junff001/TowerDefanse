@@ -11,14 +11,13 @@ public class Splash : BuffBase
     ParticleSystem effect;
     LayerMask enemyMask;
       
-    public Splash(float radius, float damage, ParticleSystem effect, LayerMask enemyMask, Define.PropertyType propertyType)
+    public Splash(float radius, float damage, ParticleSystem effect, LayerMask enemyMask)
     {
         buffType = Define.BuffType.DEBUFF;
         this.radius = radius;
         this.damage = damage;
         this.effect = effect;
         this.enemyMask = enemyMask;
-        this.propertyType = propertyType;
     }
 
     void OnEnable()
@@ -27,7 +26,7 @@ public class Splash : BuffBase
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i].GetComponent<HealthSystem>().TakeDamage(damage, propertyType);
+            enemies[i].GetComponent<HealthSystem>().TakeDamage(damage);
         }
 
         effect.Play();

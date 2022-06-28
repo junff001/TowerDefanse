@@ -58,8 +58,7 @@ public class UI_TowerInfo : MonoBehaviour
 
         for (int i = 0; i < btnProperties.Length; i++)
         {
-            Define.PropertyType type = (Define.PropertyType)(i + 1);
-            btnProperties[i].onClick.AddListener(() => CallPropertyBtnOnClicked(type));
+            btnProperties[i].onClick.AddListener(() => CallPropertyBtnOnClicked());
         }
     }
 
@@ -138,11 +137,10 @@ public class UI_TowerInfo : MonoBehaviour
         }
     }
 
-    private void CallPropertyBtnOnClicked(Define.PropertyType type)
+    private void CallPropertyBtnOnClicked()
     {
         if (CurrentSelectedTower != null)
         {
-            //currentSelectedTower.ChangeProperty(type);
             CloseInfo();
         }
     }

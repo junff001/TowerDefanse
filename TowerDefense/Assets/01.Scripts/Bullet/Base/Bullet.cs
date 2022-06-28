@@ -9,7 +9,6 @@ public abstract class Bullet : MonoBehaviour
     public int BulletDamage { get; set; } = 0;                               // 데미지
     public bool IsShoot { get; set; } = false;
     public BuffBase Buff { get; set; }  
-    public Define.PropertyType PropertyType = Define.PropertyType.NONE;
 
     protected Vector2 startPos = Vector2.zero;
     protected Vector2 targetPos = Vector2.zero;
@@ -29,7 +28,6 @@ public abstract class Bullet : MonoBehaviour
         Target = enemyTrm;
         startPos = transform.position;
         targetPos = enemyTrm.position;
-        PropertyType = towerData.Property;
         BulletDamage = towerData.AttackPower;
         Buff = buff;
         curTime = 0;
@@ -78,7 +76,7 @@ public abstract class Bullet : MonoBehaviour
         {
             Debug.Log("버프");
             Target.GetComponent<EnemyBase>().AddBuff(Buff);
-            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, PropertyType);
+            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage);
 
             var ps = Instantiate(hitEffect);
             ps.transform.position = Target.position;

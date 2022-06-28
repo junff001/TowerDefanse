@@ -25,7 +25,7 @@ public class Dot : BuffBase
         {
             damageTime -= dotTime;
             HealthSystem health = enemy.GetComponent<HealthSystem>();
-            health.TakeDamage(amplification, propertyType);
+            health.TakeDamage(amplification);
         }
     }
 
