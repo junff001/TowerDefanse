@@ -18,15 +18,14 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     List<UI_SpawnMonster> spawnBtnList = new List<UI_SpawnMonster>();
     List<UI_SpawnMonster> activedBtns = new List<UI_SpawnMonster>();
 
-    public Button speciesBtn1;
-    public Button speciesBtn2;
-
-    public Button armorBtn;
-    public Button flyBtn;
-    public Button hideBtn;
-    public Button shieldBtn;
-
-    public Button viewAllBtn;
+    [SerializeField] private Button speciesBtn1;
+    [SerializeField] private Button speciesBtn2;
+    [SerializeField] private Button armorBtn;
+    [SerializeField] private Button flyBtn;
+    [SerializeField] private Button hideBtn;
+    [SerializeField] private Button shieldBtn;
+    [SerializeField] private Button viewAllBtn;
+    [SerializeField] private Button viewBookmaredBtn;
 
     private void Start()
     {
@@ -44,6 +43,8 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
             targetMonsterType = Define.MonsterType.None;
             ViewBtns();
         });
+
+        viewBookmaredBtn.onClick.AddListener(() => ViewBookmarked());
 
         MakeAllBtns();
         ViewBtns();
@@ -89,6 +90,12 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
         }
     }
 
+    public void ViewBookmarked()
+    {
+        ClearBtns();
+        TurnOnBtns(Managers.Invade.bookmarkedMonsters);
+    }
+
     public void ViewBtns() // 조건에 맞게 보여주기
     {
         ClearBtns();
@@ -111,18 +118,18 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
             List<UI_SpawnMonster> sameMTypeBtns = targetList.FindAll(x => x.so.MonsterType.HasFlag(targetMonsterType));
             TurnOnBtns(sameMTypeBtns);
         }
-        else // 없음
+        else
         {
             TurnOnBtns(targetList);
         }
+    }
 
-        void TurnOnBtns(List<UI_SpawnMonster> list)
+    void TurnOnBtns(List<UI_SpawnMonster> list)
+    {
+        for (int i = 0; i < list.Count; i++)
         {
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i].gameObject.SetActive(true);
-                activedBtns.Add(list[i]);
-            }
+            list[i].gameObject.SetActive(true);
+            activedBtns.Add(list[i]);
         }
     }
 }

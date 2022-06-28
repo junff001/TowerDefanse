@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public EnemySO so = null;
 
@@ -13,16 +13,39 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField] private Transform iconParentTrm;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI costText;
-                             
-    float pressedTime = 0;   
-    private const float checkPressTime = 1f;
 
-    bool isSpawnCooltime = false;
+    [SerializeField] private Sprite markedSprite;
+    [SerializeField] private Sprite notMarkedSprite;
+    [SerializeField] private Button bookmarkBtn;
+    private bool isMarked = false;
+
+    float pressedTime = 0;   
+    private const float checkPressTime = 0.25f;
+
     bool isPressing = false;
+
+
+    private void Start()
+    {
+        bookmarkBtn.onClick.AddListener(() =>
+        {
+            isMarked = !isMarked;
+            if(isMarked)
+            {
+                Managers.Invade.bookmarkedMonsters.Add(this);
+                bookmarkBtn.image.sprite = markedSprite;
+            }
+            else
+            {
+                Managers.Invade.bookmarkedMonsters.Remove(this);
+                bookmarkBtn.image.sprite = notMarkedSprite;
+            }
+        });
+    }
 
     private void Update()
     {
-        //CheckPress();
+        CheckPress();
     }
 
     private void CheckPress()
@@ -64,34 +87,25 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Managers.Invade.SpawnEnemy(so);
+        isPressing = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-       //if (false == isSpawnCooltime && pressedTime < checkPressTime) // 스폰 가능
-       //{
-       //    Managers.Invade.SpawnEnemy(so);
-       //    Debug.Log("스폰");
-       //}
-       //else // 스폰 불가능
-       //{
-       //    Debug.Log("불가");
-       //}
-       //
-       //isPressing = false;
-       //pressedTime = 0f;
-       //
-       //ShowInfoUI(false);
-    }
+        Debug.Log(pressedTime);
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        ShowInfoUI(true) ;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        ShowInfoUI(false);
+       if (pressedTime < checkPressTime) // 스폰 가능
+       {
+           Managers.Invade.SpawnEnemy(so);
+           Debug.Log("스폰");
+       }
+       else // 스폰 불가능
+       {
+           Debug.Log("불가");
+       }
+       
+       isPressing = false;
+       pressedTime = 0f;
+       ShowInfoUI(false);
     }
 }
