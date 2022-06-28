@@ -38,7 +38,7 @@ public class InvadeManager : MonoBehaviour
             {
                 isOffenseProgress = false;
                 PopupText text = new PopupText("게임오버!");
-                Managers.UI.SummonPosText(Vector2.zero, text);
+                Managers.UI.SummonPosText(Vector2.zero, text, true);
                 Debug.Log("오펜스 실패!");
             }
         }

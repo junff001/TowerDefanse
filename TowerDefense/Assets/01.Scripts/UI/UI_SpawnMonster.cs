@@ -84,7 +84,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
         else // 스폰 불가능
         {
-            Managers.UI.SummonPosText(Input.mousePosition, new PopupText("지금은 소환 불가능합니다!"));
+            Managers.UI.SummonRectText(Input.mousePosition, new PopupText("지금은 소환 불가능합니다!"));
         }
         
         isPressing = false;
