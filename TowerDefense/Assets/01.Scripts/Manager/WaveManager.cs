@@ -25,7 +25,7 @@ public class WaveManager : MonoBehaviour
         }
     }
     public RectTransform waveRect;
-    public MapInfoSO waveSO;
+    public MapInfoSO mapInfoSO;
 
     public List<EnemySO> enemySOList = new List<EnemySO>();
     [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
@@ -41,9 +41,9 @@ public class WaveManager : MonoBehaviour
     public RectTransform offenseStatus;
     public TextMeshProUGUI offenseHpText;
 
-    private Define.GameMode gameMode;
+    private GameMode gameMode;
     [HideInInspector]
-    public Define.GameMode GameMode
+    public GameMode GameMode
     {
         get
         {
@@ -72,7 +72,7 @@ public class WaveManager : MonoBehaviour
     public void DefenseSetNextWave()
     {
         Managers.Record.recordBox.Add(new RecordWaveBox());
-        SpawnerMonsterCount[] enemyBox = waveSO.waveEnemyInfos[Wave - 1].monsterBox;
+        SpawnerMonsterCount[] enemyBox = mapInfoSO.waveEnemyInfos[Wave - 1].monsterBox;
         foreach (SpawnerMonsterCount item in enemyBox)
         {
             for (int i = 0; i < item.enemyCount; i++)
@@ -122,7 +122,7 @@ public class WaveManager : MonoBehaviour
                 Managers.Record.EndRecord();
 
                 // 디펜스 클리어 체크
-                if (Wave >= waveSO.waveEnemyInfos.Length)
+                if (Wave >= mapInfoSO.waveEnemyInfos.Length)
                 {
                     // 오펜스 모드로 교체!
                     GameMode = Define.GameMode.OFFENSE;
@@ -144,11 +144,10 @@ public class WaveManager : MonoBehaviour
             if (IsWaveProgressing == false && Managers.Invade.isWaveProgress)
             {
                 // 오펜스 클리어 체크
-                if (Wave >= waveSO.waveEnemyInfos.Length)
+                if (Wave >= mapInfoSO.waveEnemyInfos.Length)
                 {
                     Managers.Sound.Play("System/Win");
                     Managers.Game.clearUI.gameObject.SetActive(true);
-                    //Time.timeScale = 0;
                 }
                 else
                 {
@@ -174,7 +173,7 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.so.BasePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.BasePrefab.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefs().coefEnemyHP / 100);
+            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
             enemyObj.sc.Init(enemyInfo.so.SpineData);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
@@ -203,8 +202,6 @@ public class WaveManager : MonoBehaviour
 
                     CanvasGroupInit(offenseMonsterGroup, false);
                     monsterRect.DOAnchorPosY(-monsterRect.sizeDelta.y, 0.5f);
-
-                    roundCountText.text = "오펜스 대기 시간!";
                 }
                 break;
             case GameMode.OFFENSE:
@@ -237,11 +234,6 @@ public class WaveManager : MonoBehaviour
                     CanvasGroupInit(defenseTowerGroup, false);
                     towerRect.DOAnchorPosY(-towerRect.sizeDelta.y, 0.5f);
 
-                    //타워 지우기
-                    foreach (Tower tower in Managers.Build.spawnedTowers)
-                    {
-                        Destroy(tower.gameObject);
-                    }
                     Managers.Build.spawnedTowers.Clear();
 
                     //공격 전부 꺼주기(Bullet 상속 받은 친구들)
@@ -281,7 +273,15 @@ public class WaveManager : MonoBehaviour
         waveRect.DOKill();
         waveRect.DOAnchorPosY(100, 0.75f).SetEase(Ease.InOutBack).OnComplete(() =>
         {
-            roundCountText.text = $"Wave {_wave}";
+            if(gameMode == GameMode.DEFENSE)
+            {
+                roundCountText.text = $"Wave {_wave}";
+            }
+            else // 오펜스 모드면
+            {
+                roundCountText.text = "오펜스 대기 시간!";
+            }
+
             waveRect.DOAnchorPosY(-6, 0.75f).SetEase(Ease.InOutBack);
         });
     }

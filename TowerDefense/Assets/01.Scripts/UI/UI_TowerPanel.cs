@@ -13,6 +13,8 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     private RectTransform rangeObj;
     Vector3 rangeObjPlusPos = new Vector3(0, 0.5f, 0);
 
+
+
     private void Start()
     {
         towerCostText.text = towerSO.PlaceCost.ToString();

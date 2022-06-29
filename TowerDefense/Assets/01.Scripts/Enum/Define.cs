@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Define
 {
@@ -32,8 +33,7 @@ public class Define
     }
 
     
-    [System.Flags]
-    public enum MonsterType // 몹 추가될 때마다 추가해줘
+    [Flags] public enum MonsterType // 몹 추가될 때마다 추가해줘
     {
         None        = 0,
         Normal      = 1 << 0,
@@ -47,6 +47,12 @@ public class Define
     {
         None,
         Goblin,
+    }
+
+    [Flags] public enum AttackType 
+    { 
+        Thrower,
+        SuicideBomber
     }
 
     public enum GameMode

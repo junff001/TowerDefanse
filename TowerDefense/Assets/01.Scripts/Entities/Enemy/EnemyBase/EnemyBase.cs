@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static Define;
 
@@ -14,16 +13,19 @@ public class EnemyData
     public float MoveSpeed;
     public MonsterType MonsterType;
     public SpeciesType SpeciesType;
+    public AttackType AttackType;
 
-    public bool IsHide     = false;
-    public bool IsShilde   = false;
-    public bool IsArmor      = false;
-    public bool IsWitch      = false;
-    public bool IsAlchemist  = false;
-    public bool IsFly        = false;
+    public bool IsHide           = false;
+    public bool IsShilde         = false;
+    public bool IsArmor          = false;
+    public bool IsWitch          = false;
+    public bool IsAlchemist      = false;
+    public bool IsFly            = false;
+    public bool IsSuicideBomber  = false;
+    public bool IsThrower        = false;
 }
 
-public abstract class EnemyBase : MonoBehaviour, IInitializable
+public abstract class EnemyBase : MonoBehaviour
 {
     public HealthSystem healthSystem;
     public EnemyData enemyData = new EnemyData();
@@ -41,6 +43,19 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
     public float movedDistance { get; set; }
 
     public bool IsDead => healthSystem.IsDead();
+
+    [SerializeField] int blinkingCount;
+    [SerializeField] float blinkingDelay;
+    [SerializeField] float explosionDamage;
+    [SerializeField] float atkRangeRadius;
+    [SerializeField] float attackSpeed;
+    [SerializeField] LayerMask opponentLayer;
+
+    bool canSuicideBombing = false;
+    SpriteRenderer spriteRenderer;
+    Transform target;
+    List<Collider2D> opponentColliders = new List<Collider2D>();
+    ContactFilter2D contactFilter = new ContactFilter2D();
 
     protected virtual void Awake()
     {
@@ -78,6 +93,44 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
         movedDistance = aliveTime * enemyData.MoveSpeed;
         Move();
         CheckBuffs();
+
+        if (enemyData.IsThrower)
+        {
+            float originMoveSpeed = enemyData.MoveSpeed;
+
+            if (IsRangeInTarget() > 0)
+            {
+                target = opponentColliders[0].transform;
+                enemyData.MoveSpeed = 0f;
+                ThrowProjectile();
+                StartCoroutine(ThrowDelay());
+            }
+
+            enemyData.MoveSpeed = originMoveSpeed;
+        }
+
+        if (enemyData.IsSuicideBomber)
+        {
+            float originMoveSpeed = enemyData.MoveSpeed;
+
+            if (IsRangeInTarget() > 0)
+            {
+                target = opponentColliders[0].transform;
+                enemyData.MoveSpeed = 0f;
+                StartCoroutine(TargetDiscoverySiren());
+
+                if (canSuicideBombing)
+                {
+                    enemyData.MoveSpeed = originMoveSpeed;
+                    TargetChase();
+
+                    if (IsCollisionTarget())
+                    {
+                        SuicideBombing();
+                    }
+                }
+            }
+        }
     }
 
     public void CheckBuffs()
@@ -135,17 +188,19 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
 
     public void InitEnemyData(EnemySO enemySO, float addPercentEnemyHP)
     {
-        enemyData.HP            = enemySO.HP;
-        enemyData.Shield        = enemySO.Shield;
-        enemyData.OffensePower  = enemySO.OffensePower;
-        enemyData.MoveSpeed     = enemySO.MoveSpeed;
-        enemyData.RewardGold    = enemySO.RewardGold;
-        enemyData.MonsterType   = enemySO.MonsterType;
-        enemyData.SpeciesType   = enemySO.SpeciesType;
-        enemyData.IsHide        = enemyData.MonsterType.HasFlag(MonsterType.Hide);
-        enemyData.IsShilde      = enemyData.MonsterType.HasFlag(MonsterType.Shield);
-        enemyData.IsArmor       = enemyData.MonsterType.HasFlag(MonsterType.Armor);
-        enemyData.IsFly         = enemyData.MonsterType.HasFlag(MonsterType.Fly);
+        enemyData.HP                 = enemySO.HP;
+        enemyData.Shield             = enemySO.ShieldAmount;
+        enemyData.OffensePower       = enemySO.OffensePower;
+        enemyData.MoveSpeed          = enemySO.MoveSpeed;
+        enemyData.RewardGold         = enemySO.RewardGold;
+        enemyData.MonsterType        = enemySO.MonsterType;
+        enemyData.SpeciesType        = enemySO.SpeciesType;
+        enemyData.IsHide             = enemyData.MonsterType.HasFlag(MonsterType.Hide);
+        enemyData.IsShilde           = enemyData.MonsterType.HasFlag(MonsterType.Shield);
+        enemyData.IsArmor            = enemyData.MonsterType.HasFlag(MonsterType.Armor);
+        enemyData.IsFly              = enemyData.MonsterType.HasFlag(MonsterType.Fly);
+        enemyData.IsSuicideBomber    = enemyData.AttackType.HasFlag(AttackType.SuicideBomber);
+        enemyData.IsThrower          = enemyData.AttackType.HasFlag(AttackType.Thrower);
 
         enemyData.HP += enemyData.HP * addPercentEnemyHP;
     }
@@ -202,5 +257,64 @@ public abstract class EnemyBase : MonoBehaviour, IInitializable
     void NextPoint()
     {
         currentWayPointIndex += 1;
+    }
+
+    void ThrowProjectile()
+    {
+        var projectile = Managers.Pool.GetItem<Bomb>();
+        projectile.InitProjectileData(enemyData.OffensePower, target, null);
+    }
+
+    IEnumerator ThrowDelay()
+    {
+        yield return new WaitForSeconds(attackSpeed);
+    }
+
+    int IsRangeInTarget()
+    {
+        contactFilter.SetLayerMask(opponentLayer);
+        return Physics2D.OverlapCircle(transform.position, atkRangeRadius, contactFilter, opponentColliders);
+    }
+
+    bool IsCollisionTarget()
+    {
+        if (Vector2.Distance(transform.position, target.position) <= 0.1f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    IEnumerator TargetDiscoverySiren()
+    {
+        int originCount = blinkingCount;
+
+        while (blinkingCount <= 0)
+        {
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(blinkingDelay);
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(blinkingDelay);
+            blinkingCount--;
+        }
+
+
+        blinkingCount = originCount;
+        canSuicideBombing = true;
+    }
+
+    void SuicideBombing()
+    {
+        target.GetComponent<HealthSystem>().TakeDamage(explosionDamage);
+        Destroy(this);
+    }
+
+    void TargetChase()
+    {
+        target = opponentColliders[0].transform;
+        transform.Translate(target.position * enemyData.MoveSpeed * Time.deltaTime);
     }
 }

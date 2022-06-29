@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: WoodenBarrel
   m_EditorClassIdentifier: 
   level: 1
-  offensePower: 80
+  attackPower: 100
   attackSpeed: 1
   attackRange: 4
   placeCost: 300
   attackTargetCount: 1
-  towerSprite: {fileID: 3954836654050351759, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
   placeTileType: 0
   coreType: 4
-  propertyType: 5
   hasTower: 1

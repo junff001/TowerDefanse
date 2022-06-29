@@ -60,7 +60,6 @@ public class SpineController : MonoBehaviour
         {
             Debug.Log("스파인 파츠 세팅 오류"); 
         }
-        
     }
 
     public void Die()

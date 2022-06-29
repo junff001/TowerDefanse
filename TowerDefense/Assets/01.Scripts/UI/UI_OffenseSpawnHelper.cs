@@ -18,15 +18,14 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     List<UI_SpawnMonster> spawnBtnList = new List<UI_SpawnMonster>();
     List<UI_SpawnMonster> activedBtns = new List<UI_SpawnMonster>();
 
-    public Button speciesBtn1;
-    public Button speciesBtn2;
-
-    public Button armorBtn;
-    public Button flyBtn;
-    public Button hideBtn;
-    public Button shieldBtn;
-
-    public Button viewAllBtn;
+    [SerializeField] private Button speciesBtn1;
+    [SerializeField] private Button speciesBtn2;
+    [SerializeField] private Button armorBtn;
+    [SerializeField] private Button flyBtn;
+    [SerializeField] private Button hideBtn;
+    [SerializeField] private Button shieldBtn;
+    [SerializeField] private Button viewAllBtn;
+    [SerializeField] private Button viewBookmaredBtn;
 
     private void Start()
     {
@@ -40,10 +39,14 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
 
         viewAllBtn.onClick.AddListener(() =>
         {
+            spawnBtnList.Sort((x, y) => x.name.CompareTo(y.name));
+
             targetSpeciesType = Define.SpeciesType.None;
             targetMonsterType = Define.MonsterType.None;
             ViewBtns();
         });
+
+        viewBookmaredBtn.onClick.AddListener(() => ViewBookmarked());
 
         MakeAllBtns();
         ViewBtns();
@@ -89,10 +92,15 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
         }
     }
 
+    public void ViewBookmarked()
+    {
+        ClearBtns();
+        TurnOnBtns(Managers.Invade.bookmarkedMonsters);
+    }
+
     public void ViewBtns() // 조건에 맞게 보여주기
     {
         ClearBtns();
-
         if (targetSpeciesType != Define.SpeciesType.None)
         {
             List<UI_SpawnMonster> sameSTypeBtns = spawnBtnList.FindAll((x) => x.so.SpeciesType == targetSpeciesType);
@@ -111,18 +119,25 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
             List<UI_SpawnMonster> sameMTypeBtns = targetList.FindAll(x => x.so.MonsterType.HasFlag(targetMonsterType));
             TurnOnBtns(sameMTypeBtns);
         }
-        else // 없음
+        else
         {
             TurnOnBtns(targetList);
         }
+    }
 
-        void TurnOnBtns(List<UI_SpawnMonster> list)
+    void TurnOnBtns(List<UI_SpawnMonster> list)
+    {
+        int idx = 0;
+
+        for (int i = 0; i < list.Count; i++)
         {
-            for (int i = 0; i < list.Count; i++)
+            list[i].gameObject.SetActive(true);
+            if(list[i].isMarked)
             {
-                list[i].gameObject.SetActive(true);
-                activedBtns.Add(list[i]);
+                list[i].transform.SetSiblingIndex(idx);
+                idx++;
             }
+            activedBtns.Add(list[i]);
         }
     }
 }

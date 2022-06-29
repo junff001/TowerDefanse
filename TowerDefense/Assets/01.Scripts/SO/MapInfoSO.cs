@@ -11,6 +11,9 @@ public class MapInfoSO : ScriptableObject
     [Header("스테이지 스프라이트")]
     public Sprite stageSprite;
 
+    [Header("오펜스 제한시간")]
+    public float limitTime;
+
     [Header("웨이브 정보")]
     public SpawnerInfo[] waveEnemyInfos;
 

@@ -121,7 +121,7 @@ public class UI_TowerInfo : MonoBehaviour
 
             Managers.Build.SetTowerGrid(CurrentSelectedTower, CurrentSelectedTower.myCheckedPos, false);
 
-            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * (Managers.Game.GetCoefs().coefTowerPrice / 100);
+            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * (Managers.Game.GetCoefficient().coefTowerPrice / 100);
 
             Managers.Gold.GoldPlus(returnGold);
 

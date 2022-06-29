@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b95d8bcfb2fe0a440aa0cd6f5161846d, type: 2}
+  - {fileID: 2100000, guid: 0af1bd6b9678b1843999cfd0da62f1f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 6cc15b9be41ae244aa831fd62c50d585, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: fcc0410fae063da458e17067dee9e998, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -197,13 +197,24 @@ MonoBehaviour:
     MoveSpeed: 0
     MonsterType: 0
     SpeciesType: 0
+    AttackType: 0
     IsHide: 0
     IsShilde: 0
     IsArmor: 0
     IsWitch: 0
     IsAlchemist: 0
     IsFly: 0
+    IsSuicideBomber: 0
+    IsThrower: 0
   sc: {fileID: 2544191130546073993}
+  blinkingCount: 0
+  blinkingDelay: 0
+  explosionDamage: 0
+  atkRangeRadius: 0
+  attackSpeed: 0
+  opponentLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &5096107632689154240
 PrefabInstance:
   m_ObjectHideFlags: 0
