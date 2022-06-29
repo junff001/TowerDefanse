@@ -73,7 +73,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         infoUI.Init(this.so);
 
         monsterImg.sprite = so.Sprite;
-        nameText.text = so.MyName;
+        nameText.text = so.MosterName;
         costText.text = so.SpawnCost.ToString();
 
         for(int i = 0;i < so.TypeIcons.Length; i++)

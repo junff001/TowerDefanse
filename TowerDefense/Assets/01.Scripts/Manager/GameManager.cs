@@ -56,9 +56,9 @@ public class GameManager : MonoBehaviour
     {
         coefDict = new Dictionary<GameDifficulty, CoefByDifficulty>()
         {
-            { GameDifficulty.Easy, new CoefByDifficulty  (100,100,100,100,100) },
-            { GameDifficulty.Normal, new CoefByDifficulty(100,100,100,100,100) },
-            { GameDifficulty.Hard, new CoefByDifficulty  (100,100,100,100,100) },
+            { GameDifficulty.Easy, new CoefByDifficulty  (100, 100, 100, 100, 100) },
+            { GameDifficulty.Normal, new CoefByDifficulty(100, 100, 100, 100, 100) },
+            { GameDifficulty.Hard, new CoefByDifficulty  (100, 100, 100, 100, 100) },
         };
         SetWaypoints(waypointsParent);
 
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         UpdateHPText();
     }
 
-    public CoefByDifficulty GetCoefs() => coefDict[GameDifficulty];
+    public CoefByDifficulty GetCoefficient() => coefDict[GameDifficulty];
 
     public void LoadScene()
     {

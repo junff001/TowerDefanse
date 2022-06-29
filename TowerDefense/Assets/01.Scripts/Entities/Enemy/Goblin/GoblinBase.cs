@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GoblinBase : EnemyBase
 {
+   
+
+    
+
     protected override void Start()
     {
         base.Start();

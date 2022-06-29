@@ -41,9 +41,9 @@ public class WaveManager : MonoBehaviour
     public RectTransform offenseStatus;
     public TextMeshProUGUI offenseHpText;
 
-    private Define.GameMode gameMode;
+    private GameMode gameMode;
     [HideInInspector]
-    public Define.GameMode GameMode
+    public GameMode GameMode
     {
         get
         {
@@ -173,7 +173,7 @@ public class WaveManager : MonoBehaviour
 
             EnemyBase enemyObj = Instantiate(enemyInfo.so.BasePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.BasePrefab.transform.rotation, this.transform);
-            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefs().coefEnemyHP / 100);
+            enemyObj.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
             enemyObj.sc.Init(enemyInfo.so.SpineData);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;
