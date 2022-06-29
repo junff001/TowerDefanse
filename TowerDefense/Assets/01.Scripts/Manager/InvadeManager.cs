@@ -118,7 +118,7 @@ public class InvadeManager : MonoBehaviour
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
         EnemyBase enemyObj = Instantiate(so.BasePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.BasePrefab.transform.rotation, this.transform);
-        enemyObj.InitEnemyData(so, Managers.Game.GetCoefs().coefEnemyHP / 100);
+        enemyObj.InitEnemyData(so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
         enemyObj.sc.Init(so.SpineData);
 
         enemyObj.wayPointListIndex = curSpawnIdx;
@@ -185,24 +185,5 @@ public class InvadeManager : MonoBehaviour
     }
     #endregion
 
-    public void SpawnEnemy(EnemySO so)
-    {
-        int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
-        int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        EnemyBase enemyObj = Instantiate(so.BasePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.BasePrefab.transform.rotation, this.transform);
-        enemyObj.InitEnemyData(so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
-        enemyObj.sc.Init(so.SpineData);
-
-        enemyObj.wayPointListIndex = curSpawnIdx;
-
-        Managers.Wave.aliveEnemies.Add(enemyObj);
-        curSpawnCount++;
-
-        if (curSpawnCount > Managers.Wave.waveSO.offenseHeadCount)
-        {
-            curSpawnCount = 0;
-            curSpawnIdx = (curSpawnIdx + 1) % wayCount;
-        }
-    }
 }
