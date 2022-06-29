@@ -44,7 +44,7 @@ public class Catapult_Core : CoreBase
         }
     }
 
-    public override void Attack(int power, HealthSystem enemy)
+    public override void Attack(float power, HealthSystem enemy)
     {
         if (bullet == null && false == isThrowing)
         {

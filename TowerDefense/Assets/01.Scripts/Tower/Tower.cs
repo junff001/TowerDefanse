@@ -7,7 +7,8 @@ using UnityEngine;
 public struct TowerData
 {
     public int Level;
-    public int AttackPower;
+    public float HP;
+    public float AttackPower;
     public float AttackSpeed;
     public float AttackRange;
     public int PlaceCost;
@@ -35,6 +36,7 @@ public class Tower : MonoBehaviour
     public void InitTowerData(TowerSO towerSO, int addPctTowerAtkPower)
     {
         towerData.Level = towerSO.Level;
+        towerData.HP = towerSO.HP;
         towerData.AttackPower = towerSO.AttackPower;
         towerData.AttackSpeed = towerSO.AttackSpeed;
         towerData.AttackRange = towerSO.AttackRange;

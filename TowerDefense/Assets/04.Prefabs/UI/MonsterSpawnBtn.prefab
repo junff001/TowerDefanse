@@ -404,8 +404,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4292335615
+  m_fontColor: {r: 1, g: 0.8443396, b: 0.8443396, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -714,6 +714,7 @@ MonoBehaviour:
   markedSprite: {fileID: 21300000, guid: 6bf5e7237f5f3bb46ad4dc12c043d1e2, type: 3}
   notMarkedSprite: {fileID: 21300000, guid: 0d2691e8a48d4d34e8af42c6b2921b1f, type: 3}
   bookmarkBtn: {fileID: 2851076647458543430}
+  isMarked: 0
 --- !u!222 &7961987970060723456
 CanvasRenderer:
   m_ObjectHideFlags: 0

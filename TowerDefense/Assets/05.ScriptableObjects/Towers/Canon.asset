@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Canon
   m_EditorClassIdentifier: 
   level: 0
+  hp: 1000
   attackPower: 50
   attackSpeed: 4
   attackRange: 5

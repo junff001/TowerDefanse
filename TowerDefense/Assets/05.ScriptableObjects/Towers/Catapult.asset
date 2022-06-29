@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Catapult
   m_EditorClassIdentifier: 
   level: 1
+  hp: 1000
   attackPower: 10000
   attackSpeed: 3
   attackRange: 5

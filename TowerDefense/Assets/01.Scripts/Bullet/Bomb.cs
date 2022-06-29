@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Define;
 
 public class Bomb : Bullet
 {

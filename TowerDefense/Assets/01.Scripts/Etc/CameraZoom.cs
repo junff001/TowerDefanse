@@ -23,12 +23,15 @@ public class CameraZoom : MonoBehaviour
 
     void MouseZoom()
     {
+#if UNITY_EDITOR
         if (addSize > 0 && Input.mouseScrollDelta.y < 0) addSize = 0;
         if (addSize < 0 && Input.mouseScrollDelta.y > 0) addSize = 0;
 
         addSize += -Input.mouseScrollDelta.y * 0.5f;
         SmoothZoom();
+#endif
     }
+
 
     void PinchZoom()
     {
@@ -36,12 +39,12 @@ public class CameraZoom : MonoBehaviour
         Touch touchOne = Input.GetTouch(1);
 
         Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-        Vector2 touchOnePrevPos = touchOne.position - touchZero.deltaPosition;
+        Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
         float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
         float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
 
-        float difference = currentMagnitude - prevMagnitude;
+        float difference = prevMagnitude - currentMagnitude;
 
         Zoom(difference * 0.01f);
     }

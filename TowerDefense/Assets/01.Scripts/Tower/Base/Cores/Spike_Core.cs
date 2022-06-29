@@ -16,7 +16,7 @@ public class Spike_Core : CoreBase
         StartCoroutine(CoAttack());
     }
 
-    public override void Attack(int power, HealthSystem enemy)
+    public override void Attack(float power, HealthSystem enemy)
     {
         enemy.GetComponent<EnemyBase>().AddBuff(Buff);
         enemy.TakeDamage(TowerData.AttackPower);

@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0af1bd6b9678b1843999cfd0da62f1f4, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -198,10 +198,8 @@ MonoBehaviour:
     MonsterType: 0
     SpeciesType: 0
     IsHide: 0
-    IsShilde: 0
+    isShield: 0
     IsArmor: 0
-    IsWitch: 0
-    IsAlchemist: 0
     IsFly: 0
   sc: {fileID: 2544191130546073993}
 --- !u!1001 &5096107632689154240

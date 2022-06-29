@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Define;
 
 public abstract class Bullet : MonoBehaviour
 {

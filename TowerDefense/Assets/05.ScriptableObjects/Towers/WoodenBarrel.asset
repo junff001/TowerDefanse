@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WoodenBarrel
   m_EditorClassIdentifier: 
   level: 1
+  hp: 1000
   attackPower: 100
   attackSpeed: 1
   attackRange: 4

@@ -53,7 +53,7 @@ public abstract class CoreBase : MonoBehaviour
             }
         }
 
-        enemies.Sort((x, y) => x.movedDistance.CompareTo(y.movedDistance)); // 맨 앞 놈 패야 하니까.
+        enemies.Sort((x, y) => -x.movedDistance.CompareTo(y.movedDistance));
         target = enemies[0];
 
         /*
@@ -133,6 +133,6 @@ public abstract class CoreBase : MonoBehaviour
     }
 
     // 공격 로직 함수
-    public abstract void Attack(int power, HealthSystem enemy);
+    public abstract void Attack(float power, HealthSystem enemy);
 
 }

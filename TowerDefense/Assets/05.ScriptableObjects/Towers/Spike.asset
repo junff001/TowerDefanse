@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spike
   m_EditorClassIdentifier: 
   level: 0
+  hp: 1000
   attackPower: 100
   attackSpeed: 0.5
   attackRange: 0.6

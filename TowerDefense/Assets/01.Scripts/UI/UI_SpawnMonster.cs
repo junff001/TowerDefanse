@@ -67,7 +67,6 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         infoUI.gameObject.SetActive(active);
     }
 
-
     public void Init(EnemySO so)
     {
         this.so = so;
@@ -85,25 +84,26 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     }
 
+    Vector2 pointerDownPos = Vector2.zero;
+
     public void OnPointerDown(PointerEventData eventData)
     {
         isPressing = true;
+        pointerDownPos = eventData.position;
+    }
+
+    private bool CanSpawn(Vector2 start, Vector2 end)
+    {
+        return Vector2.Distance(start, end) < 10 && pressedTime < checkPressTime;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log(pressedTime);
-
-       if (pressedTime < checkPressTime) // 스폰 가능
+       if (CanSpawn(pointerDownPos, eventData.position))
        {
            Managers.Invade.SpawnEnemy(so);
-           Debug.Log("스폰");
        }
-       else // 스폰 불가능
-       {
-           Debug.Log("불가");
-       }
-       
+
        isPressing = false;
        pressedTime = 0f;
        ShowInfoUI(false);

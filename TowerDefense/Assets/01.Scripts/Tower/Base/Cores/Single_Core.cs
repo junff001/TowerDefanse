@@ -10,7 +10,7 @@ public class Single_Core : CoreBase
         RotateCanon(angleSpeed);
     }
 
-    public override void Attack(int power, HealthSystem enemy)
+    public override void Attack(float power, HealthSystem enemy)
     {
         if (bullet == null)
         {
