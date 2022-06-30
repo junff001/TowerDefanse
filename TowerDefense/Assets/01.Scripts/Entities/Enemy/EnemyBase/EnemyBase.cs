@@ -9,16 +9,13 @@ public abstract class EnemyBase : LivingEntity
     public EnemyAttackData enemyAttackData = new EnemyAttackData();
 
     [HideInInspector] public SpineController spineController;
+    [SerializeField] ParticleSystem suicideBombingEffect;
 
     List<BuffBase> buffList = new List<BuffBase>();
     MeshRenderer mesh = null;
-    SpriteRenderer spriteRenderer;
     Transform target;
-    ContactFilter2D contactFilter = new ContactFilter2D();
     BoxCollider2D myCollider;
 
-
-    [SerializeField] ParticleSystem suicideBombingEffect;
     public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
     public int CurrentWayPointIndex => currentWayPointIndex;
@@ -28,10 +25,7 @@ public abstract class EnemyBase : LivingEntity
     public float movedDistance { get; set; }
 
     public bool IsDead => healthSystem.IsDead();
-    bool canSuicideBombing = false;
     bool canThrowing = true;
-
-    CircleCollider2D atkRangeCollider;
 
     protected virtual void Awake()
     {
@@ -39,7 +33,6 @@ public abstract class EnemyBase : LivingEntity
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
         spineController = GetComponent<SpineController>();
-        atkRangeCollider = GetComponent<CircleCollider2D>();
 
         StartCoroutine(CheckTile());
     }
@@ -99,8 +92,6 @@ public abstract class EnemyBase : LivingEntity
 
         if (enemyData.IsSuicideBomber)
         {
-            float originMoveSpeed = enemyData.MoveSpeed;
-
             if (TargetInATKRange() != null)
             {
                 target = TargetInATKRange().transform;
@@ -138,7 +129,6 @@ public abstract class EnemyBase : LivingEntity
 
     public void AddBuff(BuffBase buff)
     {
-        //if (buff.buffType == Define.BuffType.DEBUFF && enemyData.IsDebuffIimmune) return;
         if (buff == null) return;
 
         for (int i = 0; i < buffList.Count; i++)
@@ -267,8 +257,7 @@ public abstract class EnemyBase : LivingEntity
         var effect = Instantiate(suicideBombingEffect);
         effect.transform.position = transform.position;
         effect.Play();
-        enemyData.HP = 0f;
-
+        healthSystem.TakeDamage(healthSystem.GetAmount(eHealthType.HEALTH), true, true);
         Debug.Log("자폭 가동");
     }
 

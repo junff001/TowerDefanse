@@ -5,7 +5,6 @@ public class EnemyData : LivingEntityData
 {
     public int OffensePower;
     public int RewardGold;
-    public float HP;
     public float Shield;
     public float MoveSpeed;
     public MonsterType MonsterType;
