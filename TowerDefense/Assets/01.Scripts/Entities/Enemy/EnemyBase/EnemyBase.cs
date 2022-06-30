@@ -15,7 +15,7 @@ public abstract class EnemyBase : LivingEntity
     SpriteRenderer spriteRenderer;
     Transform target;
     ContactFilter2D contactFilter = new ContactFilter2D();
-    Collider2D myCollider;
+    BoxCollider2D myCollider;
 
 
     [SerializeField] ParticleSystem suicideBombingEffect;
@@ -36,7 +36,7 @@ public abstract class EnemyBase : LivingEntity
     protected virtual void Awake()
     {
         StartCoroutine(CheckTile());
-        myCollider = GetComponent<Collider2D>();
+        myCollider = GetComponent<BoxCollider2D>();
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
         spineController = GetComponent<SpineController>();
