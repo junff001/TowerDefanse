@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Text;
 
 public class UI_EnemyInfo : MonoBehaviour
 {
@@ -11,14 +12,16 @@ public class UI_EnemyInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speedText ;   // 이동속도
     [SerializeField] private TextMeshProUGUI manualText;
 
+    StringBuilder stringBuilder = new StringBuilder();
+
     public void Init(EnemySO so)
     {
-        monsterImg.sprite = so.Sprite;
+        monsterImg.sprite = so.sprite;
 
         hpText.SetText(so.HP.ToString());
-        speedText.text = so.MoveSpeed.ToString();
-        costText.text = so.SpawnCost.ToString();
-        manualText.text = so.Manual;
+        speedText.text = so.moveSpeed.ToString();
+        costText.text = so.spawnCost.ToString();
+        manualText.text = "준서 캣시키..";
 
         gameObject.SetActive(false);
     }

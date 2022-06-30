@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
   m_Name: Armor_Fly Goblin
   m_EditorClassIdentifier: 
-  myName: "\uACE0\uBE14\uB9B0"
-  manual: "\uC885\uC871 \uD2B9\uC131(\uACE0\uBE14\uB9B0) : \uC5C6\uC74C\n\uBE44\uD589\n\uAC11\uC637\n"
-  hp: 300
-  shield: 0
-  offensePower: 1
-  moveSpeed: 2
-  rewardGold: 10
-  spawnCost: 10
+  mosterName: 
+  rewardGold: 0
+  spawnCost: 0
+  HP: 300
+  shieldAmount: 0
+  moveSpeed: 1
   monsterType: 20
   speciesType: 1
+  attackType: 0
   sprite: {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
   typeIcons:
-  - {fileID: 3027523047140068486, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
   - {fileID: 4164137571980865127, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
+  - {fileID: 3027523047140068486, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
   spineData: {fileID: 11400000, guid: 241aa329b7855d54981f09b09547a0b7, type: 2}
   basePrefab: {fileID: 1948831253435109427, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}

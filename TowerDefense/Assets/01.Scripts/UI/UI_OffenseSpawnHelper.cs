@@ -103,7 +103,7 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
         ClearBtns();
         if (targetSpeciesType != Define.SpeciesType.None)
         {
-            List<UI_SpawnMonster> sameSTypeBtns = spawnBtnList.FindAll((x) => x.so.SpeciesType == targetSpeciesType);
+            List<UI_SpawnMonster> sameSTypeBtns = spawnBtnList.FindAll((x) => x.so.speciesType == targetSpeciesType);
             CheckMonsterType(sameSTypeBtns);
         }
         else
@@ -116,7 +116,7 @@ public class UI_OffenseSpawnHelper : MonoBehaviour
     {
         if (targetMonsterType != Define.MonsterType.None) // 정한 몹 타입 있음.
         {
-            List<UI_SpawnMonster> sameMTypeBtns = targetList.FindAll(x => x.so.MonsterType.HasFlag(targetMonsterType));
+            List<UI_SpawnMonster> sameMTypeBtns = targetList.FindAll(x => x.so.monsterType.HasFlag(targetMonsterType));
             TurnOnBtns(sameMTypeBtns);
         }
         else

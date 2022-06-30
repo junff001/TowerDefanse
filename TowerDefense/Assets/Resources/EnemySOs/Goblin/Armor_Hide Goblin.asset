@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eefc974f95ed4e4bb059ac204cf96e1, type: 3}
   m_Name: Armor_Hide Goblin
   m_EditorClassIdentifier: 
-  myName: "\uACE0\uBE14\uB9B0"
-  manual: "\uC885\uC871 \uD2B9\uC131(\uACE0\uBE14\uB9B0) : \uC5C6\uC74C\n\uAC11\uC637\n\uC740\uC2E0"
-  hp: 300
-  shield: 0
-  offensePower: 1
+  mosterName: 
+  rewardGold: 0
+  spawnCost: 0
+  HP: 300
+  shieldAmount: 0
   moveSpeed: 2
-  rewardGold: 10
-  spawnCost: 10
   monsterType: 6
   speciesType: 1
+  attackType: 0
   sprite: {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
   typeIcons:
   - {fileID: 3027523047140068486, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}

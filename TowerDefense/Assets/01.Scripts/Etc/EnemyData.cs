@@ -27,19 +27,20 @@ public class EnemyData
 
     public void InitEnemyData(EnemySO enemySO, float addPercentEnemyHP)
     {
-        HP = enemySO.HP;
-        Shield = enemySO.ShieldAmount;
-        OffensePower = enemySO.OffensePower;
-        MoveSpeed = enemySO.MoveSpeed;
-        RewardGold = enemySO.RewardGold;
-        MonsterType = enemySO.MonsterType;
-        SpeciesType = enemySO.SpeciesType;
         IsHide = MonsterType.HasFlag(MonsterType.Hide);
         IsShilde = MonsterType.HasFlag(MonsterType.Shield);
         IsArmor = MonsterType.HasFlag(MonsterType.Armor);
         IsFly = MonsterType.HasFlag(MonsterType.Fly);
         IsSuicideBomber = AttackType.HasFlag(AttackType.SuicideBomber);
         IsThrower = AttackType.HasFlag(AttackType.Thrower);
+
+        HP = enemySO.HP;
+        Shield = 
+        MoveSpeed = enemySO.moveSpeed;
+        RewardGold = enemySO.rewardGold;
+        MonsterType = enemySO.monsterType;
+        SpeciesType = enemySO.speciesType;
+        
 
         HP += HP * addPercentEnemyHP;
     }
