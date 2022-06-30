@@ -43,7 +43,7 @@ public class Penetration_Core : CoreBase
                 Vector2 direction = target.transform.position - bowBody.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 Quaternion rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
-                bowBody.rotation = Quaternion.Slerp(bowBody.rotation, rotation, rotateSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(bowBody.rotation, rotation, rotateSpeed * Time.deltaTime);
 
                 if (bullet != null)
                 {

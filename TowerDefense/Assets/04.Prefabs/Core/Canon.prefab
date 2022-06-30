@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raderHeight: 2
   coreType: 0
-  attackableTargetType: 61
+  notAttackableType: 18
   head: {fileID: 8419561142240207063}
   angleSpeed: 20
 --- !u!1 &5585128627176338665

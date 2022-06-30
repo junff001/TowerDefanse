@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raderHeight: 2
   coreType: 1
-  attackableTargetType: 61
+  notAttackableType: 18
   bowBody: {fileID: 2089885967581898313}
   bowLauncher: {fileID: 2180965308138597486}
   bulletLanchTrm: {fileID: 5407253576581797903}

@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateHPText()
     {
-        Debug.Log(hpText.name);
         hpText.text = Hp.ToString();
     }
 

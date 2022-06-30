@@ -81,12 +81,10 @@ public class HealthBar : MonoBehaviour
         if (healthSystem.IsFullValue(eHealthType.SHIELD) && healthSystem.IsFullValue(eHealthType.HEALTH))
         {
             gameObject.SetActive(false);
-            Debug.Log("true");
         }
         else
         {
             gameObject.SetActive(true);
-            Debug.Log("false");
         }
     }
 

@@ -18,12 +18,11 @@ public abstract class CoreBase : MonoBehaviour
 
     protected Bullet bullet = null;
 
-    //[SerializeField] private MonsterType priorityTargetType;
-    [SerializeField] private MonsterType attackableTargetType;
+    [SerializeField] private MonsterType notAttackableType;
 
     public virtual void OnEnable()
     {
-        StartCoroutine(SetEnemyCorouitne());
+        StartCoroutine(EnemyRader());
         StartCoroutine(AttackDelay());
     }
 
@@ -44,53 +43,37 @@ public abstract class CoreBase : MonoBehaviour
         if (target != null && target.IsDead) target = null;
         if (enemies.Count <= 0) return;
 
-        for(int i = 0; i< enemies.Count; i++)
+        enemies.Sort((x, y) => -x.movedDistance.CompareTo(y.movedDistance));
+
+        for (int i = 0; i< enemies.Count; i++)
         {
-            if((enemies[i].enemyData.MonsterType & attackableTargetType) == 0)
+            if((enemies[i].enemyData.MonsterType & notAttackableType) == 0) // 공격 불가한 타입이 없는 친구면!
             {
-                enemies.RemoveAt(i);
-                i--;
+                target = enemies[0];
+                break;
             }
         }
-
-        enemies.Sort((x, y) => -x.movedDistance.CompareTo(y.movedDistance));
-        target = enemies[0];
-
-        /*
-        우선 타게팅이 나중에 필요할지도 모르자나
-        EnemyBase priorityTarget = enemies.Find(x => (x.enemyData.MonsterType & priorityTargetType) != 0);
-        
-        if(priorityTarget != null)
-        {
-            target = priorityTarget;
-        }
-        
-        if(target == null)
-        {
-            target = enemies[0];
-        }
-        */
     }
 
     public virtual void OnDisable()
     {
-        StopCoroutine(SetEnemyCorouitne());
+        StopCoroutine(EnemyRader());
         StopCoroutine(AttackDelay());
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
-    public virtual IEnumerator SetEnemyCorouitne()
+    public virtual IEnumerator EnemyRader()
     {
         while (true)
         {
-            Rader();
+            SetEnemies();
             SetTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }
 
     // 공격 범위 처리 함수
-    public void Rader()
+    public void SetEnemies()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, enemyMask);
         enemies.Clear();
