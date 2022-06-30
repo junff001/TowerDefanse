@@ -12,7 +12,7 @@ public abstract class CoreBase : MonoBehaviour
     protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
     protected EnemyBase target { get; set; } = null;                // 현재 타겟
 
-    public TowerData TowerData { get; set; } = default;
+    public TowerData towerData { get; set; } = default;
     public eCoreName coreType;
     public BuffBase Buff { get; set; } 
 
@@ -35,7 +35,7 @@ public abstract class CoreBase : MonoBehaviour
     {
         if (target == null) return false; // 그냥 넘어가요~
 
-        return Vector2.Distance(target.transform.position, transform.position) >= TowerData.AttackRange;
+        return Vector2.Distance(target.transform.position, transform.position) >= towerData.AttackRange;
     }
 
     public void SetTarget() // 우선순위나 이동 거리에 따라서 타겟 설정
@@ -76,7 +76,7 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 범위 처리 함수
     public void SetEnemies()
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, enemyMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), towerData.AttackRange, enemyMask);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {
@@ -90,9 +90,9 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => target != null && target.IsDead == false);
-            Attack(TowerData.AttackPower, target.healthSystem);
+            Attack(towerData.AttackPower, target.healthSystem);
            
-            yield return new WaitForSeconds(1f / TowerData.AttackSpeed);
+            yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }
 

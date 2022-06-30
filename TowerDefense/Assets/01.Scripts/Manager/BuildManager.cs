@@ -189,7 +189,7 @@ public class BuildManager : MonoBehaviour
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
-        newCore.TowerData = newTower.TowerData;
+        newCore.towerData = newTower.towerData;
 
         return newCore;
     }
@@ -204,7 +204,7 @@ public class BuildManager : MonoBehaviour
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
-        newCore.TowerData = newTower.TowerData;
+        newCore.towerData = newTower.towerData;
 
         return newCore;
     }
@@ -251,7 +251,7 @@ public class BuildManager : MonoBehaviour
         {
             TileType placeTileType = TileType.None;
 
-            switch (tower.TowerData.PlaceTileType)
+            switch (tower.towerData.PlaceTileType)
             {
                 case PlaceTileType.Place:
                     placeTileType = value ? TileType.Place_Tower : TileType.Place;

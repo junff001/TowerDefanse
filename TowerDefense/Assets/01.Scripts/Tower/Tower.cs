@@ -3,23 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class TowerData : LivingEntityData
-{
-    public int Level;
-    public float HP;
-    public float AttackPower;
-    public float AttackSpeed;
-    public float AttackRange;
-    public int PlaceCost;
-    public int attackTargetCount;
-    public Define.PlaceTileType PlaceTileType;
-}
-
 public class Tower : LivingEntity
 {
-    [SerializeField] private TowerData towerData = new TowerData();// 인스턴스 타워 정보
-    public TowerData TowerData { get => towerData; set => value = towerData; }
+    public TowerData towerData;
 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
     public Transform coreTrm;

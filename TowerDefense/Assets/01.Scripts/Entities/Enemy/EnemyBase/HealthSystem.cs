@@ -78,25 +78,32 @@ public class HealthSystem : MonoBehaviour
 
     private void Damage(float damageAmount, bool hasPenetration, bool hasShield)
     {
-        if (hasShield)  
+        float tempAmount = curShieldAmount;
+
+        curShieldAmount -= damageAmount;
+        curShieldAmount = Mathf.Clamp(curShieldAmount, 0, shieldAmountMax);
+
+        if (curShieldAmount <= 0)
         {
-            float tempAmount = curShieldAmount;
-
-            curShieldAmount -= damageAmount;
-            curShieldAmount = Mathf.Clamp(curShieldAmount, 0, shieldAmountMax);
-
-            if (curShieldAmount <= 0)
-            {
-                float realDamage = damageAmount - tempAmount; // 데미지 초과 분량
-                curHealthAmount -= realDamage;
-                curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
-            }
+            float realDamage = damageAmount - tempAmount; // 데미지 초과 분량
+            curHealthAmount -= realDamage;
+            curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
         }
-        else if (hasPenetration || !hasShield)
+
+        if (hasPenetration)
         {
             curHealthAmount -= damageAmount;
             curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
         }
+
+        //if (hasShield)  
+        //{
+           
+        //}
+        //else if (hasPenetration || !hasShield)
+        //{
+           
+        //}
     }
 
     public bool IsDead()

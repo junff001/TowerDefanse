@@ -102,10 +102,10 @@ public class Catapult_Core : CoreBase
             {
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
                 bullet.transform.position = basket.transform.position + new Vector3(dir.x / 2, 0, 0);
-                bullet.InitProjectileData(TowerData.AttackPower, enemyTrm, Buff);
+                bullet.InitProjectileData(towerData.AttackPower, enemyTrm, Buff);
                 OnAttack();
 
-                if (target?.healthSystem.GetAmount(eHealthType.HEALTH) - TowerData.AttackPower <= 0) target = null;
+                if (target?.healthSystem.GetAmount(eHealthType.HEALTH) - towerData.AttackPower <= 0) target = null;
             }
 
             if (head.transform.localRotation == followThrough)

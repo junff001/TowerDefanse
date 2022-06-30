@@ -77,7 +77,7 @@ public class UI_TowerInfo : MonoBehaviour
         OpenPage(pageDefault);
         BtnAnim(btnCancel, true);
 
-        image.rectTransform.sizeDelta *= tower.TowerData.AttackRange;
+        image.rectTransform.sizeDelta *= tower.towerData.AttackRange;
         transform.position = tower.transform.position + new Vector3(0, 1, 0); // 오프셋
         CurrentSelectedTower = tower;
     }
@@ -121,7 +121,7 @@ public class UI_TowerInfo : MonoBehaviour
 
             Managers.Build.SetTowerGrid(CurrentSelectedTower, CurrentSelectedTower.myCheckedPos, false);
 
-            float returnGold = CurrentSelectedTower.TowerData.PlaceCost * (Managers.Game.GetCoefficient().coefTowerPrice / 100);
+            float returnGold = CurrentSelectedTower.towerData.PlaceCost * (Managers.Game.GetCoefficient().coefTowerPrice / 100);
 
             Managers.Gold.GoldPlus(returnGold);
 
