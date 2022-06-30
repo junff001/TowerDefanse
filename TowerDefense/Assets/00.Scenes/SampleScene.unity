@@ -9974,6 +9974,7 @@ MonoBehaviour:
   placeTile: {fileID: 11400000, guid: ede42c5a821a8a548b1b991281dd37f6, type: 2}
   roadTile: {fileID: 11400000, guid: fc26db26152e3c84a9d6290e243b0c3d, type: 2}
   waterTile: {fileID: 11400000, guid: 66adf1f7ec91d0e41bf77b72191c40fa, type: 2}
+  placeableTunnelTile: {fileID: 11400000, guid: 071796f570f9add49bab2e1a1d22f15d, type: 2}
   plusPos: {x: 0, y: 0, z: 0}
   map: {fileID: 0}
   towerBase: {fileID: 6440560775320885369, guid: 08dfbddf1d8ef1d409b4dff844b43534, type: 3}
