@@ -1,48 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Define;
-
-[System.Serializable]
-public class EnemyData
-{
-    public int OffensePower;
-    public int RewardGold;
-    public float HP;
-    public float Shield;
-    public float MoveSpeed;
-    public MonsterType MonsterType;
-    public SpeciesType SpeciesType;
-    public AttackType AttackType;
-
-    public bool IsHide           = false;
-    public bool IsShilde         = false;
-    public bool IsArmor          = false;
-    public bool IsWitch          = false;
-    public bool IsAlchemist      = false;
-    public bool IsFly            = false;
-    public bool IsSuicideBomber  = false;
-    public bool IsThrower        = false;
-}
 
 public abstract class EnemyBase : MonoBehaviour
 {
     public HealthSystem healthSystem;
     public EnemyData enemyData = new EnemyData();
-    public SpineController sc;
+    [HideInInspector] public SpineController sc;
 
-    private List<BuffBase> buffList = new List<BuffBase>();
-    private MeshRenderer mesh = null;
+    List<BuffBase> buffList = new List<BuffBase>();
+    MeshRenderer mesh = null;
+    SpriteRenderer spriteRenderer;
+    Transform target;
+    List<Collider2D> opponentColliders = new List<Collider2D>();
+    ContactFilter2D contactFilter = new ContactFilter2D();
 
     public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
-    public int CurrentWayPointIndex { get => currentWayPointIndex; private set { } }
+    public int CurrentWayPointIndex => currentWayPointIndex;
     private int realWayPointIndex = 0;
 
     public float aliveTime { get; set; }
     public float movedDistance { get; set; }
 
     public bool IsDead => healthSystem.IsDead();
+    bool canSuicideBombing = false;
 
     [SerializeField] int blinkingCount;
     [SerializeField] float blinkingDelay;
@@ -50,12 +32,6 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] float atkRangeRadius;
     [SerializeField] float attackSpeed;
     [SerializeField] LayerMask opponentLayer;
-
-    bool canSuicideBombing = false;
-    SpriteRenderer spriteRenderer;
-    Transform target;
-    List<Collider2D> opponentColliders = new List<Collider2D>();
-    ContactFilter2D contactFilter = new ContactFilter2D();
 
     protected virtual void Awake()
     {
@@ -186,24 +162,7 @@ public abstract class EnemyBase : MonoBehaviour
         buffList.Add(buff);
     }
 
-    public void InitEnemyData(EnemySO enemySO, float addPercentEnemyHP)
-    {
-        enemyData.HP                 = enemySO.HP;
-        enemyData.Shield             = enemySO.ShieldAmount;
-        enemyData.OffensePower       = enemySO.OffensePower;
-        enemyData.MoveSpeed          = enemySO.MoveSpeed;
-        enemyData.RewardGold         = enemySO.RewardGold;
-        enemyData.MonsterType        = enemySO.MonsterType;
-        enemyData.SpeciesType        = enemySO.SpeciesType;
-        enemyData.IsHide             = enemyData.MonsterType.HasFlag(MonsterType.Hide);
-        enemyData.IsShilde           = enemyData.MonsterType.HasFlag(MonsterType.Shield);
-        enemyData.IsArmor            = enemyData.MonsterType.HasFlag(MonsterType.Armor);
-        enemyData.IsFly              = enemyData.MonsterType.HasFlag(MonsterType.Fly);
-        enemyData.IsSuicideBomber    = enemyData.AttackType.HasFlag(AttackType.SuicideBomber);
-        enemyData.IsThrower          = enemyData.AttackType.HasFlag(AttackType.Thrower);
 
-        enemyData.HP += enemyData.HP * addPercentEnemyHP;
-    }
 
     public void InitAnimController()
     {

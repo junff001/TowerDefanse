@@ -12,8 +12,8 @@ public class Spike_Core : CoreBase
 
     public override void OnEnable()
     {
-        StartCoroutine(OnRader());
-        StartCoroutine(CoAttack());
+        StartCoroutine(EnemyRader());
+        StartCoroutine(AttackDelay());
     }
 
     public override void Attack(float power, HealthSystem enemy)
@@ -23,7 +23,7 @@ public class Spike_Core : CoreBase
         hitEffect.transform.position = - enemy.transform.up;
     }
 
-    public override IEnumerator CoAttack()
+    public override IEnumerator AttackDelay()
     {
         while (true)
         {

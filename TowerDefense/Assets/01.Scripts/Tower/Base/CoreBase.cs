@@ -23,8 +23,8 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnEnable()
     {
-        StartCoroutine(OnRader());
-        StartCoroutine(CoAttack());
+        StartCoroutine(EnemyRader());
+        StartCoroutine(AttackDelay());
     }
 
     private void Start()
@@ -74,23 +74,23 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnDisable()
     {
-        StopCoroutine(OnRader());
-        StopCoroutine(CoAttack());
+        StopCoroutine(EnemyRader());
+        StopCoroutine(AttackDelay());
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
-    public virtual IEnumerator OnRader()
+    public virtual IEnumerator EnemyRader()
     {
         while (true)
         {
-            EnemyRader();
+            SetEnemies();
             SetTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }
 
     // 공격 범위 처리 함수
-    public void EnemyRader()
+    public void SetEnemies()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, enemyMask);
         enemies.Clear();
@@ -100,21 +100,8 @@ public abstract class CoreBase : MonoBehaviour
         }
     }
 
-    // 공격 범위 기즈모 표시
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        if (UnityEditor.Selection.activeObject == gameObject)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position + new Vector3(0, raderHeight, 0), TowerData.AttackRange);
-            Gizmos.color = Color.white;
-        }
-    }
-#endif
-
     // 공격 실행 함수
-    public virtual IEnumerator CoAttack()
+    public virtual IEnumerator AttackDelay()
     {
         while (true)
         {
