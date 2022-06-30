@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct TowerData
+public class TowerData : LivingEntityData
 {
     public int Level;
     public float HP;

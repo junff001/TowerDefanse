@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class LivingEntity : MonoBehaviour
 {
-    
+    public LivingEntityData livingEntityData;
 }

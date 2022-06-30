@@ -18,18 +18,21 @@ public class HealthSystem : MonoBehaviour
 
     public float damagedDelay { get; set; } = 0f;
 
-    private LivingEntity livingEntity;
+    //private LivingEntity livingEntity;
+    private EnemyBase enemyBase;
     private float healthAmountMax;
     private float curHealthAmount
     {
         get
         {
+            // livingEntity.livingEntityData.HP;
             return enemyBase.enemyData.HP;
         }
 
         set
         {
             enemyBase.enemyData.HP = value;
+            //livingEntity.livingEntityData.HP = value;
         }
     }
 
@@ -73,21 +76,23 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private void Damage(float damageAmount, bool penetration)
+    private void Damage(float damageAmount, bool hasPenetration, bool hasShield)
     {
-        float tempAmount = curShieldAmount;
-
-        curShieldAmount -= damageAmount;
-        curShieldAmount = Mathf.Clamp(curShieldAmount, 0, shieldAmountMax);
-
-        if(curShieldAmount <= 0)
+        if (hasShield)  
         {
-            float realDamage = damageAmount - tempAmount; // 데미지 초과 분량
-            curHealthAmount -= realDamage;
-            curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
-        }
+            float tempAmount = curShieldAmount;
 
-        if (penetration)
+            curShieldAmount -= damageAmount;
+            curShieldAmount = Mathf.Clamp(curShieldAmount, 0, shieldAmountMax);
+
+            if (curShieldAmount <= 0)
+            {
+                float realDamage = damageAmount - tempAmount; // 데미지 초과 분량
+                curHealthAmount -= realDamage;
+                curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
+            }
+        }
+        else if (hasPenetration || !hasShield)
         {
             curHealthAmount -= damageAmount;
             curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
@@ -149,9 +154,9 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount,  bool penetration = false)
+    public void TakeDamage(float damageAmount,  bool hasPenetration = false, bool hasShield = false)
     {
-        Damage(damageAmount, penetration);
+        Damage(damageAmount, hasPenetration, hasShield);
         OnDamaged?.Invoke();
 
         if (IsDead())

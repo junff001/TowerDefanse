@@ -1,9 +1,7 @@
 using static Define;
 
-
-
 [System.Serializable]
-public class EnemyData 
+public class EnemyData : LivingEntityData
 {
     public int OffensePower;
     public int RewardGold;
