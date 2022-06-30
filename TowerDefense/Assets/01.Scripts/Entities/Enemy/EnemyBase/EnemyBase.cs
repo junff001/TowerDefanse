@@ -35,12 +35,13 @@ public abstract class EnemyBase : LivingEntity
 
     protected virtual void Awake()
     {
-        StartCoroutine(CheckTile());
         myCollider = GetComponent<BoxCollider2D>();
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
         spineController = GetComponent<SpineController>();
         atkRangeCollider = GetComponent<CircleCollider2D>();
+
+        StartCoroutine(CheckTile());
     }
 
     protected virtual void Start()
