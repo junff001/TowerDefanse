@@ -26,11 +26,11 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     public void SetFakeTower()
     {
         Tower newTower = Instantiate(Managers.Build.towerBase, this.transform);
-        newTower.GetComponent<Tower>().enabled = false;
 
         CoreBase core = towerSO.hasTower ? Managers.Build.MakeNewCore(towerSO, newTower) : 
             Managers.Build.MakeNoTowerCore(towerSO, newTower);
 
+        newTower.GetComponent<Tower>().enabled = false;
         core.enabled = false;
 
         SpriteRenderer[] renderers = newTower.GetComponentsInChildren<SpriteRenderer>();

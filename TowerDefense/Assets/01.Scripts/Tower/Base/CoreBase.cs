@@ -12,7 +12,7 @@ public abstract class CoreBase : MonoBehaviour
     protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
     protected EnemyBase target { get; set; } = null;                // 현재 타겟
 
-    public TowerData towerData { get; set; } = default;
+    public TowerData towerData = new TowerData(); 
     public eCoreName coreType;
     public BuffBase Buff { get; set; } 
 
@@ -76,7 +76,8 @@ public abstract class CoreBase : MonoBehaviour
     // 공격 범위 처리 함수
     public void SetEnemies()
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), towerData.AttackRange, enemyMask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll
+            (transform.position - new Vector3(0, raderHeight, 0), towerData.AttackRange, enemyMask);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {

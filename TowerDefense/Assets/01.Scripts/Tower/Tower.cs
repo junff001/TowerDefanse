@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Tower : LivingEntity
 {
-    public TowerData towerData;
+    public TowerData towerData = new TowerData();
 
     public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
     public Transform coreTrm;

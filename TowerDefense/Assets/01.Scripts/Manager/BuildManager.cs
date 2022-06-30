@@ -187,6 +187,7 @@ public class BuildManager : MonoBehaviour
     public CoreBase MakeNewCore(TowerSO towerSO, Tower newTower)
     {
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
+        Debug.Log(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.coreTrm.position;
         newCore.towerData = newTower.towerData;
