@@ -46,7 +46,8 @@ public class Catapult_Core : CoreBase
 
     public override void Attack(float power, HealthSystem enemy)
     {
-        if (bullet == null && false == isThrowing)
+
+        if (bullet == null && false == isThrowing && target != null)
         {
             Ready();
             StartCoroutine(Charging(enemy.transform));
@@ -103,12 +104,13 @@ public class Catapult_Core : CoreBase
                 bullet.transform.position = basket.transform.position + new Vector3(dir.x / 2, 0, 0);
                 bullet.InitProjectileData(TowerData.AttackPower, enemyTrm, Buff);
                 OnAttack();
+
+                if (target?.healthSystem.GetAmount(eHealthType.HEALTH) - TowerData.AttackPower <= 0) target = null;
             }
 
             if (head.transform.localRotation == followThrough)
             {
                 head.transform.localRotation = Quaternion.Euler(0, 0, defaultAngle - head.transform.localRotation.z);
-                
                 isThrowing = false;
                 break;
             }

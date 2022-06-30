@@ -15,6 +15,8 @@ public abstract class EnemyBase : LivingEntity
     SpriteRenderer spriteRenderer;
     Transform target;
     ContactFilter2D contactFilter = new ContactFilter2D();
+    Collider2D myCollider;
+
 
     [SerializeField] ParticleSystem suicideBombingEffect;
     public int wayPointListIndex { get; set; }
@@ -33,6 +35,8 @@ public abstract class EnemyBase : LivingEntity
 
     protected virtual void Awake()
     {
+        StartCoroutine(CheckTile());
+        myCollider = GetComponent<Collider2D>();
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
         spineController = GetComponent<SpineController>();
@@ -270,5 +274,12 @@ public abstract class EnemyBase : LivingEntity
     void TargetChase()
     {
         transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime);
+    }
+
+
+    IEnumerator CheckTile()
+    {
+        myCollider.enabled = !Managers.Build.IsInTunnel(transform.position);
+        yield return new WaitForSeconds(0.1f);
     }
 }
