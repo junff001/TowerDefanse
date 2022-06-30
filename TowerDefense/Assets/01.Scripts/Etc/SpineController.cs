@@ -26,8 +26,6 @@ public class SpineController : MonoBehaviour
         sa = GetComponent<SkeletonAnimation>();
         skeleton = sa.skeleton; // 스켈레톤 클래스;
 
-        Debug.Log(skeleton == null);
-
         // 파츠들 전부 해제. 이 친구는 포문 못 돌림.
         foreach (Slot slot in skeleton.Slots)
         {
