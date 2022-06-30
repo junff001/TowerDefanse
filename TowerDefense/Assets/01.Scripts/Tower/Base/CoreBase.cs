@@ -43,6 +43,7 @@ public abstract class CoreBase : MonoBehaviour
         if (target != null && target.IsDead) target = null;
         if (enemies.Count <= 0) return;
 
+
         enemies.Sort((x, y) => -x.movedDistance.CompareTo(y.movedDistance));
 
         for (int i = 0; i< enemies.Count; i++)

@@ -14,7 +14,7 @@ public class Bomb : Bullet
         float x = (targetPos.x + startPos.x) / 2;
         float y = targetPos.y > startPos.y ? targetPos.y : startPos.y;
         y += 2;
-
+        
         curvePoint = new Vector2(x, y);
     }
 

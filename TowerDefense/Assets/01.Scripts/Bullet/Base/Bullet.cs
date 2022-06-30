@@ -11,6 +11,7 @@ public abstract class Bullet : MonoBehaviour
     public BuffBase Buff { get; set; }  
 
     protected Vector2 startPos = Vector2.zero;
+    protected Vector2 firePos;
     protected Vector2 targetPos = Vector2.zero;
     public Vector2 TargetPos => targetPos; 
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6440560775293775369}
   - component: {fileID: 6440560775293775370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TowerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6440560775320885368}
   - component: {fileID: 6440560775320885369}
   - component: {fileID: 705179786020794454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BaseTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,12 +131,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerData:
     Level: 0
-    OffensePower: 0
+    HP: 0
+    AttackPower: 0
     AttackSpeed: 0
     AttackRange: 0
     PlaceCost: 0
     attackTargetCount: 0
-    Property: 0
     PlaceTileType: 0
   coreTrm: {fileID: 5959093991930460599}
 --- !u!61 &705179786020794454
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6440560775465285334}
   - component: {fileID: 6440560775465285335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TowerHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5959093991930460599}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoreTrm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -51,6 +51,7 @@ public class Define
 
     [Flags] public enum AttackType 
     { 
+        None,
         Thrower,
         SuicideBomber
     }

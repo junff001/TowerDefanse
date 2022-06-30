@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 0af1bd6b9678b1843999cfd0da62f1f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,22 +197,26 @@ MonoBehaviour:
     MoveSpeed: 0
     MonsterType: 0
     SpeciesType: 0
-    AttackType: 0
+    AttackType: 2
     IsHide: 0
-    isShield: 0
+    IsShilde: 0
     IsArmor: 0
+    IsWitch: 0
+    IsAlchemist: 0
     IsFly: 0
     IsSuicideBomber: 0
     IsThrower: 0
-  sc: {fileID: 2544191130546073993}
-  blinkingCount: 0
-  blinkingDelay: 0
-  explosionDamage: 0
-  atkRangeRadius: 0
-  attackSpeed: 0
-  opponentLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  enemyAttackData:
+    blinkingCount: 0
+    blinkingDelay: 0
+    explosionDamage: 0
+    atkRangeRadius: 10
+    attackSpeed: 3
+    opponentLayer:
+      serializedVersion: 2
+      m_Bits: 64
+  spineController: {fileID: 0}
+  suicideBombingEffect: {fileID: 198681264470032530, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
 --- !u!1001 &5096107632689154240
 PrefabInstance:
   m_ObjectHideFlags: 0
