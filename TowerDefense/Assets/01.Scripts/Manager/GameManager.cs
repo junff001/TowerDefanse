@@ -67,10 +67,6 @@ public class GameManager : MonoBehaviour
     }
 
     public CoefByDifficulty GetCoefficient() => coefDict[GameDifficulty];
-    public void SetCoefficient(int difficulty)
-    {
-        GameDifficulty = (GameDifficulty)difficulty;
-    }
 
     public void LoadScene()
     {

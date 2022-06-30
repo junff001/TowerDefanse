@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Define;
 
 public class Map : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Map : MonoBehaviour
     [HideInInspector] public Tile placeTile;
     [HideInInspector] public Tile roadTile;
     [HideInInspector] public Tile waterTile;
-    [HideInInspector] public Tile tunnelTile;
+    [HideInInspector] public Tile placeableTunnelTile;
 
     private void Awake()
     {
@@ -32,19 +33,19 @@ public class Map : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if(mapTileTypeArray[x,y] == Define.TileType.Road_Tower)
+                if(mapTileTypeArray[x,y] == TileType.Road_Tower)
                 {
-                    mapTileTypeArray[x, y] = Define.TileType.Place;
+                    mapTileTypeArray[x, y] = TileType.Place;
                 }
-                if (mapTileTypeArray[x, y] == Define.TileType.Place_Tower)
+                if (mapTileTypeArray[x, y] == TileType.Place_Tower)
                 {
-                    mapTileTypeArray[x, y] = Define.TileType.Road;
+                    mapTileTypeArray[x, y] = TileType.Road;
                 }
             }
         }
     }
 
-    public void ShowPlaceableTiles(Define.PlaceTileType placeTileType)
+    public void ShowPlaceableTiles(PlaceTileType placeTileType)
     {
         Managers.Build.placingTileType = placeTileType;
 
@@ -62,12 +63,12 @@ public class Map : MonoBehaviour
         placeTile = Managers.Build.placeTile;
         roadTile = Managers.Build.roadTile;
         waterTile = Managers.Build.waterTile;
-        waterTile = Managers.Build.tunnelTile;
+        placeableTunnelTile = Managers.Build.placeableTunnelTile;
 
         width = tilemap.size.x;
         height = tilemap.size.y;
 
-        mapTileTypeArray = new Define.TileType[width, height];                 // 맵 사이즈 설정
+        mapTileTypeArray = new TileType[width, height];                 // 맵 사이즈 설정
         mapTileArray = new Tile[width, height];                 // 맵 사이즈 설정
 
         int x = 0, y = 0;
@@ -93,20 +94,20 @@ public class Map : MonoBehaviour
         }
     }
 
-    Define.TileType GetTileType(Tile tile)
+    TileType GetTileType(Tile tile)
     {
         if (tile == roadTile)
-            return Define.TileType.Road;
+            return TileType.Road;
 
         else if (tile == placeTile)
-            return Define.TileType.Place;
+            return TileType.Place;
 
         else if (tile == waterTile)
-            return Define.TileType.Water;
+            return TileType.Water_UseAsTunnel;
 
-        else if (tile == tunnelTile)
-            return Define.TileType.Tunnel;
-        else
-            return Define.TileType.Obstacle;
+        else if (tile == placeableTunnelTile)
+            return TileType.PlaceableTunnel;
+
+        return TileType.None;
     }
 }

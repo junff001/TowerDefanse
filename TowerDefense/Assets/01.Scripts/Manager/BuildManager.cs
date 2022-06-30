@@ -26,7 +26,7 @@ public class BuildManager : MonoBehaviour
     public Tile placeTile;
     public Tile roadTile;
     public Tile waterTile;
-    public Tile tunnelTile;
+    public Tile placeableTunnelTile;
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     [HideInInspector] public Vector3 plusPos = Vector2.zero;
@@ -155,13 +155,14 @@ public class BuildManager : MonoBehaviour
         if (pos.x < 0 || pos.y < 0) return false;
         if (pos.x >= map.width || pos.y >= map.height) return false;
 
-        switch(placeTileType)
+        TileType t = map.mapTileTypeArray[pos.x, pos.y];
+        switch (placeTileType)
         {
             case PlaceTileType.Place:
-                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Place) return false;
+                if (t != TileType.Place && t != TileType.PlaceableTunnel) return false;
                 break;
             case PlaceTileType.Road:
-                if (map.mapTileTypeArray[pos.x, pos.y] != TileType.Road) return false;
+                if (t != TileType.Road) return false;
                 break;
         }
 
@@ -265,8 +266,13 @@ public class BuildManager : MonoBehaviour
 
     public bool IsInTunnel(Vector3 enemyPos)
     {
+        return false;
+
         Vector3Int pos = GetTilemapPos(enemyPos);
-        return map.mapTileTypeArray[pos.x, pos.y] == TileType.Tunnel;
+        Debug.Log(plusPos);
+        Debug.Log($"{enemyPos.x}, {enemyPos.y}");
+        TileType t = map.mapTileTypeArray[pos.x, pos.y];
+        return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel;
     }
 
     public Vector3Int GetTilemapPos(Vector3 pos)

@@ -24,9 +24,8 @@ public class Define
         Road,
         Place,
         Tower,
-        Obstacle,
-        Tunnel,
-        Water,
+        PlaceableTunnel,
+        Water_UseAsTunnel, // 물 타일인데 사실상 터널로 쓰는중
 
         Road_Tower,
         Place_Tower,
