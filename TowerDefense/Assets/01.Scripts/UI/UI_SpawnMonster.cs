@@ -76,12 +76,11 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         nameText.text = so.mosterName;
         costText.text = so.spawnCost.ToString();
 
-        for(int i = 0;i < so.typeIcons.Length; i++)
+        for(int i = 0; i < so.typeIcons.Length; i++)
         {
             GameObject go = Instantiate(iconPrefab, iconParentTrm);
             go.GetComponent<Image>().sprite = so.typeIcons[i];
         }
-
     }
 
     Vector2 pointerDownPos = Vector2.zero;

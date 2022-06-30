@@ -44,10 +44,11 @@ public abstract class CoreBase : MonoBehaviour
         if (target != null && target.IsDead) target = null;
         if (enemies.Count <= 0) return;
 
-        for(int i = 0; i< enemies.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
             if((enemies[i].enemyData.MonsterType & attackableTargetType) == 0)
             {
+                Debug.Log("asdlkfjh");
                 enemies.RemoveAt(i);
                 i--;
             }

@@ -14,7 +14,6 @@ public abstract class EnemyBase : MonoBehaviour
     MeshRenderer mesh = null;
     SpriteRenderer spriteRenderer;
     Transform target;
-    List<Collider2D> opponentColliders = new List<Collider2D>();
     ContactFilter2D contactFilter = new ContactFilter2D();
 
     public int wayPointListIndex { get; set; }
@@ -27,14 +26,16 @@ public abstract class EnemyBase : MonoBehaviour
 
     public bool IsDead => healthSystem.IsDead();
     bool canSuicideBombing = false;
+    bool canThrowing = true;
 
-
+    CircleCollider2D atkRangeCollider;
 
     protected virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
         spineController = GetComponent<SpineController>();
+        atkRangeCollider = GetComponent<CircleCollider2D>();
     }
 
     protected virtual void Start()
@@ -71,12 +72,20 @@ public abstract class EnemyBase : MonoBehaviour
         {
             float originMoveSpeed = enemyData.MoveSpeed;
 
-            if (IsRangeInTarget() > 0)
+            if (TargetInATKRange() != null)
             {
-                target = opponentColliders[0].transform;
+                target = TargetInATKRange().transform;
+            }
+            
+            if (target != null)
+            {
                 enemyData.MoveSpeed = 0f;
-                ThrowProjectile();
-                StartCoroutine(ThrowDelay());
+                if (canThrowing)
+                {
+                    ThrowProjectile();
+                    StartCoroutine(ThrowDelay());
+                }
+                
             }
 
             enemyData.MoveSpeed = originMoveSpeed;
@@ -86,21 +95,18 @@ public abstract class EnemyBase : MonoBehaviour
         {
             float originMoveSpeed = enemyData.MoveSpeed;
 
-            if (IsRangeInTarget() > 0)
+            if (TargetInATKRange() != null)
             {
-                target = opponentColliders[0].transform;
-                enemyData.MoveSpeed = 0f;
-                StartCoroutine(TargetDiscoverySiren());
+                target = TargetInATKRange().transform;
+            }
 
-                if (canSuicideBombing)
+            if (target != null)
+            {
+                TargetChase();
+
+                if (IsCollisionTarget())
                 {
-                    enemyData.MoveSpeed = originMoveSpeed;
-                    TargetChase();
-
-                    if (IsCollisionTarget())
-                    {
-                        SuicideBombing();
-                    }
+                    SuicideBombing();
                 }
             }
         }
@@ -216,24 +222,27 @@ public abstract class EnemyBase : MonoBehaviour
     void ThrowProjectile()
     {
         var projectile = Managers.Pool.GetItem<Bomb>();
+        projectile.transform.position = transform.position;
         projectile.InitProjectileData(enemyData.OffensePower, target, null);
     }
 
     IEnumerator ThrowDelay()
     {
+        canThrowing = false;
         yield return new WaitForSeconds(enemyAttackData.attackSpeed);
+        canThrowing = true;
     }
 
-    int IsRangeInTarget()
+    Collider2D TargetInATKRange()
     {
-        contactFilter.SetLayerMask(enemyAttackData.opponentLayer);
-        return Physics2D.OverlapCircle(transform.position, enemyAttackData.atkRangeRadius, contactFilter, opponentColliders);
+        return Physics2D.OverlapCircle(transform.position, enemyAttackData.atkRangeRadius, enemyAttackData.opponentLayer);
     }
 
     bool IsCollisionTarget()
     {
-        if (Vector2.Distance(transform.position, target.position) <= 0.1f)
+        if (Vector2.Distance(transform.position, target.position) <= 0.5f)
         {
+            Debug.Log("도착함");
             return true;
         }
         else
@@ -242,33 +251,15 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
-    IEnumerator TargetDiscoverySiren()
-    {
-        int originCount = enemyAttackData.blinkingCount;
-
-        while (enemyAttackData.blinkingCount <= 0)
-        {
-            spriteRenderer.color = Color.white;
-            yield return new WaitForSeconds(enemyAttackData.blinkingDelay);
-            spriteRenderer.color = Color.red;
-            yield return new WaitForSeconds(enemyAttackData.blinkingDelay);
-            enemyAttackData.blinkingCount--;
-        }
-
-
-        enemyAttackData.blinkingCount = originCount;
-        canSuicideBombing = true;
-    }
-
     void SuicideBombing()
     {
-        target.GetComponent<HealthSystem>().TakeDamage(enemyAttackData.explosionDamage);
+        enemyData.HP = 0;
+        Debug.Log("자폭 가동");
         Destroy(this);
     }
 
     void TargetChase()
     {
-        target = opponentColliders[0].transform;
-        transform.Translate(target.position * enemyData.MoveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime);
     }
 }
