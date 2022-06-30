@@ -32,15 +32,12 @@ public class BuildManager : MonoBehaviour
 
     [HideInInspector] public Map map;
     public Tower towerBase;
-
     public RectTransform rangeObj;
-
     [HideInInspector] public GameObject movingObj = null;
 
     [Header("코어 관리")]
     Dictionary<eCoreName, CoreBase> coreDic = new Dictionary<eCoreName, CoreBase>();
     public List<CoreBase> coreList = new List<CoreBase>();
-
     public List<Tower> spawnedTowers { get; set; } = new List<Tower>();
 
     public PlaceTileType placingTileType = PlaceTileType.Place; // 어차피 알아서 초기화 해주지 않을까요?
@@ -167,7 +164,7 @@ public class BuildManager : MonoBehaviour
                 break;
         }
 
-        //여기까지 오면 OK! 타워가 깔릴 수 있는 타입과, 내가 깔려고 하는 타일의 타일타입이 같은거니까 설치 가능.
+        // 여기까지 오면 OK! 타워가 깔릴 수 있는 타입과, 내가 깔려고 하는 타일의 타일타입이 같은거니까 설치 가능.
         return true;
     }   
     

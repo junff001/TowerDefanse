@@ -1,5 +1,7 @@
 using static Define;
 
+
+
 [System.Serializable]
 public class EnemyData
 {
@@ -20,6 +22,8 @@ public class EnemyData
     public bool IsFly = false;
     public bool IsSuicideBomber = false;
     public bool IsThrower = false;
+
+
 
     public void InitEnemyData(EnemySO enemySO, float addPercentEnemyHP)
     {

@@ -23,7 +23,7 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnEnable()
     {
-        StartCoroutine(EnemyRader());
+        StartCoroutine(SetEnemyCorouitne());
         StartCoroutine(AttackDelay());
     }
 
@@ -74,23 +74,23 @@ public abstract class CoreBase : MonoBehaviour
 
     public virtual void OnDisable()
     {
-        StopCoroutine(EnemyRader());
+        StopCoroutine(SetEnemyCorouitne());
         StopCoroutine(AttackDelay());
     }
 
     // 0.1초 텀을 두고 공격 범위 체크 처리
-    public virtual IEnumerator EnemyRader()
+    public virtual IEnumerator SetEnemyCorouitne()
     {
         while (true)
         {
-            SetEnemies();
+            Rader();
             SetTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }
 
     // 공격 범위 처리 함수
-    public void SetEnemies()
+    public void Rader()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, raderHeight, 0), TowerData.AttackRange, enemyMask);
         enemies.Clear();

@@ -6,7 +6,9 @@ public abstract class EnemyBase : MonoBehaviour
 {
     public HealthSystem healthSystem;
     public EnemyData enemyData = new EnemyData();
-    [HideInInspector] public SpineController sc;
+    public EnemyAttackData enemyAttackData = new EnemyAttackData();
+
+    [HideInInspector] public SpineController spineController;
 
     List<BuffBase> buffList = new List<BuffBase>();
     MeshRenderer mesh = null;
@@ -26,18 +28,13 @@ public abstract class EnemyBase : MonoBehaviour
     public bool IsDead => healthSystem.IsDead();
     bool canSuicideBombing = false;
 
-    [SerializeField] int blinkingCount;
-    [SerializeField] float blinkingDelay;
-    [SerializeField] float explosionDamage;
-    [SerializeField] float atkRangeRadius;
-    [SerializeField] float attackSpeed;
-    [SerializeField] LayerMask opponentLayer;
+
 
     protected virtual void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         mesh = GetComponent<MeshRenderer>();
-        sc = GetComponent<SpineController>();
+        spineController = GetComponent<SpineController>();
     }
 
     protected virtual void Start()
@@ -48,7 +45,7 @@ public abstract class EnemyBase : MonoBehaviour
         healthSystem.OnDied += () =>
         {
             Managers.Gold.GoldPlus(enemyData.RewardGold);
-            sc.Die();
+            spineController.Die();
             Managers.Wave.aliveEnemies.Remove(this);
             Managers.Wave.CheckWaveEnd();
             transform.GetChild(0).gameObject.SetActive(false);
@@ -162,14 +159,12 @@ public abstract class EnemyBase : MonoBehaviour
         buffList.Add(buff);
     }
 
-
-
     public void InitAnimController()
     {
         this.gameObject.layer = LayerMask.NameToLayer(enemyData.MonsterType.ToString() + "Enemy");
         if (enemyData.IsHide) // 은신 체크
         {
-            sc.skeleton.A = 0.5f;
+            spineController.skeleton.A = 0.5f;
         }
     }
 
@@ -226,13 +221,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     IEnumerator ThrowDelay()
     {
-        yield return new WaitForSeconds(attackSpeed);
+        yield return new WaitForSeconds(enemyAttackData.attackSpeed);
     }
 
     int IsRangeInTarget()
     {
-        contactFilter.SetLayerMask(opponentLayer);
-        return Physics2D.OverlapCircle(transform.position, atkRangeRadius, contactFilter, opponentColliders);
+        contactFilter.SetLayerMask(enemyAttackData.opponentLayer);
+        return Physics2D.OverlapCircle(transform.position, enemyAttackData.atkRangeRadius, contactFilter, opponentColliders);
     }
 
     bool IsCollisionTarget()
@@ -249,25 +244,25 @@ public abstract class EnemyBase : MonoBehaviour
 
     IEnumerator TargetDiscoverySiren()
     {
-        int originCount = blinkingCount;
+        int originCount = enemyAttackData.blinkingCount;
 
-        while (blinkingCount <= 0)
+        while (enemyAttackData.blinkingCount <= 0)
         {
             spriteRenderer.color = Color.white;
-            yield return new WaitForSeconds(blinkingDelay);
+            yield return new WaitForSeconds(enemyAttackData.blinkingDelay);
             spriteRenderer.color = Color.red;
-            yield return new WaitForSeconds(blinkingDelay);
-            blinkingCount--;
+            yield return new WaitForSeconds(enemyAttackData.blinkingDelay);
+            enemyAttackData.blinkingCount--;
         }
 
 
-        blinkingCount = originCount;
+        enemyAttackData.blinkingCount = originCount;
         canSuicideBombing = true;
     }
 
     void SuicideBombing()
     {
-        target.GetComponent<HealthSystem>().TakeDamage(explosionDamage);
+        target.GetComponent<HealthSystem>().TakeDamage(enemyAttackData.explosionDamage);
         Destroy(this);
     }
 

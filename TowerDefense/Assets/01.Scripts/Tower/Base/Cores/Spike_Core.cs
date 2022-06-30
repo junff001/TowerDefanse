@@ -12,7 +12,7 @@ public class Spike_Core : CoreBase
 
     public override void OnEnable()
     {
-        StartCoroutine(EnemyRader());
+        StartCoroutine(SetEnemyCorouitne());
         StartCoroutine(AttackDelay());
     }
 
