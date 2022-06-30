@@ -16,7 +16,7 @@ public struct TowerData
     public Define.PlaceTileType PlaceTileType;
 }
 
-public class Tower : MonoBehaviour
+public class Tower : LivingEntity
 {
     [SerializeField] private TowerData towerData = new TowerData();// 인스턴스 타워 정보
     public TowerData TowerData { get => towerData; set => value = towerData; }

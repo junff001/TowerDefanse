@@ -18,7 +18,7 @@ public class HealthSystem : MonoBehaviour
 
     public float damagedDelay { get; set; } = 0f;
 
-    private EnemyBase enemyBase;
+    private LivingEntity livingEntity;
     private float healthAmountMax;
     private float curHealthAmount
     {

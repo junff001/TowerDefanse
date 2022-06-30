@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : LivingEntity
 {
-    public HealthSystem healthSystem;
+    [HideInInspector] public HealthSystem healthSystem;
     public EnemyData enemyData = new EnemyData();
     public EnemyAttackData enemyAttackData = new EnemyAttackData();
 

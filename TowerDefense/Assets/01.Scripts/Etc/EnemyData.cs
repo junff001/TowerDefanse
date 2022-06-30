@@ -3,7 +3,7 @@ using static Define;
 
 
 [System.Serializable]
-public class EnemyData
+public class EnemyData 
 {
     public int OffensePower;
     public int RewardGold;
