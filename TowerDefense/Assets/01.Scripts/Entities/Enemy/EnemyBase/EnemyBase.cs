@@ -16,6 +16,7 @@ public abstract class EnemyBase : MonoBehaviour
     Transform target;
     ContactFilter2D contactFilter = new ContactFilter2D();
 
+    [SerializeField] ParticleSystem suicideBombingEffect;
     public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
     public int CurrentWayPointIndex => currentWayPointIndex;
@@ -253,9 +254,17 @@ public abstract class EnemyBase : MonoBehaviour
 
     void SuicideBombing()
     {
-        enemyData.HP = 0;
+        if (enemyData.HP <= 0)
+        {
+            return;
+        }
+
+        var effect = Instantiate(suicideBombingEffect);
+        effect.transform.position = transform.position;
+        effect.Play();
+        enemyData.HP = 0f;
+
         Debug.Log("자폭 가동");
-        Destroy(this);
     }
 
     void TargetChase()
