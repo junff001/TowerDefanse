@@ -21,7 +21,7 @@ public class UI_EnemyInfo : MonoBehaviour
         hpText.SetText(so.HP.ToString());
         speedText.text = so.moveSpeed.ToString();
         costText.text = so.spawnCost.ToString();
-        manualText.text = "준서 캣시키..";
+        manualText.text = "고블린에 대한 설명..";
 
         gameObject.SetActive(false);
     }

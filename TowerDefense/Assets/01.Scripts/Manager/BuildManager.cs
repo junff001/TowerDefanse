@@ -266,13 +266,17 @@ public class BuildManager : MonoBehaviour
 
     public bool IsInTunnel(Vector3 enemyPos)
     {
-        return false;
-
         Vector3Int pos = GetTilemapPos(enemyPos);
-        Debug.Log(plusPos);
-        Debug.Log($"{enemyPos.x}, {enemyPos.y}");
-        TileType t = map.mapTileTypeArray[pos.x, pos.y];
-        return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel;
+        try
+        {
+            TileType t = map.mapTileTypeArray[pos.x, pos.y];
+            return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel;
+        }
+        catch
+        {
+            Debug.Log("타일맵 유즈 안쪽이 아님.");
+            return false;
+        }
     }
 
     public Vector3Int GetTilemapPos(Vector3 pos)

@@ -279,7 +279,10 @@ public abstract class EnemyBase : LivingEntity
 
     IEnumerator CheckTile()
     {
-        myCollider.enabled = !Managers.Build.IsInTunnel(transform.position);
-        yield return new WaitForSeconds(0.1f);
+        while(true)
+        {
+            myCollider.enabled = !Managers.Build.IsInTunnel(transform.position);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
