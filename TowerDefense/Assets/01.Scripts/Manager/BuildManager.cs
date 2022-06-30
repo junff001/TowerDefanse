@@ -26,6 +26,7 @@ public class BuildManager : MonoBehaviour
     public Tile placeTile;
     public Tile roadTile;
     public Tile waterTile;
+    public Tile tunnelTile;
 
     private Vector2 dir = Vector2.zero; // 내가 tilePos를 기준으로 어느쪽에 있는가.
     [HideInInspector] public Vector3 plusPos = Vector2.zero;
@@ -135,7 +136,7 @@ public class BuildManager : MonoBehaviour
         return canPlace;
     }
 
-    public Vector3Int GetCurTilePos() => tilePos;
+
 
     public Vector3Int[] Get2By2Tiles()
     {
@@ -260,5 +261,16 @@ public class BuildManager : MonoBehaviour
             }
             Managers.Build.map.mapTileTypeArray[pos.x, pos.y] = placeTileType;
         }
+    }
+
+    public bool IsInTunnel(Vector3 enemyPos)
+    {
+        Vector3Int pos = GetTilemapPos(enemyPos);
+        return map.mapTileTypeArray[pos.x, pos.y] == TileType.Tunnel;
+    }
+
+    public Vector3Int GetTilemapPos(Vector3 pos)
+    {
+        return map.tilemap.WorldToCell(pos);
     }
 }

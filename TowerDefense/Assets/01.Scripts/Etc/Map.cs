@@ -16,6 +16,7 @@ public class Map : MonoBehaviour
     [HideInInspector] public Tile placeTile;
     [HideInInspector] public Tile roadTile;
     [HideInInspector] public Tile waterTile;
+    [HideInInspector] public Tile tunnelTile;
 
     private void Awake()
     {
@@ -61,6 +62,7 @@ public class Map : MonoBehaviour
         placeTile = Managers.Build.placeTile;
         roadTile = Managers.Build.roadTile;
         waterTile = Managers.Build.waterTile;
+        waterTile = Managers.Build.tunnelTile;
 
         width = tilemap.size.x;
         height = tilemap.size.y;
@@ -93,7 +95,7 @@ public class Map : MonoBehaviour
 
     Define.TileType GetTileType(Tile tile)
     {
-        if (tile == roadTile) 
+        if (tile == roadTile)
             return Define.TileType.Road;
 
         else if (tile == placeTile)
@@ -102,6 +104,8 @@ public class Map : MonoBehaviour
         else if (tile == waterTile)
             return Define.TileType.Water;
 
+        else if (tile == tunnelTile)
+            return Define.TileType.Tunnel;
         else
             return Define.TileType.Obstacle;
     }
