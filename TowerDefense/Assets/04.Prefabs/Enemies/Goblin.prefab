@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2544191130546073993}
   - component: {fileID: 2370735874463284289}
   - component: {fileID: 8386346479705798}
-  - component: {fileID: 1948831253435109427}
+  - component: {fileID: 5183750237702158956}
   m_Layer: 10
   m_Name: Goblin
   m_TagString: Untagged
@@ -176,7 +176,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0964608, y: 2.0300353}
   m_EdgeRadius: 0
---- !u!114 &1948831253435109427
+--- !u!114 &5183750237702158956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,19 +185,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2544191130546074038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae55e241a68df1428a32bdfb04841b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e8d0dd5b26bf0d40b8267ae602c5e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSystem: {fileID: 0}
   enemyData:
+    HP: 0
+    ShieldAmount: 0
     OffensePower: 0
     RewardGold: 0
-    HP: 0
-    Shield: 0
     MoveSpeed: 0
     MonsterType: 0
     SpeciesType: 0
-    AttackType: 2
+    AttackType: 0
     IsHide: 0
     IsShilde: 0
     IsArmor: 0
@@ -210,13 +209,14 @@ MonoBehaviour:
     blinkingCount: 0
     blinkingDelay: 0
     explosionDamage: 0
-    atkRangeRadius: 10
-    attackSpeed: 3
+    atkRangeRadius: 0
+    attackSpeed: 0
     opponentLayer:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 0
+  healthSystem: {fileID: 0}
   spineController: {fileID: 0}
-  suicideBombingEffect: {fileID: 198681264470032530, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+  suicideBombingEffect: {fileID: 0}
 --- !u!1001 &5096107632689154240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +224,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2544191130546073997}
     m_Modifications:
+    - target: {fileID: 3373219464198507270, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
+      propertyPath: _sepSize.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3373219464198507270, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
+      propertyPath: _healthAmountPerSeparator
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6721540223340681132, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
       propertyPath: m_Name
       value: HealthBarPrefab

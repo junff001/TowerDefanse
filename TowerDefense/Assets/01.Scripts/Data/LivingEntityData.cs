@@ -5,5 +5,5 @@ using UnityEngine;
 public class LivingEntityData : EntityData
 {
     public float HP;
-
+    public float ShieldAmount;
 }

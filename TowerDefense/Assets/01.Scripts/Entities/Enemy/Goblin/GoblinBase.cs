@@ -1,13 +1,9 @@
-using System.Collections;
+using System.Collections; 
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinBase : EnemyBase
+public class Goblin : Enemy
 {
-   
-
-    
-
     protected override void Start()
     {
         base.Start();

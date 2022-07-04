@@ -117,7 +117,7 @@ public class InvadeManager : MonoBehaviour
         int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        EnemyBase enemyObj = Instantiate(so.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.basePrefab.transform.rotation, this.transform);
+        Enemy enemyObj = Instantiate(so.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.basePrefab.transform.rotation, this.transform);
         enemyObj.enemyData.InitEnemyData(so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
         enemyObj.spineController.Init(so.spineData);
 

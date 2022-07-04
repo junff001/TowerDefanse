@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBase : LivingEntity
+public abstract class Enemy : LivingEntity
 {
-    [HideInInspector] public HealthSystem healthSystem;
-    public EnemyData enemyData = new EnemyData();
+    public EnemyData enemyData;
     public EnemyAttackData enemyAttackData = new EnemyAttackData();
 
+    [HideInInspector] public HealthSystem healthSystem;
     [HideInInspector] public SpineController spineController;
 
     List<BuffBase> buffList = new List<BuffBase>();
@@ -16,7 +16,6 @@ public abstract class EnemyBase : LivingEntity
     Transform target;
     ContactFilter2D contactFilter = new ContactFilter2D();
     BoxCollider2D myCollider;
-
 
     [SerializeField] ParticleSystem suicideBombingEffect;
     public int wayPointListIndex { get; set; }
@@ -35,11 +34,14 @@ public abstract class EnemyBase : LivingEntity
 
     protected virtual void Awake()
     {
-        myCollider = GetComponent<BoxCollider2D>();
-        healthSystem = GetComponent<HealthSystem>();
-        mesh = GetComponent<MeshRenderer>();
-        spineController = GetComponent<SpineController>();
-        atkRangeCollider = GetComponent<CircleCollider2D>();
+        livingEntityData = new EnemyData();
+        enemyData = livingEntityData as EnemyData;
+
+        myCollider         = GetComponent<BoxCollider2D>();
+        healthSystem       = GetComponent<HealthSystem>();
+        mesh               = GetComponent<MeshRenderer>();
+        spineController    = GetComponent<SpineController>();
+        atkRangeCollider   = GetComponent<CircleCollider2D>();
 
         StartCoroutine(CheckTile());
     }
@@ -48,12 +50,13 @@ public abstract class EnemyBase : LivingEntity
     {
         mesh.sortingLayerName = "Character";
         healthSystem.SetAmountMax(eHealthType.HEALTH, (int)enemyData.HP, true);
-        healthSystem.SetAmountMax(eHealthType.SHIELD, (int)enemyData.Shield, true);
+        healthSystem.SetAmountMax(eHealthType.SHIELD, (int)enemyData.ShieldAmount, true);
         healthSystem.OnDied += () =>
         {
             Managers.Gold.GoldPlus(enemyData.RewardGold);
             spineController.Die();
             Managers.Wave.aliveEnemies.Remove(this);
+            
             Managers.Wave.CheckWaveEnd();
             transform.GetChild(0).gameObject.SetActive(false);
 

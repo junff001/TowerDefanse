@@ -99,7 +99,7 @@ public class Penetration_Core : CoreBase
     void Shoot()
     {
         bowLauncher.localPosition = new Vector2(0, 0);
-        if (target != null && target.GetComponent<EnemyBase>().IsDead == false)
+        if (target != null && target.GetComponent<Enemy>().IsDead == false)
         {
             bullet.InitProjectileData(towerData.AttackPower, target.transform, Buff); // targetPos 세팅 됐을거라 믿고?
 

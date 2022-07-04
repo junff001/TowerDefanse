@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         wayPoints.RemoveAt(0);
     }
 
-    public void OnEnemyArrivedLastWaypoint(EnemyBase enemy)
+    public void OnEnemyArrivedLastWaypoint(Enemy enemy)
     {
         Hp--;
 

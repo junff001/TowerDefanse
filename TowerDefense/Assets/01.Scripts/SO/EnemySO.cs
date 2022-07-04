@@ -18,5 +18,5 @@ public class EnemySO : ScriptableObject
     public Sprite sprite;                // 버튼에 사용할 스프라이트
     public Sprite[] typeIcons;           // 특성 아이콘들
     public SpineDataSO spineData;        // 스파인 데이터
-    public EnemyBase basePrefab;         // 베이스 프리팹
+    public Enemy basePrefab;             // 베이스 프리팹
 }

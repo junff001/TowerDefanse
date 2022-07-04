@@ -18,21 +18,18 @@ public class HealthSystem : MonoBehaviour
 
     public float damagedDelay { get; set; } = 0f;
 
-    //private LivingEntity livingEntity;
-    private EnemyBase enemyBase;
+    private LivingEntity livingEntity;
     private float healthAmountMax;
     private float curHealthAmount
     {
         get
         {
-            // livingEntity.livingEntityData.HP;
-            return enemyBase.enemyData.HP;
+            return livingEntity.livingEntityData.HP;
         }
 
         set
         {
-            enemyBase.enemyData.HP = value;
-            //livingEntity.livingEntityData.HP = value;
+            livingEntity.livingEntityData.HP = value;
         }
     }
 
@@ -41,18 +38,18 @@ public class HealthSystem : MonoBehaviour
     {
         get
         {
-            return enemyBase.enemyData.Shield;
+            return livingEntity.livingEntityData.ShieldAmount;
         }
 
         set
         {
-            enemyBase.enemyData.Shield = value;
+            livingEntity.livingEntityData.ShieldAmount = value;
         }
     }
 
-    private void Awake()
+    void Awake()
     {
-        enemyBase = GetComponent<EnemyBase>();
+        livingEntity = GetComponent<LivingEntity>();
     }
 
     void Start()
@@ -76,7 +73,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private void Damage(float damageAmount, bool hasPenetration, bool hasShield)
+    private void Damage(float damageAmount, bool hasPenetration)
     {
         float tempAmount = curShieldAmount;
 
@@ -95,15 +92,6 @@ public class HealthSystem : MonoBehaviour
             curHealthAmount -= damageAmount;
             curHealthAmount = Mathf.Clamp(curHealthAmount, 0, healthAmountMax);
         }
-
-        //if (hasShield)  
-        //{
-           
-        //}
-        //else if (hasPenetration || !hasShield)
-        //{
-           
-        //}
     }
 
     public bool IsDead()
@@ -125,6 +113,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (type == eHealthType.HEALTH)
         {
+            Debug.Log((float)healthAmountMax);
             return (float)curHealthAmount / healthAmountMax;
         }
         else
@@ -161,9 +150,9 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount,  bool hasPenetration = false, bool hasShield = false)
+    public void TakeDamage(float damageAmount,  bool hasPenetration = false)
     {
-        Damage(damageAmount, hasPenetration, hasShield);
+        Damage(damageAmount, hasPenetration);
         OnDamaged?.Invoke();
 
         if (IsDead())

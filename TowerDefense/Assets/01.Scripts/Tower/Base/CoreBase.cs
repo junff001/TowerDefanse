@@ -9,8 +9,8 @@ public abstract class CoreBase : MonoBehaviour
     [SerializeField] protected float raderHeight = 0f;
 
     private LayerMask enemyMask = default;                           // 적을 분별하는 마스크    
-    protected List<EnemyBase> enemies = new List<EnemyBase>();      // 공격 범위 안에 있는 적들
-    protected EnemyBase target { get; set; } = null;                // 현재 타겟
+    protected List<Enemy> enemies = new List<Enemy>();      // 공격 범위 안에 있는 적들
+    protected Enemy target { get; set; } = null;                // 현재 타겟
 
     public TowerData towerData = new TowerData(); 
     public eCoreName coreType;
@@ -81,7 +81,7 @@ public abstract class CoreBase : MonoBehaviour
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {
-            enemies.Add(cols[i].GetComponent<EnemyBase>());
+            enemies.Add(cols[i].GetComponent<Enemy>());
         }
     }
 

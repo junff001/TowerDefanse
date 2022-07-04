@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dot : BuffBase
 {
-    EnemyBase enemy;
+    Enemy enemy;
     private float damageTime;
     private static readonly float dotTime = 1;
 

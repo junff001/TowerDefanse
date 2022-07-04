@@ -5,8 +5,6 @@ public class EnemyData : LivingEntityData
 {
     public int OffensePower;
     public int RewardGold;
-    public float HP;
-    public float Shield;
     public float MoveSpeed;
     public MonsterType MonsterType;
     public SpeciesType SpeciesType;
@@ -21,8 +19,6 @@ public class EnemyData : LivingEntityData
     public bool IsSuicideBomber = false;
     public bool IsThrower = false;
 
-
-
     public void InitEnemyData(EnemySO enemySO, float addPercentEnemyHP)
     {
         MonsterType = enemySO.monsterType;
@@ -36,7 +32,7 @@ public class EnemyData : LivingEntityData
         IsThrower = AttackType.HasFlag(AttackType.Thrower);
 
         HP += enemySO.HP * addPercentEnemyHP;
-        Shield = IsShilde ? HP : 0; // 쉴드 있는 애면 체력만큼 받아가기
+        ShieldAmount = IsShilde ? HP : 0; // 쉴드 있는 애면 체력만큼 받아가기
         MoveSpeed = enemySO.moveSpeed;
         RewardGold = enemySO.rewardGold;
     }

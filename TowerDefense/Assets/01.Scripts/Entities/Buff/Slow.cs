@@ -13,7 +13,7 @@ public class Slow : BuffBase
         base.duration = duration;
         base.amplification = amplification;
 
-        EnemyBase enemy = affecter.GetComponent<EnemyBase>();
+        Enemy enemy = affecter.GetComponent<Enemy>();
 
         if (enemy != null)
         {
@@ -29,7 +29,7 @@ public class Slow : BuffBase
 
     public override void Destroy()
     {
-        EnemyBase enemy = affecter.GetComponent<EnemyBase>();
+        Enemy enemy = affecter.GetComponent<Enemy>();
         enemy.enemyData.MoveSpeed += changedValue;
 
         base.Destroy();

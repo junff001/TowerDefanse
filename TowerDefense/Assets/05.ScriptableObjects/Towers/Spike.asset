@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
   m_Name: Spike
   m_EditorClassIdentifier: 
-  level: 1
-  hp: 1000
-  attackPower: 0
-  attackSpeed: 0.5
-  attackRange: 0.6
-  placeCost: 70
-  attackTargetCount: 100
+  Level: 1
+  PlaceCost: 100
+  AttackTargetCount: 1
+  HP: 500
+  ShieldAmount: 0
+  AttackPower: 100
+  AttackSpeed: 1
+  AttackRange: 5
   placeTileType: 1
   coreType: 3
   hasTower: 0

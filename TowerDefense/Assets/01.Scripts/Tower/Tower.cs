@@ -5,32 +5,37 @@ using UnityEngine;
 
 public class Tower : LivingEntity
 {
-    public TowerData towerData = new TowerData();
-
-    public GameObject attackRangeObj { get; set; } = null;      // 공격 범위 오브젝트
-    public Transform coreTrm;
-
-    public Vector3Int[] myCheckedPos { get; set; } // 나의 그리드값을 가진다.
-
-    private List<BuffBase> buffList = new List<BuffBase>();
-
-    private GameObject propertyEffectObject;
-
+    [HideInInspector] public TowerData TowerData;
+    [HideInInspector] public HealthSystem healthSystem;
+    
     private string initSortingLayerName;
     private int initOrderInLayer;
 
+    public Vector3Int[] myCheckedPos { get; set; } // 나의 그리드값을 가진다.
+    public Transform CoreTrm;   // position 접근 변수
+    public GameObject healthbar;
+
+    void Awake()
+    {
+        livingEntityData = new TowerData();
+        TowerData = livingEntityData as TowerData;
+
+        healthSystem = GetComponent<HealthSystem>();
+    }
+
     public void InitTowerData(TowerSO towerSO, int addPctTowerAtkPower)
     {
-        towerData.Level = towerSO.Level;
-        towerData.HP = towerSO.HP;
-        towerData.AttackPower = towerSO.AttackPower;
-        towerData.AttackSpeed = towerSO.AttackSpeed;
-        towerData.AttackRange = towerSO.AttackRange;
-        towerData.PlaceCost = towerSO.PlaceCost;
-        towerData.attackTargetCount = towerSO.AttackTargetCount;
-        towerData.PlaceTileType = towerSO.placeTileType;
+        TowerData.Level               = towerSO.Level;
+        TowerData.HP                  = towerSO.HP;
+        TowerData.ShieldAmount        = towerSO.ShieldAmount;
+        TowerData.AttackPower         = towerSO.AttackPower;
+        TowerData.AttackSpeed         = towerSO.AttackSpeed;
+        TowerData.AttackRange         = towerSO.AttackRange;
+        TowerData.PlaceCost           = towerSO.PlaceCost;
+        TowerData.attackTargetCount   = towerSO.AttackTargetCount;
+        TowerData.PlaceTileType       = towerSO.placeTileType;
 
-        towerData.AttackPower += towerData.AttackPower * addPctTowerAtkPower;
+        TowerData.AttackPower += TowerData.AttackPower * addPctTowerAtkPower;
     }
 
     private void OnMouseDown()

@@ -6,9 +6,9 @@ public class Arrow : Bullet
     {
         base.InitProjectileData(damage, enemyTrm, buff);
         maxTime = Vector2.Distance(targetPos, startPos) / 10 * _maxTime; // 수정필요
-        targetPos = GetExpectPos(enemyTrm.GetComponent<EnemyBase>(), maxTime);
+        targetPos = GetExpectPos(enemyTrm.GetComponent<Enemy>(), maxTime);
 
-        if (Target.GetComponent<EnemyBase>().IsDead) Target = null;
+        if (Target.GetComponent<Enemy>().IsDead) Target = null;
     }
 
     public override void CollisionEvent()
@@ -16,7 +16,7 @@ public class Arrow : Bullet
         if (Target != null)
         {
             Debug.Log("버프");
-            Target.GetComponent<EnemyBase>().AddBuff(Buff);
+            Target.GetComponent<Enemy>().AddBuff(Buff);
             Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage, true);
 
             var ps = Instantiate(hitEffect);

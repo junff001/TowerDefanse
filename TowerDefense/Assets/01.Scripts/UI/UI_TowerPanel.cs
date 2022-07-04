@@ -5,17 +5,15 @@ using TMPro;
 
 public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDragHandler
 {
+    private GameObject fakeTower;  // 건설 실루엣에 사용될 껍데기만 갖춘 타워이다.
     [SerializeField] private TextMeshProUGUI towerCostText = null;
-    private GameObject fakeTower; // 가설치용
 
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
     private RectTransform rangeObj;
     Vector3 rangeObjPlusPos = new Vector3(0, 0.5f, 0);
 
-
-
-    private void Start()
+    void Start()
     {
         towerCostText.text = towerSO.PlaceCost.ToString();
         rt = GetComponent<RectTransform>();
@@ -23,23 +21,31 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         SetFakeTower();
     }
 
-    public void SetFakeTower()
+    // InitTowerData 가 안된 타워
+    void SetFakeTower()
     {
-        Tower newTower = Instantiate(Managers.Build.towerBase, this.transform);
+        Tower tower = Instantiate(Managers.Build.towerBase, transform);
+        CoreBase core = null;
 
-        CoreBase core = towerSO.hasTower ? Managers.Build.MakeNewCore(towerSO, newTower) : 
-            Managers.Build.MakeNoTowerCore(towerSO, newTower);
+        if (towerSO.hasTower)
+        {
+            core = Managers.Build.MakeNewCore(towerSO, tower);
+        }
+        else
+        {
+            core = Managers.Build.MakeNoTowerCore(towerSO, tower);
+        }
 
-        newTower.GetComponent<Tower>().enabled = false;
+        tower.enabled = false;
         core.enabled = false;
 
-        SpriteRenderer[] renderers = newTower.GetComponentsInChildren<SpriteRenderer>();
+        SpriteRenderer[] renderers = tower.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer item in renderers)
         {
             item.color = new Color(133 / 255f, 215 / 255f, 255 / 255f, 149 / 255f);
         }
 
-        fakeTower = newTower.gameObject;
+        fakeTower = tower.gameObject;
         fakeTower.GetComponent<Tower>().SetSortOrder("UI", 10);
     }
 
@@ -56,7 +62,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
                 {
                     if (Managers.Gold.GoldMinus(towerSO.PlaceCost))
                     {
-                        Managers.Build.SpawnTower(towerSO, Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles()));
+                        Managers.Build.SpawnTower(towerSO, Managers.Build.Get2x2TilesCenter(Managers.Build.Get2x2Tiles()));
 
                         text.text = "설치 완료!";
                         Managers.UI.SummonPosText(fakeTower.transform.position, text, true);
@@ -100,7 +106,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     {
         if (IsLeftBtn(eventData) && CanDrag())
         {
-            Vector3 pos = Managers.Build.Get2By2TilesCenter(Managers.Build.Get2By2Tiles());
+            Vector3 pos = Managers.Build.Get2x2TilesCenter(Managers.Build.Get2x2Tiles());
             
             rangeObj.transform.position = Camera.main.WorldToScreenPoint(pos + rangeObjPlusPos);
             fakeTower.transform.position = pos;

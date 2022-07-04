@@ -76,7 +76,7 @@ public abstract class Bullet : MonoBehaviour
         if (Target != null)
         {
             Debug.Log("버프");
-            Target.GetComponent<EnemyBase>().AddBuff(Buff);
+            Target.GetComponent<Enemy>().AddBuff(Buff);
             Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage);
 
             var ps = Instantiate(hitEffect);
@@ -88,7 +88,7 @@ public abstract class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    protected Vector2 GetExpectPos(EnemyBase enemy, float maxTime)
+    protected Vector2 GetExpectPos(Enemy enemy, float maxTime)
     {
         Vector2 curPos = enemy.transform.position;
         float moveDistWhileMaxTime = enemy.enemyData.MoveSpeed * maxTime;

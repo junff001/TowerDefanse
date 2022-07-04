@@ -28,7 +28,7 @@ public class WaveManager : MonoBehaviour
     public MapInfoSO mapInfoSO;
 
     public List<EnemySO> enemySOList = new List<EnemySO>();
-    [HideInInspector] public List<EnemyBase> aliveEnemies = new List<EnemyBase>();
+    [HideInInspector] public List<Enemy> aliveEnemies = new List<Enemy>();
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
@@ -171,7 +171,7 @@ public class WaveManager : MonoBehaviour
             SpawnerMonsterCount enemyInfo = enemySpawnQueue.Dequeue();
             int index = Managers.Game.pointLists[enemyInfo.wayPointListIndex].indexWayPoints[0];
 
-            EnemyBase enemyObj = Instantiate(enemyInfo.so.basePrefab, Managers.Game.wayPoints[index].transform.position,
+            Enemy enemyObj = Instantiate(enemyInfo.so.basePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.basePrefab.transform.rotation, this.transform);
             enemyObj.enemyData.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
             enemyObj.spineController.Init(enemyInfo.so.spineData);

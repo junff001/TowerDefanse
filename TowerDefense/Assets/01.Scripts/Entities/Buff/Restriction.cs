@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Restriction : BuffBase
 {
-    EnemyBase enemy;
+    Enemy enemy;
     float natureMoveSpeed;
 
     public Restriction(GameObject affecter, float duration)
@@ -12,7 +12,7 @@ public class Restriction : BuffBase
         buffType = Define.BuffType.DEBUFF;
         base.duration = duration;
         base.affecter = affecter;
-        enemy = affecter.GetComponent<EnemyBase>();
+        enemy = affecter.GetComponent<Enemy>();
 
         if (enemy != null)
         {

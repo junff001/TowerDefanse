@@ -105,7 +105,7 @@ public class BuildManager : MonoBehaviour
     {
         ResetCheckedTiles(); // 얘는 그냥 자기 색깔 유지하게 해줘야 함
 
-        Vector3Int[] checkPos = Get2By2Tiles();
+        Vector3Int[] checkPos = Get2x2Tiles();
 
         bool canPlace = CanPlace(placeTileType);
         foreach (var pos in checkPos)
@@ -125,7 +125,7 @@ public class BuildManager : MonoBehaviour
     {
         bool canPlace = true;
 
-        foreach (var pos in Get2By2Tiles())
+        foreach (var pos in Get2x2Tiles())
         {
             if (IsPlaceableTile(pos, placeTileType) == false)
             {
@@ -138,7 +138,7 @@ public class BuildManager : MonoBehaviour
 
 
 
-    public Vector3Int[] Get2By2Tiles()
+    public Vector3Int[] Get2x2Tiles()
     {
         if (dir.x > 0 && dir.y > 0) // 1사분면
             return new Vector3Int[4] { curPos, right, upRight, up };
@@ -170,7 +170,7 @@ public class BuildManager : MonoBehaviour
         return true;
     }   
     
-    public Vector3 Get2By2TilesCenter(Vector3Int[] targetTiles)
+    public Vector3 Get2x2TilesCenter(Vector3Int[] targetTiles)
     {
         float reviseY = targetTiles[0].y > targetTiles[2].y ? -0.5f : 0.5f;
 
@@ -189,8 +189,9 @@ public class BuildManager : MonoBehaviour
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         Debug.Log(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
-        newCore.transform.position = newTower.coreTrm.position;
-        newCore.towerData = newTower.towerData;
+        newCore.transform.position = newTower.CoreTrm.position;
+        newCore.towerData = newTower.TowerData;
+        newTower.GetComponent<HealthSystem>().enabled = true;
 
         return newCore;
     }
@@ -205,7 +206,8 @@ public class BuildManager : MonoBehaviour
         CoreBase newCore = Instantiate(coreDic[towerSO.coreType]);
         newCore.transform.SetParent(newTower.transform);
         newCore.transform.position = newTower.transform.position;
-        newCore.towerData = newTower.towerData;
+        newCore.towerData = newTower.TowerData;
+        newTower.GetComponent<HealthSystem>().enabled = true;
 
         return newCore;
     }
@@ -215,6 +217,10 @@ public class BuildManager : MonoBehaviour
     {
         Tower newTower = Instantiate(towerBase, placePos, Quaternion.identity);
         newTower.InitTowerData(towerSO, Managers.Game.GetCoefficient().coefTowerOffensePower / 100);
+
+        newTower.healthSystem.SetAmountMax(eHealthType.HEALTH, (int)newTower.TowerData.HP, true);
+        newTower.healthSystem.SetAmountMax(eHealthType.SHIELD, (int)newTower.TowerData.ShieldAmount, true);
+        newTower.healthbar.SetActive(true);
 
         if (towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {
@@ -252,7 +258,7 @@ public class BuildManager : MonoBehaviour
         {
             TileType placeTileType = TileType.None;
 
-            switch (tower.towerData.PlaceTileType)
+            switch (tower.TowerData.PlaceTileType)
             {
                 case PlaceTileType.Place:
                     placeTileType = value ? TileType.Place_Tower : TileType.Place;
