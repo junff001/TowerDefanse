@@ -274,6 +274,8 @@ public class BuildManager : MonoBehaviour
     public bool IsInTunnel(Vector3 enemyPos)
     {
         Vector3Int pos = GetTilemapPos(enemyPos);
+        Debug.Log($"{pos.x}, {pos.y}");
+
         try
         {
             TileType t = map.mapTileTypeArray[pos.x, pos.y];
