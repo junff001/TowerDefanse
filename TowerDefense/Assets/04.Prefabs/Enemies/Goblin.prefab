@@ -225,14 +225,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2544191130546073997}
     m_Modifications:
-    - target: {fileID: 3373219464198507270, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
-      propertyPath: _sepSize.x
-      value: 1.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3373219464198507270, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
-      propertyPath: _healthAmountPerSeparator
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6721540223340681132, guid: 4c3873e64b1242e439683440b7009a6d, type: 3}
       propertyPath: m_Name
       value: HealthBarPrefab

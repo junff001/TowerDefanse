@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using TMPro;
 
 public class UI_TitleManager : MonoBehaviour
 {
@@ -36,6 +35,11 @@ public class UI_TitleManager : MonoBehaviour
 
         selectBtn.onClick.AddListener(() =>
         {
+            if(scrollIndex == 0)
+            {
+                backBtn.gameObject.SetActive(false);
+            }
+
             lobyPanel.GetComponent<RectTransform>().DOMoveY(Screen.height * -2, 0.5f);
             topPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.4f).SetEase(Ease.OutBack).OnComplete(()=> {
                 selectPanel.GetComponent<RectTransform>().DOMoveY(mid.anchoredPosition.y, 0.5f).SetEase(Ease.OutBack);

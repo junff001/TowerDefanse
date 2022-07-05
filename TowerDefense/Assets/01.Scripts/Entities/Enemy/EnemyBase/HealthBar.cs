@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField]
-    private int _healthAmountPerSeparator = 2; //체력 2당 바 한개
+    private int _healthAmountPerSeparator = 100; //체력 2당 바 한개
     [SerializeField]
     private float _barSize = 1.88f;
     [SerializeField]
