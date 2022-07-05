@@ -84,6 +84,11 @@ public class BuildManager : MonoBehaviour
         downRight = new Vector3Int(tilePos.x + 1, tilePos.y - 1, tilePos.z);
     }
 
+    public void ShowGrid(int layerValue)
+    {
+        map.gridTilemapRenderer.sortingOrder = layerValue; // 원래 -25
+    }
+
     public void ResetCheckedTiles(bool clearTileColor = false) // 전에 색을 바꿔주었던 친구들은 다시 리셋
     {
         if (checkedPos == null) return; // 처음에 널이라 오류

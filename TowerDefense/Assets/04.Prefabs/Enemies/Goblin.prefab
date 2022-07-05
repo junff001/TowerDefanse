@@ -212,7 +212,7 @@ MonoBehaviour:
     blinkingCount: 0
     blinkingDelay: 0
     explosionDamage: 50
-    atkRangeRadius: 5
+    atkRangeRadius: 2
     attackSpeed: 3
     opponentLayer:
       serializedVersion: 2

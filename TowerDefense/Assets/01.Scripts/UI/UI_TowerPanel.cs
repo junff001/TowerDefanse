@@ -25,6 +25,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
     void SetFakeTower()
     {
         Tower tower = Instantiate(Managers.Build.towerBase, transform);
+        tower.GetComponent<BoxCollider2D>().enabled = false;
         CoreBase core = null;
 
         if (towerSO.hasTower)
@@ -99,7 +100,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         Managers.Build.movingObj = null;
         rangeObj.gameObject.SetActive(false);
         rangeObj.transform.localScale = Vector3.one;
-        Managers.Build.map.tilemap_view_renderer.sortingOrder = -25; // 원래 -25
+        Managers.Build.ShowGrid(-25);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -123,7 +124,7 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
             rangeObj.transform.localScale *= towerSO.AttackRange;
             Managers.Build.movingObj = fakeTower;
             Managers.Build.map.ShowPlaceableTiles(towerSO.placeTileType);
-            Managers.Build.map.tilemap_view_renderer.sortingOrder = -4; // out Tilemap보다 1 높은 수.
+            Managers.Build.ShowGrid(-4);
         }
     }
 

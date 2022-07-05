@@ -14,7 +14,6 @@ public class EnemySO : ScriptableObject
     public float moveSpeed;              // 이동속도
     public MonsterType monsterType;      // 몬스터 특성
     public SpeciesType speciesType;      // 몬스터 종족
-    public AttackType attackType;        // 공격 방식
     public Sprite sprite;                // 버튼에 사용할 스프라이트
     public Sprite[] typeIcons;           // 특성 아이콘들
     public SpineDataSO spineData;        // 스파인 데이터

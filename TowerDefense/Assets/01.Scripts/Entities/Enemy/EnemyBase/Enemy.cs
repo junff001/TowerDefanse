@@ -12,9 +12,7 @@ public class Enemy : LivingEntity
 
     List<BuffBase> buffList = new List<BuffBase>();
     MeshRenderer mesh = null;
-    SpriteRenderer spriteRenderer;
-    Transform target;
-    ContactFilter2D contactFilter = new ContactFilter2D();
+    [HideInInspector] public Transform target;
     BoxCollider2D myCollider;
 
     [SerializeField] ParticleSystem suicideBombingEffect;
@@ -27,10 +25,7 @@ public class Enemy : LivingEntity
     public float movedDistance { get; set; }
 
     public bool IsDead => healthSystem.IsDead();
-    bool canSuicideBombing = false;
     bool canThrowing = true;
-
-    CircleCollider2D atkRangeCollider;
 
     protected virtual void Awake()
     {    
@@ -41,7 +36,6 @@ public class Enemy : LivingEntity
         healthSystem       = GetComponent<HealthSystem>();
         mesh               = GetComponent<MeshRenderer>();
         spineController    = GetComponent<SpineController>();
-        atkRangeCollider   = GetComponent<CircleCollider2D>();
 
         StartCoroutine(CheckTile());
     }
@@ -80,35 +74,21 @@ public class Enemy : LivingEntity
 
         if (enemyData.IsThrower)
         {
-            float originMoveSpeed = enemyData.MoveSpeed;
+            Collider2D attackbleTarget = TargetInATKRange();
+            target = attackbleTarget != null ? attackbleTarget.transform : null;
 
-            if (TargetInATKRange() != null)
-            {
-                target = TargetInATKRange().transform;
-            }
-            
             if (target != null)
             {
-                enemyData.MoveSpeed = 0f;
                 if (canThrowing)
                 {
                     ThrowProjectile();
                     StartCoroutine(ThrowDelay());
                 }
-                
             }
-
-            enemyData.MoveSpeed = originMoveSpeed;
         }
-
-        if (enemyData.IsSuicideBomber)
+        else
         {
-            if (TargetInATKRange() != null)
-            {
-                target = TargetInATKRange().transform;
-            }
-
-            if (target != null)
+            if (Vector2.Distance(target.transform.position, transform.position) < enemyAttackData.atkRangeRadius)
             {
                 TargetChase();
 

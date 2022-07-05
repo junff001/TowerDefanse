@@ -19,21 +19,26 @@ public class InvadeManager : MonoBehaviour
 
     private float maxTime = 30f;
     private float time = 0f;
-    public bool isOffenseProgress = false;
-
+    [HideInInspector] public bool isOffenseProgress = false;
     [HideInInspector] public List<UI_SpawnMonster> bookmarkedMonsters = new List<UI_SpawnMonster>();
+
+    [SerializeField] private GameObject darkPanel; // 타워만 잘 보이게 하기 위한 UI 패널
+    [SerializeField] private GameObject btnFocusPanel; // 내가 선택한 몬스터가 뭔지 보여주는거.
+    [SerializeField] private RectTransform focusBtn;
+
+    private EnemySO enemySO; // 자폭병 소환 때 사용할 친구.
 
     private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI monsterAttackTypeText; // 폭병 / 자폭병
     [SerializeField] private Button changeBtn; // 처음엔 시작버튼임!
     [SerializeField] private Image spawnAttackTypeIcon; // 폭병/ 자폭병 뭐 소환할지 아이콘
 
-    [SerializeField] private Sprite bomber;
+    [SerializeField] private Sprite thrower;
     [SerializeField] private Sprite suicideBomber;
     
-    private bool bSpawnSuicideBombing = false;
+    [HideInInspector] public bool isSpawnningThrower = true;
+    [HideInInspector] public bool isSelectingTower = false;
     private bool isChanging = false;
-
 
     private void Start()
     {
@@ -47,19 +52,19 @@ public class InvadeManager : MonoBehaviour
             {
                 WaveStart();
                 monsterAttackTypeText.text = "공격 타입 전환";
-                spawnAttackTypeIcon.sprite = bomber;
+                spawnAttackTypeIcon.sprite = thrower;
             }
             else
             {
                 if (false == isChanging)
                 {
                     isChanging = true;
-                    spawnAttackTypeIcon.transform.DORotate(new Vector3(0, -90, 0), 1f).OnComplete(() =>
+                    spawnAttackTypeIcon.transform.DORotate(new Vector3(0, -90, 0), 0.5f).OnComplete(() =>
                     {
                         spawnAttackTypeIcon.transform.eulerAngles = new Vector3(0, -270, 0);
-                        bSpawnSuicideBombing = !bSpawnSuicideBombing;
-                        spawnAttackTypeIcon.sprite = bSpawnSuicideBombing ? suicideBomber : bomber;
-                        spawnAttackTypeIcon.transform.DORotate(new Vector3(0, -90, 0), 1f).OnComplete(() => isChanging = false).SetRelative();
+                        isSpawnningThrower = !isSpawnningThrower;
+                        spawnAttackTypeIcon.sprite = isSpawnningThrower ? thrower : suicideBomber;
+                        spawnAttackTypeIcon.transform.DORotate(new Vector3(0, -90, 0), 0.5f).OnComplete(() => isChanging = false).SetRelative();
                     }).SetRelative();
                 }
             }
@@ -68,6 +73,22 @@ public class InvadeManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetMouseButtonDown(0) && isSelectingTower)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 30);
+            if(hit.collider != null)
+            {
+                if(hit.transform.CompareTag("Tower"))
+                {
+                    SpawnEnemy(enemySO, hit.transform);
+                }
+            }
+            isSelectingTower = false;
+            SetScreenDark(false, Vector3.zero);
+            Managers.Build.map.SetTilemapsColor(false);
+        }
+
         if(isOffenseProgress) // 오펜스 시작 버튼 누르면 시작함.
         {
             time -= Time.deltaTime;
@@ -83,7 +104,6 @@ public class InvadeManager : MonoBehaviour
                 text.textColor = Color.red;
                 text.moveTime = 1.5f;
                 Managers.UI.SummonPosText(Vector2.zero, text, true, () => Managers.Game.gameOverUI.gameObject.SetActive(true));
-                
             }
         }
 
@@ -112,17 +132,28 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(EnemySO so)
+    public void SetScreenDark(bool on, Vector3 btnFocusPanelMovePos)
+    {
+        focusBtn.transform.position = btnFocusPanelMovePos;
+        btnFocusPanel.SetActive(on);
+        darkPanel.SetActive(on);
+    }
+
+    public void SetEnemySO(EnemySO enemySO) => this.enemySO = enemySO;
+    public EnemySO GetEnemySO() => this.enemySO;
+
+    public void SpawnEnemy(EnemySO enemySO, Transform target = null)
     {
         int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
         int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
 
-        Enemy enemyObj = Instantiate(so.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.basePrefab.transform.rotation, this.transform);
-        enemyObj.enemyData.InitEnemyData(so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
+        Enemy enemyObj = Instantiate(enemySO.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, enemySO.basePrefab.transform.rotation, this.transform);
+        enemyObj.enemyData.InitEnemyData(enemySO, Managers.Game.GetCoefficient().coefEnemyHP / 100);
         enemyObj.healthSystem.livingEntity = enemyObj;
-        enemyObj.spineController.Init(so.spineData);
-
+        enemyObj.spineController.Init(enemySO.spineData);
         enemyObj.wayPointListIndex = curSpawnIdx;
+
+        if (target != null) enemyObj.target = target;
 
         Managers.Wave.aliveEnemies.Add(enemyObj);
         curSpawnCount++;
