@@ -132,5 +132,10 @@ public class GameManager : MonoBehaviour
         Hp = value;
         UpdateHPText();
     }
+
+    public static void SetCoefficient(GameDifficulty difficulty)
+    {
+        GameDifficulty = difficulty;
+    }
 }
 
