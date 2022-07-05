@@ -48,13 +48,6 @@ public class Define
         Goblin,
     }
 
-    [Flags] public enum AttackType 
-    { 
-        None,
-        Thrower,
-        SuicideBomber
-    }
-
     public enum GameMode
     {
         DEFENSE,

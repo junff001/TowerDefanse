@@ -53,6 +53,12 @@ public class Tower : LivingEntity
 
     private void OnMouseDown()
     {
+        if(Managers.Invade.isSelectingTower)
+        {
+            Managers.Invade.SpawnEnemy(Managers.Invade.GetEnemySO(), this.transform);
+            return;
+        }
+
         if (Managers.Wave.GameMode == Define.GameMode.DEFENSE && Time.timeScale > 0)
         {
             Managers.Game.towerInfoUI.OpenInfo(this);

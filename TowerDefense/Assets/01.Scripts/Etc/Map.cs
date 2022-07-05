@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
@@ -6,10 +7,14 @@ public class Map : MonoBehaviour
 {
     [HideInInspector] public Tilemap tilemap = null;        // 타일맵
     [HideInInspector] public Tilemap gridTilemap = null;        // 타일맵
-    [HideInInspector] public TilemapRenderer tilemap_view_renderer = null;        // 타일맵
+
+    [HideInInspector] public TilemapRenderer gridTilemapRenderer = null;        // 타일맵
+    private List<TilemapRenderer> tilemapRenderers = new List<TilemapRenderer>();
 
     public Define.TileType[,] mapTileTypeArray = null;
     public Tile[,] mapTileArray = null;
+
+
 
     public int width;
     public int height;
@@ -23,8 +28,32 @@ public class Map : MonoBehaviour
     {
         tilemap = GetComponent<Tilemap>();
         gridTilemap = transform.GetChild(0).GetComponent<Tilemap>();
-        tilemap_view_renderer = gridTilemap.GetComponent<TilemapRenderer>();
+        gridTilemapRenderer = gridTilemap.GetComponent<TilemapRenderer>();
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            TilemapRenderer tr = transform.GetChild(i).GetComponent<TilemapRenderer>();
+            if(tr != null)
+            {
+                tilemapRenderers.Add(tr);
+            }
+        }
+
         InitMap();
+    }
+
+    public void SetTilemapsColor(bool on)
+    {
+        Debug.Log(tilemapRenderers.Count);
+
+        for(int i = 0; i < tilemapRenderers.Count; i++)
+        {
+            Debug.Log(tilemapRenderers[i].name);
+            Color color = tilemapRenderers[i].material.color;
+            tilemapRenderers[i].material.color = on 
+                ? new Color(color.r, color.g, color.b, 1) 
+                : new Color(color.r, color.g, color.b, 0);
+        }
     }
 
     public void ResetMapData() // 그 전환 시 배열 데이타 다시 사용하기 위해서 초기화

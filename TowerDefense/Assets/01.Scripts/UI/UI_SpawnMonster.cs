@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public EnemySO so = null;
+    public EnemySO enemySO = null;
 
     [SerializeField] private Image monsterImg;
     [SerializeField] private UI_EnemyInfo infoUI;
@@ -69,8 +69,8 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void Init(EnemySO so)
     {
-        this.so = so;
-        infoUI.Init(this.so);
+        this.enemySO = so;
+        infoUI.Init(this.enemySO);
 
         monsterImg.sprite = so.sprite;
         nameText.text = so.mosterName;
@@ -93,23 +93,31 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private bool CanSpawn(Vector2 start, Vector2 end)
     {
-        return true;
-        //if (Vector2.Distance(start, end) < 10 && pressedTime < checkPressTime)
-        //{
-        //    return true;    
-        //}
-        //else
-        //{
-        //    return false;
-        //}
+        if (Vector2.Distance(start, end) < 10 && pressedTime < checkPressTime)
+        {
+            return true;    
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("클릭 업");
         if (CanSpawn(pointerDownPos, eventData.position))
         {
-             Managers.Invade.SpawnEnemy(so);
+            if(Managers.Invade.isSpawnningThrower) // 투척병
+            {
+                Managers.Invade.SpawnEnemy(enemySO);
+            }
+            else // 자폭병
+            {
+                Managers.Invade.SetScreenDark(true, transform.position);
+                Managers.Build.map.SetTilemapsColor(true);
+                Managers.Invade.SetEnemySO(enemySO);
+                Managers.Invade.isSelectingTower = true;
+            }
         }
 
        isPressing = false;
