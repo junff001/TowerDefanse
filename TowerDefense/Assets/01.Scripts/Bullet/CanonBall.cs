@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanonBall : Bullet
+public class CanonBall : Projectile
 {
     public  void OnEnable()
     {

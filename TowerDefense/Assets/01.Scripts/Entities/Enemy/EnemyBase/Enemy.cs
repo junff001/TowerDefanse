@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : LivingEntity
+public class Enemy : LivingEntity
 {
-    public EnemyData enemyData;
-    public EnemyAttackData enemyAttackData = new EnemyAttackData();
-
+    [HideInInspector] public EnemyData enemyData;
     [HideInInspector] public HealthSystem healthSystem;
     [HideInInspector] public SpineController spineController;
+
+    public EnemyAttackData enemyAttackData = new EnemyAttackData();
 
     List<BuffBase> buffList = new List<BuffBase>();
     MeshRenderer mesh = null;
@@ -33,7 +33,7 @@ public abstract class Enemy : LivingEntity
     CircleCollider2D atkRangeCollider;
 
     protected virtual void Awake()
-    {
+    {    
         livingEntityData = new EnemyData();
         enemyData = livingEntityData as EnemyData;
 
@@ -232,7 +232,7 @@ public abstract class Enemy : LivingEntity
     {
         var projectile = Managers.Pool.GetItem<Bomb>();
         projectile.transform.position = transform.position;
-        projectile.InitProjectileData(enemyData.OffensePower, target, null);
+        projectile.InitProjectileData(target, null, enemyAttackData.opponentLayer);
     }
 
     IEnumerator ThrowDelay()

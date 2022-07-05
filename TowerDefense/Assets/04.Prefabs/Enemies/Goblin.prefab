@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2544191130546073993}
   - component: {fileID: 2370735874463284289}
   - component: {fileID: 8386346479705798}
-  - component: {fileID: 5183750237702158956}
+  - component: {fileID: 6378645752743943227}
   m_Layer: 10
   m_Name: Goblin
   m_TagString: Untagged
@@ -176,7 +176,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0964608, y: 2.0300353}
   m_EdgeRadius: 0
---- !u!114 &5183750237702158956
+--- !u!114 &6378645752743943227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2544191130546074038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e8d0dd5b26bf0d40b8267ae602c5e66, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ae55e241a68df1428a32bdfb04841b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData:
@@ -208,15 +208,15 @@ MonoBehaviour:
   enemyAttackData:
     blinkingCount: 0
     blinkingDelay: 0
-    explosionDamage: 0
-    atkRangeRadius: 0
-    attackSpeed: 0
+    explosionDamage: 50
+    atkRangeRadius: 10
+    attackSpeed: 3
     opponentLayer:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 64
   healthSystem: {fileID: 0}
   spineController: {fileID: 0}
-  suicideBombingEffect: {fileID: 0}
+  suicideBombingEffect: {fileID: 198681264470032530, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
 --- !u!1001 &5096107632689154240
 PrefabInstance:
   m_ObjectHideFlags: 0

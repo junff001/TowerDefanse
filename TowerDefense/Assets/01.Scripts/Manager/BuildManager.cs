@@ -217,18 +217,17 @@ public class BuildManager : MonoBehaviour
     {
         Tower newTower = Instantiate(towerBase, placePos, Quaternion.identity);
         newTower.InitTowerData(towerSO, Managers.Game.GetCoefficient().coefTowerOffensePower / 100);
-
-        newTower.healthSystem.SetAmountMax(eHealthType.HEALTH, (int)newTower.TowerData.HP, true);
-        newTower.healthSystem.SetAmountMax(eHealthType.SHIELD, (int)newTower.TowerData.ShieldAmount, true);
-        newTower.healthbar.SetActive(true);
+       
 
         if (towerSO.hasTower) // 코어가 타워를 가져야 하는 친구인가?
         {
             MakeNewCore(towerSO, newTower);
+            newTower.SetHealthBar();
         }
         else
         {
             MakeNoTowerCore(towerSO, newTower);
+            newTower.SetHealthBar();
         }
 
         //원래는 타일 값에 따라 받아와야 하지만, 어차피 타일 값 == 포지션 값이니까..
@@ -274,7 +273,7 @@ public class BuildManager : MonoBehaviour
     public bool IsInTunnel(Vector3 enemyPos)
     {
         Vector3Int pos = GetTilemapPos(enemyPos);
-        Debug.Log($"{pos.x}, {pos.y}");
+        //Debug.Log($"{pos.x}, {pos.y}");
 
         try
         {
@@ -283,7 +282,7 @@ public class BuildManager : MonoBehaviour
         }
         catch
         {
-            Debug.Log("타일맵 유즈 안쪽이 아님.");
+            //Debug.Log("타일맵 유즈 안쪽이 아님.");
             return false;
         }
     }

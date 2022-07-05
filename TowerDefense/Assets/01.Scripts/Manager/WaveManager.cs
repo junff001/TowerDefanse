@@ -174,6 +174,7 @@ public class WaveManager : MonoBehaviour
             Enemy enemyObj = Instantiate(enemyInfo.so.basePrefab, Managers.Game.wayPoints[index].transform.position,
                 enemyInfo.so.basePrefab.transform.rotation, this.transform);
             enemyObj.enemyData.InitEnemyData(enemyInfo.so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
+            enemyObj.healthSystem.livingEntity = enemyObj;
             enemyObj.spineController.Init(enemyInfo.so.spineData);
 
             enemyObj.wayPointListIndex = enemyInfo.wayPointListIndex;

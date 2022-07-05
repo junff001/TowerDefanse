@@ -93,15 +93,24 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private bool CanSpawn(Vector2 start, Vector2 end)
     {
-        return Vector2.Distance(start, end) < 10 && pressedTime < checkPressTime;
+        return true;
+        //if (Vector2.Distance(start, end) < 10 && pressedTime < checkPressTime)
+        //{
+        //    return true;    
+        //}
+        //else
+        //{
+        //    return false;
+        //}
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-       if (CanSpawn(pointerDownPos, eventData.position))
-       {
-           Managers.Invade.SpawnEnemy(so);
-       }
+        Debug.Log("클릭 업");
+        if (CanSpawn(pointerDownPos, eventData.position))
+        {
+             Managers.Invade.SpawnEnemy(so);
+        }
 
        isPressing = false;
        pressedTime = 0f;

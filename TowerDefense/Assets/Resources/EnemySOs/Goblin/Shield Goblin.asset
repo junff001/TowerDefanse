@@ -20,9 +20,9 @@ MonoBehaviour:
   moveSpeed: 1
   monsterType: 8
   speciesType: 1
-  attackType: 0
+  attackType: 1
   sprite: {fileID: 21300000, guid: 5f9eb49cc8454784d81096857a22291a, type: 3}
   typeIcons:
   - {fileID: 2209496922979382247, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
   spineData: {fileID: 11400000, guid: 2f21f93d94675fa4ebe1b19edbc53527, type: 2}
-  basePrefab: {fileID: 5183750237702158956, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}
+  basePrefab: {fileID: 6378645752743943227, guid: 8174d244d324a264db23ea6ca81055d1, type: 3}

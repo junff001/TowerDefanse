@@ -10,7 +10,7 @@ public class Single_Core : CoreBase
         RotateCanon(angleSpeed);
     }
 
-    public override void Attack(float power, HealthSystem enemy)
+    public override void Attack(HealthSystem enemy, LayerMask opponentLayer)
     {
         if (bullet == null)
         {
@@ -18,7 +18,7 @@ public class Single_Core : CoreBase
         }
 
         bullet.transform.position = transform.position;
-        bullet.InitProjectileData(power, enemy.transform, Buff);
+        bullet.InitProjectileData(enemy.transform, Buff, opponentLayer);
         OnAttack();
     }
 

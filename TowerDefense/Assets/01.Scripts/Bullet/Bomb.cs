@@ -1,15 +1,14 @@
 using UnityEngine;
 
-public class Bomb : Bullet
+public class Bomb : Projectile
 {
     [SerializeField] float explosionRadius = 0f;           
     Collider2D[] enemies = null;
-    public LayerMask enemyMask;
     Vector2 curvePoint = Vector2.zero;
 
-    public override void InitProjectileData(float damage, Transform target, BuffBase buff)
+    public override void InitProjectileData(Transform target, BuffBase buff, LayerMask opponent)
     {
-        base.InitProjectileData(damage, target, buff);
+        base.InitProjectileData(target, buff, opponent);
         IsShoot = true;
         float x = (targetPos.x + startPos.x) / 2;
         float y = targetPos.y > startPos.y ? targetPos.y : startPos.y;
@@ -29,12 +28,12 @@ public class Bomb : Bullet
             {
                 CollisionEvent();
 
-                enemies = Physics2D.OverlapCircleAll(targetPos, explosionRadius, enemyMask);
+                enemies = Physics2D.OverlapCircleAll(targetPos, explosionRadius, opponentLayer);
                 if (enemies.Length > 0)
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage);
+                        enemies[i].gameObject.GetComponent<HealthSystem>().TakeDamage(damage);
                     }
                 }
             }

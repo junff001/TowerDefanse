@@ -119,6 +119,7 @@ public class InvadeManager : MonoBehaviour
 
         Enemy enemyObj = Instantiate(so.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, so.basePrefab.transform.rotation, this.transform);
         enemyObj.enemyData.InitEnemyData(so, Managers.Game.GetCoefficient().coefEnemyHP / 100);
+        enemyObj.healthSystem.livingEntity = enemyObj;
         enemyObj.spineController.Init(so.spineData);
 
         enemyObj.wayPointListIndex = curSpawnIdx;

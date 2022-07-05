@@ -8,7 +8,7 @@ public abstract class CoreBase : MonoBehaviour
     [Header("레이더")]
     [SerializeField] protected float raderHeight = 0f;
 
-    private LayerMask enemyMask = default;                           // 적을 분별하는 마스크    
+    protected LayerMask opponentLayer = default;                           // 적을 분별하는 마스크    
     protected List<Enemy> enemies = new List<Enemy>();      // 공격 범위 안에 있는 적들
     protected Enemy target { get; set; } = null;                // 현재 타겟
 
@@ -16,7 +16,7 @@ public abstract class CoreBase : MonoBehaviour
     public eCoreName coreType;
     public BuffBase Buff { get; set; } 
 
-    protected Bullet bullet = null;
+    protected Projectile bullet = null;
 
     [SerializeField] private MonsterType notAttackableType;
 
@@ -28,7 +28,7 @@ public abstract class CoreBase : MonoBehaviour
 
     private void Start()
     {
-        enemyMask = LayerMask.GetMask("Enemy");
+        opponentLayer = LayerMask.GetMask("Enemy");
     }
 
     public bool IsTargetOutOfRange() // 때리던 애가 내 범위에서 벗어나면.
@@ -77,7 +77,7 @@ public abstract class CoreBase : MonoBehaviour
     public void SetEnemies()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll
-            (transform.position - new Vector3(0, raderHeight, 0), towerData.AttackRange, enemyMask);
+            (transform.position - new Vector3(0, raderHeight, 0), towerData.AttackRange, opponentLayer);
         enemies.Clear();
         for(int i =0; i< cols.Length; i++)
         {
@@ -91,7 +91,7 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => target != null && target.IsDead == false);
-            Attack(towerData.AttackPower, target.healthSystem);
+            Attack(target.healthSystem, opponentLayer);
            
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
@@ -105,6 +105,6 @@ public abstract class CoreBase : MonoBehaviour
     }
 
     // 공격 로직 함수
-    public abstract void Attack(float power, HealthSystem enemy);
+    public abstract void Attack(HealthSystem enemy, LayerMask opponentLayer);
 
 }

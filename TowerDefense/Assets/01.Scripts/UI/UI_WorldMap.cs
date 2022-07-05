@@ -28,7 +28,6 @@ public class UI_WorldMap : MonoBehaviour
             int index = i;
             stageBtns[i].onClick.AddListener(() =>
             {
-                Debug.Log(index);
                 ChooseStage(stageMapInfoSO[index]);
                 infoPanel.ShowMapInfo(stageMapInfoSO[index]);
             });
@@ -37,7 +36,7 @@ public class UI_WorldMap : MonoBehaviour
 
     public void ChooseStage(MapInfoSO so)
     {
-        Debug.Log($"Target Stage : {so.stageName}");
+        //Debug.Log($"Target Stage : {so.stageName}");
         Managers.Stage.SetTargetStage(so);
     }
 }

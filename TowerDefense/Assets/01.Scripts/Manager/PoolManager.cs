@@ -29,16 +29,16 @@ public class PoolManager
     {
         poolInitPos = initPos;
 
-        GameObject arrow = Resources.Load<GameObject>("Bullet/Arrow");
+        GameObject arrow = Resources.Load<GameObject>("Projectiles/Arrow");
         CreatePool<Arrow>(arrow, initPos, 50);
 
-        GameObject bomb = Resources.Load<GameObject>("Bullet/Bomb");
+        GameObject bomb = Resources.Load<GameObject>("Projectiles/Bomb");
         CreatePool<Bomb>(bomb, initPos, 50);
 
-        GameObject canonBall = Resources.Load<GameObject>("Bullet/Canon Ball");
+        GameObject canonBall = Resources.Load<GameObject>("Projectiles/Canon Ball");
         CreatePool<CanonBall>(canonBall, initPos, 50);
 
-        GameObject stone = Resources.Load<GameObject>("Bullet/Stone");
+        GameObject stone = Resources.Load<GameObject>("Projectiles/Stone");
         CreatePool<Stone>(stone, initPos, 50);
 
         // 이펙트

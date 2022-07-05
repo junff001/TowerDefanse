@@ -16,7 +16,7 @@ public class Spike_Core : CoreBase
         StartCoroutine(AttackDelay());
     }
 
-    public override void Attack(float power, HealthSystem enemy)
+    public override void Attack(HealthSystem enemy, LayerMask opponentLayer)
     {
         enemy.GetComponent<Enemy>().AddBuff(Buff);
         enemy.TakeDamage(towerData.AttackPower);
@@ -36,7 +36,7 @@ public class Spike_Core : CoreBase
 
                 if (enemies[i] != null)
                 {
-                    Attack(towerData.AttackPower, enemies[i].healthSystem);
+                    Attack(enemies[i].healthSystem, opponentLayer);
                 }
             }
 

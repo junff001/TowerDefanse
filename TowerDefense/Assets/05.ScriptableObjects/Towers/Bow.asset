@@ -15,9 +15,9 @@ MonoBehaviour:
   Level: 1
   PlaceCost: 100
   AttackTargetCount: 1
-  HP: 500
+  HP: 100
   ShieldAmount: 0
-  AttackPower: 100
+  AttackPower: 0
   AttackSpeed: 1
   AttackRange: 5
   placeTileType: 0

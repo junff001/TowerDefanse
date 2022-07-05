@@ -44,13 +44,13 @@ public class Catapult_Core : CoreBase
         }
     }
 
-    public override void Attack(float power, HealthSystem enemy)
+    public override void Attack(HealthSystem enemy, LayerMask opponentLayer)
     {
 
         if (bullet == null && false == isThrowing && target != null)
         {
             Ready();
-            StartCoroutine(Charging(enemy.transform));
+            StartCoroutine(Charging(enemy.transform, opponentLayer));
         }  
     }
 
@@ -62,7 +62,7 @@ public class Catapult_Core : CoreBase
         isThrowing = true;
     }
 
-    IEnumerator Charging(Transform enemyTrm)
+    IEnumerator Charging(Transform enemyTrm, LayerMask opponentLayer)
     {
         if(target != null)
         {
@@ -74,7 +74,7 @@ public class Catapult_Core : CoreBase
 
                 if (head.transform.localRotation == charging)
                 {
-                    StartCoroutine(Throw(enemyTrm));
+                    StartCoroutine(Throw(enemyTrm, opponentLayer));
                     break;
                 }
                 else
@@ -90,7 +90,7 @@ public class Catapult_Core : CoreBase
         
     }
 
-    IEnumerator Throw(Transform enemyTrm)
+    IEnumerator Throw(Transform enemyTrm, LayerMask opponentLayer)
     {
         while (true)
         {
@@ -102,7 +102,7 @@ public class Catapult_Core : CoreBase
             {
                 bullet.transform.SetParent(Managers.Pool.poolInitPos);
                 bullet.transform.position = basket.transform.position + new Vector3(dir.x / 2, 0, 0);
-                bullet.InitProjectileData(towerData.AttackPower, enemyTrm, Buff);
+                bullet.InitProjectileData(enemyTrm, Buff, opponentLayer);
                 OnAttack();
 
                 if (target?.healthSystem.GetAmount(eHealthType.HEALTH) - towerData.AttackPower <= 0) target = null;

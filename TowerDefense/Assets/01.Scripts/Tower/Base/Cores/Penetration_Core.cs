@@ -53,23 +53,23 @@ public class Penetration_Core : CoreBase
         }
     }
 
-    public override void Attack(float power, HealthSystem enemy)
+    public override void Attack(HealthSystem enemy, LayerMask opponentLayer)
     {
         if (bullet == null && target != null)
         {
             Ready();
-            StartCoroutine(PullAndShoot(TransitionTime, enemy));
+            StartCoroutine(PullAndShoot(TransitionTime, enemy, opponentLayer));
         }
     }
 
-    IEnumerator PullAndShoot(float TransitionTime, HealthSystem enemy)
+    IEnumerator PullAndShoot(float TransitionTime, HealthSystem enemy, LayerMask opponentLayer)
     {
         if(target != null && enemy.IsDead() == false)
         {
             yield return new WaitForSeconds(TransitionTime);
             Pull();
             yield return new WaitForSeconds(TransitionTime);
-            Shoot();
+            Shoot(opponentLayer);
             yield return new WaitForSeconds(TransitionTime);
             OnAttack();
         }
@@ -94,12 +94,12 @@ public class Penetration_Core : CoreBase
         bowLauncher.localPosition = new Vector2(-0.5f, -0.5f); 
     }
 
-    void Shoot()
+    void Shoot(LayerMask opponentLayer)
     {
         bowLauncher.localPosition = new Vector2(0, 0);
         if (target != null && target.GetComponent<Enemy>().IsDead == false)
         {
-            bullet.InitProjectileData(towerData.AttackPower, target.transform, Buff); // targetPos 세팅 됐을거라 믿고?
+            bullet.InitProjectileData(target.transform, Buff, opponentLayer); // targetPos 세팅 됐을거라 믿고?
 
             Vector2 direction = bullet.TargetPos - (Vector2)bowBody.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

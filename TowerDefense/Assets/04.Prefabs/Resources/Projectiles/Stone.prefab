@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3188361967190122606}
   - component: {fileID: 3188361967190122601}
-  - component: {fileID: -1968775079198678545}
+  - component: {fileID: -4746941658925058885}
   m_Layer: 0
-  m_Name: Bomb
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,10 +69,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -33704209
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7310884378538523348, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
+  m_Sprite: {fileID: -4906864666938018422, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1968775079198678545
+--- !u!114 &-4746941658925058885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,14 +92,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3188361967190122603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f75202aececaa6047834b79af5898688, type: 3}
+  m_Script: {fileID: 11500000, guid: b39b3a982c4963b4da334ec64662fcb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
-  speed: 0
+  hitEffect: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  damage: 20
+  speed: 10
+  Target: {fileID: 0}
+  IsShoot: 0
   curTime: 0
-  maxTime: 1
-  explosionRadius: 2
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 1024
+  maxTime: 0.6

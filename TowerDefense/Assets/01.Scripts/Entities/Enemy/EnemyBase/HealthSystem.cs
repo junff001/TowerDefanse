@@ -15,10 +15,9 @@ public class HealthSystem : MonoBehaviour
     public Action OnDamaged;
     public Action OnDied;
     public bool canDamaged { get; set; } = true;
-
     public float damagedDelay { get; set; } = 0f;
 
-    private LivingEntity livingEntity;
+    public LivingEntity livingEntity;
     private float healthAmountMax;
     private float curHealthAmount
     {
@@ -26,7 +25,6 @@ public class HealthSystem : MonoBehaviour
         {
             return livingEntity.livingEntityData.HP;
         }
-
         set
         {
             livingEntity.livingEntityData.HP = value;
@@ -40,16 +38,10 @@ public class HealthSystem : MonoBehaviour
         {
             return livingEntity.livingEntityData.ShieldAmount;
         }
-
         set
         {
             livingEntity.livingEntityData.ShieldAmount = value;
         }
-    }
-
-    void Awake()
-    {
-        livingEntity = GetComponent<LivingEntity>();
     }
 
     void Start()
@@ -113,7 +105,6 @@ public class HealthSystem : MonoBehaviour
     {
         if (type == eHealthType.HEALTH)
         {
-            Debug.Log((float)healthAmountMax);
             return (float)curHealthAmount / healthAmountMax;
         }
         else

@@ -1,19 +1,21 @@
 using UnityEngine;
 
-public abstract class Bullet : MonoBehaviour
+public abstract class Projectile : MonoBehaviour
 {
-    [SerializeField] protected ParticleSystem hitEffect = null;              // 타격 이펙트
-    [SerializeField] protected float speed = 0f;  // 애는 유도탄에만 쓰자.
+    [SerializeField] protected ParticleSystem hitEffect;             
+    [SerializeField] protected float damage;
+    [SerializeField] protected float speed;  
 
-    public Transform Target { get; set; }                                  // 목표물
-    public float BulletDamage { get; set; } = 0;                               // 데미지
-    public bool IsShoot { get; set; } = false;
-    public BuffBase Buff { get; set; }  
+    [HideInInspector] public Transform Target;                               
+    [HideInInspector] public bool IsShoot = false;
+    [HideInInspector] public BuffBase Buff;
 
-    protected Vector2 startPos = Vector2.zero;
+    protected Vector2 startPos;
     protected Vector2 firePos;
-    protected Vector2 targetPos = Vector2.zero;
-    public Vector2 TargetPos => targetPos; 
+    protected Vector2 targetPos;
+    public Vector2 TargetPos => targetPos;
+
+    protected LayerMask opponentLayer;
 
     [SerializeField] protected float curTime;
     [SerializeField] protected float maxTime; // 얘는 거리에 따라 바뀌는 투사체 날아가는 시간
@@ -24,14 +26,14 @@ public abstract class Bullet : MonoBehaviour
         _maxTime = maxTime;
     }
 
-    public virtual void InitProjectileData(float damage, Transform target, BuffBase buff)
+    public virtual void InitProjectileData(Transform target, BuffBase buff, LayerMask opponent)
     {
         Target = target;
         startPos = transform.position;
         targetPos = target.position;
-        BulletDamage = damage;
         Buff = buff;
         curTime = 0;
+        opponentLayer = opponent;
     }
 
     public virtual void Update()
@@ -77,7 +79,7 @@ public abstract class Bullet : MonoBehaviour
         {
             Debug.Log("버프");
             Target.GetComponent<Enemy>().AddBuff(Buff);
-            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(BulletDamage);
+            Target.gameObject.GetComponent<HealthSystem>().TakeDamage(damage);
 
             var ps = Instantiate(hitEffect);
             ps.transform.position = Target.position;
@@ -114,10 +116,10 @@ public abstract class Bullet : MonoBehaviour
         return startPos += moveDistWhileMaxTime * moveDir; // 현재 위치에 방향 * 거리 곱해서 더해주고 리턴.
     }
 
-    protected Vector2 BezierCurves(Vector2 startPos, Vector2 curve, Vector2 endPos, float t)
+    protected Vector2 BezierCurves(Vector2 startPos, Vector2 curvePos, Vector2 endPos, float t)
     {
-        Vector2 lerp1 = Vector2.Lerp(startPos, curve, t);
-        Vector2 lerp2 = Vector2.Lerp(curve, endPos, t);
+        Vector2 lerp1 = Vector2.Lerp(startPos, curvePos, t);
+        Vector2 lerp2 = Vector2.Lerp(curvePos, endPos, t);
 
         return Vector2.Lerp(lerp1, lerp2, t);
     }

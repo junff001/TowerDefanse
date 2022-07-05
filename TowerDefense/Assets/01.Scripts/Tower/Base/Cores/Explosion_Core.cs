@@ -1,10 +1,13 @@
+using UnityEngine;
+
+
 public class Explosion_Core : CoreBase
 {
-    public override void Attack(float power, HealthSystem enemy)
+    public override void Attack(HealthSystem enemy, LayerMask opponentLayer)
     {
         bullet = Managers.Pool.GetItem<Bomb>();
         bullet.transform.position = transform.position;
-        bullet.InitProjectileData(power, enemy.transform, Buff);
+        bullet.InitProjectileData(enemy.transform, Buff, opponentLayer);
         OnAttack();
     }
 }

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Stone : Bullet
+public class Stone : Projectile
 {
     Vector2 curvePoint = Vector2.zero;
 
-    public override void InitProjectileData(float damage, Transform enemyTrm, BuffBase buff)
+    public override void InitProjectileData(Transform enemyTrm, BuffBase buff, LayerMask opponent)
     {
-        base.InitProjectileData(damage, enemyTrm, buff);
+        base.InitProjectileData(enemyTrm, buff, opponent);
         IsShoot = true;
 
         targetPos = GetExpectPos(Target.GetComponent<Enemy>(), maxTime);

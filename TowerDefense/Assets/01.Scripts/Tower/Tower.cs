@@ -6,15 +6,15 @@ using UnityEngine;
 public class Tower : LivingEntity
 {
     [HideInInspector] public TowerData TowerData;
-    [HideInInspector] public HealthSystem healthSystem;
-    
+    [SerializeField] private GameObject healthbar;
+
+    private HealthSystem healthSystem;
     private string initSortingLayerName;
     private int initOrderInLayer;
 
     public Vector3Int[] myCheckedPos { get; set; } // 나의 그리드값을 가진다.
     public Transform CoreTrm;   // position 접근 변수
-    public GameObject healthbar;
-
+   
     void Awake()
     {
         livingEntityData = new TowerData();
@@ -36,6 +36,19 @@ public class Tower : LivingEntity
         TowerData.PlaceTileType       = towerSO.placeTileType;
 
         TowerData.AttackPower += TowerData.AttackPower * addPctTowerAtkPower;
+    }
+
+    public void SetHealthBar()
+    {
+        healthSystem.livingEntity = this;
+        healthSystem.SetAmountMax(eHealthType.HEALTH, (int)TowerData.HP, true);
+        healthSystem.SetAmountMax(eHealthType.SHIELD, (int)TowerData.ShieldAmount, true);
+        healthbar.SetActive(true);
+    }
+
+    private void Update()
+    {
+        Debug.Log("현재 타워 체력 : " + TowerData.HP);
     }
 
     private void OnMouseDown()

@@ -23,6 +23,7 @@ public class EnemyData : LivingEntityData
     {
         MonsterType = enemySO.monsterType;
         SpeciesType = enemySO.speciesType;
+        AttackType = enemySO.attackType;
 
         IsHide = MonsterType.HasFlag(MonsterType.Hide);
         IsShilde = MonsterType.HasFlag(MonsterType.Shield);
@@ -30,7 +31,7 @@ public class EnemyData : LivingEntityData
         IsFly = MonsterType.HasFlag(MonsterType.Fly);
         IsSuicideBomber = AttackType.HasFlag(AttackType.SuicideBomber);
         IsThrower = AttackType.HasFlag(AttackType.Thrower);
-
+        
         HP += enemySO.HP * addPercentEnemyHP;
         ShieldAmount = IsShilde ? HP : 0; // 쉴드 있는 애면 체력만큼 받아가기
         MoveSpeed = enemySO.moveSpeed;
