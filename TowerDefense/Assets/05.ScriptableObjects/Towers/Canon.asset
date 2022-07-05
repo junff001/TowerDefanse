@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
   m_Name: Canon
   m_EditorClassIdentifier: 
+  Name: Canon Tower
   Level: 1
   PlaceCost: 100
   AttackTargetCount: 1
@@ -20,6 +21,8 @@ MonoBehaviour:
   AttackPower: 0
   AttackSpeed: 1
   AttackRange: 5
+  TowerImage: {fileID: 7232727797619221383, guid: 8ab626048391ead47b545aa750213a01, type: 3}
+  CharacteristicIcon: {fileID: -7090988370135262308, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
   placeTileType: 0
   coreType: 0
   hasTower: 1

@@ -3,15 +3,19 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDragHandler
+public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBeginDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     private GameObject fakeTower;  // 건설 실루엣에 사용될 껍데기만 갖춘 타워이다.
     [SerializeField] private TextMeshProUGUI towerCostText = null;
+    [SerializeField] private UI_TowerStatPanel towerInfoPanel;
 
     public TowerSO towerSO; // 이친구는 나중에 덱빌딩할 때 넣어줘
     private RectTransform rt;
     private RectTransform rangeObj;
     Vector3 rangeObjPlusPos = new Vector3(0, 0.5f, 0);
+
+    private float holdTime;
+    private bool isPress;
 
     void Start()
     {
@@ -19,6 +23,23 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
         rt = GetComponent<RectTransform>();
         rangeObj = Managers.Build.rangeObj;
         SetFakeTower();
+        towerInfoPanel.InitTowerStat(towerSO);
+    }
+
+    void Update()
+    {
+        if (isPress)
+        {
+            holdTime += Time.deltaTime;
+
+            if (holdTime >= 1)
+            {
+                towerInfoPanel.gameObject.SetActive(true);
+                
+                holdTime = 0;
+                isPress = false;
+            }
+        }
     }
 
     // InitTowerData 가 안된 타워
@@ -135,4 +156,14 @@ public class UI_TowerPanel : MonoBehaviour, IEndDragHandler, IDragHandler, IBegi
 
     bool IsLeftBtn(PointerEventData e) => e.button == PointerEventData.InputButton.Left;
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isPress = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isPress = false;
+        towerInfoPanel.gameObject.SetActive(false);
+    }
 }

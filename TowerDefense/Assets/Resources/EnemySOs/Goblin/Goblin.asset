@@ -20,7 +20,7 @@ MonoBehaviour:
   moveSpeed: 1
   monsterType: 0
   speciesType: 1
-  attackType: 1
+  attackType: 2
   sprite: {fileID: 21300000, guid: bd8dcc3612848224686c8c0bfed98b8c, type: 3}
   typeIcons:
   - {fileID: -7090988370135262308, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}

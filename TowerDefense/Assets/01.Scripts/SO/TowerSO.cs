@@ -22,6 +22,7 @@ public enum eCoreName
 [CreateAssetMenu(fileName = "TowerData", menuName = "ScriptableObjects/TowerData")]
 public class TowerSO : ScriptableObject
 {
+    public string Name;
     public int Level;
     public int PlaceCost;
     public int AttackTargetCount;
@@ -30,6 +31,8 @@ public class TowerSO : ScriptableObject
     public float AttackPower;
     public float AttackSpeed;
     public float AttackRange;
+    public Sprite TowerImage;
+    public Sprite CharacteristicIcon;
     public Define.PlaceTileType placeTileType = Define.PlaceTileType.Place;
     public eCoreName coreType = eCoreName.Bow; // 위 머리 판단기준
 
