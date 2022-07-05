@@ -53,6 +53,7 @@ public class Enemy : LivingEntity
         healthSystem.SetAmountMax(eHealthType.SHIELD, (int)enemyData.ShieldAmount, true);
         healthSystem.OnDied += () =>
         {
+            //Debug.Log("죽음");
             Managers.Gold.GoldPlus(enemyData.RewardGold);
             spineController.Die();
             Managers.Wave.aliveEnemies.Remove(this);
@@ -102,8 +103,6 @@ public class Enemy : LivingEntity
 
         if (enemyData.IsSuicideBomber)
         {
-            float originMoveSpeed = enemyData.MoveSpeed;
-
             if (TargetInATKRange() != null)
             {
                 target = TargetInATKRange().transform;
@@ -251,7 +250,7 @@ public class Enemy : LivingEntity
     {
         if (Vector2.Distance(transform.position, target.position) <= 0.5f)
         {
-            Debug.Log("도착함");
+            //Debug.Log("도착함");
             return true;
         }
         else
@@ -272,7 +271,10 @@ public class Enemy : LivingEntity
         effect.Play();
         enemyData.HP = 0f;
 
-        Debug.Log("자폭 가동");
+        if (healthSystem.IsDead())
+        {
+            healthSystem.OnDied?.Invoke();
+        }
     }
 
     void TargetChase()

@@ -48,7 +48,7 @@ public class Tower : LivingEntity
 
     private void Update()
     {
-        Debug.Log("현재 타워 체력 : " + TowerData.HP);
+        //Debug.Log("현재 타워 체력 : " + TowerData.HP);
     }
 
     private void OnMouseDown()

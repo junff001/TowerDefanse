@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cdef6032ea6c54dabe453eb3fc039c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  livingEntity: {fileID: 0}
 --- !u!61 &8386346479705798
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -205,17 +206,17 @@ MonoBehaviour:
     IsFly: 0
     IsSuicideBomber: 0
     IsThrower: 0
+  healthSystem: {fileID: 0}
+  spineController: {fileID: 0}
   enemyAttackData:
     blinkingCount: 0
     blinkingDelay: 0
     explosionDamage: 50
-    atkRangeRadius: 10
+    atkRangeRadius: 5
     attackSpeed: 3
     opponentLayer:
       serializedVersion: 2
       m_Bits: 64
-  healthSystem: {fileID: 0}
-  spineController: {fileID: 0}
   suicideBombingEffect: {fileID: 198681264470032530, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
 --- !u!1001 &5096107632689154240
 PrefabInstance:
