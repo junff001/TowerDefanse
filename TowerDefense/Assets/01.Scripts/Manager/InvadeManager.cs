@@ -22,7 +22,7 @@ public class InvadeManager : MonoBehaviour
     [HideInInspector] public bool isOffenseProgress = false;
     [HideInInspector] public List<UI_SpawnMonster> bookmarkedMonsters = new List<UI_SpawnMonster>();
 
-    [SerializeField] private GameObject darkPanel; // 타워만 잘 보이게 하기 위한 UI 패널
+    [SerializeField] private GameObject towerFocusPanel; // 타워만 잘 보이게 하기 위한 UI 패널
     [SerializeField] private GameObject btnFocusPanel; // 내가 선택한 몬스터가 뭔지 보여주는거.
     [SerializeField] private RectTransform focusBtn;
 
@@ -132,11 +132,12 @@ public class InvadeManager : MonoBehaviour
         }
     }
 
+    
     public void SetScreenDark(bool on, Vector3 btnFocusPanelMovePos)
     {
-        focusBtn.transform.position = btnFocusPanelMovePos;
+        focusBtn.transform.position = new Vector3(btnFocusPanelMovePos.x, focusBtn.transform.position.y, focusBtn.transform.position.z);
         btnFocusPanel.SetActive(on);
-        darkPanel.SetActive(on);
+        towerFocusPanel.SetActive(on);
     }
 
     public void SetEnemySO(EnemySO enemySO) => this.enemySO = enemySO;
