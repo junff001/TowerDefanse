@@ -62,8 +62,6 @@ public class GameManager : MonoBehaviour
         };
         SetWaypoints(waypointsParent);
 
-        hpText = Managers.Wave.defenseHpText;
-        UpdateHPText();
     }
 
     public CoefByDifficulty GetCoefficient() => coefDict[GameDifficulty];

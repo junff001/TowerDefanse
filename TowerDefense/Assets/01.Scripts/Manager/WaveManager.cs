@@ -32,14 +32,16 @@ public class WaveManager : MonoBehaviour
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
-    public CanvasGroup defenseTowerGroup;
-    public RectTransform defenseStatus;
+    [SerializeField] CanvasGroup defenseTowerGroup;
+    [SerializeField] RectTransform defenseStatus;
     public TextMeshProUGUI defenseHpText;
+    public TextMeshProUGUI defenseMoneyText;
 
     [Header("오펜스UI")]
-    public CanvasGroup offenseMonsterGroup;
-    public RectTransform offenseStatus;
+    [SerializeField] CanvasGroup offenseMonsterGroup;
+    [SerializeField] RectTransform offenseStatus;
     public TextMeshProUGUI offenseHpText;
+    public TextMeshProUGUI offenseMoneyText;
 
     private GameMode gameMode;
     [HideInInspector]
@@ -66,6 +68,7 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        GameMode = GameMode.DEFENSE;
         DefenseSetNextWave();
     }
 
@@ -186,11 +189,17 @@ public class WaveManager : MonoBehaviour
 
     private void ChangeMode(GameMode gameMode)
     {
+        Debug.Log("체인지");
+
         switch (gameMode)
         {
             case GameMode.DEFENSE:
                 {
-                    GameManager.hpText = defenseHpText;
+                    GameManager.hpText = Managers.Wave.defenseHpText;
+                    GoldManager.moneyText = defenseMoneyText;
+                    Managers.Game.UpdateHPText();
+                    Managers.Gold.UpdateGoldText();
+
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
                     offenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);
@@ -220,8 +229,13 @@ public class WaveManager : MonoBehaviour
                     }
 
                     Wave = 1;
+                    GameManager.hpText = Managers.Wave.offenseHpText;
+                    GoldManager.moneyText = offenseMoneyText;
                     Managers.Game.Hp = Managers.Game.maxHp; // 웨이브 전환시..
-                    GameManager.hpText = offenseHpText;
+                    Managers.Game.UpdateHPText();
+                    Managers.Gold.GoldMinus(Managers.Gold.Gold);
+                    StartCoroutine(Managers.Invade.CoGoldPlus());
+
                     offenseStatus.transform.SetAsLastSibling();
                     offenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
                     defenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);

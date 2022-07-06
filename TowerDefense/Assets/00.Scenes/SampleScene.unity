@@ -4381,9 +4381,11 @@ MonoBehaviour:
   defenseTowerGroup: {fileID: 145244611}
   defenseStatus: {fileID: 1074376516}
   defenseHpText: {fileID: 1151236651}
+  defenseMoneyText: {fileID: 58956169}
   offenseMonsterGroup: {fileID: 1527007686}
   offenseStatus: {fileID: 1595377301}
   offenseHpText: {fileID: 636562393}
+  offenseMoneyText: {fileID: 58375020}
 --- !u!1 &625795405
 GameObject:
   m_ObjectHideFlags: 0
@@ -12948,7 +12950,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b896cf0de7a214e974eb95f659fb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 58956169}
   moneyPopupTrans: {fileID: 420880094}
 --- !u!1001 &1801359239
 PrefabInstance:
@@ -13188,7 +13189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 151682587284314343, guid: 3c1be2e197ee8db46a313f943ccf6407, type: 3}
+  m_Sprite: {fileID: 2838464033401493198, guid: 3c1be2e197ee8db46a313f943ccf6407, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

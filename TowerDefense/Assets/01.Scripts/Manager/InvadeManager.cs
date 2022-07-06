@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using System.Collections.Generic;
 
 public class InvadeManager : MonoBehaviour
 {
@@ -39,6 +40,9 @@ public class InvadeManager : MonoBehaviour
     [HideInInspector] public bool isSpawnningThrower = true;
     [HideInInspector] public bool isSelectingTower = false;
     private bool isChanging = false;
+    
+    private string throwerString = "투척병";
+    private string suicideBomberString = "자폭병";
 
     private void Start()
     {
@@ -51,7 +55,7 @@ public class InvadeManager : MonoBehaviour
             if(false == isOffenseProgress)
             {
                 WaveStart();
-                monsterAttackTypeText.text = "공격 타입 전환";
+                monsterAttackTypeText.text = isSpawnningThrower ? throwerString : suicideBomberString;
                 spawnAttackTypeIcon.sprite = thrower;
             }
             else
@@ -64,7 +68,11 @@ public class InvadeManager : MonoBehaviour
                         spawnAttackTypeIcon.transform.eulerAngles = new Vector3(0, -270, 0);
                         isSpawnningThrower = !isSpawnningThrower;
                         spawnAttackTypeIcon.sprite = isSpawnningThrower ? thrower : suicideBomber;
-                        spawnAttackTypeIcon.transform.DORotate(new Vector3(0, -90, 0), 0.5f).OnComplete(() => isChanging = false).SetRelative();
+                        spawnAttackTypeIcon.transform.DORotate(new Vector3(0, -90, 0), 0.5f).OnComplete(() => 
+                        {
+                            isChanging = false;
+                            monsterAttackTypeText.text = isSpawnningThrower ? throwerString : suicideBomberString;
+                        }).SetRelative();
                     }).SetRelative();
                 }
             }
@@ -118,6 +126,15 @@ public class InvadeManager : MonoBehaviour
         #endregion
     }
 
+    public IEnumerator CoGoldPlus()
+    {
+        while(true)
+        {
+            Managers.Gold.GoldPlus(10);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     public void WaveStart() // 오펜스 시작, 타이머 시작, 시작 소리 플레이
     {
         if (isOffenseProgress == false)
@@ -131,7 +148,6 @@ public class InvadeManager : MonoBehaviour
             Debug.Log("이미 오펜스를 시작했습니다");
         }
     }
-
     
     public void SetScreenDark(bool on, Vector3 btnFocusPanelMovePos)
     {
