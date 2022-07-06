@@ -30,9 +30,12 @@ public class Map : MonoBehaviour
         gridTilemap = transform.GetChild(0).GetComponent<Tilemap>();
         gridTilemapRenderer = gridTilemap.GetComponent<TilemapRenderer>();
 
-        for(int i = 0; i < transform.childCount; i++)
+
+        // 그 Map_tile_Use에 부모인, Stage n 프리팹 아래에 있는 얘뜰 하나씩 돌면서 타일맵 렌더러 있으면 가져오는거임!
+
+        for (int i = 0; i < transform.parent.childCount; i++) 
         {
-            TilemapRenderer tr = transform.GetChild(i).GetComponent<TilemapRenderer>();
+            TilemapRenderer tr = transform.parent.GetChild(i).GetComponent<TilemapRenderer>();
             if(tr != null)
             {
                 tilemapRenderers.Add(tr);
@@ -42,17 +45,14 @@ public class Map : MonoBehaviour
         InitMap();
     }
 
-    public void SetTilemapsColor(bool on)
+    public void SetTilemapsColorDark(bool on)
     {
-        Debug.Log(tilemapRenderers.Count);
-
         for(int i = 0; i < tilemapRenderers.Count; i++)
         {
-            Debug.Log(tilemapRenderers[i].name);
             Color color = tilemapRenderers[i].material.color;
             tilemapRenderers[i].material.color = on 
-                ? new Color(color.r, color.g, color.b, 1) 
-                : new Color(color.r, color.g, color.b, 0);
+                ? new Color(color.r, color.g, color.b, 0.2f) 
+                : new Color(color.r, color.g, color.b, 1);
         }
     }
 

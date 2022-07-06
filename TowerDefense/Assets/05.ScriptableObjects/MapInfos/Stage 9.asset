@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageName: 1-5
   stageSprite: {fileID: 21300000, guid: fe2877f91b8146244a5c5ba7214b5021, type: 3}
-  limitTime: 60
+  limitTime: 180
   waveEnemyInfos:
   - monsterBox:
     - so: {fileID: 11400000, guid: 85d3c09bf2787594296881d9a112a44c, type: 2}

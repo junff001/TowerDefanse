@@ -258,6 +258,12 @@ public class BuildManager : MonoBehaviour
 
     public void SetTowerGrid(Tower tower, Vector3Int[] checkPos, bool value)
     {
+        foreach(var pos in checkPos) // 왜 나는지는 모르겠는데 오류가 있네..?
+        {
+            if (pos.x < 0 || pos.y < 0) return;
+            if (pos.x >= map.width || pos.y >= map.height) return;
+        }
+
         foreach (var pos in checkPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
         {
             TileType placeTileType = TileType.None;

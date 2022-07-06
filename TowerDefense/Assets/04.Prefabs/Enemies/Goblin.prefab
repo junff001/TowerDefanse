@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 2544191130546074038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_Children:
   - {fileID: 2017251841651285871}
   m_Father: {fileID: 0}
@@ -189,6 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae55e241a68df1428a32bdfb04841b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSystem: {fileID: 0}
+  spineController: {fileID: 0}
+  target: {fileID: 0}
   enemyData:
     HP: 0
     ShieldAmount: 0
@@ -204,19 +207,16 @@ MonoBehaviour:
     IsAlchemist: 0
     IsFly: 0
     IsThrower: 0
-  healthSystem: {fileID: 0}
-  spineController: {fileID: 0}
   enemyAttackData:
     blinkingCount: 0
     blinkingDelay: 0
     explosionDamage: 50
     atkRange: 5
-    suicideRange: 4
+    suicideRange: 1.55
     attackSpeed: 3
     opponentLayer:
       serializedVersion: 2
       m_Bits: 64
-  target: {fileID: 0}
   suicideBombingEffect: {fileID: 198681264470032530, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
 --- !u!1001 &5096107632689154240
 PrefabInstance:

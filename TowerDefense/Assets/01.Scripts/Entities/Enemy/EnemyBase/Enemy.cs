@@ -97,7 +97,18 @@ public class Enemy : LivingEntity
         }
     }
 
-    public bool IsTargetInMySuicideRange() => Vector2.Distance(target.transform.position, transform.position) < enemyAttackData.suicideRange;
+    public bool IsTargetInMySuicideRange()
+    {
+        if(target.transform.position.y >= transform.position.y) // 내 위쪽이나 같으면,
+        {
+            return Vector2.Distance(target.transform.position, transform.position) <= enemyAttackData.suicideRange;
+        }
+        else
+        {
+            // 무조건 아래로 0.5 내려서 타워를 설치함 -> 동일한 거리 차이로 설치하려 해도, 플레이어 기준으로 1의 거리차이가 나버림.
+            return Vector2.Distance(target.transform.position, transform.position) <= enemyAttackData.suicideRange + 1; 
+        }
+    }
 
     public bool IsMovingToTarget()
     {
@@ -241,7 +252,6 @@ public class Enemy : LivingEntity
     {
         if (Vector2.Distance(transform.position, target.position) <= 0.5f)
         {
-            //Debug.Log("도착함");
             return true;
         }
         else
@@ -264,7 +274,7 @@ public class Enemy : LivingEntity
 
     void TargetChase()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime * enemyData.MoveSpeed * 3f);
     }
 
 

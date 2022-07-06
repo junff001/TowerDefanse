@@ -114,7 +114,7 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             else // 자폭병
             {
                 Managers.Invade.SetScreenDark(true, transform.position);
-                Managers.Build.map.SetTilemapsColor(true);
+                Managers.Build.map.SetTilemapsColorDark(true);
                 Managers.Invade.SetEnemySO(enemySO);
                 Managers.Invade.isSelectingTower = true;
             }

@@ -86,7 +86,7 @@ public class InvadeManager : MonoBehaviour
             }
             isSelectingTower = false;
             SetScreenDark(false, Vector3.zero);
-            Managers.Build.map.SetTilemapsColor(false);
+            Managers.Build.map.SetTilemapsColorDark(false);
         }
 
         if(isOffenseProgress) // 오펜스 시작 버튼 누르면 시작함.
