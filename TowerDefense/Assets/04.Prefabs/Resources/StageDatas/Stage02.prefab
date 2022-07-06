@@ -12366,7 +12366,7 @@ Grid:
   m_GameObject: {fileID: 2161762173788667633}
   m_Enabled: 1
   m_CellSize: {x: 1, y: 1, z: 0}
-  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellGap: {x: -0.01, y: -0.01, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
 --- !u!114 &2161762173788667635
@@ -14383,12 +14383,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   gridTilemap: {fileID: 0}
-  tilemap_view_renderer: {fileID: 0}
+  gridTilemapRenderer: {fileID: 0}
   width: 0
   height: 0
   placeTile: {fileID: 0}
   roadTile: {fileID: 0}
   waterTile: {fileID: 0}
+  placeableTunnelTile: {fileID: 0}
 --- !u!483693784 &3170466590210738675
 TilemapRenderer:
   m_ObjectHideFlags: 0

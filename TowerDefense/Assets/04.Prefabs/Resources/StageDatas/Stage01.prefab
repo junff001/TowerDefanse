@@ -6130,7 +6130,7 @@ TilemapRenderer:
   m_MaxFrameAge: 16
   m_SortOrder: 0
   m_Mode: 0
-  m_DetectChunkCullingBounds: 0
+  m_DetectChunkCullingBounds: 1
   m_MaskInteraction: 0
 --- !u!1 &2161762173788667633
 GameObject:
@@ -6178,7 +6178,7 @@ Grid:
   m_GameObject: {fileID: 2161762173788667633}
   m_Enabled: 1
   m_CellSize: {x: 1, y: 1, z: 0}
-  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellGap: {x: -0.01, y: -0.01, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
 --- !u!114 &2161762173788667635
@@ -8144,7 +8144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 2161762174069900784}
   gridTilemap: {fileID: 0}
-  tilemap_view_renderer: {fileID: 0}
+  gridTilemapRenderer: {fileID: 0}
   width: 0
   height: 0
   placeTile: {fileID: 0}
@@ -15156,7 +15156,7 @@ TilemapRenderer:
   m_MaxFrameAge: 16
   m_SortOrder: 0
   m_Mode: 0
-  m_DetectChunkCullingBounds: 0
+  m_DetectChunkCullingBounds: 1
   m_MaskInteraction: 0
 --- !u!1001 &21089098986342770
 PrefabInstance:
@@ -15168,6 +15168,10 @@ PrefabInstance:
     - target: {fileID: 2214448206838236363, guid: d0297279cc56d964599a610aa660f1eb, type: 3}
       propertyPath: m_Name
       value: GridTilemap
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214448206838236363, guid: d0297279cc56d964599a610aa660f1eb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5213911486915748776, guid: d0297279cc56d964599a610aa660f1eb, type: 3}
       propertyPath: m_RootOrder
