@@ -197,14 +197,12 @@ MonoBehaviour:
     MoveSpeed: 0
     MonsterType: 0
     SpeciesType: 0
-    AttackType: 0
     IsHide: 0
     IsShilde: 0
     IsArmor: 0
     IsWitch: 0
     IsAlchemist: 0
     IsFly: 0
-    IsSuicideBomber: 0
     IsThrower: 0
   healthSystem: {fileID: 0}
   spineController: {fileID: 0}
@@ -212,11 +210,13 @@ MonoBehaviour:
     blinkingCount: 0
     blinkingDelay: 0
     explosionDamage: 50
-    atkRangeRadius: 2
+    atkRange: 5
+    suicideRange: 4
     attackSpeed: 3
     opponentLayer:
       serializedVersion: 2
       m_Bits: 64
+  target: {fileID: 0}
   suicideBombingEffect: {fileID: 198681264470032530, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
 --- !u!1001 &5096107632689154240
 PrefabInstance:

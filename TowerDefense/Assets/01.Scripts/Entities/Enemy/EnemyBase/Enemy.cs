@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Enemy : LivingEntity
 {
-    [HideInInspector] public EnemyData enemyData;
     [HideInInspector] public HealthSystem healthSystem;
     [HideInInspector] public SpineController spineController;
+    [HideInInspector] public Transform target;
 
+    public EnemyData enemyData;
     public EnemyAttackData enemyAttackData = new EnemyAttackData();
+    [SerializeField] ParticleSystem suicideBombingEffect;
 
     List<BuffBase> buffList = new List<BuffBase>();
     MeshRenderer mesh = null;
-    [HideInInspector] public Transform target;
     BoxCollider2D myCollider;
 
-    [SerializeField] ParticleSystem suicideBombingEffect;
     public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
     public int CurrentWayPointIndex => currentWayPointIndex;
@@ -69,9 +69,18 @@ public class Enemy : LivingEntity
     {
         aliveTime += Time.deltaTime;
         movedDistance = aliveTime * enemyData.MoveSpeed;
-        Move();
         CheckBuffs();
 
+        ThrowBomb(); // 폭탄 던지는 얘면 던지고~
+
+        if(IsMovingToTarget() == false) // 자폭병이면 자폭할 대상과 가까운지 체크, 가까우면 자폭하러 이동, 아니면 그냥 무브!
+        {
+            Move();
+        }
+    }
+
+    public void ThrowBomb()
+    {
         if (enemyData.IsThrower)
         {
             Collider2D attackbleTarget = TargetInATKRange();
@@ -86,18 +95,20 @@ public class Enemy : LivingEntity
                 }
             }
         }
-        else
-        {
-            if (Vector2.Distance(target.transform.position, transform.position) < enemyAttackData.atkRangeRadius)
-            {
-                TargetChase();
+    }
 
-                if (IsCollisionTarget())
-                {
-                    SuicideBombing();
-                }
-            }
+    public bool IsTargetInMySuicideRange() => Vector2.Distance(target.transform.position, transform.position) < enemyAttackData.suicideRange;
+
+    public bool IsMovingToTarget()
+    {
+        if (enemyData.IsThrower == false && Managers.Wave.GameMode == Define.GameMode.OFFENSE && IsTargetInMySuicideRange())
+        {
+            TargetChase();
+            if (IsCollisionTarget()) SuicideBombing();
+
+            return true; // 만약 타겟 찾아서 쫓아가면 무브는 하면 안되니까..
         }
+        return false;
     }
 
     public void CheckBuffs()
@@ -223,7 +234,7 @@ public class Enemy : LivingEntity
 
     Collider2D TargetInATKRange()
     {
-        return Physics2D.OverlapCircle(transform.position, enemyAttackData.atkRangeRadius, enemyAttackData.opponentLayer);
+        return Physics2D.OverlapCircle(transform.position, enemyAttackData.atkRange, enemyAttackData.opponentLayer);
     }
 
     bool IsCollisionTarget()
@@ -241,20 +252,14 @@ public class Enemy : LivingEntity
 
     void SuicideBombing()
     {
-        if (enemyData.HP <= 0)
-        {
-            return;
-        }
-
+        if (IsDead) return;
+       
+        target.GetComponent<HealthSystem>().TakeDamage(enemyAttackData.explosionDamage);
+        healthSystem.TakeDamage(healthSystem.GetAmount(eHealthType.HEALTH), true); // 혹시 실드 있어도 그냥 터져야 하니까 관통!
+        
         var effect = Instantiate(suicideBombingEffect);
         effect.transform.position = transform.position;
         effect.Play();
-        enemyData.HP = 0f;
-
-        if (healthSystem.IsDead())
-        {
-            healthSystem.OnDied?.Invoke();
-        }
     }
 
     void TargetChase()

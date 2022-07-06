@@ -91,8 +91,10 @@ public abstract class CoreBase : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => target != null && target.IsDead == false);
-            Attack(target.healthSystem, opponentLayer);
-           
+            if(target != null)
+            {
+                Attack(target.healthSystem, opponentLayer);
+            }
             yield return new WaitForSeconds(1f / towerData.AttackSpeed);
         }
     }
