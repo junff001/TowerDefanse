@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
+  Name: Bow Tower
   Level: 1
   PlaceCost: 100
   AttackTargetCount: 1
@@ -20,6 +21,8 @@ MonoBehaviour:
   AttackPower: 0
   AttackSpeed: 1
   AttackRange: 5
+  TowerImage: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  CharacteristicIcon: {fileID: 1751178875598393807, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}
   placeTileType: 0
   coreType: 1
   hasTower: 1

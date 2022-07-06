@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae1f54406961ef48b32f1165368b5e5, type: 3}
   m_Name: Catapult
   m_EditorClassIdentifier: 
+  Name: Catapult Tower
   Level: 1
   PlaceCost: 100
   AttackTargetCount: 1
@@ -20,6 +21,8 @@ MonoBehaviour:
   AttackPower: 0
   AttackSpeed: 1
   AttackRange: 5
+  TowerImage: {fileID: -3043711648414944898, guid: 6d878ababb928894985e64936c103eff, type: 3}
+  CharacteristicIcon: {fileID: 4881800531761316433, guid: 1bca41f3b31fb2249a964d8ed4580db0, type: 3}
   placeTileType: 0
   coreType: 2
   hasTower: 1
