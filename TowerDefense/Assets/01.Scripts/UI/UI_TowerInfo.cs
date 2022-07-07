@@ -10,13 +10,11 @@ public class UI_TowerInfo : MonoBehaviour
     private Image image;
 
     [SerializeField] private CanvasGroup pageDefault;
-    [SerializeField] private CanvasGroup pageProperty;
 
-    [SerializeField] private Button btnLevelUp;
     [SerializeField] private Button btnSale;
+    [SerializeField] private Button btnLevelUp;
+    [SerializeField] private Button btnInfo;
     [SerializeField] private Button btnCancel;
-
-    [SerializeField] private Button[] btnProperties; // 속성 enum 순으로 정렬할것
 
     private Tower currentSelectedTower;
     private Tower CurrentSelectedTower
@@ -55,11 +53,7 @@ public class UI_TowerInfo : MonoBehaviour
 
         btnSale.onClick.AddListener(CallSaleBtnOnClicked);
         btnLevelUp.onClick.AddListener(CallUpgradeBtnOnClicked);
-
-        for (int i = 0; i < btnProperties.Length; i++)
-        {
-            btnProperties[i].onClick.AddListener(() => CallPropertyBtnOnClicked());
-        }
+        btnInfo.onClick.AddListener(CallInfoBtnOnClicked);
     }
 
     public void OpenInfo(Tower tower)
@@ -108,11 +102,6 @@ public class UI_TowerInfo : MonoBehaviour
         }
     }
 
-    private void CallUpgradeBtnOnClicked()
-    {
-        OpenPage(pageProperty);
-    }
-
     private void CallSaleBtnOnClicked()
     {
         if(CurrentSelectedTower != null)
@@ -137,12 +126,14 @@ public class UI_TowerInfo : MonoBehaviour
         }
     }
 
-    private void CallPropertyBtnOnClicked()
+    private void CallUpgradeBtnOnClicked()
     {
-        if (CurrentSelectedTower != null)
-        {
-            CloseInfo();
-        }
+
+    }
+
+    private void CallInfoBtnOnClicked()
+    {
+
     }
 
     private void CallCancelBtnOnClicked()
@@ -150,10 +141,6 @@ public class UI_TowerInfo : MonoBehaviour
         if(currentPage == pageDefault)
         {
             CloseInfo();
-        }
-        else if (currentPage == pageProperty)
-        {
-            OpenPage(pageDefault);
         }
     }
 
