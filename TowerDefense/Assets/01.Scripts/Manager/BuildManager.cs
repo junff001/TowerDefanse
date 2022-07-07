@@ -291,7 +291,7 @@ public class BuildManager : MonoBehaviour
         if (IsNotInUseTile(pos)) return false;
 
         TileType t = map.mapTileTypeArray[pos.x, pos.y];
-        return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel;
+        return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel || t == TileType.Place_Tower;
     }
 
     public Vector3Int GetTilemapPos(Vector3 pos)

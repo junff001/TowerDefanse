@@ -42,7 +42,6 @@ public abstract class CoreBase : MonoBehaviour
     {
         if (target != null)
         {
-            Debug.Log(target.myCollider.enabled);
             if (target.IsDead || target.myCollider.enabled == false) 
             {
                 target = null;

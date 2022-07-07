@@ -283,6 +283,10 @@ public class Enemy : LivingEntity
         while(true)
         {
             myCollider.enabled = !Managers.Build.IsInTunnel(transform.position);
+            if(Managers.Build.IsInTunnel(transform.position))
+            {
+                Debug.Log("동굴 아래에 있음");
+            }
             yield return new WaitForSeconds(0.1f);
         }
     }

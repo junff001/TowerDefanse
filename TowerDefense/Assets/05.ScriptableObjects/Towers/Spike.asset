@@ -18,9 +18,9 @@ MonoBehaviour:
   AttackTargetCount: 1
   HP: 100
   ShieldAmount: 0
-  AttackPower: 0
+  AttackPower: 150
   AttackSpeed: 1
-  AttackRange: 5
+  AttackRange: 0.7
   TowerImage: {fileID: 21300000, guid: b5ec12e8c75efb844bac801b1ea6e762, type: 3}
   CharacteristicIcon: {fileID: -7787622662789949465, guid: 1bca41f3b31fb2249a964d8ed4580db0, type: 3}
   placeTileType: 1

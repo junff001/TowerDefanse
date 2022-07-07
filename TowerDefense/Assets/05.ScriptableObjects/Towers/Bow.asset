@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bow Tower
   Level: 1
-  PlaceCost: 100
+  PlaceCost: 110
   AttackTargetCount: 1
   HP: 100
   ShieldAmount: 0
-  AttackPower: 0
+  AttackPower: 100
   AttackSpeed: 1
   AttackRange: 5
   TowerImage: {fileID: -857292726545572414, guid: 6d878ababb928894985e64936c103eff, type: 3}

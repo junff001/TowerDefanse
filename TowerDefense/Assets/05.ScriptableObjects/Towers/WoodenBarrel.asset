@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: WoodenBarrel Tower
   Level: 1
-  PlaceCost: 100
+  PlaceCost: 300
   AttackTargetCount: 1
   HP: 100
   ShieldAmount: 0
-  AttackPower: 0
-  AttackSpeed: 1
-  AttackRange: 5
+  AttackPower: 100
+  AttackSpeed: 0.5
+  AttackRange: 3
   TowerImage: {fileID: 3954836654050351759, guid: bc6f7ccd762129347815b672223e7ca2, type: 3}
   CharacteristicIcon: {fileID: 1248948671185804407, guid: 1bca41f3b31fb2249a964d8ed4580db0, type: 3}
   placeTileType: 0
