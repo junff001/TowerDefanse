@@ -112,6 +112,7 @@ public class InvadeManager : MonoBehaviour
             {
                 isOffenseProgress = false;
                 PopupText text = new PopupText("게임오버!");
+                StopCoroutine(Managers.Invade.CoGoldPlus());
                 text.maxSize = 60;
                 text.textColor = Color.red;
                 text.moveTime = 1.5f;
@@ -135,7 +136,7 @@ public class InvadeManager : MonoBehaviour
         while(true)
         {
             Managers.Gold.GoldPlus(10);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -146,6 +147,7 @@ public class InvadeManager : MonoBehaviour
             isOffenseProgress = true;
             curSpawnIdx = 0;
             Managers.Sound.Play("System/StartWave");
+            StartCoroutine(Managers.Invade.CoGoldPlus());
         }
         else
         {

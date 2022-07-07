@@ -233,7 +233,6 @@ public class WaveManager : MonoBehaviour
                     Managers.Game.Hp = Managers.Game.maxHp; // 웨이브 전환시..
                     Managers.Game.UpdateHPText();
                     Managers.Gold.GoldMinus(Managers.Gold.Gold);
-                    StartCoroutine(Managers.Invade.CoGoldPlus());
                     GameManager.hpText = offenseHpText;
                     offenseStatus.transform.SetAsLastSibling();
                     offenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
