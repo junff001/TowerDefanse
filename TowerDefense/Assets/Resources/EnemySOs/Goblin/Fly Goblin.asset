@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mosterName: "\uACE0\uC624\uBE14\uB9B0"
   rewardGold: 0
-  spawnCost: 0
+  spawnCost: 100
   HP: 300
   shieldAmount: 0
   moveSpeed: 1
   monsterType: 16
   speciesType: 1
-  attackType: 2
   sprite: {fileID: 21300000, guid: a14c81517717b0a4a86d58777c83176c, type: 3}
   typeIcons:
   - {fileID: 4164137571980865127, guid: 5ed408539ae01f44787788bbe3c7559f, type: 3}

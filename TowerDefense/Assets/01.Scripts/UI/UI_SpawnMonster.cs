@@ -93,6 +93,8 @@ public class UI_SpawnMonster : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private bool CanSpawn(Vector2 start, Vector2 end)
     {
+        if (false == Managers.Invade.isOffenseProgress) return false;
+
         if (Vector2.Distance(start, end) < 10 && pressedTime < checkPressTime)
         {
             return true;    

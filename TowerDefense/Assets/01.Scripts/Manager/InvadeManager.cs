@@ -161,24 +161,27 @@ public class InvadeManager : MonoBehaviour
 
     public void SpawnEnemy(EnemySO enemySO, Transform target = null)
     {
-        int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
-        int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
-
-        Enemy enemyObj = Instantiate(enemySO.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, enemySO.basePrefab.transform.rotation, this.transform);
-        enemyObj.enemyData.InitEnemyData(enemySO, Managers.Game.GetCoefficient().coefEnemyHP / 100);
-        enemyObj.healthSystem.livingEntity = enemyObj;
-        enemyObj.spineController.Init(enemySO.spineData);
-        enemyObj.wayPointListIndex = curSpawnIdx;
-
-        if (target != null) enemyObj.target = target;
-
-        Managers.Wave.aliveEnemies.Add(enemyObj);
-        curSpawnCount++;
-
-        if (curSpawnCount > Managers.Wave.mapInfoSO.offenseHeadCount)
+        if(Managers.Gold.GoldMinus(enemySO.spawnCost))
         {
-            curSpawnCount = 0;
-            curSpawnIdx = (curSpawnIdx + 1) % wayCount;
+            int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
+            int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스
+
+            Enemy enemyObj = Instantiate(enemySO.basePrefab, Managers.Game.wayPoints[firstIdx].transform.position, enemySO.basePrefab.transform.rotation, this.transform);
+            enemyObj.enemyData.InitEnemyData(enemySO, Managers.Game.GetCoefficient().coefEnemyHP / 100);
+            enemyObj.healthSystem.livingEntity = enemyObj;
+            enemyObj.spineController.Init(enemySO.spineData);
+            enemyObj.wayPointListIndex = curSpawnIdx;
+
+            if (target != null) enemyObj.target = target;
+
+            Managers.Wave.aliveEnemies.Add(enemyObj);
+            curSpawnCount++;
+
+            if (curSpawnCount > Managers.Wave.mapInfoSO.offenseHeadCount)
+            {
+                curSpawnCount = 0;
+                curSpawnIdx = (curSpawnIdx + 1) % wayCount;
+            }
         }
     }
 
