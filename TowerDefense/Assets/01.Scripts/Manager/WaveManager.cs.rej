@@ -1,0 +1,16 @@
+diff a/TowerDefense/Assets/01.Scripts/Manager/WaveManager.cs b/TowerDefense/Assets/01.Scripts/Manager/WaveManager.cs	(rejected hunks)
+@@ -229,8 +229,13 @@
+                     }
+ 
+                     Wave = 1;
++                    GameManager.hpText = Managers.Wave.offenseHpText;
++                    GoldManager.moneyText = offenseMoneyText;
+                     Managers.Game.Hp = Managers.Game.maxHp; // 웨이브 전환시..
+-                    GameManager.hpText = offenseHpText;
++                    Managers.Game.UpdateHPText();
++                    Managers.Gold.GoldMinus(Managers.Gold.Gold);
++                    StartCoroutine(Managers.Invade.CoGoldPlus());
++
+                     offenseStatus.transform.SetAsLastSibling();
+                     offenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
+                     defenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);

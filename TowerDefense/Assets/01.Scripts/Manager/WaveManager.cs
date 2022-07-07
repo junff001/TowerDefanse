@@ -32,14 +32,14 @@ public class WaveManager : MonoBehaviour
     public Queue<SpawnerMonsterCount> enemySpawnQueue = new Queue<SpawnerMonsterCount>();
 
     [Header("디펜스UI")]
-    [SerializeField] CanvasGroup defenseTowerGroup;
-    [SerializeField] RectTransform defenseStatus;
+    public CanvasGroup defenseTowerGroup;
+    public RectTransform defenseStatus;
     public TextMeshProUGUI defenseHpText;
     public TextMeshProUGUI defenseMoneyText;
 
     [Header("오펜스UI")]
-    [SerializeField] CanvasGroup offenseMonsterGroup;
-    [SerializeField] RectTransform offenseStatus;
+    public CanvasGroup offenseMonsterGroup;
+    public RectTransform offenseStatus;
     public TextMeshProUGUI offenseHpText;
     public TextMeshProUGUI offenseMoneyText;
 
@@ -189,8 +189,6 @@ public class WaveManager : MonoBehaviour
 
     private void ChangeMode(GameMode gameMode)
     {
-        Debug.Log("체인지");
-
         switch (gameMode)
         {
             case GameMode.DEFENSE:
@@ -200,6 +198,7 @@ public class WaveManager : MonoBehaviour
                     Managers.Game.UpdateHPText();
                     Managers.Gold.UpdateGoldText();
 
+                    GameManager.hpText = defenseHpText;
                     defenseStatus.transform.SetAsLastSibling();
                     defenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
                     offenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);
@@ -235,7 +234,7 @@ public class WaveManager : MonoBehaviour
                     Managers.Game.UpdateHPText();
                     Managers.Gold.GoldMinus(Managers.Gold.Gold);
                     StartCoroutine(Managers.Invade.CoGoldPlus());
-
+                    GameManager.hpText = offenseHpText;
                     offenseStatus.transform.SetAsLastSibling();
                     offenseStatus.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.Linear);
                     defenseStatus.DOAnchorPos(new Vector2(42, 12), 0.3f).SetEase(Ease.Linear);
