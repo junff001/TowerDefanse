@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public UI_TowerInfo towerInfoUI = null;
 
-    public Sprite waitSprite;
+
 
     //1: 쉬움      2: 보통     3: 어려움
     public static GameDifficulty GameDifficulty { get; set; } = GameDifficulty.Easy;

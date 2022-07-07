@@ -20,6 +20,10 @@ public class InvadeManager : MonoBehaviour
 
     private float maxTime = 30f;
     private float time = 0f;
+
+    public int throwerSpawnCost;
+    public int suicideBomberSpawnCost;
+
     [HideInInspector] public bool isOffenseProgress = false;
     [HideInInspector] public List<UI_SpawnMonster> bookmarkedMonsters = new List<UI_SpawnMonster>();
 
@@ -161,7 +165,10 @@ public class InvadeManager : MonoBehaviour
 
     public void SpawnEnemy(EnemySO enemySO, Transform target = null)
     {
-        if(Managers.Gold.GoldMinus(enemySO.spawnCost))
+        int spawnCost = enemySO.spawnCost;
+        spawnCost += isSpawnningThrower ? throwerSpawnCost : suicideBomberSpawnCost;
+
+        if(Managers.Gold.GoldMinus(spawnCost))
         {
             int wayCount = Managers.Stage.selectedStage.pointLists.Count; // 경로 갯수
             int firstIdx = Managers.Stage.selectedStage.pointLists[curSpawnIdx].indexWayPoints[0];// 최초로 스폰될 웨이포인트의 인덱스

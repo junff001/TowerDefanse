@@ -274,6 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWaveProgress: 0
+  throwerSpawnCost: 400
+  suicideBomberSpawnCost: 600
   isOffenseProgress: 0
   bookmarkedMonsters: []
   towerFocusPanel: {fileID: 1083626407}
@@ -1606,7 +1608,6 @@ MonoBehaviour:
   clearUI: {fileID: 288854527}
   gameOverUI: {fileID: 1042167671}
   towerInfoUI: {fileID: 412177366}
-  waitSprite: {fileID: 21300000, guid: 4bf87f6a826e6414bb2d3ffcf94fb965, type: 3}
 --- !u!1 &328398701
 GameObject:
   m_ObjectHideFlags: 0
