@@ -21,6 +21,11 @@ public class Tower : LivingEntity
         TowerData = livingEntityData as TowerData;
 
         healthSystem = GetComponent<HealthSystem>();
+
+        healthSystem.OnDied += () =>
+        {
+            Destroy(this.gameObject);
+        };
     }
 
     public void InitTowerData(TowerSO towerSO, int addPctTowerAtkPower)
