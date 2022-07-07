@@ -67,6 +67,7 @@ public class Enemy : LivingEntity
 
     protected virtual void Update()
     {
+        if (IsDead) return;
         aliveTime += Time.deltaTime;
         movedDistance = aliveTime * enemyData.MoveSpeed;
         CheckBuffs();
