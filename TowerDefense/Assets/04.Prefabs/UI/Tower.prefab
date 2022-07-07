@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCostText: {fileID: 4534445130644993591}
+  towerInfoPanel: {fileID: 1838362393245985132, guid: e1360703911a2b64cb3a17b3d6ae39ef, type: 3}
   towerSO: {fileID: 11400000, guid: 8c458e42dcd56994294dcf0b554fd5fc, type: 2}
 --- !u!1 &5635161855120090508
 GameObject:

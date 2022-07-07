@@ -157,8 +157,7 @@ public class BuildManager : MonoBehaviour
 
     public bool IsPlaceableTile(Vector3Int pos, PlaceTileType placeTileType)
     {
-        if (pos.x < 0 || pos.y < 0) return false;
-        if (pos.x >= map.width || pos.y >= map.height) return false;
+        if (IsNotInUseTile(pos)) return false;
 
         TileType t = map.mapTileTypeArray[pos.x, pos.y];
         switch (placeTileType)
@@ -260,8 +259,7 @@ public class BuildManager : MonoBehaviour
     {
         foreach(var pos in checkPos) // 왜 나는지는 모르겠는데 오류가 있네..?
         {
-            if (pos.x < 0 || pos.y < 0) return;
-            if (pos.x >= map.width || pos.y >= map.height) return;
+            if (IsNotInUseTile(pos)) return;
         }
 
         foreach (var pos in checkPos) // 2x2타일은 타워 설치한 칸으로 설정해주고.
@@ -281,21 +279,20 @@ public class BuildManager : MonoBehaviour
         }
     }
 
+    private bool IsNotInUseTile(Vector3Int pos)
+    {
+        return pos.x < 0 || pos.y < 0 || pos.x >= map.width || pos.y >= map.height;
+    }
+
     public bool IsInTunnel(Vector3 enemyPos)
     {
         Vector3Int pos = GetTilemapPos(enemyPos);
-        //Debug.Log($"{pos.x}, {pos.y}");
 
-        try
-        {
-            TileType t = map.mapTileTypeArray[pos.x, pos.y];
-            return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel;
-        }
-        catch
-        {
-            //Debug.Log("타일맵 유즈 안쪽이 아님.");
-            return false;
-        }
+        if (IsNotInUseTile(pos)) return false;
+
+        
+        TileType t = map.mapTileTypeArray[pos.x, pos.y];
+        return t == TileType.PlaceableTunnel || t == TileType.Water_UseAsTunnel;
     }
 
     public Vector3Int GetTilemapPos(Vector3 pos)

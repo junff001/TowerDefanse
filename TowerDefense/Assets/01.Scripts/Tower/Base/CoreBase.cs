@@ -40,18 +40,28 @@ public abstract class CoreBase : MonoBehaviour
 
     public void SetTarget() // 우선순위나 이동 거리에 따라서 타겟 설정
     {
-        if (target != null && target.IsDead) target = null;
-        if (enemies.Count <= 0) return;
-
-
-        enemies.Sort((x, y) => -x.movedDistance.CompareTo(y.movedDistance));
-
-        for (int i = 0; i< enemies.Count; i++)
+        if (target != null)
         {
-            if((enemies[i].enemyData.MonsterType & notAttackableType) == 0) // 공격 불가한 타입이 없는 친구면!
+            Debug.Log(target.myCollider.enabled);
+            if (target.IsDead || target.myCollider.enabled == false) 
             {
-                target = enemies[0];
-                break;
+                target = null;
+            }
+        }
+
+        if (enemies.Count <= 0) return;
+        enemies.Sort((x, y) => -x.movedDistance.CompareTo(y.movedDistance)); 
+
+        if(target == null)
+        {
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                // 공격 불가한 적이 아니고, 콜라이더가 꺼있지 않으면 (동굴 아래에 있는게 아니라면.)
+                if ((enemies[i].enemyData.MonsterType & notAttackableType) == 0 && enemies[i].myCollider.enabled) 
+                {
+                    target = enemies[i];
+                    break;
+                }
             }
         }
     }

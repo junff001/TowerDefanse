@@ -14,7 +14,7 @@ public class Enemy : LivingEntity
 
     List<BuffBase> buffList = new List<BuffBase>();
     MeshRenderer mesh = null;
-    BoxCollider2D myCollider;
+    public BoxCollider2D myCollider;
 
     public int wayPointListIndex { get; set; }
     private int currentWayPointIndex = 0;
