@@ -105,7 +105,7 @@ public class InvadeManager : MonoBehaviour
         {
             time -= Time.deltaTime;
             time = Mathf.Clamp(time, 0, maxTime);
-            timerText.text = time.ToString("0.00");
+            timerText.text = time.ToString("0");
 
 
             if (time <= 0) // clamp 걸어놨엉
@@ -135,8 +135,8 @@ public class InvadeManager : MonoBehaviour
     {
         while(true)
         {
-            Managers.Gold.GoldPlus(10);
-            yield return new WaitForSeconds(0.1f);
+            Managers.Gold.GoldPlus(1);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
